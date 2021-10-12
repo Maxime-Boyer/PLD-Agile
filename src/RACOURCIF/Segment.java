@@ -7,6 +7,7 @@ public class Segment {
     private  String nom;
     private Long longueur;
 
+
     public Segment(Adresse origine, Adresse destination, String nom, Long longueur) {
         this.origine = origine;
         this.destination = destination;
