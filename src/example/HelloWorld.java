@@ -7,10 +7,9 @@ public class HelloWorld {
         System.out.println("Hello, World");
         System.out.println("Test Brahim");
         System.out.println("Test Amine");
-        int test = 9;
+        int test = 8;
         for ( int i =0; i< 10 ; i++){
             System.out.println(test+i);
-            System.out.println("HEYY");
         }
     }
 
