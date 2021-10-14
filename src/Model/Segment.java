@@ -1,4 +1,4 @@
-package RACOURCIF;
+package Model;
 
 public class Segment {
 
