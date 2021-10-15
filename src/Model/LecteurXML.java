@@ -15,7 +15,7 @@ import org.xml.sax.SAXException;
 
 public class LecteurXML {
     Carte carte = new Carte();
-    Tournee tournee = new Tournee();
+
     public LecteurXML() {
     }
 
@@ -100,8 +100,8 @@ public class LecteurXML {
                     Adresse adresseRetrait = carte.obtenirAdresseParId(idAdresseRetrait);
                     Adresse adresseLivraison = carte.obtenirAdresseParId(idAdresseLivraison);
 
-                    Etape etapeRetrait = new Etape(adresseRetrait.getLatitude(),adresseRetrait.getLatitude(),idAdresseRetrait,tempsRetrait);
-                    Etape etapeLivraison = new Etape(adresseLivraison.getLatitude(),adresseLivraison.getLatitude(),idAdresseLivraison,tempsLivraison);
+                    Etape etapeRetrait = new Etape(adresseRetrait.getLatitude(),adresseRetrait.getLatitude(),idAdresseRetrait,tempsRetrait, null);
+                    Etape etapeLivraison = new Etape(adresseLivraison.getLatitude(),adresseLivraison.getLatitude(),idAdresseLivraison,tempsLivraison, null);
                     Requete requete = new Requete(etapeRetrait, etapeLivraison);
                     listeRequetes.add(requete);
                 }

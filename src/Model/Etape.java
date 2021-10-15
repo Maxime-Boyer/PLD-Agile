@@ -1,22 +1,24 @@
 package Model;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Etape extends Adresse{
 
-    //public Date heureDePassage;
+    public Timestamp heureDePassage;
     public Integer dureeEtape;
 
 
-    public Etape(float latitude, float longitude, Long idAdresse, Integer dureeEtape) {
+    public Etape(float latitude, float longitude, Long idAdresse, Integer dureeEtape, Timestamp heureDePassage) {
         super(latitude, longitude, idAdresse);
         this.dureeEtape = dureeEtape;
+        this.heureDePassage=heureDePassage;
 
     }
 
-    /*public Date getHeureDePassage() {
+    public Date getHeureDePassage() {
         return heureDePassage;
-    }*/
+    }
 
     public Integer getDureeEtape() {
         return dureeEtape;
@@ -25,7 +27,8 @@ public class Etape extends Adresse{
     @Override
     public String toString() {
         return super.toString()+"Etape{" +
-                "dureeEtape=" + dureeEtape +
+                "heureDePassage=" + heureDePassage +
+                ", dureeEtape=" + dureeEtape +
                 '}';
     }
 }
