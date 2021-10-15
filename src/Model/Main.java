@@ -8,6 +8,7 @@ import java.awt.*;
 
 public class Main {
     public static void main(String[] args) throws ParserConfigurationException, SAXException {
+        //Carte
         JFrame yourJFrame = new JFrame();
         FileDialog fd = new FileDialog(yourJFrame, "Choose a file", FileDialog.LOAD);
         fd.setDirectory("C:\\");
