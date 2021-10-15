@@ -58,7 +58,7 @@ public class LecteurXML {
                     Long idDestination = Long.parseLong(eElement.getAttribute("destination"));
                     Segment segment = new Segment(carte.obtenirAdresseParId(idOrigine),carte.obtenirAdresseParId(idDestination),nom,longueur);
                     carte.getListeSegments().add(segment);
-                    //System.out.println(segment);
+                    System.out.println(segment);
 
                 }
             }
