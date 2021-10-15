@@ -16,4 +16,12 @@ public class Requete {
     public Etape getEtapeDepot() {
         return etapeDepot;
     }
+
+    @Override
+    public String toString() {
+        return "Requete{" +
+                "etapeCollecte=" + etapeCollecte +
+                ", etapeDepot=" + etapeDepot +
+                '}';
+    }
 }

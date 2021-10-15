@@ -14,6 +14,9 @@ public class Tournee {
         this.listeRequetes = listeRequetes;
         this.listeChemins = listeChemins;
     }
+    public Tournee(){
+
+    }
 
     public Adresse getAdresseDepart() {
         return adresseDepart;
