@@ -1,17 +1,12 @@
 package Model;
 
 import java.util.List;
+import java.util.Map;
 
 public class Carte {
-
-    private List<Adresse> listeAdresses;
-    private List<Segment> listeSegments;
-
-    public Carte(List<Adresse> listeAdresses, List<Segment> listeSegments) {
-        this.listeAdresses = listeAdresses;
-        this.listeSegments = listeSegments;
-    }
-
+    private Map<String,Adresse> listeAdresses;
+    private Map <String,Adresse>listeSegments;
+    private String nomCarte;
 
 
 }

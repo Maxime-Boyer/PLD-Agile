@@ -1,15 +1,13 @@
 package Model;
 
 public class Requete {
-    private Adresse addresseCollecte;
-    private Adresse addresseDepot;
-    private Integer dureeCollecte;
-    private Integer dureeDepot;
+    private Etape etapeCollecte;
+    private Etape etapeDepot;
 
-    public Requete(Adresse addresseCollecte, Adresse addresseDepot, Integer dureeCollecte, Integer dureeDepot) {
-        this.addresseCollecte = addresseCollecte;
-        this.addresseDepot = addresseDepot;
-        this.dureeCollecte = dureeCollecte;
-        this.dureeDepot = dureeDepot;
+    public Requete(Etape etapeCollecte, Etape etapeDepot) {
+        this.etapeCollecte = etapeCollecte;
+        this.etapeDepot = etapeDepot;
     }
+
+
 }
