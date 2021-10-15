@@ -3,6 +3,7 @@ package Model;
 import java.util.List;
 
 public class Carte {
+
     private List<Adresse> listeAdresses;
     private List<Segment> listeSegments;
 
@@ -10,4 +11,7 @@ public class Carte {
         this.listeAdresses = listeAdresses;
         this.listeSegments = listeSegments;
     }
+
+
+
 }
