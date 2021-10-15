@@ -21,10 +21,6 @@ public class Carte {
 
     }
 
-    public String getNomCarte() {
-        return nomCarte;
-    }
-
     public Map<Long, Adresse> getListeAdresses() {
         return listeAdresses;
     }
@@ -32,5 +28,4 @@ public class Carte {
     public List<Segment> getListeSegments() {
         return listeSegments;
     }
-
 }
