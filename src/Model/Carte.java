@@ -1,31 +1,36 @@
 package Model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Carte {
-    private Map<String,Adresse> listeAdresses;
-    private Map <String,Adresse>listeSegments;
+    private Map<Long,Adresse> listeAdresses ;
+    private List <Segment>listeSegments;
     private String nomCarte;
 
     public Carte(String nomCarte) {
         this.nomCarte = nomCarte;
+        listeAdresses = new HashMap<Long,Adresse>();
+        listeSegments = new ArrayList<Segment>();
     }
 
-    public Adresse obtenirAdresseParId(String id){
+    public Adresse obtenirAdresseParId(Long id){
         return listeAdresses.get(id);
 
-    }
-
-    public Map<String, Adresse> getListeAdresses() {
-        return listeAdresses;
-    }
-
-    public Map<String, Adresse> getListeSegments() {
-        return listeSegments;
     }
 
     public String getNomCarte() {
         return nomCarte;
     }
+
+    public Map<Long, Adresse> getListeAdresses() {
+        return listeAdresses;
+    }
+
+    public List<Segment> getListeSegments() {
+        return listeSegments;
+    }
+
 }
