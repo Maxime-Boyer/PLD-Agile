@@ -5,11 +5,11 @@ import java.util.List;
 public class Adresse {
     private float latitude;
     private float longitude;
-    private List<Segment> segmentSortant;
+    private Integer idAdresse;
 
-    public Adresse(float latitude, float longitude, List<Segment> segmentSortant) {
+    public Adresse(float latitude, float longitude, int idAdresse) {
         this.latitude = latitude;
         this.longitude = longitude;
-        this.segmentSortant = segmentSortant;
+        this.idAdresse = idAdresse;
     }
 }

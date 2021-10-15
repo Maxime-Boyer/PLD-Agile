@@ -4,7 +4,7 @@ public class Segment {
 
     private Adresse origine;
     private Adresse destination;
-    private  String nom;
+    private String nom;
     private Long longueur;
 
 

@@ -6,13 +6,12 @@ public class Tournee {
     private Adresse adresseDepart;
     private Integer dateDepart;
     private List<Requete> listeRequetes;
-    private List<Segment> listeSegments;
+    private List<CheminEntreEtape> listeChemins;
 
-    public Tournee(Adresse adresseDepart, Integer dateDepart, List<Requete> listeRequetes, List<Segment> listeSegments) {
+    public Tournee(Adresse adresseDepart, Integer dateDepart, List<Requete> listeRequetes, List<CheminEntreEtape> listeChemins) {
         this.adresseDepart = adresseDepart;
         this.dateDepart = dateDepart;
         this.listeRequetes = listeRequetes;
-        this.listeSegments = listeSegments;
+        this.listeChemins = listeChemins;
     }
-
 }
