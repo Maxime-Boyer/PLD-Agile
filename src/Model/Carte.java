@@ -16,4 +16,16 @@ public class Carte {
         return listeAdresses.get(id);
 
     }
+
+    public Map<String, Adresse> getListeAdresses() {
+        return listeAdresses;
+    }
+
+    public Map<String, Adresse> getListeSegments() {
+        return listeSegments;
+    }
+
+    public String getNomCarte() {
+        return nomCarte;
+    }
 }

@@ -12,4 +12,16 @@ public class Adresse {
         this.longitude = longitude;
         this.idAdresse = idAdresse;
     }
+
+    public float getLatitude() {
+        return latitude;
+    }
+
+    public float getLongitude() {
+        return longitude;
+    }
+
+    public Integer getIdAdresse() {
+        return idAdresse;
+    }
 }

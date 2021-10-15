@@ -14,4 +14,20 @@ public class Segment {
         this.nom = nom;
         this.longueur = longueur;
     }
+
+    public Adresse getOrigine() {
+        return origine;
+    }
+
+    public Adresse getDestination() {
+        return destination;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public Long getLongueur() {
+        return longueur;
+    }
 }

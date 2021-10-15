@@ -14,4 +14,20 @@ public class Tournee {
         this.listeRequetes = listeRequetes;
         this.listeChemins = listeChemins;
     }
+
+    public Adresse getAdresseDepart() {
+        return adresseDepart;
+    }
+
+    public Integer getDateDepart() {
+        return dateDepart;
+    }
+
+    public List<Requete> getListeRequetes() {
+        return listeRequetes;
+    }
+
+    public List<CheminEntreEtape> getListeChemins() {
+        return listeChemins;
+    }
 }

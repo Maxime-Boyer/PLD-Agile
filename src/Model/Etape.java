@@ -13,4 +13,16 @@ public class Etape {
         this.dureeEtape = dureeEtape;
         this.adresseEtape = adresseEtape;
     }
+
+    public Date getHeureDePassage() {
+        return heureDePassage;
+    }
+
+    public Integer getDureeEtape() {
+        return dureeEtape;
+    }
+
+    public Adresse getAdresseEtape() {
+        return adresseEtape;
+    }
 }

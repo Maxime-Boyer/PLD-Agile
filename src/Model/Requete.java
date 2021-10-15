@@ -9,5 +9,11 @@ public class Requete {
         this.etapeDepot = etapeDepot;
     }
 
+    public Etape getEtapeCollecte() {
+        return etapeCollecte;
+    }
 
+    public Etape getEtapeDepot() {
+        return etapeDepot;
+    }
 }
