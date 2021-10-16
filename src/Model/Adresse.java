@@ -5,11 +5,21 @@ import java.util.List;
 public class Adresse {
     private float latitude;
     private float longitude;
-    private Integer idAdresse;
+    private Long idAdresse;
 
-    public Adresse(float latitude, float longitude, int idAdresse) {
+    public Adresse(float latitude, float longitude, Long idAdresse) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.idAdresse = idAdresse;
     }
+
+    @Override
+    public String toString() {
+        return "Adresse{" +
+                "latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", idAdresse=" + idAdresse +
+                '}';
+    }
+
 }
