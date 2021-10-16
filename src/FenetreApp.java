@@ -26,7 +26,7 @@ public class FenetreApp {
         /*  Ajout vue(s) à la fenetre (sera remplacé par l'action du controleur)     */
         /*****************************************************************************/
 
-        // Vue ecran Accueil
+        // E1: Vue ecran Accueil
         // EcranAccuil ecranAccueil = new EcranAccuil(dimensionsEcran.width, dimensionsEcran.height, policeSousTitre, policeTexte);
 
         // E2 et +
