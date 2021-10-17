@@ -20,6 +20,7 @@ public class FenetreApp {
         // Création des différentes tailles de police
         Font policeTitre = new Font("SansSerif", Font.BOLD, 28);
         Font policeSousTitre = new Font("SansSerif", Font.BOLD, 20);
+        Font policeTexteImportant = new Font("SansSerif", Font.BOLD, 16);
         Font policeTexte = new Font("SansSerif", 400, 14);
 
         /*****************************************************************************/
@@ -31,7 +32,7 @@ public class FenetreApp {
 
         // E2 et +
         Plan plan = new Plan(dimensionsEcran.width, dimensionsEcran.height, policeTexte);
-        MenuLateral menuLateral = new MenuLateral(dimensionsEcran.width, dimensionsEcran.height, policeTexte);
+        MenuLateral menuLateral = new MenuLateral(dimensionsEcran.width, dimensionsEcran.height, policeTexte, policeTexteImportant);
 
         // ajout des composants à la fenetre
         fenetreApp.add(plan);
