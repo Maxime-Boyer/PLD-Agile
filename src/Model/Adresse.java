@@ -3,11 +3,11 @@ package Model;
 import java.util.List;
 
 public class Adresse {
-    private float latitude;
-    private float longitude;
+    private double latitude;
+    private double longitude;
     private Long idAdresse;
 
-    public Adresse(float latitude, float longitude, Long idAdresse) {
+    public Adresse(double latitude, double longitude, Long idAdresse) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.idAdresse = idAdresse;
@@ -22,11 +22,11 @@ public class Adresse {
                 '}';
     }
 
-    public float getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public float getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
