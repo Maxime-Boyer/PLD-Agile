@@ -26,6 +26,18 @@ public class Carte {
 
     }
 
+    public float maxLongitudeCarte(){
+        for (Map.Entry mapentry : listeAdresses.entrySet()) {
+            System.out.println("clé: "+mapentry.getKey()
+                    + " | valeur: " + mapentry.getValue());
+        }
+    }
+
+    public float minLongitudeCarte(){
+
+    }
+
+
     public Map<Long, Adresse> getListeAdresses() {
         return listeAdresses;
     }

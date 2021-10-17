@@ -1,10 +1,12 @@
 import Vue.*;
+import org.xml.sax.SAXException;
 
 import javax.swing.*;
+import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 
 public class FenetreApp {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParserConfigurationException, SAXException {
 
         // creation de la fenetre de l'application
         JFrame fenetreApp = new JFrame();
