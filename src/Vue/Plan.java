@@ -16,4 +16,7 @@ public class Plan extends JPanel {
         toRemove.setFont(policeTexte);
         this.add(toRemove);
     }
+
+
+
 }
