@@ -1,5 +1,6 @@
 package Vue;
 
+import Model.Adresse;
 import Model.Carte;
 import Model.LecteurXML;
 import org.xml.sax.SAXException;
@@ -7,10 +8,13 @@ import org.xml.sax.SAXException;
 import javax.swing.*;
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
+import java.util.Map;
 
 public class Plan extends JPanel {
     int largeurEcran;
     int hauteurEcran;
+    float maxLongitudeCarte;
+    float maxLatitudeCarte;
     Carte carte;
 
 
@@ -42,16 +46,18 @@ public class Plan extends JPanel {
         LecteurXML lecteur = new LecteurXML();
         carte = lecteur.lectureCarte(filename);
 
+        maxLongitudeLatitudeCarte();
+
         yourJFrame.dispose();
     }
 
     public void paint(Graphics g)
     { super.paint(g);
         
-        g.drawString("HELLO JAVA");
+        //g.drawString("HELLO JAVA");
     }
 
-    public float valeurY(float longitude, float latitude){
+    /*public float valeurY(float longitude, float latitude){
         (hauteurEcran/(2*Math.PI))*Math.cos(latitude)*Math.sin(longitude);
         return 0.0F;
     }
@@ -59,5 +65,23 @@ public class Plan extends JPanel {
     public float valeurX(float longitude, float latitude){
         (largeurEcran/(2*Math.PI))*Math.cos(latitude)*Math.cos(longitude) ;
         return 0.0F;
+    }*/
+
+    public void maxLongitudeLatitudeCarte(){
+        float maxLongitude = 0.0F;
+        float maxLatitude = 0.0F;
+        for (Map.Entry mapentry : carte.getListeAdresses().entrySet()) {
+            Adresse adresseCourante = (Adresse) mapentry.getValue();
+            if(adresseCourante.getLongitude() > maxLongitude){
+                maxLongitude = adresseCourante.getLongitude();
+            }
+            if(adresseCourante.getLatitude() > maxLatitude){
+                maxLatitude = adresseCourante.getLatitude();
+            }
+
+
+            System.out.println("maxLongitude : "+maxLongitude
+                        + " | maxLatitude: " + maxLatitude);
+        }
     }
 }
