@@ -50,6 +50,13 @@ public class Plan extends JPanel {
         LecteurXML lecteur = new LecteurXML();
         carte = lecteur.lectureCarte(filename);
 
+        //Créer le bouton
+        JButton btn = new JButton("Cliquez ici");
+        //Définir la position du bouton
+        btn.setBounds(100,100,100,40);
+        //Ajouter le bouton au frame
+        frame.add(btn);
+
         maxLongitudeLatitudeCarte();
 
         //TODO : faire conversion produit croix pour lon lat en pixel
