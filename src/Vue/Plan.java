@@ -104,24 +104,22 @@ public class Plan extends JPanel {
         //g.drawString("HELLO JAVA");
     }
 
-    public int valeurX(float longitude){
+    public int valeurX(double longitude){
 
         System.out.println("longitude " + longitude);
         //float ecartLongitude = maxLongitudeCarte - minLongitudeCarte;
-        float ecartLongitude = 0.022F;
-        float coeffX = largeurEcran / ecartLongitude;
+        double ecartLongitude = maxLongitudeCarte - minLongitudeCarte;
+        double coeffX = largeurEcran / ecartLongitude;
         int valeurXPixel = (int) Math.ceil((maxLongitudeCarte - longitude)*coeffX);
         //System.out.println("coeff X : " + coeffX);
         //System.out.println("maxLongitudeCarte : " + maxLongitudeCarte );
         return valeurXPixel;
     }
 
-    public int valeurY(float latitude){
+    public int valeurY(double latitude){
         System.out.println("latitude " + latitude);
-        //float ecartLatitude = maxLatitudeCarte - minLatitudeCarte;
-
-        float ecartLatitude = 0.022F;
-        float coeffY = hauteurEcran / ecartLatitude;
+        double ecartLatitude = maxLatitudeCarte - minLatitudeCarte;
+        double coeffY = hauteurEcran / ecartLatitude;
         int valeurYPixel = (int) Math.ceil((maxLatitudeCarte - latitude)*coeffY);
         //System.out.println("coeff Y : " + coeffY);
         //System.out.println("ecartLatitude : " + ecartLatitude);
