@@ -20,7 +20,8 @@ public class Plan extends JPanel {
     double maxLatitudeCarte;
     double minLatitudeCarte;
     double minLongitudeCarte;
-    Carte carte;
+    Carte carte = new Carte();
+    Tournee tournee = new Tournee();
 
 
     public Plan(int largeurEcran, int hauteurEcran, Font policeTexte) throws ParserConfigurationException, SAXException {
@@ -54,6 +55,18 @@ public class Plan extends JPanel {
         maxLongitudeLatitudeCarte();
 
         //TODO : faire conversion produit croix pour lon lat en pixel
+        fd.setDirectory("C:\\");
+        fd.setFile("*.xml");
+        fd.setVisible(true);
+        filename = fd.getDirectory() + fd.getFile();
+        if (filename == null)
+            System.out.println("You cancelled the choice");
+        else
+            System.out.println("You chose " + filename);
+
+        tournee = lecteur.lectureRequete(filename);
+
+        afficherTournee();
 
         yourJFrame.dispose();
     }
