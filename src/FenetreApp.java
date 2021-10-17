@@ -1,10 +1,12 @@
 import Vue.*;
+import org.xml.sax.SAXException;
 
 import javax.swing.*;
+import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 
 public class FenetreApp {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParserConfigurationException, SAXException {
 
         // creation de la fenetre de l'application
         JFrame fenetreApp = new JFrame();
@@ -20,6 +22,7 @@ public class FenetreApp {
         // Création des différentes tailles de police
         Font policeTitre = new Font("SansSerif", Font.BOLD, 28);
         Font policeSousTitre = new Font("SansSerif", Font.BOLD, 20);
+        Font policeTexteImportant = new Font("SansSerif", Font.BOLD, 16);
         Font policeTexte = new Font("SansSerif", 400, 14);
 
         /*****************************************************************************/
@@ -31,7 +34,7 @@ public class FenetreApp {
 
         // E2 et +
         Plan plan = new Plan(dimensionsEcran.width, dimensionsEcran.height, policeTexte);
-        MenuLateral menuLateral = new MenuLateral(dimensionsEcran.width, dimensionsEcran.height, policeTexte);
+        MenuLateral menuLateral = new MenuLateral(dimensionsEcran.width, dimensionsEcran.height, policeTexte, policeTexteImportant);
 
         // ajout des composants à la fenetre
         fenetreApp.add(plan);
