@@ -25,8 +25,8 @@ public class Tournee {
         return adresseDepart;
     }
 
-    public Integer getDateDepart() {
-        return dateDepart;
+    public LocalTime getDateDepart() {
+        return heureDepart;
     }
 
     public List<Requete> getListeRequetes() {
@@ -35,5 +35,13 @@ public class Tournee {
 
     public List<CheminEntreEtape> getListeChemins() {
         return listeChemins;
+    }
+
+    public void setAdresseDepart(Adresse adresseDepart) {
+        this.adresseDepart = adresseDepart;
+    }
+
+    public void setHeureDepart(LocalTime heureDepart) {
+        this.heureDepart = heureDepart;
     }
 }
