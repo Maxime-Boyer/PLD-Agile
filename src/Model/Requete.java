@@ -9,5 +9,19 @@ public class Requete {
         this.etapeDepot = etapeDepot;
     }
 
+    public Etape getEtapeCollecte() {
+        return etapeCollecte;
+    }
 
+    public Etape getEtapeDepot() {
+        return etapeDepot;
+    }
+
+    @Override
+    public String toString() {
+        return "Requete{" +
+                "etapeCollecte=" + etapeCollecte +
+                ", etapeDepot=" + etapeDepot +
+                '}';
+    }
 }

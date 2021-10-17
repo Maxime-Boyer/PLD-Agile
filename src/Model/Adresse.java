@@ -22,4 +22,15 @@ public class Adresse {
                 '}';
     }
 
+    public float getLatitude() {
+        return latitude;
+    }
+
+    public float getLongitude() {
+        return longitude;
+    }
+
+    public Long getIdAdresse() {
+        return idAdresse;
+    }
 }
