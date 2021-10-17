@@ -29,7 +29,7 @@ public class Plan extends JPanel {
         this.hauteurEcran = hauteurEcran;
 
         // propriétés du pannel principal
-        this.setBounds(0, 0, largeurEcran , hauteurEcran);
+        this.setBounds(0, 0, largeurEcran, hauteurEcran);
         this.setBackground(Color.CYAN);
 
         // TO REMOVE
@@ -76,11 +76,11 @@ public class Plan extends JPanel {
 
         // BackGround
 
-        g2.setColor(Color.RED);
+        g2.setColor(Color.WHITE);
 
         g2.fillRect(0, 0, getSize().width, getSize().height);
 
-        g2.setColor(Color.WHITE);
+        g2.setColor(Color.BLACK);
 
 
 
@@ -126,6 +126,12 @@ public class Plan extends JPanel {
         return valeurYPixel;
     }
 
+    public void afficherTournee(){
+
+
+
+    }
+
 
     public void maxLongitudeLatitudeCarte(){
         double maxLongitude = 0.0D;
@@ -147,6 +153,11 @@ public class Plan extends JPanel {
                 minLongitude = adresseCourante.getLongitude();
             }
         }
+        maxLongitudeCarte = maxLongitude;
+        maxLatitudeCarte = maxLatitude;
+        minLatitudeCarte = minLatitude;
+        minLongitudeCarte = minLongitude;
+
         System.out.println("maxLongitude : "+maxLongitude
                 + " | maxLatitude: " + maxLatitude
                 + " | minLatitude: " + minLatitude
