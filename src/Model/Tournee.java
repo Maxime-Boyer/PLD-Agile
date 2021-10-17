@@ -11,14 +11,9 @@ public class Tournee {
     private List<Requete> listeRequetes;
     private List<CheminEntreEtape> listeChemins;
 
-    public Tournee(Adresse adresseDepart, Integer dateDepart, List<Requete> listeRequetes, List<CheminEntreEtape> listeChemins) {
-        this.adresseDepart = adresseDepart;
-        this.heureDepart = heureDepart;
-        this.listeRequetes = listeRequetes;
-        this.listeChemins = listeChemins;
-    }
     public Tournee(){
-
+        listeRequetes = new ArrayList<>();
+        listeChemins = new ArrayList<>();
     }
 
     public Adresse getAdresseDepart() {
