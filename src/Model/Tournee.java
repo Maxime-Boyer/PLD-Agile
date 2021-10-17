@@ -39,4 +39,8 @@ public class Tournee {
     public void setHeureDepart(LocalTime heureDepart) {
         this.heureDepart = heureDepart;
     }
+
+    public void setListeRequetes(List<Requete> listeRequetes) {
+        this.listeRequetes = listeRequetes;
+    }
 }

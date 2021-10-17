@@ -3,6 +3,7 @@ package Vue;
 import Model.Adresse;
 import Model.Carte;
 import Model.LecteurXML;
+import Model.Tournee;
 import org.xml.sax.SAXException;
 
 import javax.swing.*;
@@ -15,10 +16,10 @@ import java.util.Map;
 public class Plan extends JPanel {
     int largeurEcran;
     int hauteurEcran;
-    float maxLongitudeCarte;
-    float maxLatitudeCarte;
-    float minLatitudeCarte;
-    float minLongitudeCarte;
+    double maxLongitudeCarte;
+    double maxLatitudeCarte;
+    double minLatitudeCarte;
+    double minLongitudeCarte;
     Carte carte;
 
 
@@ -28,7 +29,7 @@ public class Plan extends JPanel {
         this.hauteurEcran = hauteurEcran;
 
         // propriétés du pannel principal
-        this.setBounds(0, 0, largeurEcran * 3/4, hauteurEcran);
+        this.setBounds(0, 0, largeurEcran , hauteurEcran);
         this.setBackground(Color.CYAN);
 
         // TO REMOVE
@@ -81,9 +82,7 @@ public class Plan extends JPanel {
 
         g2.setColor(Color.WHITE);
 
-        g.drawLine(0, 56, 350, 267);
-        g.drawLine(56, 5, 40, 27);
-        g.drawLine(189, 39, 50, 2);
+
 
         System.out.println("maxLongitudeCarte" + maxLongitudeCarte);
         System.out.println("maxLatitudeCarte" + maxLatitudeCarte);
@@ -112,8 +111,8 @@ public class Plan extends JPanel {
         float ecartLongitude = 0.022F;
         float coeffX = largeurEcran / ecartLongitude;
         int valeurXPixel = (int) Math.ceil((maxLongitudeCarte - longitude)*coeffX);
-        System.out.println("coeff X : " + coeffX);
-        System.out.println("ecartLongitude : " + ecartLongitude);
+        //System.out.println("coeff X : " + coeffX);
+        //System.out.println("maxLongitudeCarte : " + maxLongitudeCarte );
         return valeurXPixel;
     }
 
@@ -124,28 +123,17 @@ public class Plan extends JPanel {
         float ecartLatitude = 0.022F;
         float coeffY = hauteurEcran / ecartLatitude;
         int valeurYPixel = (int) Math.ceil((maxLatitudeCarte - latitude)*coeffY);
-        System.out.println("coeff Y : " + coeffY);
-        System.out.println("ecartLatitude : " + ecartLatitude);
+        //System.out.println("coeff Y : " + coeffY);
+        //System.out.println("ecartLatitude : " + ecartLatitude);
         return valeurYPixel;
     }
 
-    public int valeurXbis(float longitude){
-        float valeurX = (longitude+180)*(largeurEcran/360);
-        return (int)Math.ceil(valeurX);
-    }
-
-    public int valeurYbis(float latitude){
-        float latRad = (float) (latitude*Math.PI/180);
-        float mercN = (float) Math.log(Math.tan((Math.PI/4)+(latRad/2)));
-        float valeurY = (float) ((hauteurEcran/2)-(largeurEcran*mercN/(2*Math.PI)));
-        return (int)Math.ceil(valeurY);
-    }
 
     public void maxLongitudeLatitudeCarte(){
-        float maxLongitude = 0.0F;
-        float maxLatitude = 0.0F;
-        float minLongitude = 1000.0F;
-        float minLatitude = 1000.0F;
+        double maxLongitude = 0.0D;
+        double maxLatitude = 0.0D;
+        double minLongitude = 1000.0D;
+        double minLatitude = 1000.0D;
         for (Map.Entry mapentry : carte.getListeAdresses().entrySet()) {
             Adresse adresseCourante = (Adresse) mapentry.getValue();
             if(adresseCourante.getLongitude() > maxLongitude){

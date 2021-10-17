@@ -63,7 +63,7 @@ public class LecteurXML {
                     Long idDestination = Long.parseLong(eElement.getAttribute("destination"));
                     Segment segment = new Segment(carte.obtenirAdresseParId(idOrigine),carte.obtenirAdresseParId(idDestination),nom,longueur);
                     carte.getListeSegments().add(segment);
-                    System.out.println(segment);
+                    //System.out.println(segment);
 
                 }
             }
@@ -83,7 +83,7 @@ public class LecteurXML {
      * @throws ParserConfigurationException
      * @throws SAXException
      */
-    public List<Requete> lectureRequete(String nomFichier) throws ParserConfigurationException, SAXException {
+    public Tournee lectureRequete(String nomFichier) throws ParserConfigurationException, SAXException {
         List<Requete> listeRequetes = new  ArrayList<Requete>();
         Tournee tournee = new Tournee();
         try {
@@ -133,7 +133,7 @@ public class LecteurXML {
             System.out.println(e);
         }
         finally {
-            return listeRequetes;
+            return tournee;
         }
     }
 }
