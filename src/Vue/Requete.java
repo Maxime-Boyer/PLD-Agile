@@ -16,7 +16,6 @@ public class Requete extends JPanel {
         this.setBounds(0, 0, parentWidth, 130);
         this.setLayout(null);
         this.setBorder(new LineBorder(Color.BLACK, 1, true));
-        this.setPreferredSize(this.getPreferredSize());
 
         /************************************************************************************/
         /*                               Label duree de collecte                            */
