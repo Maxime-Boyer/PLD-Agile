@@ -15,4 +15,20 @@ public class CheminEntreEtape {
         this.listeSegment = listeSegment;
         this.distance = distance;
     }
+
+    public Etape getEtapeDepart() {
+        return etapeDepart;
+    }
+
+    public Etape getEtapeArrivee() {
+        return etapeArrivee;
+    }
+
+    public List<Segment> getListeSegment() {
+        return listeSegment;
+    }
+
+    public Integer getDistance() {
+        return distance;
+    }
 }
