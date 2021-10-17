@@ -95,8 +95,6 @@ public class Plan extends JPanel {
 
         g2.setColor(Color.BLACK);
 
-
-
         System.out.println("maxLongitudeCarte" + maxLongitudeCarte);
         System.out.println("maxLatitudeCarte" + maxLatitudeCarte);
         System.out.println("minLatitudeCarte" + minLatitudeCarte);
@@ -109,7 +107,7 @@ public class Plan extends JPanel {
             int origineY = valeurY(origine.getLatitude());
             int destinationX = valeurX(destination.getLongitude());
             int destinationY = valeurY(destination.getLatitude());
-            System.out.println("x1 : " + origineX + " y1 : " + origineY + " x2 : " + destinationX + " y2 : " + destinationY);
+            //System.out.println("x1 : " + origineX + " y1 : " + origineY + " x2 : " + destinationX + " y2 : " + destinationY);
 
             g.drawLine(origineX, origineY, destinationX, destinationY);
             //System.out.println("Segment " + i);
@@ -119,7 +117,7 @@ public class Plan extends JPanel {
 
     public int valeurX(double longitude){
 
-        System.out.println("longitude " + longitude);
+        //System.out.println("longitude " + longitude);
         //float ecartLongitude = maxLongitudeCarte - minLongitudeCarte;
         double ecartLongitude = maxLongitudeCarte - minLongitudeCarte;
         double coeffX = largeurEcran / ecartLongitude;
@@ -130,7 +128,7 @@ public class Plan extends JPanel {
     }
 
     public int valeurY(double latitude){
-        System.out.println("latitude " + latitude);
+        //System.out.println("latitude " + latitude);
         double ecartLatitude = maxLatitudeCarte - minLatitudeCarte;
         double coeffY = hauteurEcran / ecartLatitude;
         int valeurYPixel = (int) Math.ceil((maxLatitudeCarte - latitude)*coeffY);
@@ -140,8 +138,39 @@ public class Plan extends JPanel {
     }
 
     public void afficherTournee(){
+        for (int i = 0; i < tournee.getListeRequetes().size(); i++) {
+            Adresse collecte = tournee.getListeRequetes().get(i).getEtapeCollecte();
+            Adresse depot = tournee.getListeRequetes().get(i).getEtapeDepot();
 
+            double lonCollecte = collecte.getLongitude();
+            double latCollecte = collecte.getLatitude();
+            double lonDepot = depot.getLongitude();
+            double latDepot = depot.getLatitude();
 
+            System.out.println("lonCollecte " + lonCollecte);
+            System.out.println("latCollecte " + latCollecte);
+            System.out.println("lonDepot " + lonDepot);
+            System.out.println("latDepot " + latDepot);
+
+            int valeurXCollecte = valeurX(lonCollecte);
+            int valeurYCollecte = valeurY(latCollecte);
+            int valeurXDepot = valeurX(lonDepot);
+            int valeurYDepot = valeurY(latDepot);
+
+            System.out.println("valeurXCollecte " + valeurXCollecte);
+            System.out.println("valeurYCollecte " + valeurYCollecte);
+            System.out.println("valeurXDepot " + valeurXDepot);
+            System.out.println("valeurYDepot " + valeurYDepot);
+
+            JButton boutonCollecte = new JButton();
+            JButton boutonDepot = new JButton();
+            boutonCollecte.setBounds(valeurXCollecte-2,valeurYCollecte-2, 4, 4);
+            boutonDepot.setBounds(valeurXDepot-2,valeurYDepot-2, 4, 4);
+            boutonCollecte.setBackground(Color.PINK);
+            boutonDepot.setBackground(Color.PINK);
+            this.add(boutonCollecte);
+            this.add(boutonDepot);
+        }
 
     }
 
