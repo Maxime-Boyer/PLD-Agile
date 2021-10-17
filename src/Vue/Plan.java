@@ -135,7 +135,26 @@ public class Plan extends JPanel {
 
     public void afficherTournee(){
 
+        double lonCollecte;
+        double latCollecte;
+        double lonDepot;
+        double latDepot;
 
+
+        int valeurXCollecte = valeurX(lonCollecte);
+        int valeurYCollecte = valeurY(latCollecte);
+        int valeurXDepot = valeurX(lonCollecte);
+        int valeurYDepot = valeurY(latCollecte);
+
+
+
+
+        JButton boutonCollecte = new JButton();
+        JButton boutonDepot = new JButton();
+        boutonCollecte.setBounds(-2,-2, 4, 4);
+        boutonDepot.setBounds(-2,-2, 4, 4);
+        this.add(boutonCollecte);
+        this.add(boutonDepot);
 
     }
 
