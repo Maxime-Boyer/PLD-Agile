@@ -127,7 +127,7 @@ public class LecteurXML {
                     listeRequetes.add(requete);
                 }
             }
-
+            tournee.setListeRequetes(listeRequetes);
         }
         catch(IOException e){
             System.out.println(e);

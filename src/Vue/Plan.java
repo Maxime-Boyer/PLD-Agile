@@ -20,7 +20,8 @@ public class Plan extends JPanel {
     double maxLatitudeCarte;
     double minLatitudeCarte;
     double minLongitudeCarte;
-    Carte carte;
+    Carte carte = new Carte();
+    Tournee tournee = new Tournee();
 
 
     public Plan(int largeurEcran, int hauteurEcran, Font policeTexte) throws ParserConfigurationException, SAXException {
@@ -51,16 +52,21 @@ public class Plan extends JPanel {
         LecteurXML lecteur = new LecteurXML();
         carte = lecteur.lectureCarte(filename);
 
-        //Créer le bouton
-        JButton btn = new JButton("Cliquez ici");
-        //Définir la position du bouton
-        btn.setBounds(100,100,100,40);
-        //Ajouter le bouton au frame
-        frame.add(btn);
-
         maxLongitudeLatitudeCarte();
 
         //TODO : faire conversion produit croix pour lon lat en pixel
+        fd.setDirectory("C:\\");
+        fd.setFile("*.xml");
+        fd.setVisible(true);
+        filename = fd.getDirectory() + fd.getFile();
+        if (filename == null)
+            System.out.println("You cancelled the choice");
+        else
+            System.out.println("You chose " + filename);
+
+        tournee = lecteur.lectureRequete(filename);
+
+        afficherTournee();
 
         yourJFrame.dispose();
     }
@@ -89,8 +95,6 @@ public class Plan extends JPanel {
 
         g2.setColor(Color.BLACK);
 
-
-
         System.out.println("maxLongitudeCarte" + maxLongitudeCarte);
         System.out.println("maxLatitudeCarte" + maxLatitudeCarte);
         System.out.println("minLatitudeCarte" + minLatitudeCarte);
@@ -103,7 +107,7 @@ public class Plan extends JPanel {
             int origineY = valeurY(origine.getLatitude());
             int destinationX = valeurX(destination.getLongitude());
             int destinationY = valeurY(destination.getLatitude());
-            System.out.println("x1 : " + origineX + " y1 : " + origineY + " x2 : " + destinationX + " y2 : " + destinationY);
+            //System.out.println("x1 : " + origineX + " y1 : " + origineY + " x2 : " + destinationX + " y2 : " + destinationY);
 
             g.drawLine(origineX, origineY, destinationX, destinationY);
             //System.out.println("Segment " + i);
@@ -113,7 +117,7 @@ public class Plan extends JPanel {
 
     public int valeurX(double longitude){
 
-        System.out.println("longitude " + longitude);
+        //System.out.println("longitude " + longitude);
         //float ecartLongitude = maxLongitudeCarte - minLongitudeCarte;
         double ecartLongitude = maxLongitudeCarte - minLongitudeCarte;
         double coeffX = largeurEcran / ecartLongitude;
@@ -124,7 +128,7 @@ public class Plan extends JPanel {
     }
 
     public int valeurY(double latitude){
-        System.out.println("latitude " + latitude);
+        //System.out.println("latitude " + latitude);
         double ecartLatitude = maxLatitudeCarte - minLatitudeCarte;
         double coeffY = hauteurEcran / ecartLatitude;
         int valeurYPixel = (int) Math.ceil((maxLatitudeCarte - latitude)*coeffY);
@@ -134,27 +138,39 @@ public class Plan extends JPanel {
     }
 
     public void afficherTournee(){
+        for (int i = 0; i < tournee.getListeRequetes().size(); i++) {
+            Adresse collecte = tournee.getListeRequetes().get(i).getEtapeCollecte();
+            Adresse depot = tournee.getListeRequetes().get(i).getEtapeDepot();
 
-        double lonCollecte;
-        double latCollecte;
-        double lonDepot;
-        double latDepot;
+            double lonCollecte = collecte.getLongitude();
+            double latCollecte = collecte.getLatitude();
+            double lonDepot = depot.getLongitude();
+            double latDepot = depot.getLatitude();
 
+            System.out.println("lonCollecte " + lonCollecte);
+            System.out.println("latCollecte " + latCollecte);
+            System.out.println("lonDepot " + lonDepot);
+            System.out.println("latDepot " + latDepot);
 
-        int valeurXCollecte = valeurX(lonCollecte);
-        int valeurYCollecte = valeurY(latCollecte);
-        int valeurXDepot = valeurX(lonCollecte);
-        int valeurYDepot = valeurY(latCollecte);
+            int valeurXCollecte = valeurX(lonCollecte);
+            int valeurYCollecte = valeurY(latCollecte);
+            int valeurXDepot = valeurX(lonDepot);
+            int valeurYDepot = valeurY(latDepot);
 
+            System.out.println("valeurXCollecte " + valeurXCollecte);
+            System.out.println("valeurYCollecte " + valeurYCollecte);
+            System.out.println("valeurXDepot " + valeurXDepot);
+            System.out.println("valeurYDepot " + valeurYDepot);
 
-
-
-        JButton boutonCollecte = new JButton();
-        JButton boutonDepot = new JButton();
-        boutonCollecte.setBounds(-2,-2, 4, 4);
-        boutonDepot.setBounds(-2,-2, 4, 4);
-        this.add(boutonCollecte);
-        this.add(boutonDepot);
+            JButton boutonCollecte = new JButton();
+            JButton boutonDepot = new JButton();
+            boutonCollecte.setBounds(valeurXCollecte-2,valeurYCollecte-2, 4, 4);
+            boutonDepot.setBounds(valeurXDepot-2,valeurYDepot-2, 4, 4);
+            boutonCollecte.setBackground(Color.PINK);
+            boutonDepot.setBackground(Color.PINK);
+            this.add(boutonCollecte);
+            this.add(boutonDepot);
+        }
 
     }
 
