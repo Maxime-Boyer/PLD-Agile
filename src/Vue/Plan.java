@@ -29,7 +29,7 @@ public class Plan extends JPanel {
         this.hauteurEcran = hauteurEcran;
 
         // propriétés du pannel principal
-        this.setBounds(0, 0, largeurEcran , hauteurEcran);
+        this.setBounds(0, 0, largeurEcran, hauteurEcran);
         this.setBackground(Color.CYAN);
 
         // TO REMOVE
@@ -83,11 +83,11 @@ public class Plan extends JPanel {
 
         // BackGround
 
-        g2.setColor(Color.RED);
+        g2.setColor(Color.WHITE);
 
         g2.fillRect(0, 0, getSize().width, getSize().height);
 
-        g2.setColor(Color.WHITE);
+        g2.setColor(Color.BLACK);
 
 
 
@@ -111,28 +111,32 @@ public class Plan extends JPanel {
         //g.drawString("HELLO JAVA");
     }
 
-    public int valeurX(float longitude){
+    public int valeurX(double longitude){
 
         System.out.println("longitude " + longitude);
         //float ecartLongitude = maxLongitudeCarte - minLongitudeCarte;
-        float ecartLongitude = 0.022F;
-        float coeffX = largeurEcran / ecartLongitude;
+        double ecartLongitude = maxLongitudeCarte - minLongitudeCarte;
+        double coeffX = largeurEcran / ecartLongitude;
         int valeurXPixel = (int) Math.ceil((maxLongitudeCarte - longitude)*coeffX);
         //System.out.println("coeff X : " + coeffX);
         //System.out.println("maxLongitudeCarte : " + maxLongitudeCarte );
         return valeurXPixel;
     }
 
-    public int valeurY(float latitude){
+    public int valeurY(double latitude){
         System.out.println("latitude " + latitude);
-        //float ecartLatitude = maxLatitudeCarte - minLatitudeCarte;
-
-        float ecartLatitude = 0.022F;
-        float coeffY = hauteurEcran / ecartLatitude;
+        double ecartLatitude = maxLatitudeCarte - minLatitudeCarte;
+        double coeffY = hauteurEcran / ecartLatitude;
         int valeurYPixel = (int) Math.ceil((maxLatitudeCarte - latitude)*coeffY);
         //System.out.println("coeff Y : " + coeffY);
         //System.out.println("ecartLatitude : " + ecartLatitude);
         return valeurYPixel;
+    }
+
+    public void afficherTournee(){
+
+
+
     }
 
 
@@ -156,6 +160,11 @@ public class Plan extends JPanel {
                 minLongitude = adresseCourante.getLongitude();
             }
         }
+        maxLongitudeCarte = maxLongitude;
+        maxLatitudeCarte = maxLatitude;
+        minLatitudeCarte = minLatitude;
+        minLongitudeCarte = minLongitude;
+
         System.out.println("maxLongitude : "+maxLongitude
                 + " | maxLatitude: " + maxLatitude
                 + " | minLatitude: " + minLatitude

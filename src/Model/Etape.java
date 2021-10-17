@@ -9,7 +9,7 @@ public class Etape extends Adresse{
     public Integer dureeEtape;
 
 
-    public Etape(float latitude, float longitude, Long idAdresse, Integer dureeEtape, Timestamp heureDePassage) {
+    public Etape(double latitude, double longitude, Long idAdresse, Integer dureeEtape, Timestamp heureDePassage) {
         super(latitude, longitude, idAdresse);
         this.dureeEtape = dureeEtape;
         this.heureDePassage=heureDePassage;
