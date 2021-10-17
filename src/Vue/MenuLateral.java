@@ -68,16 +68,18 @@ public class MenuLateral extends JPanel {
         this.add(panelConsultation);
 
         // TO REMOVE, action du controleur ici
-        Requete[] listeRequetes = new Requete[10];
+        // Requete[] listeExemple = new Requete[10];
+        Etape[] listeExemple = new Etape[10];
         var positionTop = 0;
         for (int i = 0; i < 10; i++) {
-            listeRequetes[i] = new Requete(13, 10, "37 rue du lac", "20 Av. Albert Einstein", panelConsultation.getWidth(), valMarginBase, policeTexte, policeTexteImportant);
+            // listeExemple[i] = new Requete(13, 10, "37 rue du lac", "20 Av. Albert Einstein", panelConsultation.getWidth(), valMarginBase, policeTexte, policeTexteImportant);
+            listeExemple[i] = new Etape("8h18", false, 12, "20 Av. Albert Einstein", panelConsultation.getWidth(), valMarginBase, policeTexte, policeTexteImportant);
 
             if(i > 0)
-                positionTop = listeRequetes[i-1].getY() + listeRequetes[i-1].getHeight() + 2*valMarginBase;
+                positionTop = listeExemple[i-1].getY() + listeExemple[i-1].getHeight() + 2*valMarginBase;
 
-            listeRequetes[i].setBounds(0, positionTop, panelConsultation.getWidth(), 130);
-            panelConsultation.add(listeRequetes[i]);
+            listeExemple[i].setBounds(0, positionTop, panelConsultation.getWidth(), 110);
+            panelConsultation.add(listeExemple[i]);
         }
 
         /************************************************************************************/
