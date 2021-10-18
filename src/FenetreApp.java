@@ -33,7 +33,7 @@ public class FenetreApp {
         // EcranAccuil ecranAccueil = new EcranAccuil(dimensionsEcran.width, dimensionsEcran.height, policeSousTitre, policeTexte);
 
         // E2 et +
-        Plan plan = new Plan(dimensionsEcran.width, dimensionsEcran.height, policeTexte);
+        Plan plan = new Plan(dimensionsEcran.width*3/4, dimensionsEcran.height, policeTexte);
         MenuLateral menuLateral = new MenuLateral(dimensionsEcran.width, dimensionsEcran.height, policeTexte, policeTexteImportant);
 
         // ajout des composants à la fenetre

@@ -11,6 +11,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.Map;
 
 public class Plan extends JPanel {
@@ -31,12 +32,14 @@ public class Plan extends JPanel {
 
         // propriétés du pannel principal
         this.setBounds(0, 0, largeurEcran, hauteurEcran);
-        this.setBackground(Color.CYAN);
+        this.setBackground(Color.WHITE);
+        this.setLayout(null);
 
         // TO REMOVE
         JLabel toRemove = new JLabel("Zone plan");
         toRemove.setFont(policeTexte);
         this.add(toRemove);
+
 
         JFrame yourJFrame = new JFrame();
         FileDialog fd = new FileDialog(yourJFrame, "Choose a file", FileDialog.LOAD);
@@ -66,15 +69,16 @@ public class Plan extends JPanel {
 
         tournee = lecteur.lectureRequete(filename);
 
-        afficherTournee();
 
         yourJFrame.dispose();
+        afficherTournee();
     }
 
     public void repaint(Graphics g) {
         super.repaint();
 
         paintComponent(g);
+
     }
 
     public void paintComponent(Graphics g)
@@ -109,7 +113,7 @@ public class Plan extends JPanel {
             int destinationY = valeurY(destination.getLatitude());
             //System.out.println("x1 : " + origineX + " y1 : " + origineY + " x2 : " + destinationX + " y2 : " + destinationY);
 
-            g.drawLine(origineX, origineY, destinationX, destinationY);
+            g2.drawLine(origineX, origineY, destinationX, destinationY);
             //System.out.println("Segment " + i);
         }
         //g.drawString("HELLO JAVA");
@@ -121,7 +125,7 @@ public class Plan extends JPanel {
         //float ecartLongitude = maxLongitudeCarte - minLongitudeCarte;
         double ecartLongitude = maxLongitudeCarte - minLongitudeCarte;
         double coeffX = largeurEcran / ecartLongitude;
-        int valeurXPixel = (int) Math.ceil((maxLongitudeCarte - longitude)*coeffX);
+        int valeurXPixel = (int) Math.ceil((longitude - minLongitudeCarte)*coeffX);
         //System.out.println("coeff X : " + coeffX);
         //System.out.println("maxLongitudeCarte : " + maxLongitudeCarte );
         return valeurXPixel;
@@ -138,6 +142,7 @@ public class Plan extends JPanel {
     }
 
     public void afficherTournee(){
+
         for (int i = 0; i < tournee.getListeRequetes().size(); i++) {
             Adresse collecte = tournee.getListeRequetes().get(i).getEtapeCollecte();
             Adresse depot = tournee.getListeRequetes().get(i).getEtapeDepot();
@@ -164,13 +169,20 @@ public class Plan extends JPanel {
 
             JButton boutonCollecte = new JButton();
             JButton boutonDepot = new JButton();
-            boutonCollecte.setBounds(valeurXCollecte-2,valeurYCollecte-2, 4, 4);
-            boutonDepot.setBounds(valeurXDepot-2,valeurYDepot-2, 4, 4);
-            boutonCollecte.setBackground(Color.PINK);
-            boutonDepot.setBackground(Color.PINK);
+
+            boutonCollecte.setBounds(valeurXCollecte-2,valeurYCollecte-2, 15, 15);
+            boutonDepot.setBounds(valeurXDepot-2,valeurYDepot-2, 15, 15);
+            boutonCollecte.setBackground(Color.GREEN);
+            boutonDepot.setBackground(Color.GREEN);
+
             this.add(boutonCollecte);
             this.add(boutonDepot);
+
+
         }
+
+
+
 
     }
 
