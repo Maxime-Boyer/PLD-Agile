@@ -172,6 +172,10 @@ public class Plan extends JPanel {
 
             boutonCollecte.setBounds(valeurXCollecte-2,valeurYCollecte-2, 15, 15);
             boutonDepot.setBounds(valeurXDepot-2,valeurYDepot-2, 15, 15);
+            boutonCollecte.setBorderPainted(false);
+            boutonDepot.setBorderPainted(false);
+            boutonCollecte.setOpaque(true);
+            boutonDepot.setOpaque(true);
             boutonCollecte.setBackground(Color.GREEN);
             boutonDepot.setBackground(Color.GREEN);
 
