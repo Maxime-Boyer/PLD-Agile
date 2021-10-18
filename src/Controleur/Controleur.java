@@ -14,7 +14,7 @@ public class Controleur {
     protected final EtatAjoutRequete4PointDepot etatAjoutRequete4PointDepot = new EtatAjoutRequete4PointDepot();
     protected final EtatAjoutRequete5PositionDepot etatAjoutRequete5PositionDepot = new EtatAjoutRequete5PositionDepot();
     protected final EtatAjoutRequete6DureeDepot etatAjoutRequete6DureeDepot = new EtatAjoutRequete6DureeDepot();
-    protected final EtatApplicationOuverte etatApplicationOuverte = new EtatApplicationOuverte();
+    protected final EtatInitial etatInitial = new EtatInitial();
     protected final EtatInitialTournee etatInitialTournee = new EtatInitialTournee();
     protected final EtatOrdonneTournee etatOrdonneTournee = new EtatOrdonneTournee();
     protected final EtatPlanAffiche etatPlanAffiche = new EtatPlanAffiche();
@@ -24,7 +24,7 @@ public class Controleur {
     public Controleur(Carte carte, int echelle) {
         this.carte = carte;
         //listofcommands
-        this.etatActuel = etatApplicationOuverte;
+        this.etatActuel = etatInitial;
         //window
     }
 
