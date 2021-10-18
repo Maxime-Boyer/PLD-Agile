@@ -6,7 +6,7 @@ public class EtatInitial implements Etat {
 
     @Override
     public void chargerNouveauPlan (Controleur c, Fenetre fenetre) {
-        window.allow(false);
+        //fenetre.allow(false);
         c.setEtatActuel(c.etatPlanAffiche);
     }
 

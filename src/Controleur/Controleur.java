@@ -1,11 +1,12 @@
 package Controleur;
 
 import Model.Carte;
+import Vue.Fenetre;
 
 public class Controleur {
 
     private Carte carte;
-    //window
+    private Fenetre fenetre;
     //listofcommands
     private Etat etatActuel;
     protected final EtatAjoutRequete1PointCollecte etatAjoutRequete1PointCollecte = new EtatAjoutRequete1PointCollecte();
@@ -25,27 +26,74 @@ public class Controleur {
         this.carte = carte;
         //listofcommands
         this.etatActuel = etatInitial;
-        //window
+        fenetre = new Fenetre(carte, echelle, this);
     }
 
-    protected void setEtatActuel(Etat etat){
+    protected void setEtatActuel(Etat etat) {
         etatActuel = etat;
     }
 
-    public void chargerPlan(){};
-    public void chargerNouveauPlan(){};
-    public void chargerListeRequete(){};
-    public void chargerNouvelleListeRequete(){};
-    public void preparerTournee(){};
-    public void supressionRequete(){};
-    public void selectionPointCarte(Controleur c){};
-    public void validerSupressionRequete(Controleur c){};
-    public void exporterFeuilleDeRoute(Controleur c){};
-    public void ajoutRequete(Controleur c){};
-    public void ajoutRequetePointCollecte(Controleur c){};
-    public void ajoutRequeteOrdreCollecte(Controleur c){};
-    public void ajoutRequeteDureeCollecte(Controleur c){};
-    public void ajoutRequetePointDepot(Controleur c){};
-    public void ajoutRequeteOrdreDepot(Controleur c){};
-    public void ajoutRequeteDureeDepot(Controleur c){};
+    public void chargerPlan() {
+        etatActuel.chargerPlan(this, fenetre);
+    }
+
+    public void chargerNouveauPlan() {
+        etatActuel.chargerNouveauPlan(this, fenetre);
+    }
+
+    public void chargerListeRequete() {
+        etatActuel.chargerListeRequete(this, fenetre);
+    }
+
+    public void chargerNouvelleListeRequete() {
+        etatActuel.chargerNouvelleListeRequete(this, fenetre);
+    }
+
+    public void preparerTournee() {
+        etatActuel.preparerTournee(this, fenetre);
+    }
+
+    public void supressionRequete() {
+        etatActuel.supressionRequete(this, fenetre);
+    }
+
+    public void selectionPointCarte() {
+        etatActuel.selectionPointCarte(this, fenetre);
+    }
+
+    public void validerSupressionRequete() {
+        etatActuel.validerSupressionRequete(this, fenetre);
+    }
+
+    public void exporterFeuilleDeRoute() {
+        etatActuel.exporterFeuilleDeRoute(this, fenetre);
+    }
+
+    public void ajoutRequete() {
+        etatActuel.ajoutRequete(this, fenetre);
+    }
+
+    public void ajoutRequetePointCollecte() {
+        etatActuel.ajoutRequetePointCollecte(this, fenetre);
+    }
+
+    public void ajoutRequeteOrdreCollecte() {
+        etatActuel.ajoutRequeteOrdreCollecte(this, fenetre);
+    }
+
+    public void ajoutRequeteDureeCollecte() {
+        etatActuel.ajoutRequeteDureeCollecte(this, fenetre);
+    }
+
+    public void ajoutRequetePointDepot() {
+        etatActuel.ajoutRequetePointDepot(this, fenetre);
+    }
+
+    public void ajoutRequeteOrdreDepot() {
+        etatActuel.ajoutRequeteOrdreDepot(this, fenetre);
+    }
+
+    public void ajoutRequeteDureeDepot() {
+        etatActuel.ajoutRequeteDureeDepot(this, fenetre);
+    }
 }

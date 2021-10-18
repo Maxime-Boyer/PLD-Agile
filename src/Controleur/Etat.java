@@ -1,5 +1,7 @@
 package Controleur;
 
+import Vue.Fenetre;
+
 public interface Etat {
 
     public default void chargerPlan(Controleur c, Fenetre fenetre){};
