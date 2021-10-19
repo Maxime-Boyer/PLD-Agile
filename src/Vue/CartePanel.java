@@ -14,9 +14,9 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class Plan extends JPanel {
-    int largeurEcran;
-    int hauteurEcran;
+public class CartePanel extends JPanel {
+    int largeur;
+    int hauteur;
     double maxLongitudeCarte;
     double maxLatitudeCarte;
     double minLatitudeCarte;
@@ -25,13 +25,13 @@ public class Plan extends JPanel {
     Tournee tournee = new Tournee();
 
 
-    public Plan(int largeurEcran, int hauteurEcran, Font policeTexte) throws ParserConfigurationException, SAXException {
+    public CartePanel(int largeurEcran, int hauteurEcran, Font policeTexte) throws ParserConfigurationException, SAXException {
 
-        this.largeurEcran = largeurEcran;
-        this.hauteurEcran = hauteurEcran;
+        this.largeur = (int) 3*largeurEcran/4;
+        this.hauteur = (int) hauteurEcran;
 
         // propriétés du pannel principal
-        this.setBounds(0, 0, largeurEcran, hauteurEcran);
+        this.setBounds(0, 0, largeur, hauteur);
         this.setBackground(Color.WHITE);
         this.setLayout(null);
 
@@ -124,7 +124,7 @@ public class Plan extends JPanel {
         //System.out.println("longitude " + longitude);
         //float ecartLongitude = maxLongitudeCarte - minLongitudeCarte;
         double ecartLongitude = maxLongitudeCarte - minLongitudeCarte;
-        double coeffX = largeurEcran / ecartLongitude;
+        double coeffX = largeur / ecartLongitude;
         int valeurXPixel = (int) Math.ceil((longitude - minLongitudeCarte)*coeffX);
         //System.out.println("coeff X : " + coeffX);
         //System.out.println("maxLongitudeCarte : " + maxLongitudeCarte );
@@ -134,7 +134,7 @@ public class Plan extends JPanel {
     public int valeurY(double latitude){
         //System.out.println("latitude " + latitude);
         double ecartLatitude = maxLatitudeCarte - minLatitudeCarte;
-        double coeffY = hauteurEcran / ecartLatitude;
+        double coeffY = hauteur / ecartLatitude;
         int valeurYPixel = (int) Math.ceil((maxLatitudeCarte - latitude)*coeffY);
         //System.out.println("coeff Y : " + coeffY);
         //System.out.println("ecartLatitude : " + ecartLatitude);

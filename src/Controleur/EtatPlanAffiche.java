@@ -10,5 +10,5 @@ public class EtatPlanAffiche implements Etat {
         fenetre.afficherEtat(NomEtat.ETAT_TOURNEE_CHARGEE);
         controleur.setEtatActuel(controleur.etatTourneeChargee);
     }
-    
+
 }

@@ -23,6 +23,7 @@ public class Fenetre extends JFrame{
 
     private EcranAccueil ecranAccueil;
     private MenuLateral menuLateral;
+    private CartePanel cartePanel;
 
     public Fenetre(Carte carte, Controleur controleur){
         this.setTitle("Raccourc'IF - Hexanome Détect'IF");
@@ -50,9 +51,13 @@ public class Fenetre extends JFrame{
                 break;
             case ETAT_PLAN_AFFICHE:
                 //E1: Carte chargée
-                //Plan plan = new Plan(this.getWidth(), this.getHeight(), policeTexte);
+                try{
+                    CartePanel cartePanel = new CartePanel(this.getWidth(), this.getHeight(), policeTexte);
+                    this.add(cartePanel);
+                }catch(Exception e){
+                    System.out.println(e);
+                }
                 menuLateral = new MenuLateral(this.getWidth(), this.getHeight(), policeTexte, policeTexteImportant, ecouteurBoutons);
-                //this.add(plan);
                 this.add(menuLateral);
                 break;
             case ETAT_TOURNEE_CHARGEE:
