@@ -19,16 +19,15 @@ import java.util.Random;
 
 
 public class CartePanel extends JPanel {
-    int largeur;
-    int hauteur;
-    double maxLongitudeCarte;
-    double maxLatitudeCarte;
-    double minLatitudeCarte;
-    double minLongitudeCarte;
-    boolean tourneeAppelee;
-    Carte carte = new Carte();
-    Tournee tournee = new Tournee();
-
+    private int largeur;
+    private int hauteur;
+    private double maxLongitudeCarte;
+    private double maxLatitudeCarte;
+    private double minLatitudeCarte;
+    private double minLongitudeCarte;
+    private boolean tourneeAppelee;
+    private Carte carte = new Carte();
+    private Tournee tournee = new Tournee();
 
     public CartePanel(int largeurEcran, int hauteurEcran, Font policeTexte){
 
@@ -40,6 +39,10 @@ public class CartePanel extends JPanel {
         this.setLayout(null);
 
         tracerCarte();
+    }
+
+    public Tournee getTournee(){
+        return tournee;
     }
 
     public void tracerCarte(){
