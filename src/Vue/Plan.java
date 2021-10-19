@@ -7,12 +7,16 @@ import Model.Tournee;
 import org.xml.sax.SAXException;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Random;
+
+
 
 public class Plan extends JPanel {
     int largeurEcran;
@@ -21,12 +25,13 @@ public class Plan extends JPanel {
     double maxLatitudeCarte;
     double minLatitudeCarte;
     double minLongitudeCarte;
+    boolean tourneeAppelee;
     Carte carte = new Carte();
     Tournee tournee = new Tournee();
 
-
     public Plan(int largeurEcran, int hauteurEcran, Font policeTexte) throws ParserConfigurationException, SAXException {
 
+        this.tourneeAppelee = false;
         this.largeurEcran = largeurEcran;
         this.hauteurEcran = hauteurEcran;
 
@@ -72,15 +77,11 @@ public class Plan extends JPanel {
 
         yourJFrame.dispose();
         afficherTournee();
-    }
 
-    public void repaint(Graphics g) {
-        super.repaint();
-
-        paintComponent(g);
 
     }
 
+    @Override
     public void paintComponent(Graphics g)
     { super.paintComponent(g);
 
@@ -88,9 +89,33 @@ public class Plan extends JPanel {
 
         Graphics2D g2 = (Graphics2D) g;
 
-        g2.setColor(Color.BLACK);
-        g2.setStroke(new BasicStroke(1));
+        dessinerCarte(g2);
 
+
+        if(tourneeAppelee){
+            dessinerTournee(g2);
+        }
+
+    }
+
+    public int valeurX(double longitude){
+        double ecartLongitude = maxLongitudeCarte - minLongitudeCarte;
+        double coeffX = largeurEcran / ecartLongitude;
+        int valeurXPixel = (int) Math.ceil((longitude - minLongitudeCarte)*coeffX);
+
+        return valeurXPixel;
+    }
+
+    public int valeurY(double latitude){
+        double ecartLatitude = maxLatitudeCarte - minLatitudeCarte;
+        double coeffY = hauteurEcran / ecartLatitude;
+        int valeurYPixel = (int) Math.ceil((maxLatitudeCarte - latitude)*coeffY);
+
+        return valeurYPixel;
+    }
+
+    public void dessinerCarte(Graphics g2){
+        g2.setColor(Color.BLACK);
         // BackGround
 
         g2.setColor(Color.WHITE);
@@ -99,11 +124,6 @@ public class Plan extends JPanel {
 
         g2.setColor(Color.BLACK);
 
-        System.out.println("maxLongitudeCarte" + maxLongitudeCarte);
-        System.out.println("maxLatitudeCarte" + maxLatitudeCarte);
-        System.out.println("minLatitudeCarte" + minLatitudeCarte);
-        System.out.println("minLongitudeCarte" + minLongitudeCarte);
-
         for (int i = 0; i < carte.getListeSegments().size(); i++) {
             Adresse origine = carte.getListeSegments().get(i).getOrigine();
             Adresse destination = carte.getListeSegments().get(i).getDestination();
@@ -111,38 +131,12 @@ public class Plan extends JPanel {
             int origineY = valeurY(origine.getLatitude());
             int destinationX = valeurX(destination.getLongitude());
             int destinationY = valeurY(destination.getLatitude());
-            //System.out.println("x1 : " + origineX + " y1 : " + origineY + " x2 : " + destinationX + " y2 : " + destinationY);
 
             g2.drawLine(origineX, origineY, destinationX, destinationY);
-            //System.out.println("Segment " + i);
         }
-        //g.drawString("HELLO JAVA");
     }
 
-    public int valeurX(double longitude){
-
-        //System.out.println("longitude " + longitude);
-        //float ecartLongitude = maxLongitudeCarte - minLongitudeCarte;
-        double ecartLongitude = maxLongitudeCarte - minLongitudeCarte;
-        double coeffX = largeurEcran / ecartLongitude;
-        int valeurXPixel = (int) Math.ceil((longitude - minLongitudeCarte)*coeffX);
-        //System.out.println("coeff X : " + coeffX);
-        //System.out.println("maxLongitudeCarte : " + maxLongitudeCarte );
-        return valeurXPixel;
-    }
-
-    public int valeurY(double latitude){
-        //System.out.println("latitude " + latitude);
-        double ecartLatitude = maxLatitudeCarte - minLatitudeCarte;
-        double coeffY = hauteurEcran / ecartLatitude;
-        int valeurYPixel = (int) Math.ceil((maxLatitudeCarte - latitude)*coeffY);
-        //System.out.println("coeff Y : " + coeffY);
-        //System.out.println("ecartLatitude : " + ecartLatitude);
-        return valeurYPixel;
-    }
-
-    public void afficherTournee(){
-
+    public void dessinerTournee(Graphics g2){
         for (int i = 0; i < tournee.getListeRequetes().size(); i++) {
             Adresse collecte = tournee.getListeRequetes().get(i).getEtapeCollecte();
             Adresse depot = tournee.getListeRequetes().get(i).getEtapeDepot();
@@ -152,42 +146,61 @@ public class Plan extends JPanel {
             double lonDepot = depot.getLongitude();
             double latDepot = depot.getLatitude();
 
-            System.out.println("lonCollecte " + lonCollecte);
-            System.out.println("latCollecte " + latCollecte);
-            System.out.println("lonDepot " + lonDepot);
-            System.out.println("latDepot " + latDepot);
-
             int valeurXCollecte = valeurX(lonCollecte);
             int valeurYCollecte = valeurY(latCollecte);
             int valeurXDepot = valeurX(lonDepot);
             int valeurYDepot = valeurY(latDepot);
 
-            System.out.println("valeurXCollecte " + valeurXCollecte);
+            Random rand = new Random();
+            int maximumCouleur = 255;
+            int r = rand.nextInt(maximumCouleur);
+            int gr = rand.nextInt(maximumCouleur);
+            int b = rand.nextInt(maximumCouleur);
+
+            g2.setColor(new Color(r,gr,b));
+
+            g2.fillRoundRect(valeurXCollecte-7,valeurYCollecte-7,14, 14, 14, 14);
+            g2.fillRect(valeurXDepot-7,valeurYDepot-7,14, 14);
+
+
+        }
+    }
+
+    public void afficherTournee(){
+
+        tourneeAppelee = true;
+
+
+
+
+
+            /*System.out.println("valeurXCollecte " + valeurXCollecte);
             System.out.println("valeurYCollecte " + valeurYCollecte);
             System.out.println("valeurXDepot " + valeurXDepot);
-            System.out.println("valeurYDepot " + valeurYDepot);
+            System.out.println("valeurYDepot " + valeurYDepot);*/
 
-            JButton boutonCollecte = new JButton();
+            /*BoutonRond boutonCollecte = new BoutonRond();
             JButton boutonDepot = new JButton();
 
-            boutonCollecte.setBounds(valeurXCollecte-2,valeurYCollecte-2, 15, 15);
-            boutonDepot.setBounds(valeurXDepot-2,valeurYDepot-2, 15, 15);
+            boutonCollecte.setBounds(valeurXCollecte-7,valeurYCollecte-7, 15, 15);
+            boutonDepot.setBounds(valeurXDepot-7,valeurYDepot-7, 15, 15);
             boutonCollecte.setBorderPainted(false);
             boutonDepot.setBorderPainted(false);
             boutonCollecte.setOpaque(true);
             boutonDepot.setOpaque(true);
-            boutonCollecte.setBackground(Color.GREEN);
-            boutonDepot.setBackground(Color.GREEN);
+            Random rand = new Random();
+            int maximumCouleur = 255;
+            int r = rand.nextInt(maximumCouleur);
+            int g = rand.nextInt(maximumCouleur);
+            int b = rand.nextInt(maximumCouleur);
+
+            //boutonCollecte.setBackground(new Color( r,g,b));
+            boutonDepot.setBackground(new Color( r,g,b));
 
             this.add(boutonCollecte);
-            this.add(boutonDepot);
+            this.add(boutonDepot);*/
 
-
-        }
-
-
-
-
+        //}
     }
 
 
