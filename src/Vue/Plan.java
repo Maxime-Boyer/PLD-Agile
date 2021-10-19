@@ -25,32 +25,6 @@ public class Plan extends JPanel {
     Carte carte = new Carte();
     Tournee tournee = new Tournee();
 
-    private static class RoundedBorder implements Border {
-
-        private int radius;
-
-
-        RoundedBorder(int radius) {
-            this.radius = radius;
-        }
-
-
-        public Insets getBorderInsets(Component c) {
-            return new Insets(this.radius+1, this.radius+1, this.radius+2, this.radius);
-        }
-
-
-        public boolean isBorderOpaque() {
-            return true;
-        }
-
-
-        public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-            g.drawRoundRect(x, y, width-1, height-1, radius, radius);
-        }
-    }
-
-
     public Plan(int largeurEcran, int hauteurEcran, Font policeTexte) throws ParserConfigurationException, SAXException {
 
         this.largeurEcran = largeurEcran;
@@ -193,10 +167,10 @@ public class Plan extends JPanel {
             System.out.println("valeurXDepot " + valeurXDepot);
             System.out.println("valeurYDepot " + valeurYDepot);
 
-            JButton boutonCollecte = new JButton();
+            BoutonRond boutonCollecte = new BoutonRond(valeurXCollecte-2, valeurYCollecte-2, 15, 15, 9);
             JButton boutonDepot = new JButton();
 
-            boutonCollecte.setBounds(valeurXCollecte-2,valeurYCollecte-2, 15, 15);
+            //boutonCollecte.setBounds(valeurXCollecte-2,valeurYCollecte-2, 15, 15);
             boutonDepot.setBounds(valeurXDepot-2,valeurYDepot-2, 15, 15);
             boutonCollecte.setBorderPainted(false);
             boutonDepot.setBorderPainted(false);
@@ -208,12 +182,7 @@ public class Plan extends JPanel {
             this.add(boutonCollecte);
             this.add(boutonDepot);
 
-
         }
-
-
-
-
     }
 
 
