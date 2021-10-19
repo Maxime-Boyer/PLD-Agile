@@ -27,13 +27,12 @@ public class Controleur {
     /**
      * Cré le controlleur de l'application
      * @param carte : la carte
-     * @param echelle : l'échelle de la carte
      */
-    public Controleur(Carte carte, int echelle) {
+    public Controleur(Carte carte) {
         this.carte = carte;
         //listofcommands
         this.etatActuel = etatInitial;
-        fenetre = new Fenetre(carte, echelle, this);
+        fenetre = new Fenetre(carte, this);
     }
 
     /**
