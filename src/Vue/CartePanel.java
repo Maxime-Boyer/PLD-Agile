@@ -18,9 +18,9 @@ import java.util.Random;
 
 
 
-public class Plan extends JPanel {
-    int largeurEcran;
-    int hauteurEcran;
+public class CartePanel extends JPanel {
+    int largeur;
+    int hauteur;
     double maxLongitudeCarte;
     double maxLatitudeCarte;
     double minLatitudeCarte;
@@ -29,25 +29,47 @@ public class Plan extends JPanel {
     Carte carte = new Carte();
     Tournee tournee = new Tournee();
 
-    public Plan(int largeurEcran, int hauteurEcran, Font policeTexte) throws ParserConfigurationException, SAXException {
 
+    public CartePanel(int largeurEcran, int hauteurEcran, Font policeTexte){
+
+        this.largeur = (int) 3*largeurEcran/4;
+        this.hauteur = (int) hauteurEcran;
         this.tourneeAppelee = false;
-        this.largeurEcran = largeurEcran;
-        this.hauteurEcran = hauteurEcran;
-
-        // propriétés du pannel principal
-        this.setBounds(0, 0, largeurEcran, hauteurEcran);
+        this.setBounds(0, 0, largeur, hauteur);
         this.setBackground(Color.WHITE);
         this.setLayout(null);
 
-        // TO REMOVE
-        JLabel toRemove = new JLabel("Zone plan");
-        toRemove.setFont(policeTexte);
-        this.add(toRemove);
+        tracerCarte();
+    }
 
+    public void tracerCarte(){
+        JFrame frameSelectCarte = new JFrame();
+        FileDialog fd = new FileDialog(frameSelectCarte, "Sélectionnez une carte au format xml", FileDialog.LOAD);
+        fd.setDirectory("C:\\");
+        fd.setFile("*.xml");
+        fd.setVisible(true);
+        String filename = fd.getDirectory() + fd.getFile();
 
-        JFrame yourJFrame = new JFrame();
-        FileDialog fd = new FileDialog(yourJFrame, "Choose a file", FileDialog.LOAD);
+        if (filename == null)
+            System.out.println("You cancelled the choice");
+        else
+            System.out.println("You chose " + filename);
+
+        try{
+            LecteurXML lecteur = new LecteurXML();
+            carte = lecteur.lectureCarte(filename);
+        }catch(Exception e){
+            System.out.println(e);
+        }
+
+        frameSelectCarte.dispose();
+        maxLongitudeLatitudeCarte();
+    }
+
+    public void tracerRequetes(){
+        //TODO : faire conversion produit croix pour lon lat en pixel
+        JFrame frameSelectRequetes = new JFrame();
+        FileDialog fd = new FileDialog(frameSelectRequetes, "Sélectionnez une liste de requêtes au format xml", FileDialog.LOAD);
         fd.setDirectory("C:\\");
         fd.setFile("*.xml");
         fd.setVisible(true);
@@ -57,50 +79,39 @@ public class Plan extends JPanel {
         else
             System.out.println("You chose " + filename);
 
-        LecteurXML lecteur = new LecteurXML();
-        carte = lecteur.lectureCarte(filename);
+        try{
+            LecteurXML lecteur = new LecteurXML();
+            tournee = lecteur.lectureRequete(filename);
+        }catch(Exception e){
+            System.out.println(e);
+        }
 
-        maxLongitudeLatitudeCarte();
+        frameSelectRequetes.dispose();
+        tourneeAppelee = true;
+    }
 
-        //TODO : faire conversion produit croix pour lon lat en pixel
-        fd.setDirectory("C:\\");
-        fd.setFile("*.xml");
-        fd.setVisible(true);
-        filename = fd.getDirectory() + fd.getFile();
-        if (filename == null)
-            System.out.println("You cancelled the choice");
-        else
-            System.out.println("You chose " + filename);
-
-        tournee = lecteur.lectureRequete(filename);
-
-
-        yourJFrame.dispose();
-        afficherTournee();
-
-
+    public void repaint(Graphics g) {
+        super.repaint();
+        paintComponent(g);
     }
 
     @Override
     public void paintComponent(Graphics g)
-    { super.paintComponent(g);
+    {
+        super.paintComponent(g);
 
         //System.out.println("hauteur ecran : " + hauteurEcran + " largeur ecran : " + largeurEcran);
-
         Graphics2D g2 = (Graphics2D) g;
-
         dessinerCarte(g2);
-
 
         if(tourneeAppelee){
             dessinerTournee(g2);
         }
-
     }
 
     public int valeurX(double longitude){
         double ecartLongitude = maxLongitudeCarte - minLongitudeCarte;
-        double coeffX = largeurEcran / ecartLongitude;
+        double coeffX = largeur / ecartLongitude;
         int valeurXPixel = (int) Math.ceil((longitude - minLongitudeCarte)*coeffX);
 
         return valeurXPixel;
@@ -108,7 +119,7 @@ public class Plan extends JPanel {
 
     public int valeurY(double latitude){
         double ecartLatitude = maxLatitudeCarte - minLatitudeCarte;
-        double coeffY = hauteurEcran / ecartLatitude;
+        double coeffY = hauteur / ecartLatitude;
         int valeurYPixel = (int) Math.ceil((maxLatitudeCarte - latitude)*coeffY);
 
         return valeurYPixel;
@@ -234,7 +245,4 @@ public class Plan extends JPanel {
                 + " | minLatitude: " + minLatitude
                 + " | minLongitude: " + minLongitude);
     }
-
-
-
 }

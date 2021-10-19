@@ -105,7 +105,6 @@ public class LecteurXML {
 
             tournee.setHeureDepart(heureDepart);
 
-
             NodeList nListRequetes = document.getElementsByTagName("request");
 
 

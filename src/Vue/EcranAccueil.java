@@ -2,9 +2,9 @@ package Vue;
 import javax.swing.*;
 import java.awt.*;
 
-public class EcranAccuil extends JPanel{
+public class EcranAccueil extends JPanel{
 
-    public EcranAccuil(int largeurEcran, int hauteurEcran, Font policeSousTitre, Font policeTexte) {
+    public EcranAccueil(int largeurEcran, int hauteurEcran, Font policeSousTitre, Font policeTexte, EcouteurBoutons ecouteurBoutons) {
 
         // propriétés du pannel principal
         int widthPannel = 900, heightPannel = 150;
@@ -30,9 +30,7 @@ public class EcranAccuil extends JPanel{
         this.add(pannelBouton);
 
         // Création du bouton menant à l'explorateur de fichier
-        JButton buttonImporterPlan = new JButton("Importer un plan");
-        buttonImporterPlan.setFont(policeTexte);
-        buttonImporterPlan.setMargin(new Insets(5,20,5,20));
-        pannelBouton.add(buttonImporterPlan);
+        Bouton boutonImporterCarte = new Bouton(Fenetre.IMPORT_CARTE, policeTexte, ecouteurBoutons);
+        pannelBouton.add(boutonImporterCarte);
     }
 }
