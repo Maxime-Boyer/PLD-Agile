@@ -39,5 +39,6 @@ public class FenetreApp {
         // ajout des composants à la fenetre
         fenetreApp.add(plan);
         fenetreApp.add(menuLateral);
+
     }
 }  
