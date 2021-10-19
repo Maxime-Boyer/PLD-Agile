@@ -106,7 +106,7 @@ public class CartePanel extends JPanel {
 
     public int valeurX(double longitude){
         double ecartLongitude = maxLongitudeCarte - minLongitudeCarte;
-        double coeffX = largeurEcran / ecartLongitude;
+        double coeffX = largeur / ecartLongitude;
         int valeurXPixel = (int) Math.ceil((longitude - minLongitudeCarte)*coeffX);
 
         return valeurXPixel;
@@ -114,7 +114,7 @@ public class CartePanel extends JPanel {
 
     public int valeurY(double latitude){
         double ecartLatitude = maxLatitudeCarte - minLatitudeCarte;
-        double coeffY = hauteurEcran / ecartLatitude;
+        double coeffY = hauteur / ecartLatitude;
         int valeurYPixel = (int) Math.ceil((maxLatitudeCarte - latitude)*coeffY);
 
         return valeurYPixel;
