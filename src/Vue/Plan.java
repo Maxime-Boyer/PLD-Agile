@@ -3,6 +3,7 @@ package Vue;
 import Model.Adresse;
 import Model.Carte;
 import Model.LecteurXML;
+import Model.Tournee;
 import org.xml.sax.SAXException;
 
 import javax.swing.*;
@@ -10,16 +11,18 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.Map;
 
 public class Plan extends JPanel {
     int largeurEcran;
     int hauteurEcran;
-    float maxLongitudeCarte;
-    float maxLatitudeCarte;
-    float minLatitudeCarte;
-    float minLongitudeCarte;
-    Carte carte;
+    double maxLongitudeCarte;
+    double maxLatitudeCarte;
+    double minLatitudeCarte;
+    double minLongitudeCarte;
+    Carte carte = new Carte();
+    Tournee tournee = new Tournee();
 
 
     public Plan(int largeurEcran, int hauteurEcran, Font policeTexte) throws ParserConfigurationException, SAXException {
@@ -28,13 +31,15 @@ public class Plan extends JPanel {
         this.hauteurEcran = hauteurEcran;
 
         // propriétés du pannel principal
-        this.setBounds(0, 0, largeurEcran * 3/4, hauteurEcran);
-        this.setBackground(Color.CYAN);
+        this.setBounds(0, 0, largeurEcran, hauteurEcran);
+        this.setBackground(Color.WHITE);
+        this.setLayout(null);
 
         // TO REMOVE
         JLabel toRemove = new JLabel("Zone plan");
         toRemove.setFont(policeTexte);
         this.add(toRemove);
+
 
         JFrame yourJFrame = new JFrame();
         FileDialog fd = new FileDialog(yourJFrame, "Choose a file", FileDialog.LOAD);
@@ -53,14 +58,27 @@ public class Plan extends JPanel {
         maxLongitudeLatitudeCarte();
 
         //TODO : faire conversion produit croix pour lon lat en pixel
+        fd.setDirectory("C:\\");
+        fd.setFile("*.xml");
+        fd.setVisible(true);
+        filename = fd.getDirectory() + fd.getFile();
+        if (filename == null)
+            System.out.println("You cancelled the choice");
+        else
+            System.out.println("You chose " + filename);
+
+        tournee = lecteur.lectureRequete(filename);
+
 
         yourJFrame.dispose();
+        afficherTournee();
     }
 
     public void repaint(Graphics g) {
         super.repaint();
 
         paintComponent(g);
+
     }
 
     public void paintComponent(Graphics g)
@@ -75,15 +93,11 @@ public class Plan extends JPanel {
 
         // BackGround
 
-        g2.setColor(Color.RED);
+        g2.setColor(Color.WHITE);
 
         g2.fillRect(0, 0, getSize().width, getSize().height);
 
-        g2.setColor(Color.WHITE);
-
-        g.drawLine(0, 56, 350, 267);
-        g.drawLine(56, 5, 40, 27);
-        g.drawLine(189, 39, 50, 2);
+        g2.setColor(Color.BLACK);
 
         System.out.println("maxLongitudeCarte" + maxLongitudeCarte);
         System.out.println("maxLatitudeCarte" + maxLatitudeCarte);
@@ -97,55 +111,91 @@ public class Plan extends JPanel {
             int origineY = valeurY(origine.getLatitude());
             int destinationX = valeurX(destination.getLongitude());
             int destinationY = valeurY(destination.getLatitude());
-            System.out.println("x1 : " + origineX + " y1 : " + origineY + " x2 : " + destinationX + " y2 : " + destinationY);
+            //System.out.println("x1 : " + origineX + " y1 : " + origineY + " x2 : " + destinationX + " y2 : " + destinationY);
 
-            g.drawLine(origineX, origineY, destinationX, destinationY);
+            g2.drawLine(origineX, origineY, destinationX, destinationY);
             //System.out.println("Segment " + i);
         }
         //g.drawString("HELLO JAVA");
     }
 
-    public int valeurX(float longitude){
+    public int valeurX(double longitude){
 
-        System.out.println("longitude " + longitude);
+        //System.out.println("longitude " + longitude);
         //float ecartLongitude = maxLongitudeCarte - minLongitudeCarte;
-        float ecartLongitude = 0.022F;
-        float coeffX = largeurEcran / ecartLongitude;
-        int valeurXPixel = (int) Math.ceil((maxLongitudeCarte - longitude)*coeffX);
-        System.out.println("coeff X : " + coeffX);
-        System.out.println("ecartLongitude : " + ecartLongitude);
+        double ecartLongitude = maxLongitudeCarte - minLongitudeCarte;
+        double coeffX = largeurEcran / ecartLongitude;
+        int valeurXPixel = (int) Math.ceil((longitude - minLongitudeCarte)*coeffX);
+        //System.out.println("coeff X : " + coeffX);
+        //System.out.println("maxLongitudeCarte : " + maxLongitudeCarte );
         return valeurXPixel;
     }
 
-    public int valeurY(float latitude){
-        System.out.println("latitude " + latitude);
-        //float ecartLatitude = maxLatitudeCarte - minLatitudeCarte;
-
-        float ecartLatitude = 0.022F;
-        float coeffY = hauteurEcran / ecartLatitude;
+    public int valeurY(double latitude){
+        //System.out.println("latitude " + latitude);
+        double ecartLatitude = maxLatitudeCarte - minLatitudeCarte;
+        double coeffY = hauteurEcran / ecartLatitude;
         int valeurYPixel = (int) Math.ceil((maxLatitudeCarte - latitude)*coeffY);
-        System.out.println("coeff Y : " + coeffY);
-        System.out.println("ecartLatitude : " + ecartLatitude);
+        //System.out.println("coeff Y : " + coeffY);
+        //System.out.println("ecartLatitude : " + ecartLatitude);
         return valeurYPixel;
     }
 
-    public int valeurXbis(float longitude){
-        float valeurX = (longitude+180)*(largeurEcran/360);
-        return (int)Math.ceil(valeurX);
+    public void afficherTournee(){
+
+        for (int i = 0; i < tournee.getListeRequetes().size(); i++) {
+            Adresse collecte = tournee.getListeRequetes().get(i).getEtapeCollecte();
+            Adresse depot = tournee.getListeRequetes().get(i).getEtapeDepot();
+
+            double lonCollecte = collecte.getLongitude();
+            double latCollecte = collecte.getLatitude();
+            double lonDepot = depot.getLongitude();
+            double latDepot = depot.getLatitude();
+
+            System.out.println("lonCollecte " + lonCollecte);
+            System.out.println("latCollecte " + latCollecte);
+            System.out.println("lonDepot " + lonDepot);
+            System.out.println("latDepot " + latDepot);
+
+            int valeurXCollecte = valeurX(lonCollecte);
+            int valeurYCollecte = valeurY(latCollecte);
+            int valeurXDepot = valeurX(lonDepot);
+            int valeurYDepot = valeurY(latDepot);
+
+            System.out.println("valeurXCollecte " + valeurXCollecte);
+            System.out.println("valeurYCollecte " + valeurYCollecte);
+            System.out.println("valeurXDepot " + valeurXDepot);
+            System.out.println("valeurYDepot " + valeurYDepot);
+
+            JButton boutonCollecte = new JButton();
+            JButton boutonDepot = new JButton();
+
+            boutonCollecte.setBounds(valeurXCollecte-2,valeurYCollecte-2, 15, 15);
+            boutonDepot.setBounds(valeurXDepot-2,valeurYDepot-2, 15, 15);
+            boutonCollecte.setBorderPainted(false);
+            boutonDepot.setBorderPainted(false);
+            boutonCollecte.setOpaque(true);
+            boutonDepot.setOpaque(true);
+            boutonCollecte.setBackground(Color.GREEN);
+            boutonDepot.setBackground(Color.GREEN);
+
+            this.add(boutonCollecte);
+            this.add(boutonDepot);
+
+
+        }
+
+
+
+
     }
 
-    public int valeurYbis(float latitude){
-        float latRad = (float) (latitude*Math.PI/180);
-        float mercN = (float) Math.log(Math.tan((Math.PI/4)+(latRad/2)));
-        float valeurY = (float) ((hauteurEcran/2)-(largeurEcran*mercN/(2*Math.PI)));
-        return (int)Math.ceil(valeurY);
-    }
 
     public void maxLongitudeLatitudeCarte(){
-        float maxLongitude = 0.0F;
-        float maxLatitude = 0.0F;
-        float minLongitude = 1000.0F;
-        float minLatitude = 1000.0F;
+        double maxLongitude = 0.0D;
+        double maxLatitude = 0.0D;
+        double minLongitude = 1000.0D;
+        double minLatitude = 1000.0D;
         for (Map.Entry mapentry : carte.getListeAdresses().entrySet()) {
             Adresse adresseCourante = (Adresse) mapentry.getValue();
             if(adresseCourante.getLongitude() > maxLongitude){
@@ -161,9 +211,17 @@ public class Plan extends JPanel {
                 minLongitude = adresseCourante.getLongitude();
             }
         }
+        maxLongitudeCarte = maxLongitude;
+        maxLatitudeCarte = maxLatitude;
+        minLatitudeCarte = minLatitude;
+        minLongitudeCarte = minLongitude;
+
         System.out.println("maxLongitude : "+maxLongitude
                 + " | maxLatitude: " + maxLatitude
                 + " | minLatitude: " + minLatitude
                 + " | minLongitude: " + minLongitude);
     }
+
+
+
 }
