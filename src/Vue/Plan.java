@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Random;
 
 public class Plan extends JPanel {
     int largeurEcran;
@@ -176,8 +177,16 @@ public class Plan extends JPanel {
             boutonDepot.setBorderPainted(false);
             boutonCollecte.setOpaque(true);
             boutonDepot.setOpaque(true);
-            boutonCollecte.setBackground(Color.GREEN);
-            boutonDepot.setBackground(Color.GREEN);
+            Random rand = new Random();
+            int maximumCouler = 255;
+            int r = rand.nextInt(maximumCouler);
+            int g = rand.nextInt(maximumCouler);
+            int b = rand.nextInt(maximumCouler);
+
+            boutonCollecte.setBackground(new Color( r,g,b));
+            boutonDepot.setBackground(new Color( r,g,b));
+
+
 
             this.add(boutonCollecte);
             this.add(boutonDepot);
