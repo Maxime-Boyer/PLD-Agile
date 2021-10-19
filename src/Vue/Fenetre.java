@@ -11,7 +11,7 @@ public class Fenetre extends JFrame{
 
     protected final static String IMPORT_CARTE = "Importer carte";
     protected final static String IMPORT_TOURNEE = "Importer tournée";
-    protected final static String CALCULER_TOURNEE = "Calculer itinéraire";
+    protected final static String PREPARER_TOURNEE = "Préparer tournée";
 
     private EcouteurBoutons ecouteurBoutons;
 
@@ -51,19 +51,19 @@ public class Fenetre extends JFrame{
                 break;
             case ETAT_PLAN_AFFICHE:
                 //E1: Carte chargée
-                try{
-                    CartePanel cartePanel = new CartePanel(this.getWidth(), this.getHeight(), policeTexte);
-                    this.add(cartePanel);
-                }catch(Exception e){
-                    System.out.println(e);
-                }
+                cartePanel = new CartePanel(this.getWidth(), this.getHeight(), policeTexte);
+                this.add(cartePanel);
                 menuLateral = new MenuLateral(this.getWidth(), this.getHeight(), policeTexte, policeTexteImportant, ecouteurBoutons);
                 this.add(menuLateral);
                 break;
             case ETAT_TOURNEE_CHARGEE:
                 // E2: Tournee chargee
+                cartePanel.tracerRequetes();
                 menuLateral.afficherMenuRequete();
-
+                break;
+            case ETAT_TOURNEE_PREPAREE:
+                menuLateral.afficherMenuEtapes();
+                break;
         }
 
         // repaint la fenetre
