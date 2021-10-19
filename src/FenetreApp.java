@@ -11,7 +11,7 @@ public class FenetreApp {
         // creation de la fenetre de l'application
         JFrame fenetreApp = new JFrame();
         fenetreApp.setTitle("Raccourc'IF - Hexanome Détect'IF");
-        fenetreApp.setVisible(true);
+
         fenetreApp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         fenetreApp.setLayout(null);
 
@@ -39,5 +39,7 @@ public class FenetreApp {
         // ajout des composants à la fenetre
         fenetreApp.add(plan);
         fenetreApp.add(menuLateral);
+
+        fenetreApp.setVisible(true);
     }
 }  
