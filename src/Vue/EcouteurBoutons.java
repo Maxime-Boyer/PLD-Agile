@@ -24,6 +24,9 @@ public class EcouteurBoutons implements ActionListener {
             case Fenetre.IMPORT_TOURNEE:
                 controleur.chargerListeRequete();
                 break;
+            case Fenetre.PREPARER_TOURNEE:
+                controleur.preparerTournee();
+                break;
         }
     }
 }
