@@ -41,8 +41,8 @@ public class LecteurXML {
                 Node nNodeAdresse = nListAdresse.item(temp);
                 if (nNodeAdresse.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNodeAdresse;
-                    Float latitude = Float.parseFloat(eElement.getAttribute("latitude"));
-                    Float longitude = Float.parseFloat(eElement.getAttribute("longitude"));
+                    double latitude = Double.parseDouble(eElement.getAttribute("latitude"));
+                    double longitude = Double.parseDouble(eElement.getAttribute("longitude"));
                     Long id = Long.parseLong(eElement.getAttribute("id"));
 
                     Adresse adresse = new Adresse(latitude,longitude,id);
