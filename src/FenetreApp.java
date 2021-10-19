@@ -34,11 +34,11 @@ public class FenetreApp {
 
         // E2 et +
         Plan plan = new Plan(dimensionsEcran.width, dimensionsEcran.height, policeTexte);
-        MenuLateral menuLateral = new MenuLateral(dimensionsEcran.width, dimensionsEcran.height, policeTexte, policeTexteImportant);
+        //MenuLateral menuLateral = new MenuLateral(dimensionsEcran.width, dimensionsEcran.height, policeTexte, policeTexteImportant, ecouteurBoutons);
 
         // ajout des composants à la fenetre
         fenetreApp.add(plan);
-        fenetreApp.add(menuLateral);
+        //fenetreApp.add(menuLateral);
 
     }
 }  
