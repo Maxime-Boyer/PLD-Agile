@@ -16,7 +16,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class LecteurXML {
-    Carte carte = new Carte();
+
+    private Carte carte = new Carte();
 
     public LecteurXML() {
     }
@@ -28,6 +29,7 @@ public class LecteurXML {
      * @throws SAXException
      */
     public Carte lectureCarte(String nomFichier) throws ParserConfigurationException, SAXException {
+
         try{
             carte = new Carte(nomFichier);
             File file = new File(nomFichier);
