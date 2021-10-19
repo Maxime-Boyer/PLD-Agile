@@ -28,6 +28,7 @@ public class CartePanel extends JPanel {
     private boolean tourneeAppelee;
     private Carte carte = new Carte();
     private Tournee tournee = new Tournee();
+    private LecteurXML lecteur = new LecteurXML();
 
     public CartePanel(int largeurEcran, int hauteurEcran, Font policeTexte){
 
@@ -59,7 +60,6 @@ public class CartePanel extends JPanel {
             System.out.println("You chose " + filename);
 
         try{
-            LecteurXML lecteur = new LecteurXML();
             carte = lecteur.lectureCarte(filename);
         }catch(Exception e){
             System.out.println(e);
@@ -67,10 +67,13 @@ public class CartePanel extends JPanel {
 
         frameSelectCarte.dispose();
         maxLongitudeLatitudeCarte();
+
+
+        tracerRequetes();
     }
 
     public void tracerRequetes(){
-        //TODO : faire conversion produit croix pour lon lat en pixel
+
         JFrame frameSelectRequetes = new JFrame();
         FileDialog fd = new FileDialog(frameSelectRequetes, "Sélectionnez une liste de requêtes au format xml", FileDialog.LOAD);
         fd.setDirectory("C:\\");
@@ -83,12 +86,10 @@ public class CartePanel extends JPanel {
             System.out.println("You chose " + filename);
 
         try{
-            LecteurXML lecteur = new LecteurXML();
             tournee = lecteur.lectureRequete(filename);
         }catch(Exception e){
             System.out.println(e);
         }
-
         frameSelectRequetes.dispose();
         tourneeAppelee = true;
     }
@@ -188,7 +189,7 @@ public class CartePanel extends JPanel {
 
 
 
-            /*System.out.println("valeurXCollecte " + valeurXCollecte);
+             /*System.out.println("valeurXCollecte " + valeurXCollecte);
             System.out.println("valeurYCollecte " + valeurYCollecte);
             System.out.println("valeurXDepot " + valeurXDepot);
             System.out.println("valeurYDepot " + valeurYDepot);*/

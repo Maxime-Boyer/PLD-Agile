@@ -43,4 +43,14 @@ public class Tournee {
     public void setListeRequetes(List<Requete> listeRequetes) {
         this.listeRequetes = listeRequetes;
     }
+
+    @Override
+    public String toString() {
+        return "Tournee{" +
+                "adresseDepart=" + adresseDepart +
+                ", heureDepart=" + heureDepart +
+                ", listeRequetes=" + listeRequetes +
+                ", listeChemins=" + listeChemins +
+                '}';
+    }
 }

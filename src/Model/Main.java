@@ -35,7 +35,7 @@ public class Main {
             System.out.println("You cancelled the choice");
         else
             System.out.println("You chose " + filename);
-        lecteur.lectureRequete(filename);
+        //lecteur.lectureRequete(filename, tournee);
 
         //List<Requete> requetes = lecteur.lectureRequete("/Users/bramss/Documents/4_IF/4IF_MOI/S1/AGILE/PLD-Agile/src/FichiersXML/requestsLarge9.xml");
 
