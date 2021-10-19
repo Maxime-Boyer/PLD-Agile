@@ -7,6 +7,7 @@ import Model.Tournee;
 import org.xml.sax.SAXException;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.math.BigDecimal;
@@ -23,6 +24,31 @@ public class Plan extends JPanel {
     double minLongitudeCarte;
     Carte carte = new Carte();
     Tournee tournee = new Tournee();
+
+    private static class RoundedBorder implements Border {
+
+        private int radius;
+
+
+        RoundedBorder(int radius) {
+            this.radius = radius;
+        }
+
+
+        public Insets getBorderInsets(Component c) {
+            return new Insets(this.radius+1, this.radius+1, this.radius+2, this.radius);
+        }
+
+
+        public boolean isBorderOpaque() {
+            return true;
+        }
+
+
+        public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+            g.drawRoundRect(x, y, width-1, height-1, radius, radius);
+        }
+    }
 
 
     public Plan(int largeurEcran, int hauteurEcran, Font policeTexte) throws ParserConfigurationException, SAXException {
@@ -170,12 +196,16 @@ public class Plan extends JPanel {
             JButton boutonCollecte = new JButton();
             JButton boutonDepot = new JButton();
 
-            boutonCollecte.setBounds(valeurXCollecte-2,valeurYCollecte-2, 15, 15);
-            boutonDepot.setBounds(valeurXDepot-2,valeurYDepot-2, 15, 15);
-            boutonCollecte.setBorderPainted(false);
-            boutonDepot.setBorderPainted(false);
+            boutonCollecte.setBounds(valeurXCollecte-7,valeurYCollecte-7, 15, 15);
+            boutonDepot.setBounds(valeurXDepot-7,valeurYDepot-7, 15, 15);
+            /*boutonCollecte.setBorderPainted(false);
+            boutonDepot.setBorderPainted(false);*/
             boutonCollecte.setOpaque(true);
             boutonDepot.setOpaque(true);
+            boutonDepot.setBorderPainted(true);
+            boutonCollecte.setBorderPainted(true);
+            boutonDepot.setBorder(new RoundedBorder(11));
+            //boutonDepot.setBorder(BorderFactory.createLineBorder(Color.BLUE,3));
             boutonCollecte.setBackground(Color.GREEN);
             boutonDepot.setBackground(Color.GREEN);
 
