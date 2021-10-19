@@ -9,7 +9,8 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws ParserConfigurationException, SAXException {
-        //Carte
+
+        //explorateur fichier
         JFrame yourJFrame = new JFrame();
         FileDialog fd = new FileDialog(yourJFrame, "Choose a file", FileDialog.LOAD);
         fd.setDirectory("C:\\");
@@ -21,6 +22,7 @@ public class Main {
         else
             System.out.println("You chose " + filename);
 
+        // lecture de la carte
         LecteurXML lecteur = new LecteurXML();
         lecteur.lectureCarte(filename);
 

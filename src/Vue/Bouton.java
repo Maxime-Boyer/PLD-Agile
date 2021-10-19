@@ -5,9 +5,10 @@ import java.awt.*;
 
 public class Bouton extends JButton {
 
-    public Bouton(String texteBouton, Font policeTexte){
+    public Bouton(String texteBouton, Font policeTexte, EcouteurBoutons ecouteurBoutons){
         this.setText(texteBouton);
         this.setFont(policeTexte);
         this.setMargin(new Insets(5,20,5,20));
+        this.addActionListener(ecouteurBoutons);
     }
 }

@@ -18,9 +18,9 @@ import java.util.Random;
 
 
 
-public class Plan extends JPanel {
-    int largeurEcran;
-    int hauteurEcran;
+public class CartePanel extends JPanel {
+    int largeur;
+    int hauteur;
     double maxLongitudeCarte;
     double maxLatitudeCarte;
     double minLatitudeCarte;
@@ -29,14 +29,15 @@ public class Plan extends JPanel {
     Carte carte = new Carte();
     Tournee tournee = new Tournee();
 
-    public Plan(int largeurEcran, int hauteurEcran, Font policeTexte) throws ParserConfigurationException, SAXException {
 
+    public CartePanel(int largeurEcran, int hauteurEcran, Font policeTexte) throws ParserConfigurationException, SAXException {
+
+        this.largeur = (int) 3*largeurEcran/4;
+        this.hauteur = (int) hauteurEcran;
         this.tourneeAppelee = false;
-        this.largeurEcran = largeurEcran;
-        this.hauteurEcran = hauteurEcran;
 
         // propriétés du pannel principal
-        this.setBounds(0, 0, largeurEcran, hauteurEcran);
+        this.setBounds(0, 0, largeur, hauteur);
         this.setBackground(Color.WHITE);
         this.setLayout(null);
 
@@ -77,7 +78,12 @@ public class Plan extends JPanel {
 
         yourJFrame.dispose();
         afficherTournee();
+    }
 
+    public void repaint(Graphics g) {
+        super.repaint();
+
+        paintComponent(g);
 
     }
 
@@ -100,7 +106,7 @@ public class Plan extends JPanel {
 
     public int valeurX(double longitude){
         double ecartLongitude = maxLongitudeCarte - minLongitudeCarte;
-        double coeffX = largeurEcran / ecartLongitude;
+        double coeffX = largeur / ecartLongitude;
         int valeurXPixel = (int) Math.ceil((longitude - minLongitudeCarte)*coeffX);
 
         return valeurXPixel;
@@ -108,7 +114,7 @@ public class Plan extends JPanel {
 
     public int valeurY(double latitude){
         double ecartLatitude = maxLatitudeCarte - minLatitudeCarte;
-        double coeffY = hauteurEcran / ecartLatitude;
+        double coeffY = hauteur / ecartLatitude;
         int valeurYPixel = (int) Math.ceil((maxLatitudeCarte - latitude)*coeffY);
 
         return valeurYPixel;

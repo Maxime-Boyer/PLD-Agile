@@ -5,14 +5,22 @@ import java.awt.*;
 
 public class MenuLateral extends JPanel {
 
-    public MenuLateral(int largeurEcran, int hauteurEcran, Font policeTexte, Font policeTexteImportant){
+    private int valMarginBase;
+    private int hauteurBouton;
+    private Font policeTexte;
+    private Font policeTexteImportant;
+    private EcouteurBoutons ecouteurBoutons;
 
-        int largeurPanelPrincipal = (int) (largeurEcran * 1/4);
-        int valMarginBase = 5;
-        int hauteurBouton = 50;
+    public MenuLateral(int largeurFenetre, int hauteurEcran, Font policeTexte, Font policeTexteImportant, EcouteurBoutons ecouteurBoutons){
+
+        this.valMarginBase = 5;
+        this.hauteurBouton = 50;
+        this.policeTexte = policeTexte;
+        this.policeTexteImportant = policeTexteImportant;
+        this.ecouteurBoutons = ecouteurBoutons;
 
         // propriétés du panel principal
-        this.setBounds(largeurEcran - largeurPanelPrincipal, 0, largeurPanelPrincipal, hauteurEcran);
+        this.setBounds(largeurFenetre - largeurFenetre * 1/4, 0, largeurFenetre * 1/4, hauteurEcran);
         this.setLayout(null);
 
 
@@ -21,46 +29,53 @@ public class MenuLateral extends JPanel {
         /************************************************************************************/
 
         JPanel panelImport = new JPanel();
-        panelImport.setBounds(valMarginBase, valMarginBase, largeurPanelPrincipal-2*valMarginBase, hauteurBouton );
+        panelImport.setBounds(valMarginBase, valMarginBase, this.getWidth()-2*valMarginBase, hauteurBouton );
         panelImport.setLayout(null);
         this.add(panelImport);
 
-        Bouton boutonImporterPlan = new Bouton("Importer plan", policeTexte);
+        Bouton boutonImporterPlan = new Bouton(Fenetre.IMPORT_CARTE, policeTexte, ecouteurBoutons);
         boutonImporterPlan.setBounds( 0,0, panelImport.getWidth()/2 - valMarginBase/2, hauteurBouton);
         panelImport.add(boutonImporterPlan);
 
-        Bouton boutonImporterTournee = new Bouton("Importer tournée", policeTexte);
+        Bouton boutonImporterTournee = new Bouton(Fenetre.IMPORT_TOURNEE, policeTexte, ecouteurBoutons);
         boutonImporterTournee.setBounds(panelImport.getWidth()/2 + valMarginBase/2,0, panelImport.getWidth()/2 - valMarginBase/2, hauteurBouton);
         panelImport.add(boutonImporterTournee);
 
+    }
 
-        /************************************************************************************/
-        /*                      Panel undo / redo / Ajouter requête                         */
-        /************************************************************************************/
+    public void afficherMenuRequete(){
+        Bouton boutonCalculItineraire = new Bouton(Fenetre.CALCULER_TOURNEE, policeTexte, ecouteurBoutons);
+        boutonCalculItineraire.setBounds( valMarginBase, this.getHeight() - hauteurBouton - valMarginBase, this.getWidth() - 2*valMarginBase, hauteurBouton);
+        this.add(boutonCalculItineraire);
+    }
 
-        JPanel panelBoutonsE4 = new JPanel();
+    /************************************************************************************/
+    /*                      Panel undo / redo / Ajouter requête                         */
+    /************************************************************************************/
+
+        /*JPanel panelBoutonsE4 = new JPanel();
         panelBoutonsE4.setBounds(valMarginBase, panelImport.getY() + panelImport.getHeight() + valMarginBase, largeurPanelPrincipal-2*valMarginBase, hauteurBouton );
         panelBoutonsE4.setLayout(null);
         this.add(panelBoutonsE4);
 
-        Bouton boutonUndo = new Bouton("<--", policeTexte);
+        Bouton boutonUndo = new Bouton("<--", policeTexte, ecouteurBoutons);
         boutonUndo.setBounds( 0,0, panelBoutonsE4.getWidth()/4 - valMarginBase*3/4, 50);
         panelBoutonsE4.add(boutonUndo);
 
-        Bouton boutonRedo = new Bouton("-->", policeTexte);
+        Bouton boutonRedo = new Bouton("-->", policeTexte, ecouteurBoutons);
         boutonRedo.setBounds(boutonUndo.getX() + boutonUndo.getWidth() + valMarginBase,0, panelBoutonsE4.getWidth()/4 - valMarginBase*3/4 -1, hauteurBouton);
         panelBoutonsE4.add(boutonRedo);
 
-        Bouton boutonAjouterEtape = new Bouton("Ajouter étape", policeTexte);
+        Bouton boutonAjouterEtape = new Bouton("Ajouter étape", policeTexte, ecouteurBoutons);
         boutonAjouterEtape.setBounds(boutonRedo.getX() + boutonRedo.getWidth() + valMarginBase,0, panelBoutonsE4.getWidth()/2 - valMarginBase/2, hauteurBouton);
-        panelBoutonsE4.add(boutonAjouterEtape);
+        panelBoutonsE4.add(boutonAjouterEtape);*/
 
 
-        /************************************************************************************/
-        /*                      Panel liste étapes ou liste requêtes                        */
-        /************************************************************************************/
+    /************************************************************************************/
+    /*                      Panel liste étapes ou liste requêtes                        */
+    /************************************************************************************/
 
-        int yDebutPanelConsultation = (int) (panelBoutonsE4.getY() + panelBoutonsE4.getHeight() + 2 * valMarginBase +2);
+        /*int yDebutPanelConsultation = (int) (panelBoutonsE4.getY() + panelBoutonsE4.getHeight() + 2 * valMarginBase +2);
         int yFinPanelConsultation = (int) (this.getHeight() - hauteurBouton - 4 * valMarginBase - 4);
         JPanel panelConsultation = new JPanel();
         panelConsultation.setBounds(valMarginBase+2, yDebutPanelConsultation, largeurPanelPrincipal-2*valMarginBase - 4, yFinPanelConsultation - yDebutPanelConsultation );
@@ -80,18 +95,17 @@ public class MenuLateral extends JPanel {
 
             listeExemple[i].setBounds(0, positionTop, panelConsultation.getWidth(), 110);
             panelConsultation.add(listeExemple[i]);
-        }
+        }*/
 
-        /************************************************************************************/
-        /*                         Panel bouton en bas du menu                              */
-        /************************************************************************************/
+    /************************************************************************************/
+    /*                         Panel bouton en bas du menu                              */
+    /************************************************************************************/
 
         /* Bouton boutonCalculItineraire = new Bouton("Calculer itinéraire", policeTexte);
         boutonCalculItineraire.setBounds( valMarginBase, this.getHeight() - hauteurBouton - valMarginBase, this.getWidth() - 2*valMarginBase, hauteurBouton);
         this.add(boutonCalculItineraire); */
 
-        Bouton boutonExporterFeuilleRoute = new Bouton("Exporter feuille de route", policeTexte);
+        /*Bouton boutonExporterFeuilleRoute = new Bouton("Exporter feuille de route", policeTexte, ecouteurBoutons);
         boutonExporterFeuilleRoute.setBounds( valMarginBase, this.getHeight() - hauteurBouton - valMarginBase, this.getWidth() - 2*valMarginBase, hauteurBouton);
-        this.add(boutonExporterFeuilleRoute);
-    }
+        this.add(boutonExporterFeuilleRoute);*/
 }
