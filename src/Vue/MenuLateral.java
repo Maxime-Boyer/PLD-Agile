@@ -1,5 +1,7 @@
 package Vue;
 
+import Model.Tournee;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -53,7 +55,7 @@ public class MenuLateral extends JPanel {
         panelImport.add(boutonImporterTournee);
     }
 
-    public void afficherMenuRequete(){
+    public void afficherMenuRequete(Tournee tournee){
 
         //creation du pannel permettant d'afficher le détail des requêtes ou des étapes
         int yDebutPanelConsultation = (int) (panelImport.getY() + panelImport.getHeight() + 2 * valMarginBase +2);
@@ -80,6 +82,12 @@ public class MenuLateral extends JPanel {
         boutonPreparerTournee = new Bouton(Fenetre.PREPARER_TOURNEE, policeTexte, ecouteurBoutons);
         boutonPreparerTournee.setBounds( valMarginBase, this.getHeight() - hauteurBouton - valMarginBase, this.getWidth() - 2*valMarginBase, hauteurBouton);
         this.add(boutonPreparerTournee);
+
+        System.out.println("Hello");
+        for (int i = 0; i < tournee.getListeRequetes().size(); i++) {
+            System.out.println("----------------");
+            System.out.println(tournee.getListeRequetes().get(i).getEtapeCollecte().getDureeEtape());
+        }
     }
 
     public void afficherMenuEtapes(){

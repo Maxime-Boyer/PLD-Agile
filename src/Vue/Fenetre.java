@@ -59,7 +59,7 @@ public class Fenetre extends JFrame{
             case ETAT_TOURNEE_CHARGEE:
                 // E2: Tournee chargee
                 cartePanel.tracerRequetes();
-                menuLateral.afficherMenuRequete();
+                menuLateral.afficherMenuRequete(cartePanel.getTournee());
                 break;
             case ETAT_TOURNEE_PREPAREE:
                 menuLateral.afficherMenuEtapes();
