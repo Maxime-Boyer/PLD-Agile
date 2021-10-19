@@ -99,18 +99,20 @@ class LecteurXMLTest {
     /**
      * Test vérification d'une Adresse d'un fichier XML a bien les bonnes valeurs de longitude et latitude
      */
-    /*@Test
+    @Test
     void lectureRequete() throws ParserConfigurationException, SAXException {
 
-    try {
-        LecteurXML lecteurXML = new LecteurXML();
-        Carte carte = new Carte();
-        carte = lecteurXML.lectureCarte("C:\\Users\\maxim\\IdeaProjects\\PLD-Agile\\src\\FichiersXML\\mediumMap.xml");
-        Tournee tournee = lecteurXML.lectureRequete("C:\\Users\\maxim\\IdeaProjects\\PLD-Agile\\src\\FichiersXML\\requestsMedium5.xml");
+        try {
+            LecteurXML lecteurXML = new LecteurXML();
+            Carte carte = new Carte();
+            carte = lecteurXML.lectureCarte("C:\\Users\\maxim\\IdeaProjects\\PLD-Agile\\src\\FichiersXML\\mediumMap.xml");
+            Tournee tournee = lecteurXML.lectureRequete("C:\\Users\\maxim\\IdeaProjects\\PLD-Agile\\src\\FichiersXML\\requestsMedium5.xml");
 
-        assertEquals(carte.obtenirAdresseParId(1701038065L).getLatitude(), 45.743904);
-        assertEquals(carte.obtenirAdresseParId(1701038065L).getLongitude(), 4.893847);
-    }catch( Exception e){
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
 
-    }*/
+
 }
