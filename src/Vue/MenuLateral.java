@@ -81,7 +81,6 @@ public class MenuLateral extends JPanel {
                 positionTop = listeRequetes[i-1].getY() + listeRequetes[i-1].getHeight() + 2*valMarginBase;
 
             listeRequetes[i].setBounds(0, positionTop, panelConsultation.getWidth(), 130);
-
             panelConsultation.add(listeRequetes[i]);
         }
 
