@@ -67,9 +67,6 @@ public class CartePanel extends JPanel {
 
         frameSelectCarte.dispose();
         maxLongitudeLatitudeCarte();
-
-
-        tracerRequetes();
     }
 
     public void tracerRequetes(){

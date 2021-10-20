@@ -4,9 +4,9 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 
-public class Etape extends JPanel {
+public class EtapePanel extends JPanel {
 
-    public  Etape(String heurePassage, boolean estEtapeCollecte, int duree, String adresse , int parentWidth, int valMarginBase, Font policeTexte, Font policeTexteImportant){
+    public EtapePanel(String heurePassage, boolean estEtapeCollecte, int duree, String adresse , int parentWidth, int valMarginBase, Font policeTexte, Font policeTexteImportant){
 
         /************************************************************************************/
         /*                              Panel principal                                     */

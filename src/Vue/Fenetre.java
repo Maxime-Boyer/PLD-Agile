@@ -38,6 +38,7 @@ public class Fenetre extends JFrame{
         this.ecouteurBoutons = new EcouteurBoutons(controleur);
 
         afficherEtat(NomEtat.ETAT_INITIAL);
+        this.setResizable(false);
         this.setVisible(true);
     }
 
@@ -51,9 +52,9 @@ public class Fenetre extends JFrame{
                 break;
             case ETAT_PLAN_AFFICHE:
                 //E1: Carte chargée
-                cartePanel = new CartePanel(this.getWidth(), this.getHeight(), policeTexte);
+                cartePanel = new CartePanel(this.getWidth(), this.getHeight()-20, policeTexte);
                 this.add(cartePanel);
-                menuLateral = new MenuLateral(this.getWidth(), this.getHeight(), policeTexte, policeTexteImportant, ecouteurBoutons);
+                menuLateral = new MenuLateral(this.getWidth(), this.getHeight()-20, policeTexte, policeTexteImportant, ecouteurBoutons);
                 this.add(menuLateral);
                 break;
             case ETAT_TOURNEE_CHARGEE:
