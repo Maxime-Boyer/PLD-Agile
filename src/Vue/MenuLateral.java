@@ -67,7 +67,7 @@ public class MenuLateral extends JPanel {
 
         //affichage du détaille des requêtes
         Requete[] listeRequetes = new Requete[10];
-        var positionTop = 0;
+        int positionTop = 0;
         for (int i = 0; i < 10; i++) {
             listeRequetes[i] = new Requete(13, 10, "37 rue du lac", "20 Av. Albert Einstein", panelConsultation.getWidth(), valMarginBase, policeTexte, policeTexteImportant);
 
@@ -118,7 +118,7 @@ public class MenuLateral extends JPanel {
 
         //affichage du détaille des étapes
         Etape[] listeEtapes = new Etape[10];
-        var positionTop = 0;
+        int positionTop = 0;
         for (int i = 0; i < 10; i++) {
             listeEtapes[i] = new Etape("8h18", false, 12, "20 Av. Albert Einstein", panelConsultation.getWidth(), valMarginBase, policeTexte, policeTexteImportant);
 
