@@ -1,6 +1,7 @@
 package Vue;
 
 import Model.Tournee;
+import Model.Etape;
 
 import javax.swing.*;
 import java.awt.*;
@@ -65,11 +66,16 @@ public class MenuLateral extends JPanel {
         panelConsultation.setLayout(null);
         this.add(panelConsultation);
 
-        //affichage du détaille des requêtes
-        Requete[] listeRequetes = new Requete[10];
+        //affichage du détaillé des requêtes
+        RequetePanel[] listeRequetes = new RequetePanel[10];
         int positionTop = 0;
-        for (int i = 0; i < 10; i++) {
-            listeRequetes[i] = new Requete(13, 10, "37 rue du lac", "20 Av. Albert Einstein", panelConsultation.getWidth(), valMarginBase, policeTexte, policeTexteImportant);
+        Etape collecte, depot;
+        for (int i = 0; i < tournee.getListeRequetes().size(); i++) {
+            collecte = tournee.getListeRequetes().get(i).getEtapeCollecte();
+            depot = tournee.getListeRequetes().get(i).getEtapeDepot();
+
+            // TODO: remplacer les ID par les adresses
+            listeRequetes[i] = new RequetePanel(collecte.getDureeEtape(), depot.getDureeEtape(), "Adresse ID: " + collecte.getIdAdresse().toString(), "Adresse ID: " + depot.getIdAdresse().toString(), panelConsultation.getWidth(), valMarginBase, policeTexte, policeTexteImportant);
 
             if(i > 0)
                 positionTop = listeRequetes[i-1].getY() + listeRequetes[i-1].getHeight() + 2*valMarginBase;
@@ -82,12 +88,6 @@ public class MenuLateral extends JPanel {
         boutonPreparerTournee = new Bouton(Fenetre.PREPARER_TOURNEE, policeTexte, ecouteurBoutons);
         boutonPreparerTournee.setBounds( valMarginBase, this.getHeight() - hauteurBouton - valMarginBase, this.getWidth() - 2*valMarginBase, hauteurBouton);
         this.add(boutonPreparerTournee);
-
-        System.out.println("Hello");
-        for (int i = 0; i < tournee.getListeRequetes().size(); i++) {
-            System.out.println("----------------");
-            System.out.println(tournee.getListeRequetes().get(i).getEtapeCollecte().getDureeEtape());
-        }
     }
 
     public void afficherMenuEtapes(){
@@ -117,10 +117,10 @@ public class MenuLateral extends JPanel {
         panelConsultation.setBounds(valMarginBase+2, yDebutPanelConsultation, this.getWidth()-2*valMarginBase - 4, yFinPanelConsultation - yDebutPanelConsultation );
 
         //affichage du détaille des étapes
-        Etape[] listeEtapes = new Etape[10];
-        int positionTop = 0;
+        EtapePanel[] listeEtapes = new EtapePanel[10];
+        var positionTop = 0;
         for (int i = 0; i < 10; i++) {
-            listeEtapes[i] = new Etape("8h18", false, 12, "20 Av. Albert Einstein", panelConsultation.getWidth(), valMarginBase, policeTexte, policeTexteImportant);
+            listeEtapes[i] = new EtapePanel("8h18", false, 12, "20 Av. Albert Einstein", panelConsultation.getWidth(), valMarginBase, policeTexte, policeTexteImportant);
 
             if(i > 0)
                 positionTop = listeEtapes[i-1].getY() + listeEtapes[i-1].getHeight() + 2*valMarginBase;

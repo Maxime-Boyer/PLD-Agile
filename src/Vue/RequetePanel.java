@@ -5,9 +5,9 @@ import java.awt.*;
 import javax.swing.border.LineBorder;
 
 
-public class Requete extends JPanel {
+public class RequetePanel extends JPanel {
 
-    public Requete(int dureeCollecte, int dureeDepot, String adresseCollecte, String adresseDepot, int parentWidth, int valMarginBase, Font policeTexte, Font policeTexteImportant){
+    public RequetePanel(int dureeCollecte, int dureeDepot, String adresseCollecte, String adresseDepot, int parentWidth, int valMarginBase, Font policeTexte, Font policeTexteImportant){
 
         /************************************************************************************/
         /*                              Panel principal                                     */
