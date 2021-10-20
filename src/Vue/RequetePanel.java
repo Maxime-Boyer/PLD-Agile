@@ -20,7 +20,7 @@ public class RequetePanel extends JPanel {
         /************************************************************************************/
         /*                               Label duree de collecte                            */
         /************************************************************************************/
-        JLabel labelTitreCollecte = new JLabel("Collecte - " + String.valueOf(dureeCollecte) + " min");
+        JLabel labelTitreCollecte = new JLabel("Collecte - " + String.valueOf(dureeCollecte) + " sec");
         labelTitreCollecte.setBounds(2*valMarginBase, valMarginBase, this.getWidth() - 4 * valMarginBase, 30);
         labelTitreCollecte.setFont(policeTexteImportant);
         this.add(labelTitreCollecte);
