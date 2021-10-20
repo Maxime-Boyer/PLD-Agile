@@ -6,6 +6,6 @@ public class EtatTourneeChargee implements Etat {
     @Override
     public void preparerTournee (Controleur controleur, Fenetre fenetre) {
         fenetre.afficherEtat(NomEtat.ETAT_TOURNEE_PREPAREE);
-        //controleur.setEtatActuel(controleur.etatTourneeChargee);
+        controleur.setEtatActuel(controleur.etatTourneeChargee);
     }
 }
