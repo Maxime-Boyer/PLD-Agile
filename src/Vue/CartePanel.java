@@ -149,6 +149,15 @@ public class CartePanel extends JPanel {
     }
 
     public void dessinerTournee(Graphics g2){
+        Adresse depart = tournee.getAdresseDepart();
+        double lonDepart = depart.getLongitude();
+        double latDepart = depart.getLatitude();
+        int valeurXDepart = valeurX(lonDepart);
+        int valeurYDepart = valeurY(latDepart);
+        g2.setColor(Color.RED);
+        g2.fillOval(valeurXDepart,valeurYDepart, 25,12);
+
+
         for (int i = 0; i < tournee.getListeRequetes().size(); i++) {
             Adresse collecte = tournee.getListeRequetes().get(i).getEtapeCollecte();
             Adresse depot = tournee.getListeRequetes().get(i).getEtapeDepot();
