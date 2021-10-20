@@ -19,7 +19,7 @@ public class Controleur {
     protected final EtatAjoutRequete6DureeDepot etatAjoutRequete6DureeDepot = new EtatAjoutRequete6DureeDepot();
     protected final EtatInitial etatInitial = new EtatInitial();
     protected final EtatTourneeChargee etatTourneeChargee = new EtatTourneeChargee();
-    protected final EtatOrdonneTournee etatOrdonneTournee = new EtatOrdonneTournee();
+    protected final EtatTourneeOrdonnee etatTourneeOrdonnee = new EtatTourneeOrdonnee();
     protected final EtatPlanAffiche etatPlanAffiche = new EtatPlanAffiche();
     protected final EtatSupprimerRequete etatSupprimerRequete = new EtatSupprimerRequete();
     protected final EtatSupprimerRequetePointSelectionne etatSupprimerRequetePointSelectionne = new EtatSupprimerRequetePointSelectionne();

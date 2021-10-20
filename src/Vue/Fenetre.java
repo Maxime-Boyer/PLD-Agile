@@ -71,12 +71,21 @@ public class Fenetre extends JFrame{
         this.repaint();
     }
 
+    //Permet de retirer des pannel
     public void retirerElment(NomEtat etatPrecedent){
         switch (etatPrecedent){
             case ETAT_INITIAL:
                 if(ecranAccueil != null)
                     this.remove(ecranAccueil);
                 break;
+            case ETAT_PLAN_AFFICHE:
+                if(cartePanel != null)
+                    this.remove(cartePanel);
+            case ETAT_TOURNEE_CHARGEE:
+                if(cartePanel != null)
+                    this.remove(cartePanel);
+                if(menuLateral != null)
+                    this.remove(menuLateral);
         }
     }
 }

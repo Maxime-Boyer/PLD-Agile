@@ -6,7 +6,6 @@ public class EtatInitial implements Etat {
 
     @Override
     public void chargerPlan (Controleur controleur, Fenetre fenetre) {
-        //fenetre.allow(false);
         System.out.println("Ouvrir explorateur de fichier");
         fenetre.retirerElment(NomEtat.ETAT_INITIAL);
         fenetre.afficherEtat(NomEtat.ETAT_PLAN_AFFICHE);
