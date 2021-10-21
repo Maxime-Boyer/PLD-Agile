@@ -51,14 +51,14 @@ public class Controleur {
     }
 
     /**
-     * Méthode appelé par fenetre après  sur le bouton "Importer tournée"
+     * Méthode appelé par fenetre après  sur le bouton "Importer un plan"
      */
     public void chargerNouveauPlan() {
         etatActuel.chargerNouveauPlan(this, fenetre);
     }
 
     /**
-     * Méthode appelé par fenetre après avoir cliqué sur le bouton "Importer un plan"
+     * Méthode appelé par fenetre après avoir cliqué sur le bouton "Importer tournée"
      */
     public void chargerListeRequete() {
         etatActuel.chargerListeRequete(this, fenetre);
