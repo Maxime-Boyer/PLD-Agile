@@ -54,4 +54,8 @@ public class CalculateurTournee {
         return resultatDijkstra;
 
     }
+
+    public TSP getTsp() {
+        return tsp;
+    }
 }
