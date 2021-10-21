@@ -1,9 +1,6 @@
 package Vue;
 import Algorithmie.CalculateurTournee;
-import Model.Adresse;
-import Model.Carte;
-import Model.LecteurXML;
-import Model.Tournee;
+import Model.*;
 import org.xml.sax.SAXException;
 
 import javax.swing.*;
@@ -12,10 +9,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Random;
-
+import java.util.*;
 
 
 public class CartePanel extends JPanel {
@@ -91,27 +85,32 @@ public class CartePanel extends JPanel {
         tourneeAppelee = true;
     }
 
-   /* public void dessinerItineraire(Graphics g2) {
+    public void dessinerItineraire(Graphics g2) {
+        System.out.println("zebi");
         if (tourneeAppelee == true) {
+
             CalculateurTournee calculTournee = new CalculateurTournee(carte, tournee);
-            Tournee itineraire = new Tournee();
+            HashMap<Long, LinkedList<CheminEntreEtape>> itineraire = new HashMap<>();
             itineraire = calculTournee.calculerTournee();
-            for (int i = 0; i < itineraire.getListeChemins().size(); i++) {
-                for (int j = 0; j < itineraire.getListeChemins().get(i).getListeSegment().size(); j++) {
-                    Adresse origine = itineraire.getListeChemins().get(i).getListeSegment().get(j).getOrigine();
-                    Adresse destination = itineraire.getListeChemins().get(i).getListeSegment().get(j).getDestination();
-                    int origineX = valeurX(origine.getLongitude());
-                    int origineY = valeurY(origine.getLatitude());
-                    int destinationX = valeurX(destination.getLongitude());
-                    int destinationY = valeurY(destination.getLatitude());
-                    g2.setColor(Color.RED);
-                    g2.drawLine(origineX, origineY, destinationX, destinationY);
+            System.out.println(itineraire);
+            for (Map.Entry<Long, LinkedList<CheminEntreEtape>> entry : itineraire.entrySet()) {
+                for (int i = 0; i < entry.getValue().size(); i++) {
+                    for (int j = 0; j < entry.getValue().get(i).getListeSegment().size(); j++) {
+                        Adresse origine = entry.getValue().get(i).getListeSegment().get(j).getOrigine();
+                        Adresse destination = entry.getValue().get(i).getListeSegment().get(j).getDestination();
+                        int origineX = valeurX(origine.getLongitude());
+                        int origineY = valeurY(origine.getLatitude());
+                        int destinationX = valeurX(destination.getLongitude());
+                        int destinationY = valeurY(destination.getLatitude());
+                        g2.setColor(Color.RED);
+                        g2.drawLine(origineX, origineY, destinationX, destinationY);
 
+                    }
                 }
-            }
 
+            }
         }
-    }*/
+    }
     public void repaint(Graphics g) {
         super.repaint();
         paintComponent(g);
@@ -128,6 +127,8 @@ public class CartePanel extends JPanel {
 
         if(tourneeAppelee){
             dessinerTournee(g2);
+            //A DEGAGER
+            dessinerItineraire(g2);
         }
     }
 

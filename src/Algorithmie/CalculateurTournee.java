@@ -29,7 +29,7 @@ public class CalculateurTournee {
 
     }
 
-    public Tournee calculerTournee(){
+    public HashMap<Long,LinkedList<CheminEntreEtape>> calculerTournee(){
 
         System.out.println("-------------- DEBUT ALGO ------------");
         HashMap<Long,LinkedList<CheminEntreEtape>> resultatDijkstra = dijkstra.calculerChemins();
@@ -39,7 +39,7 @@ public class CalculateurTournee {
         System.out.println("-------------- FIN ALGO ------------");
 
 
-        return tournee;
+        return resultatDijkstra;
 
     }
 }

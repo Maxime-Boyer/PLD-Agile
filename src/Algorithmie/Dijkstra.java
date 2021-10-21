@@ -27,9 +27,9 @@ public class Dijkstra {
 
         this.tournee = tournee;
         this.carte = carte;
-
-        mapCoutGris = new HashMap<>();
-        mapCoutNoir = new HashMap<>();
+        listeBlanc = new HashMap<Long,Adresse>();
+        mapCoutGris = new HashMap<Long,Double>();
+        mapCoutNoir = new HashMap<Long,Double>();
         pi = new HashMap<>();
         resultatDijkstra = new HashMap<>();
 
@@ -42,6 +42,7 @@ public class Dijkstra {
 
         //Pour chaque future etape
         //Il y a deux etapes par requete
+
         for(int i=0 ; i<tournee.getListeRequetes().size()*2 ; i++) {
 
             //Determination du depart
@@ -50,9 +51,12 @@ public class Dijkstra {
             } else {
                 this.depart = tournee.getListeRequetes().get(i/2).getEtapeDepot().getIdAdresse();
             }
-
+            System.out.println(carte.obtenirAdresseParId(depart));
             //initialisation dijkstra
-            this.listeBlanc = carte.getListeAdresses();
+            //this.listeBlanc = carte.getListeAdresses();
+            for(Map.Entry<Long, Adresse> entry : carte.getListeAdresses().entrySet()){
+                this.listeBlanc.put(entry.getKey(),entry.getValue());
+            }
             this.listeBlanc.remove(depart);
 
             mapCoutGris.clear();
@@ -140,11 +144,12 @@ public class Dijkstra {
                     adresseActuelle = segmentActuel.getOrigine().getIdAdresse();
                     segmentActuel = pi.get(adresseActuelle);
                 }
-
+                System.out.println(carte.obtenirAdresseParId(depart));
                 if(depart!=null && arrivee!=null && distance!=0 && listeSegment.size()!=0){
                     //todo: changer constructeur Etape, ou modifier CheminEntreEtape
                     //todo: changer duree etape
-                    //listeCheminEntreEtape.add(new CheminEntreEtape(new Etape(depart.getLatitude(),depart.getLongitude(),depart.getIdAdresse(),0,new Timestamp(0)),new Etape(arrivee.getLatitude(),arrivee.getLongitude(),arrivee.getIdAdresse(),0,new Timestamp(0)),listeSegment,distance));
+
+                    listeCheminEntreEtape.add(new CheminEntreEtape(new Etape(carte.obtenirAdresseParId(depart).getLatitude(),carte.obtenirAdresseParId(depart).getLongitude(),carte.obtenirAdresseParId(depart).getIdAdresse(),0,new Timestamp(0)),new Etape(carte.obtenirAdresseParId(arrivee).getLatitude(),carte.obtenirAdresseParId(arrivee).getLongitude(),carte.obtenirAdresseParId(arrivee).getIdAdresse(),0,new Timestamp(0)),listeSegment,distance));
                 }
             }
         }
