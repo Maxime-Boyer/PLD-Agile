@@ -43,6 +43,7 @@ public class Dijkstra {
         //Pour chaque future etape
         //Il y a deux etapes par requete
 
+
         for(int i=0 ; i<tournee.getListeRequetes().size()*2 ; i++) {
 
             //Determination du depart
@@ -54,9 +55,7 @@ public class Dijkstra {
             System.out.println(carte.obtenirAdresseParId(depart));
             //initialisation dijkstra
             //this.listeBlanc = carte.getListeAdresses();
-            for(Map.Entry<Long, Adresse> entry : carte.getListeAdresses().entrySet()){
-                this.listeBlanc.put(entry.getKey(),entry.getValue());
-            }
+
             this.listeBlanc.remove(depart);
 
             mapCoutGris.clear();
