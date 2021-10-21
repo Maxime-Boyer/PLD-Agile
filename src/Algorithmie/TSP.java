@@ -21,6 +21,10 @@ public class TSP {
     private Tournee tournee;
     private Carte carte;
 
+    public Tournee getTournee() {
+        return tournee;
+    }
+
     public TSP(Carte carte, Tournee tournee, HashMap<Long,LinkedList<CheminEntreEtape>> resultatDijkstra){
 
         this.resultatDijkstra = resultatDijkstra;

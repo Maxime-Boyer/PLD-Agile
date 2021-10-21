@@ -90,14 +90,17 @@ public class CartePanel extends JPanel {
         if (tourneeAppelee == true) {
 
             CalculateurTournee calculTournee = new CalculateurTournee(carte, tournee);
-            HashMap<Long, LinkedList<CheminEntreEtape>> itineraire = new HashMap<>();
-            itineraire = calculTournee.calculerTournee();
-            System.out.println(itineraire);
-            for (Map.Entry<Long, LinkedList<CheminEntreEtape>> entry : itineraire.entrySet()) {
-                for (int i = 0; i < entry.getValue().size(); i++) {
-                    for (int j = 0; j < entry.getValue().get(i).getListeSegment().size(); j++) {
-                        Adresse origine = entry.getValue().get(i).getListeSegment().get(j).getOrigine();
-                        Adresse destination = entry.getValue().get(i).getListeSegment().get(j).getDestination();
+            calculTournee.calculerTournee();
+            Tournee itineraire = new Tournee();
+            itineraire = calculTournee.getTsp().getTournee();
+            //HashMap<Long, LinkedList<CheminEntreEtape>> itineraire = new HashMap<>();
+            //itineraire = calculTournee.calculerTournee();
+            //System.out.println(itineraire);
+
+                for (int i = 0; i < itineraire.getListeChemins().size(); i++) {
+                    for (int j = 0; j < itineraire.getListeChemins().get(i).getListeSegment().size(); j++) {
+                        Adresse origine = itineraire.getListeChemins().get(i).getListeSegment().get(j).getOrigine();
+                        Adresse destination = itineraire.getListeChemins().get(i).getListeSegment().get(j).getDestination();
                         int origineX = valeurX(origine.getLongitude());
                         int origineY = valeurY(origine.getLatitude());
                         int destinationX = valeurX(destination.getLongitude());
@@ -108,7 +111,6 @@ public class CartePanel extends JPanel {
                     }
                 }
 
-            }
         }
     }
     public void repaint(Graphics g) {
