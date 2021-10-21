@@ -111,6 +111,7 @@ public class MenuLateral extends JPanel {
         panelBoutonsE4.add(boutonAjouterEtape);
 
         // suppr ancien panel consultation et construiction du nouveau
+        System.out.println("MENULATERAL : afficherMenuEtape");
         panelConsultation.removeAll();
         int yDebutPanelConsultation = (int) (panelBoutonsE4.getY() + panelBoutonsE4.getHeight() + 2 * valMarginBase +2);
         int yFinPanelConsultation = (int) (this.getHeight() - hauteurBouton - 4 * valMarginBase - 4);
@@ -134,5 +135,21 @@ public class MenuLateral extends JPanel {
         boutonExporterFeuilleRoute = new Bouton("Exporter feuille de route", policeTexte, ecouteurBoutons);
         boutonExporterFeuilleRoute.setBounds( valMarginBase, this.getHeight() - hauteurBouton - valMarginBase, this.getWidth() - 2*valMarginBase, hauteurBouton);
         this.add(boutonExporterFeuilleRoute);
+    }
+
+    //FIXME : ajouter if not null
+    public void retirerMenuRequete() {
+        this.remove(panelConsultation);
+        this.remove(boutonPreparerTournee);
+    }
+
+    //FIXME : ajouter if not null
+    public void retirerMenuEtape() {
+        this.remove(panelBoutonsE4);
+        this.remove(boutonUndo);
+        this.remove(boutonRedo);
+        this.remove(boutonAjouterEtape);
+        this.remove(panelConsultation);
+        this.remove(boutonExporterFeuilleRoute);
     }
 }
