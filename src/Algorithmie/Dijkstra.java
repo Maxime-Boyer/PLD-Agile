@@ -144,7 +144,9 @@ public class Dijkstra {
                 if(depart!=null && arrivee!=null && distance!=0 && listeSegment.size()!=0){
                     //todo: changer constructeur Etape, ou modifier CheminEntreEtape
                     //todo: changer duree etape
-                    //listeCheminEntreEtape.add(new CheminEntreEtape(new Etape(depart.getLatitude(),depart.getLongitude(),depart.getIdAdresse(),0,new Timestamp(0)),new Etape(arrivee.getLatitude(),arrivee.getLongitude(),arrivee.getIdAdresse(),0,new Timestamp(0)),listeSegment,distance));
+                    Adresse adresseDepart = carte.getListeAdresses().get(depart);
+                    Adresse adresseArrivee = carte.getListeAdresses().get(arrivee);
+                    listeCheminEntreEtape.add(new CheminEntreEtape(new Etape(adresseDepart.getLatitude(),adresseDepart.getLongitude(),adresseDepart.getIdAdresse(),0,new Timestamp(0)),new Etape(adresseArrivee.getLatitude(),adresseArrivee.getLongitude(),adresseArrivee.getIdAdresse(),0,new Timestamp(0)),listeSegment,distance));
                 }
             }
         }
