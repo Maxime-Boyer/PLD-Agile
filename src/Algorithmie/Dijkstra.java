@@ -27,7 +27,7 @@ public class Dijkstra {
 
         this.tournee = tournee;
         this.carte = carte;
-
+        this.listeBlanc = new HashMap<>();
         mapCoutGris = new HashMap<>();
         mapCoutNoir = new HashMap<>();
         pi = new HashMap<>();
@@ -150,9 +150,7 @@ public class Dijkstra {
                     //todo: changer duree etape
 
                     listeCheminEntreEtape.add(new CheminEntreEtape(new Etape(carte.obtenirAdresseParId(depart).getLatitude(),carte.obtenirAdresseParId(depart).getLongitude(),carte.obtenirAdresseParId(depart).getIdAdresse(),0,new Timestamp(0)),new Etape(carte.obtenirAdresseParId(arrivee).getLatitude(),carte.obtenirAdresseParId(arrivee).getLongitude(),carte.obtenirAdresseParId(arrivee).getIdAdresse(),0,new Timestamp(0)),listeSegment,distance));
-                    Adresse adresseDepart = carte.getListeAdresses().get(depart);
-                    Adresse adresseArrivee = carte.getListeAdresses().get(arrivee);
-                    listeCheminEntreEtape.add(new CheminEntreEtape(new Etape(adresseDepart.getLatitude(),adresseDepart.getLongitude(),adresseDepart.getIdAdresse(),0,new Timestamp(0)),new Etape(adresseArrivee.getLatitude(),adresseArrivee.getLongitude(),adresseArrivee.getIdAdresse(),0,new Timestamp(0)),listeSegment,distance));
+
                 }
             }
         }
