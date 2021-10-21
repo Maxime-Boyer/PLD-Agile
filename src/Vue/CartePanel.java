@@ -1,5 +1,5 @@
 package Vue;
-
+import Algorithmie.CalculateurTournee;
 import Model.Adresse;
 import Model.Carte;
 import Model.LecteurXML;
@@ -91,6 +91,27 @@ public class CartePanel extends JPanel {
         tourneeAppelee = true;
     }
 
+   /* public void dessinerItineraire(Graphics g2) {
+        if (tourneeAppelee == true) {
+            CalculateurTournee calculTournee = new CalculateurTournee(carte, tournee);
+            Tournee itineraire = new Tournee();
+            itineraire = calculTournee.calculerTournee();
+            for (int i = 0; i < itineraire.getListeChemins().size(); i++) {
+                for (int j = 0; j < itineraire.getListeChemins().get(i).getListeSegment().size(); j++) {
+                    Adresse origine = itineraire.getListeChemins().get(i).getListeSegment().get(j).getOrigine();
+                    Adresse destination = itineraire.getListeChemins().get(i).getListeSegment().get(j).getDestination();
+                    int origineX = valeurX(origine.getLongitude());
+                    int origineY = valeurY(origine.getLatitude());
+                    int destinationX = valeurX(destination.getLongitude());
+                    int destinationY = valeurY(destination.getLatitude());
+                    g2.setColor(Color.RED);
+                    g2.drawLine(origineX, origineY, destinationX, destinationY);
+
+                }
+            }
+
+        }
+    }*/
     public void repaint(Graphics g) {
         super.repaint();
         paintComponent(g);
