@@ -40,6 +40,23 @@ public class Dijkstra {
 
     public HashMap<Long,LinkedList<CheminEntreEtape>> calculerChemins(){
 
+
+        //dijkstra pour l'adresse de depart
+        this.depart = tournee.getAdresseDepart().getIdAdresse();
+        listeBlanc.clear();
+        for(Map.Entry<Long, Adresse> entry : carte.getListeAdresses().entrySet()){
+            this.listeBlanc.put(entry.getKey(),entry.getValue());
+        }
+        this.listeBlanc.remove(depart);
+        mapCoutGris.clear();
+        this.mapCoutGris.put(depart,0.0);
+        mapCoutNoir.clear();
+        pi.clear();
+        //execution dijkstra
+        resultatDijkstra.put(depart,executerDijkstra());
+
+
+
         //Pour chaque future etape
         //Il y a deux etapes par requete
 
@@ -54,6 +71,7 @@ public class Dijkstra {
             System.out.println(carte.obtenirAdresseParId(depart));
             //initialisation dijkstra
             //this.listeBlanc = carte.getListeAdresses();
+            listeBlanc.clear();
             for(Map.Entry<Long, Adresse> entry : carte.getListeAdresses().entrySet()){
                 this.listeBlanc.put(entry.getKey(),entry.getValue());
             }
@@ -144,7 +162,6 @@ public class Dijkstra {
                     adresseActuelle = segmentActuel.getOrigine().getIdAdresse();
                     segmentActuel = pi.get(adresseActuelle);
                 }
-                System.out.println(carte.obtenirAdresseParId(depart));
                 if(depart!=null && arrivee!=null && distance!=0 && listeSegment.size()!=0){
                     //todo: changer constructeur Etape, ou modifier CheminEntreEtape
                     //todo: changer duree etape

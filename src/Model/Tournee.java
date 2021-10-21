@@ -44,6 +44,11 @@ public class Tournee {
         this.listeRequetes = listeRequetes;
     }
 
+    public void setListeChemins(List<CheminEntreEtape> listeChemins) {
+        this.listeChemins = listeChemins;
+    }
+
+
     @Override
     public String toString() {
         return "Tournee{" +
