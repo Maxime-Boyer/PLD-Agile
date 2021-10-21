@@ -34,6 +34,7 @@ public class CalculateurTournee {
         System.out.println("-------------- DEBUT ALGO ------------");
         HashMap<Long,LinkedList<CheminEntreEtape>> resultatDijkstra = dijkstra.calculerChemins();
         System.out.println("------------ FIN DIJKSTRA ------------");
+        System.out.println(resultatDijkstra);
         tsp = new TSP(carte,tournee,resultatDijkstra);
         tsp.calculerOrdreEtapes();
         System.out.println("-------------- FIN ALGO ------------");
