@@ -118,7 +118,7 @@ public class MenuLateral extends JPanel {
 
         //affichage du détaille des étapes
         EtapePanel[] listeEtapes = new EtapePanel[10];
-        var positionTop = 0;
+        int positionTop = 0;
         for (int i = 0; i < 10; i++) {
             listeEtapes[i] = new EtapePanel("8h18", false, 12, "20 Av. Albert Einstein", panelConsultation.getWidth(), valMarginBase, policeTexte, policeTexteImportant);
 
