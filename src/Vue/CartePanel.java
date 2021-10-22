@@ -197,13 +197,9 @@ public class CartePanel extends JPanel {
             int valeurXDepot = valeurX(lonDepot);
             int valeurYDepot = valeurY(latDepot);
 
-            Random rand = new Random();
-            int maximumCouleur = 255;
-            int r = rand.nextInt(maximumCouleur);
-            int gr = rand.nextInt(maximumCouleur);
-            int b = rand.nextInt(maximumCouleur);
 
-            g2.setColor(new Color(r, gr, b));
+
+            g2.setColor(tournee.getListeRequetes().get(i).getCouleurRequete());
 
             g2.fillRoundRect(valeurXCollecte - 7, valeurYCollecte - 7, 14, 14, 14, 14);
             g2.fillRect(valeurXDepot - 7, valeurYDepot - 7, 14, 14);
