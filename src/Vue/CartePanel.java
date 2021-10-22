@@ -165,13 +165,13 @@ public class CartePanel extends JPanel {
         int valeurYDepart = valeurY(latDepart);
         g2.setColor(Color.RED);
         int valeurXBasGauche = valeurXDepart - 11;
-        int valeurYBasGauche = valeurYDepart - 5;
+        int valeurYBasGauche = valeurYDepart + 5;
 
         int valeurXBasDroite = valeurXDepart + 11;
         int valeurYBasDroite = valeurYDepart + 5;
 
-        int valeurXHaute = valeurXDepart + 3;
-        int valeurYHaute = valeurYDepart - 13;
+        int valeurXHaute = valeurXDepart;
+        int valeurYHaute = valeurYDepart - 10;
 
         int []XPoints = {valeurXBasGauche,valeurXBasDroite,valeurXHaute};
         int []YPoints = {valeurYBasGauche,valeurYBasDroite,valeurYHaute};

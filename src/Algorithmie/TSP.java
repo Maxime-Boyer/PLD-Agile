@@ -38,7 +38,7 @@ public class TSP {
         LinkedList<CheminEntreEtape> listeChemins = new LinkedList<>();
 
         Long adresseActuelle = tournee.getAdresseDepart().getIdAdresse();
-        Long adresseVisee;
+        Long adresseVisee = null;
 
         for (int i = 0; i < tournee.getListeRequetes().size(); i++) {
 
@@ -54,6 +54,13 @@ public class TSP {
             adresseActuelle = adresseVisee;
 
         }
+
+        adresseActuelle = adresseVisee;
+        if(adresseVisee != null){
+            adresseVisee = tournee.getAdresseDepart().getIdAdresse();
+            trouverChemin(adresseActuelle,adresseVisee, listeChemins);
+        }
+
 
         tournee.setListeChemins(listeChemins);
 

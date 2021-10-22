@@ -139,10 +139,11 @@ public class Dijkstra {
 
         //Mise en forme du resultat
         LinkedList<CheminEntreEtape> listeCheminEntreEtape = new LinkedList<>();
-        LinkedList<Segment> listeSegment = new LinkedList<>();
+
 
         for(int i=0 ; i<tournee.getListeRequetes().size()*2 ; i++) {
             //On recupere toutes les arrivees que l'on souhaite (!= de depart)
+            LinkedList<Segment> listeSegment = new LinkedList<>();
             Long arrivee;
             Integer distance;
             if(i%2==0){

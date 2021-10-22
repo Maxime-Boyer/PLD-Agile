@@ -120,7 +120,7 @@ public class MenuLateral extends JPanel {
         //affichage du détaille des étapes
         EtapePanel[] listeEtapes = new EtapePanel[10];
         int positionTop = 0;
-        for (int i = 0; i < 10; i++) {
+        /*for (int i = 0; i < 10; i++) {
             listeEtapes[i] = new EtapePanel("8h18", false, 12, "20 Av. Albert Einstein", panelConsultation.getWidth(), valMarginBase, policeTexte, policeTexteImportant);
 
             if(i > 0)
@@ -128,7 +128,7 @@ public class MenuLateral extends JPanel {
 
             listeEtapes[i].setBounds(0, positionTop, panelConsultation.getWidth(), 110);
             panelConsultation.add(listeEtapes[i]);
-        }
+        }*/
 
         // bouton Exporter feuille de route
         this.remove(boutonPreparerTournee);
