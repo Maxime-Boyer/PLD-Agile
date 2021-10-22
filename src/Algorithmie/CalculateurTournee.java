@@ -44,9 +44,15 @@ public class CalculateurTournee {
 
         tsp = new TSP(carte,tournee,resultatDijkstra);
         tsp.calculerTourneeInitiale();
-        tsp.calculerOrdreEtapes();
 
         System.out.println(tournee.getListeChemins());
+
+        tsp.calculerOrdreEtapes();
+
+        System.out.println(" after again ");
+
+        System.out.println(tournee.getListeChemins());
+
 
         System.out.println("-------------- FIN ALGO ------------");
 
