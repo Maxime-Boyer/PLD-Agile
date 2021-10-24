@@ -98,7 +98,7 @@ public class MenuLateral extends JPanel {
         panelBoutonsE4.setLayout(null);
         this.add(panelBoutonsE4);
 
-        boutonUndo = new Bouton("<--", policeTexte, ecouteurBoutons);
+        /*boutonUndo = new Bouton("<--", policeTexte, ecouteurBoutons);
         boutonUndo.setBounds( 0,0, panelBoutonsE4.getWidth()/4 - valMarginBase*3/4, 50);
         panelBoutonsE4.add(boutonUndo);
 
@@ -108,7 +108,7 @@ public class MenuLateral extends JPanel {
 
         boutonAjouterEtape = new Bouton("Ajouter étape", policeTexte, ecouteurBoutons);
         boutonAjouterEtape.setBounds(boutonRedo.getX() + boutonRedo.getWidth() + valMarginBase,0, panelBoutonsE4.getWidth()/2 - valMarginBase/2, hauteurBouton);
-        panelBoutonsE4.add(boutonAjouterEtape);
+        panelBoutonsE4.add(boutonAjouterEtape);*/
 
         // suppr ancien panel consultation et construiction du nouveau
         System.out.println("MENULATERAL : afficherMenuEtape");
@@ -120,7 +120,7 @@ public class MenuLateral extends JPanel {
         //affichage du détaille des étapes
         EtapePanel[] listeEtapes = new EtapePanel[10];
         int positionTop = 0;
-        for (int i = 0; i < 10; i++) {
+        /*for (int i = 0; i < 10; i++) {
             listeEtapes[i] = new EtapePanel("8h18", false, 12, "20 Av. Albert Einstein", panelConsultation.getWidth(), valMarginBase, policeTexte, policeTexteImportant);
 
             if(i > 0)
@@ -128,7 +128,7 @@ public class MenuLateral extends JPanel {
 
             listeEtapes[i].setBounds(0, positionTop, panelConsultation.getWidth(), 110);
             panelConsultation.add(listeEtapes[i]);
-        }
+        }*/
 
         // bouton Exporter feuille de route
         this.remove(boutonPreparerTournee);
@@ -146,9 +146,9 @@ public class MenuLateral extends JPanel {
     //FIXME : ajouter if not null
     public void retirerMenuEtape() {
         this.remove(panelBoutonsE4);
-        this.remove(boutonUndo);
-        this.remove(boutonRedo);
-        this.remove(boutonAjouterEtape);
+        //this.remove(boutonUndo);
+        //this.remove(boutonRedo);
+        //this.remove(boutonAjouterEtape);
         this.remove(panelConsultation);
         this.remove(boutonExporterFeuilleRoute);
     }
