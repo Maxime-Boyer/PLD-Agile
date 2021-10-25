@@ -100,7 +100,7 @@ public class LecteurXML {
             Long idAdresseDepot = Long.parseLong(eElement.getAttribute("address"));
             Adresse adresseDepot = carte.obtenirAdresseParId(idAdresseDepot);
             String depart = eElement.getAttribute("departureTime");
-            tournee.setAdresseDepart(adresseDepot);
+            tournee.setEtapeDepart(new Etape(adresseDepot.getLatitude(), adresseDepot.getLongitude(), idAdresseDepot, 0, null));
             LocalTime heureDepart = LocalTime.parse(depart, DateTimeFormatter.ofPattern("H:m:s"));
             /*int hour = heureDepart.get(ChronoField.CLOCK_HOUR_OF_DAY);
             int minute = heureDepart.get(ChronoField.MINUTE_OF_HOUR);

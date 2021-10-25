@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Tournee {
-    private Adresse adresseDepart;
+    private Etape etapeDepart;
     private LocalTime heureDepart;
     private List<Requete> listeRequetes;
     private List<CheminEntreEtape> listeChemins;
@@ -16,8 +16,8 @@ public class Tournee {
         listeChemins = new ArrayList<>();
     }
 
-    public Adresse getAdresseDepart() {
-        return adresseDepart;
+    public Etape getAdresseDepart() {
+        return etapeDepart;
     }
 
     public LocalTime getDateDepart() {
@@ -32,8 +32,8 @@ public class Tournee {
         return listeChemins;
     }
 
-    public void setAdresseDepart(Adresse adresseDepart) {
-        this.adresseDepart = adresseDepart;
+    public void setEtapeDepart(Etape etapeDepart) {
+        this.etapeDepart = etapeDepart;
     }
 
     public void setHeureDepart(LocalTime heureDepart) {
@@ -51,7 +51,7 @@ public class Tournee {
     @Override
     public String toString() {
         return "Tournee{" +
-                "adresseDepart=" + adresseDepart +
+                "adresseDepart=" + etapeDepart +
                 ", heureDepart=" + heureDepart +
                 ", listeRequetes=" + listeRequetes +
                 ", listeChemins=" + listeChemins +

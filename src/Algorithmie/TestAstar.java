@@ -17,15 +17,16 @@ public class TestAstar {
         List<Segment> listeSegment = new ArrayList<>();
 
         creerSegment(0,1, "s0", listeSegment, listeAdresse);
+        creerSegment(1,0, "Is0", listeSegment, listeAdresse);
         creerSegment(1,2, "s1", listeSegment, listeAdresse);
         creerSegment(1,3, "s2", listeSegment, listeAdresse);
         creerSegment(2,3, "s3", listeSegment, listeAdresse);
         creerSegment(1,4, "s4", listeSegment, listeAdresse);
         creerSegment(3,4, "s5", listeSegment, listeAdresse);
 
-        int idDep = 0;
+        int idDep = 3;
         Etape e0 = new Etape(listeAdresse.get(idDep).getLatitude(), listeAdresse.get(idDep).getLongitude(), listeAdresse.get(idDep).getIdAdresse(), 5, null);
-        int idArr = 4;
+        int idArr = 0;
         Etape e1 = new Etape(listeAdresse.get(idArr).getLatitude(), listeAdresse.get(idArr).getLongitude(), listeAdresse.get(idArr).getIdAdresse(), 10, null);
 
         Carte carte = new Carte("NomCarte");
@@ -36,8 +37,8 @@ public class TestAstar {
         for (Segment segment : listeSegment)
             carte.ajouterSegment(segment);
 
-        Astar astar = new Astar(carte, e0, e1);
-        CheminEntreEtape cheminEntreEtape = astar.executerAstar();
+        Astar astar = new Astar(carte);
+        CheminEntreEtape cheminEntreEtape = astar.executerAstar(e0, e1);
         System.out.println(cheminEntreEtape);
     }
 

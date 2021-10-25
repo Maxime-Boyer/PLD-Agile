@@ -30,8 +30,8 @@ public class Requete {
     @Override
     public String toString() {
         return "Requete{" +
-                "etapeCollecte=" + etapeCollecte +
-                ", etapeDepot=" + etapeDepot +
+                "etapeCollecte=" + etapeCollecte.getIdAdresse() +
+                ", etapeDepot=" + etapeDepot.getIdAdresse() +
                 '}';
     }
 

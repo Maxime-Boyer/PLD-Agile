@@ -14,9 +14,6 @@ public class Astar {
     // cout[p] est une estimation de la distance entre la position p et la cible
     private HashMap<Long, Double> cout;
 
-    // Contient les adresses blanches, associees a leur cout
-    private HashMap<Long, Double> adressesBlanches;
-
     // Contient les adresses grises, associees a leur cout : Pair<Cout, idAdresse>
     //private PriorityQueue<Long, Double> adressesGrises;
     PriorityQueue<NoeudAdresse> adressesGrises;
@@ -27,19 +24,10 @@ public class Astar {
     // La carte
     private Carte carte;
 
-    // L'adresse de départ
-    private Etape depart;
-
-    // L'adresse d'arrivée'
-    private Etape arrivee;
-
-    public Astar(Carte carte, Etape depart, Etape arrivee) {
+    public Astar(Carte carte) {
 
         this.carte = carte;
-        this.depart = depart;
-        this.arrivee = arrivee;
         this.cout = new HashMap<>();
-        this.adressesBlanches = new HashMap<>();
         adressesGrises = new PriorityQueue<>();
         adressesNoire = new HashSet<>();
         parent = new HashMap<>();
@@ -48,7 +36,7 @@ public class Astar {
     //Calcul l'heuristique avec la distance euclidienne
     //Nous utilisons la formule de Haversine to calculate Great-Circle distance, that is to say the shortest
     //distance between 2 points on a sphere
-    public double calculHeuristique(Adresse adresse) {
+    public double calculHeuristique(Adresse adresse, Etape arrivee) {
 
         double degToRad = 0.01745329;
         double rayonTerre = 6371; // in kilometers
@@ -75,32 +63,40 @@ public class Astar {
         return (c * r);
     }
 
-    public CheminEntreEtape executerAstar() {
+    public CheminEntreEtape executerAstar(Etape depart, Etape arrivee) {
+
+        //Vide les listes
+        parent.clear();
+        cout.clear();
+        adressesGrises.clear();
+        adressesNoire.clear();
 
         // On met le point de départ dans les maps grises
-        cout.put(depart.getIdAdresse(), calculHeuristique(depart));
+        cout.put(depart.getIdAdresse(), calculHeuristique(depart, arrivee));
         adressesGrises.offer(new NoeudAdresse(depart.getIdAdresse(), cout.get(depart.getIdAdresse())));
         int nbLoop = 0;//TODO : delete this
         while (!adressesGrises.isEmpty()) {
-            System.out.println("Loop " + nbLoop);
+            //System.out.println("Loop " + nbLoop);
 
             //Prend l'adresse de la liste grise ayant le cout min
             Adresse adresseActuelle = carte.obtenirAdresseParId(adressesGrises.peek().getIdAdresse()); //O(1)
-            System.out.println("    adresseActuelle="+adresseActuelle);
+            //System.out.println("    adresseActuelle="+adresseActuelle);
 
             //Si on a atteint la destination alors on retourne le chemin trouve (etat actuel correspond à l'arrivee)
             if (adresseActuelle.getIdAdresse().equals(arrivee.getIdAdresse())) {
-                System.out.println("    destination atteinte");
+                //System.out.println("    destination atteinte");
                 ArrayList<Segment> meilleurChemin = new ArrayList<>();
                 //Tant que l'adresse actuelle est differente de l'adresse de depart
                 int distance = 0;
                 while (!adresseActuelle.getIdAdresse().equals(depart.getIdAdresse())) {
+                    //System.out.println("        adresseActuelle="+adresseActuelle);
                     //Ajoute le chemin pour aller du parent à l'adresse actuelle
                     Segment segmentVenantDuParent = parent.get(adresseActuelle.getIdAdresse());
                     meilleurChemin.add(0, segmentVenantDuParent);
                     distance += segmentVenantDuParent.getLongueur();
                     //L'adresse actuelle devient celle du parent
                     adresseActuelle = segmentVenantDuParent.getOrigine();
+                    //System.out.println("        adresseParent="+adresseActuelle);
                 }
                 return new CheminEntreEtape(depart, arrivee, meilleurChemin, distance);
             }
@@ -108,16 +104,16 @@ public class Astar {
             //Passe l'adresse actuelle en visitée
             adressesNoire.add(adresseActuelle.getIdAdresse());
             adressesGrises.poll();
-            System.out.println("    adressesGrises="+adressesGrises);
+            //System.out.println("    adressesGrises="+adressesGrises);
 
             //Visite les voisins de l'adresse actuelle
             for (Segment segSortants : adresseActuelle.getSegmentsSortants()) {
                 Adresse voisin = segSortants.getDestination();
 
                 // Il ne faut rien faire si le voisin est noir (deja visite)
-                if (adressesNoire.contains(voisin)) continue;
+                if (adressesNoire.contains(voisin.getIdAdresse())) continue;
                 // Si le voisin est blanc ou gris, il faut potentiellement mettre à jour la plus courte distance actuelle à ce voisin
-                double nouveauCout = cout.get(adresseActuelle.getIdAdresse()) + segSortants.getLongueur() - calculHeuristique(adresseActuelle) + calculHeuristique(voisin);
+                double nouveauCout = cout.get(adresseActuelle.getIdAdresse()) + segSortants.getLongueur() - calculHeuristique(adresseActuelle, arrivee) + calculHeuristique(voisin, arrivee);
                 if (!cout.containsKey(voisin.getIdAdresse()) || (cout.get(voisin.getIdAdresse()) > nouveauCout)) {
                     //Si cette adresse n'a pas de cout associe ajoute le cout, sinon le remplace
                     if (!cout.containsKey(voisin.getIdAdresse()))
