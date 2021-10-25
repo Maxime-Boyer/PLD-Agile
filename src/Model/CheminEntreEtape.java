@@ -31,14 +31,26 @@ public class CheminEntreEtape {
         return etapeDepart;
     }
 
+    /**
+     * reourne l'étape d'arrivée
+     * @return
+     */
     public Etape getEtapeArrivee() {
         return etapeArrivee;
     }
 
+    /**
+     * retourne la liste des segments entre les étapes
+     * @return
+     */
     public List<Segment> getListeSegment() {
         return listeSegment;
     }
 
+    /**
+     * retourne la distance du chemin
+     * @return
+     */
     public Integer getDistance() {
         return distance;
     }
