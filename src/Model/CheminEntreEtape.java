@@ -54,4 +54,14 @@ public class CheminEntreEtape {
     public Integer getDistance() {
         return distance;
     }
+
+    @Override
+    public String toString() {
+        return "CheminEntreEtape{" +
+                "etapeDepart=" + etapeDepart.getIdAdresse() +
+                ", etapeArrivee=" + etapeArrivee.getIdAdresse() +
+                ", listeSegment=" + listeSegment +
+                ", distance=" + distance +
+                '}';
+    }
 }

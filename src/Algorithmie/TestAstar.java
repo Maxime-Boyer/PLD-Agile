@@ -2,38 +2,75 @@ package Algorithmie;
 
 import Model.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TestAstar {
     public static void main(String[] args) {
-        Adresse a0 = new Adresse(0.0, 0.0, 0L);
-        Adresse a1 = new Adresse(1.0, 0.0, 1L);
-        Adresse a2 = new Adresse(0.0, 1.0, 2L);
-        Adresse a3 = new Adresse(1.0, 1.0, 3L);
-        Segment s0 = new Segment(a0, a1, "s0", 111195.0);
-        a0.ajouterSegmentSortant(s0);
-        Segment s1 = new Segment(a0, a2, "s1", 248629.0);
-        a0.ajouterSegmentSortant(s1);
-        Segment s2 = new Segment(a1, a3, "s2", 111178.0);
-        a1.ajouterSegmentSortant(s2);
-        Segment s3 = new Segment(a2, a3, "s3", 157249.0);
-        a2.ajouterSegmentSortant(s3);
+        List<Adresse> listeAdresse = new ArrayList<>();
+        listeAdresse.add( new Adresse(0.0, 0.0, 0L) );
+        listeAdresse.add( new Adresse(1.0, 0.0, 1L) );
+        listeAdresse.add( new Adresse(0.0, 1.0, 2L) );
+        listeAdresse.add( new Adresse(1.0, 1.0, 3L) );
+        listeAdresse.add( new Adresse(2.0, 1.0, 4L) );
 
-        Etape e0 = new Etape(a0.getLatitude(), a0.getLongitude(), a0.getIdAdresse(), 5, null);
-        Etape e1 = new Etape(a3.getLatitude(), a3.getLongitude(), a3.getIdAdresse(), 10, null);
+        List<Segment> listeSegment = new ArrayList<>();
+
+        creerSegment(0,1, "s0", listeSegment, listeAdresse);
+        creerSegment(1,2, "s1", listeSegment, listeAdresse);
+        creerSegment(1,3, "s2", listeSegment, listeAdresse);
+        creerSegment(2,3, "s3", listeSegment, listeAdresse);
+        creerSegment(1,4, "s4", listeSegment, listeAdresse);
+        creerSegment(3,4, "s5", listeSegment, listeAdresse);
+
+        int idDep = 0;
+        Etape e0 = new Etape(listeAdresse.get(idDep).getLatitude(), listeAdresse.get(idDep).getLongitude(), listeAdresse.get(idDep).getIdAdresse(), 5, null);
+        int idArr = 4;
+        Etape e1 = new Etape(listeAdresse.get(idArr).getLatitude(), listeAdresse.get(idArr).getLongitude(), listeAdresse.get(idArr).getIdAdresse(), 10, null);
 
         Carte carte = new Carte("NomCarte");
 
-        carte.getListeAdresses().put(a0.getIdAdresse(),a0);
-        carte.getListeAdresses().put(a1.getIdAdresse(),a1);
-        carte.getListeAdresses().put(a2.getIdAdresse(),a2);
-        carte.getListeAdresses().put(a3.getIdAdresse(),a3);
+        for (Adresse adresse : listeAdresse)
+            carte.ajouterAdresse(adresse);
 
-        carte.getListeSegments().add(s0);
-        carte.getListeSegments().add(s1);
-        carte.getListeSegments().add(s2);
-        carte.getListeSegments().add(s3);
+        for (Segment segment : listeSegment)
+            carte.ajouterSegment(segment);
 
         Astar astar = new Astar(carte, e0, e1);
         CheminEntreEtape cheminEntreEtape = astar.executerAstar();
         System.out.println(cheminEntreEtape);
+    }
+
+    public static void creerSegment (int idDep, int idArr, String nom, List<Segment> listeSegment, List<Adresse> listeAdresse) {
+        Segment nouveauSegment = new Segment(listeAdresse.get(idDep), listeAdresse.get(idArr), nom, distance(listeAdresse.get(idDep), listeAdresse.get(idArr)));
+        listeSegment.add( nouveauSegment );
+        listeAdresse.get(idDep).ajouterSegmentSortant( nouveauSegment );
+    }
+
+    public static double distance(Adresse a1, Adresse a2)
+    {
+        // The math module contains a function
+        // named toRadians which converts from
+        // degrees to radians.
+        double lon1 = Math.toRadians(a1.getLongitude());
+        double lon2 = Math.toRadians(a2.getLongitude());
+        double lat1 = Math.toRadians(a1.getLatitude());
+        double lat2 = Math.toRadians(a2.getLatitude());
+
+        // Haversine formula
+        double dlon = lon2 - lon1;
+        double dlat = lat2 - lat1;
+        double a = Math.pow(Math.sin(dlat / 2), 2)
+                + Math.cos(lat1) * Math.cos(lat2)
+                * Math.pow(Math.sin(dlon / 2),2);
+
+        double c = 2 * Math.asin(Math.sqrt(a));
+
+        // Radius of earth in kilometers. Use 3956
+        // for miles
+        double r = 6371;
+
+        // calculate the result
+        return(c * r);
     }
 }

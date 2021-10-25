@@ -19,7 +19,7 @@ public class Astar {
 
     // Contient les adresses grises, associees a leur cout : Pair<Cout, idAdresse>
     //private PriorityQueue<Long, Double> adressesGrises;
-    PriorityQueue<NoeudAdresse > adressesGrises;
+    PriorityQueue<NoeudAdresse> adressesGrises;
 
     // Contient les adresses noir (déjà visitées)
     private HashSet<Long> adressesNoire;
@@ -33,7 +33,7 @@ public class Astar {
     // L'adresse d'arrivée'
     private Etape arrivee;
 
-    public Astar(Carte carte, Etape depart, Etape arrivee){
+    public Astar(Carte carte, Etape depart, Etape arrivee) {
 
         this.carte = carte;
         this.depart = depart;
@@ -64,7 +64,7 @@ public class Astar {
         double dlat = lat2 - lat1;
         double a = Math.pow(Math.sin(dlat / 2), 2)
                 + Math.cos(lat1) * Math.cos(lat2)
-                * Math.pow(Math.sin(dlon / 2),2);
+                * Math.pow(Math.sin(dlon / 2), 2);
 
         double c = 2 * Math.asin(Math.sqrt(a));
 
@@ -72,62 +72,63 @@ public class Astar {
         double r = 6371000;
 
         // Retourne la distance
-        return(c * r);
+        return (c * r);
     }
 
     public CheminEntreEtape executerAstar() {
 
         // On met le point de départ dans les maps grises
         cout.put(depart.getIdAdresse(), calculHeuristique(depart));
-        System.out.println(adressesGrises);
-        adressesGrises.offer( new NoeudAdresse(depart.getIdAdresse(), cout.get(depart.getIdAdresse())) );
-        System.out.println(adressesGrises);
+        adressesGrises.offer(new NoeudAdresse(depart.getIdAdresse(), cout.get(depart.getIdAdresse())));
+        int nbLoop = 0;//TODO : delete this
+        while (!adressesGrises.isEmpty()) {
+            System.out.println("Loop " + nbLoop);
 
-        while( !adressesGrises.isEmpty() ) {
             //Prend l'adresse de la liste grise ayant le cout min
             Adresse adresseActuelle = carte.obtenirAdresseParId(adressesGrises.peek().getIdAdresse()); //O(1)
+            System.out.println("    adresseActuelle="+adresseActuelle);
 
             //Si on a atteint la destination alors on retourne le chemin trouve (etat actuel correspond à l'arrivee)
-            if( adresseActuelle.getIdAdresse().equals(arrivee.getIdAdresse()) )
-            {
+            if (adresseActuelle.getIdAdresse().equals(arrivee.getIdAdresse())) {
+                System.out.println("    destination atteinte");
                 ArrayList<Segment> meilleurChemin = new ArrayList<>();
                 //Tant que l'adresse actuelle est differente de l'adresse de depart
                 int distance = 0;
-                while( !adresseActuelle.getIdAdresse().equals(depart.getIdAdresse()) )
-                {
+                while (!adresseActuelle.getIdAdresse().equals(depart.getIdAdresse())) {
                     //Ajoute le chemin pour aller du parent à l'adresse actuelle
                     Segment segmentVenantDuParent = parent.get(adresseActuelle.getIdAdresse());
                     meilleurChemin.add(0, segmentVenantDuParent);
                     distance += segmentVenantDuParent.getLongueur();
                     //L'adresse actuelle devient celle du parent
-                    Adresse adressePrecedente = carte.obtenirAdresseParId( segmentVenantDuParent.getOrigine().getIdAdresse() );
+                    adresseActuelle = segmentVenantDuParent.getOrigine();
                 }
                 return new CheminEntreEtape(depart, arrivee, meilleurChemin, distance);
             }
 
             //Passe l'adresse actuelle en visitée
             adressesNoire.add(adresseActuelle.getIdAdresse());
-            System.out.println(adressesGrises.peek().getIdAdresse());
             adressesGrises.poll();
-            System.out.println(adressesGrises);
+            System.out.println("    adressesGrises="+adressesGrises);
 
             //Visite les voisins de l'adresse actuelle
-            for (Segment segSortants  : adresseActuelle.getSegmentsSortants()) {
+            for (Segment segSortants : adresseActuelle.getSegmentsSortants()) {
                 Adresse voisin = segSortants.getDestination();
 
                 // Il ne faut rien faire si le voisin est noir (deja visite)
-                if( adressesNoire.contains(voisin) ) continue;
+                if (adressesNoire.contains(voisin)) continue;
                 // Si le voisin est blanc ou gris, il faut potentiellement mettre à jour la plus courte distance actuelle à ce voisin
                 double nouveauCout = cout.get(adresseActuelle.getIdAdresse()) + segSortants.getLongueur() - calculHeuristique(adresseActuelle) + calculHeuristique(voisin);
-                if( !cout.containsKey(voisin.getIdAdresse()) || ( cout.get(voisin.getIdAdresse()) > nouveauCout ) )
-                {
-                    cout.replace(voisin.getIdAdresse(), nouveauCout);
+                if (!cout.containsKey(voisin.getIdAdresse()) || (cout.get(voisin.getIdAdresse()) > nouveauCout)) {
+                    //Si cette adresse n'a pas de cout associe ajoute le cout, sinon le remplace
+                    if (!cout.containsKey(voisin.getIdAdresse()))
+                        cout.put(voisin.getIdAdresse(), nouveauCout);
+                    else
+                        cout.replace(voisin.getIdAdresse(), nouveauCout);
                     parent.put(voisin.getIdAdresse(), segSortants);
-                    NoeudAdresse nouveauNoeudAdresse = new NoeudAdresse(voisin.getIdAdresse(), cout.get(voisin.getIdAdresse()));
-                    System.out.println(nouveauNoeudAdresse);
-                    adressesGrises.offer( nouveauNoeudAdresse );
+                    adressesGrises.offer(new NoeudAdresse(voisin.getIdAdresse(), cout.get(voisin.getIdAdresse())));
                 }
             }
+            nbLoop++;
         }
         return null;
     }

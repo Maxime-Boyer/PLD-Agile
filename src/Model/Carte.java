@@ -28,6 +28,14 @@ public class Carte {
 
     }
 
+    public void ajouterSegment(Segment segment) {
+        listeSegments.add(segment);
+    }
+
+    public void ajouterAdresse(Adresse adresse) {
+        listeAdresses.put(adresse.getIdAdresse(), adresse);
+    }
+
     /**
      * retourne l'adresse en entrant l'id de celle ci
      * @param id
