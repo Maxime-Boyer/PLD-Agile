@@ -12,10 +12,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import Exceptions.IncompatibleAdresseException;
-import Exceptions.IncompatibleLatitudeException;
-import Exceptions.IncompatibleLongitudeException;
-import Exceptions.PresenceEncodingEtVersion;
+import Exceptions.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -66,6 +63,10 @@ public class LecteurXML {
                 if (nNodeAdresse.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNodeAdresse;
                     double latitude = Double.parseDouble(eElement.getAttribute("latitude"));
+                    if (latitude < 0.0){
+                        throw new NegatifLatitudeException("Erreur, la latitude d'un point de retrait est négative");
+                    }
+
 
                     if (latitude < minLatitude){
                         minLatitude = latitude;
@@ -74,6 +75,11 @@ public class LecteurXML {
                         maxLatitude = latitude;
                     }
                     double longitude = Double.parseDouble(eElement.getAttribute("longitude"));
+
+                    if (longitude < 0.0){
+                        throw new NegatifLongitudeException("Erreur, la longitude d'un point de retrait  est négative");
+                    }
+
                     if(longitude < minLongitude){
                         minLongitude = longitude;
                     }
@@ -138,14 +144,24 @@ public class LecteurXML {
             }
 
             Long idAdresseDepot = Long.parseLong(eElement.getAttribute("address"));
-
+            Adresse adresseDepot ;
             if(!(carte.getListeAdresses().containsKey(idAdresseDepot))){
                 throw new IncompatibleAdresseException("Erreur d'adresse de départ, cette adresse n'appartient pas à la carte chargée ");
+            }else{
+                adresseDepot = carte.obtenirAdresseParId(idAdresseDepot);
             }
 
-            Adresse adresseDepot = carte.obtenirAdresseParId(idAdresseDepot);
+
             double latitudeAdresseDepot = adresseDepot.getLatitude();
             double longitudeAdresseDepot = adresseDepot.getLongitude();
+
+            if (latitudeAdresseDepot < 0.0){
+                throw new NegatifLatitudeException("Erreur, la latitude du départ est négative");
+            }
+
+            if (longitudeAdresseDepot < 0.0){
+                throw new NegatifLongitudeException("Erreur, la longitude du départ est négative");
+            }
 
             if(  (latitudeAdresseDepot< minLatitude) || (latitudeAdresseDepot > maxLatitude) ){
                 throw new IncompatibleLatitudeException("Erreur, la latitude de l'adresse de départ n'apparatient pas au plan chargé");
@@ -192,6 +208,8 @@ public class LecteurXML {
                     double latitudeAdresseRetrait = adresseRetrait.getLatitude();
                     double longitudeAdresseRetrait = adresseRetrait.getLongitude();
 
+
+
                     if(  (latitudeAdresseRetrait< minLatitude) || (latitudeAdresseRetrait > maxLatitude) ){
                         throw new IncompatibleLatitudeException("Erreur, la latitude de d'une adresse n'apparatient pas au plan chargé");
                     }
@@ -201,6 +219,9 @@ public class LecteurXML {
 
                     double latitudeAdresseLivraison = adresseLivraison.getLatitude();
                     double longitudeAdresseLivraison = adresseLivraison.getLongitude();
+
+
+
 
                     if(  (latitudeAdresseLivraison< minLatitude) || (latitudeAdresseLivraison > maxLatitude) ){
                         throw new IncompatibleLatitudeException("Erreur, la latitude de l'adresse de départ n'apparatient pas au plan chargé");
