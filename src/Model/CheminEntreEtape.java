@@ -60,8 +60,8 @@ public class CheminEntreEtape {
         return "CheminEntreEtape{" +
                 "etapeDepart=" + etapeDepart.getIdAdresse() +
                 ", etapeArrivee=" + etapeArrivee.getIdAdresse() +
-                ", listeSegment=" + listeSegment +
                 ", distance=" + distance +
+                ", listeSegment=" + listeSegment +
                 '}';
     }
 }

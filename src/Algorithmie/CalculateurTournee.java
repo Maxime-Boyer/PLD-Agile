@@ -33,8 +33,8 @@ public class CalculateurTournee {
         System.out.println("Origine tournee = " + tournee.getAdresseDepart().getIdAdresse());
         System.out.println("    Liste des requêtes : "+tournee.getListeRequetes());
         System.out.println("-------------- DEBUT ALGO ------------");
-        HashMap<Long,LinkedList<CheminEntreEtape>> resultatDijkstra = new HashMap<>();//dijkstra.calculerChemins();
-
+        HashMap<Long,LinkedList<CheminEntreEtape>> resultatDijkstra = dijkstra.calculerChemins();
+        /*
         for(int depart=0 ; depart<tournee.getListeRequetes().size()*2 + 1 ; depart++) {
             Etape etapeDepart;
             if(depart == tournee.getListeRequetes().size()*2) {
@@ -70,12 +70,15 @@ public class CalculateurTournee {
 
             resultatDijkstra.put(etapeDepart.getIdAdresse(), listeCheminEntereEtap);
         }
-
+        */
         System.out.println("------------ FIN DIJKSTRA ------------");
         System.out.println(resultatDijkstra);
 
         System.out.println(" before ");
 
+        for (LinkedList<CheminEntreEtape> listeChemin : resultatDijkstra.values())
+            for (CheminEntreEtape chemin : listeChemin)
+                System.out.println(chemin);
         System.out.println(tournee.getListeChemins());
 
         System.out.println(" after ");
