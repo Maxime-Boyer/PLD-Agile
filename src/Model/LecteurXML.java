@@ -13,8 +13,11 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import Exceptions.*;
+import org.junit.platform.commons.util.StringUtils;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
+
+import static java.lang.Float.isNaN;
 
 public class LecteurXML {
 
@@ -303,13 +306,12 @@ public class LecteurXML {
                         //String depart = eElement.getAttribute("departureTime");
                         tournee.setAdresseDepart(adresseDepot);
 
-
-                        LocalTime heureDepart = LocalTime.parse(stringHeureDepart, DateTimeFormatter.ofPattern("H:m:s"));
-                    /*int hour = heureDepart.get(ChronoField.CLOCK_HOUR_OF_DAY);
-                    int minute = heureDepart.get(ChronoField.MINUTE_OF_HOUR);
-                    int second = heureDepart.get(ChronoField.SECOND_OF_MINUTE);*/
-
-                        tournee.setHeureDepart(heureDepart);
+                        if(verificationFormatDate(stringHeureDepart)) {
+                            LocalTime heureDepart = LocalTime.parse(stringHeureDepart, DateTimeFormatter.ofPattern("H:m:s"));
+                            tournee.setHeureDepart(heureDepart);
+                        }else {
+                            throw new AttributsDepotExceptions("Erreur, l'attribut departureTime de la balise depot n'est pas au bon format");
+                        }
 
                         NodeList nListRequetes = document.getElementsByTagName("request");
 
@@ -431,4 +433,46 @@ public class LecteurXML {
             return tournee;
         }
     }
+
+    public boolean verificationFormatDate(String date) {
+
+        int len = date.length();
+        int occurrence = 0;
+        char ch[] = new char[date.length()];
+        for (int i = 0; i < len; i++) {
+
+            if (date.charAt(i) == ':') {
+                occurrence++;
+            }
+        }
+
+        if(occurrence == 2) {
+
+            String[] separationDate = date.split(":");
+            int nbEnCours = 0;
+            Boolean heure = false;
+            Boolean minute = false;
+            Boolean seconde= false;
+
+            for(int i = 0; i < separationDate.length; i++) {
+                nbEnCours = Integer.parseInt(separationDate[i]);
+
+                if (i == 0 && nbEnCours >= 0 && nbEnCours <= 24) {
+                    heure = true;
+                }
+                if (i == 1 && nbEnCours >= 0 && nbEnCours <= 60) {
+                    minute = true;
+                }
+                if (i == 2 && nbEnCours >= 0 && nbEnCours <= 60) {
+                    seconde = true;
+                }
+            }
+
+            if(heure && minute && seconde){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
