@@ -1,6 +1,9 @@
 package Vue;
 //
 //import Algorithmie.CalculateurTournee;
+
+import Algorithmie.CalculateurTournee;
+import Exceptions.IncompatibleAdresseException;
 import Model.Adresse;
 import Model.Carte;
 import Model.LecteurXML;
@@ -115,7 +118,12 @@ public class CartePanel extends JPanel {
             dessinerItineraire(g2);
 
         if (tourneeAppelee) {
-            dessinerTournee(g2);
+            try {
+                dessinerTournee(g2);
+            } catch (IncompatibleAdresseException e) {
+                e.printStackTrace();
+
+            }
         }
     }
 
@@ -157,43 +165,49 @@ public class CartePanel extends JPanel {
         }
     }
 
-    public void dessinerTournee(Graphics g2) {
+    public void dessinerTournee(Graphics g2) throws IncompatibleAdresseException {
         Adresse depart = tournee.getAdresseDepart();
-        double lonDepart = depart.getLongitude();
-        double latDepart = depart.getLatitude();
-        int valeurXDepart = valeurX(lonDepart);
-        int valeurYDepart = valeurY(latDepart);
-        g2.setColor(Color.RED);
-        g2.fillOval(valeurXDepart, valeurYDepart, 25, 12);
+        if ( depart != null){
+            double lonDepart = depart.getLongitude();
+            double latDepart = depart.getLatitude();
+            int valeurXDepart = valeurX(lonDepart);
+            int valeurYDepart = valeurY(latDepart);
+            g2.setColor(Color.RED);
+            g2.fillOval(valeurXDepart, valeurYDepart, 25, 12);
 
 
-        for (int i = 0; i < tournee.getListeRequetes().size(); i++) {
-            Adresse collecte = tournee.getListeRequetes().get(i).getEtapeCollecte();
-            Adresse depot = tournee.getListeRequetes().get(i).getEtapeDepot();
+            for (int i = 0; i < tournee.getListeRequetes().size(); i++) {
+                Adresse collecte = tournee.getListeRequetes().get(i).getEtapeCollecte();
+                Adresse depot = tournee.getListeRequetes().get(i).getEtapeDepot();
 
-            double lonCollecte = collecte.getLongitude();
-            double latCollecte = collecte.getLatitude();
-            double lonDepot = depot.getLongitude();
-            double latDepot = depot.getLatitude();
+                double lonCollecte = collecte.getLongitude();
+                double latCollecte = collecte.getLatitude();
+                double lonDepot = depot.getLongitude();
+                double latDepot = depot.getLatitude();
 
-            int valeurXCollecte = valeurX(lonCollecte);
-            int valeurYCollecte = valeurY(latCollecte);
-            int valeurXDepot = valeurX(lonDepot);
-            int valeurYDepot = valeurY(latDepot);
+                int valeurXCollecte = valeurX(lonCollecte);
+                int valeurYCollecte = valeurY(latCollecte);
+                int valeurXDepot = valeurX(lonDepot);
+                int valeurYDepot = valeurY(latDepot);
 
-            Random rand = new Random();
-            int maximumCouleur = 255;
-            int r = rand.nextInt(maximumCouleur);
-            int gr = rand.nextInt(maximumCouleur);
-            int b = rand.nextInt(maximumCouleur);
+                Random rand = new Random();
+                int maximumCouleur = 255;
+                int r = rand.nextInt(maximumCouleur);
+                int gr = rand.nextInt(maximumCouleur);
+                int b = rand.nextInt(maximumCouleur);
 
-            g2.setColor(new Color(r, gr, b));
+                g2.setColor(new Color(r, gr, b));
 
-            g2.fillRoundRect(valeurXCollecte - 7, valeurYCollecte - 7, 14, 14, 14, 14);
-            g2.fillRect(valeurXDepot - 7, valeurYDepot - 7, 14, 14);
+                g2.fillRoundRect(valeurXCollecte - 7, valeurYCollecte - 7, 14, 14, 14, 14);
+                g2.fillRect(valeurXDepot - 7, valeurYDepot - 7, 14, 14);
 
 
+            }
         }
+        else {
+            throw new IncompatibleAdresseException("Erreur d'adresse de départ, cette adresse n'appartient pas à la carte chargée ");
+        }
+
     }
 
     public void afficherTournee() {

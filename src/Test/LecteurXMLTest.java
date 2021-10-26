@@ -107,7 +107,6 @@ class LecteurXMLTest {
             Carte carte = new Carte();
             carte = lecteurXML.lectureCarte("./src/FichiersXML/mediumMap.xml");
             Tournee tournee = lecteurXML.lectureRequete("./src/FichiersXML/requestsMedium5.xml");
-
         } catch (Exception e) {
             e.printStackTrace();
             fail();
