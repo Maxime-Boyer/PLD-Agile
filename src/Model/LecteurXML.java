@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.SQLOutput;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -135,7 +136,10 @@ public class LecteurXML {
                     String origine = eElement.getAttribute("origin");
                     String destination = eElement.getAttribute("destination");
 
-                    if (!slongueur.isBlank() && !nom.isBlank() && !origine.isBlank() && !destination.isBlank()) {
+
+
+
+                    if (!slongueur.isBlank()  && !origine.isBlank() && !destination.isBlank()) {
                         Double longueur = Double.parseDouble(eElement.getAttribute("length"));
                         Long idOrigine = Long.parseLong(eElement.getAttribute("origin"));
                         Long idDestination = Long.parseLong(eElement.getAttribute("destination"));
@@ -147,10 +151,7 @@ public class LecteurXML {
                             throw new MauvaisAttributBaliseSegmentException("Erreur manque de l'attribut length dans une balise segment de la carte");
 
                         }
-                        if (nom.isBlank()){
-                            throw new MauvaisAttributBaliseSegmentException("Erreur manque de l'attribut name dans une balise segment de la carte");
 
-                        }
                         if(origine.isBlank()){
                             throw new MauvaisAttributBaliseSegmentException("Erreur manque de l'attribut origin dans une balise segment de la carte");
 
