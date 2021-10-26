@@ -5,6 +5,7 @@ package Vue;
 //import Algorithmie.CalculateurTournee;
 
 import Exceptions.IncompatibleAdresseException;
+import Exceptions.NameFile;
 import Model.Adresse;
 import Model.Carte;
 import Model.LecteurXML;
@@ -18,6 +19,7 @@ import java.awt.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 
@@ -35,7 +37,7 @@ public class CartePanel extends JPanel {
     private Tournee tournee = new Tournee();
     private LecteurXML lecteur = new LecteurXML();
 
-    public CartePanel(int largeurEcran, int hauteurEcran, Font policeTexte) {
+    public CartePanel(int largeurEcran, int hauteurEcran, Font policeTexte) throws NameFile {
 
         this.largeur = (int) 3 * largeurEcran / 4;
         this.hauteur = (int) hauteurEcran;
@@ -53,12 +55,22 @@ public class CartePanel extends JPanel {
     }
 
     public void tracerCarte() {
+
+
         JFrame frameSelectCarte = new JFrame();
-        FileDialog fd = new FileDialog(frameSelectCarte, "Sélectionnez une carte au format xml", FileDialog.LOAD);
-        fd.setDirectory("C:\\");
-        fd.setFile("*.xml");
-        fd.setVisible(true);
-        String filename = fd.getDirectory() + fd.getFile();
+
+        String nameFile = "";
+        String filename = "";
+        JFrame frameSelectRequetes = new JFrame();
+
+        while(!nameFile.toLowerCase(Locale.ROOT).contains("requests")) {
+            FileDialog fd = new FileDialog(frameSelectCarte, "Sélectionnez une carte au format xml", FileDialog.LOAD);
+            fd.setDirectory("C:\\");
+            fd.setFile("*.xml");
+            fd.setVisible(true);
+            filename = fd.getDirectory() + fd.getFile();
+            nameFile = fd.getFile();
+        }
 
         if (filename == null)
             System.out.println("You cancelled the choice");
@@ -77,16 +89,24 @@ public class CartePanel extends JPanel {
 
     public void tracerRequetes() {
 
+        String nameFile = "";
+        String filename = "";
         JFrame frameSelectRequetes = new JFrame();
-        FileDialog fd = new FileDialog(frameSelectRequetes, "Sélectionnez une liste de requêtes au format xml", FileDialog.LOAD);
-        fd.setDirectory("C:\\");
-        fd.setFile("*.xml");
-        fd.setVisible(true);
-        String filename = fd.getDirectory() + fd.getFile();
+
+        while(!nameFile.toLowerCase(Locale.ROOT).contains("requests")) {
+
+            FileDialog fd = new FileDialog(frameSelectRequetes, "Sélectionnez une liste de requêtes au format xml", FileDialog.LOAD);
+            fd.setDirectory("C:\\");
+            fd.setFile("*.xml");
+            fd.setVisible(true);
+            filename = fd.getDirectory() + fd.getFile();
+            nameFile = fd.getFile();
+        }
         if (filename == null)
             System.out.println("You cancelled the choice");
         else
             System.out.println("You chose " + filename);
+
         try {
             tournee = lecteur.lectureRequete(filename);
         } catch (Exception e) {

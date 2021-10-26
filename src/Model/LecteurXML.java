@@ -177,16 +177,16 @@ public class LecteurXML {
                     }else{
 
                         if (slongueur.isBlank() ){
-                            throw new MauvaisAttributBaliseSegmentException("Erreur manque de l'attribut length dans une balise segment de la carte");
+                            throw new AttributsSegmentsExceptions("Erreur manque de l'attribut length dans une balise segment de la carte");
 
                         }
 
                         if(origine.isBlank()){
-                            throw new MauvaisAttributBaliseSegmentException("Erreur manque de l'attribut origin dans une balise segment de la carte");
+                            throw new AttributsSegmentsExceptions("Erreur manque de l'attribut origin dans une balise segment de la carte");
 
                         }
                         if(destination.isBlank()){
-                            throw new MauvaisAttributBaliseSegmentException("Erreur manque de l'attribut destination dans une balise segment de la carte");
+                            throw new AttributsSegmentsExceptions("Erreur manque de l'attribut destination dans une balise segment de la carte");
 
                         }
 
