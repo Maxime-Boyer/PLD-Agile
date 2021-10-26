@@ -14,6 +14,7 @@ public class Tournee {
     public Tournee(){
         listeRequetes = new ArrayList<>();
         listeChemins = new ArrayList<>();
+        adresseDepart = null;
     }
 
     public Adresse getAdresseDepart() {

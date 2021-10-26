@@ -87,7 +87,6 @@ public class CartePanel extends JPanel {
             System.out.println("You cancelled the choice");
         else
             System.out.println("You chose " + filename);
-
         try {
             tournee = lecteur.lectureRequete(filename);
         } catch (Exception e) {
@@ -168,7 +167,7 @@ public class CartePanel extends JPanel {
 
     public void dessinerTournee(Graphics g2) throws IncompatibleAdresseException {
         Adresse depart = tournee.getAdresseDepart();
-        if ( depart != null){
+        if (depart != null){
             double lonDepart = depart.getLongitude();
             double latDepart = depart.getLatitude();
             int valeurXDepart = valeurX(lonDepart);
@@ -176,38 +175,38 @@ public class CartePanel extends JPanel {
             g2.setColor(Color.RED);
             g2.fillOval(valeurXDepart, valeurYDepart, 25, 12);
 
+            if(!tournee.getListeRequetes().isEmpty()){
 
-            for (int i = 0; i < tournee.getListeRequetes().size(); i++) {
-                Adresse collecte = tournee.getListeRequetes().get(i).getEtapeCollecte();
-                Adresse depot = tournee.getListeRequetes().get(i).getEtapeDepot();
+                for (int i = 0; i < tournee.getListeRequetes().size(); i++) {
+                    Adresse collecte = tournee.getListeRequetes().get(i).getEtapeCollecte();
+                    Adresse depot = tournee.getListeRequetes().get(i).getEtapeDepot();
 
-                double lonCollecte = collecte.getLongitude();
-                double latCollecte = collecte.getLatitude();
-                double lonDepot = depot.getLongitude();
-                double latDepot = depot.getLatitude();
+                    double lonCollecte = collecte.getLongitude();
+                    double latCollecte = collecte.getLatitude();
+                    double lonDepot = depot.getLongitude();
+                    double latDepot = depot.getLatitude();
 
-                int valeurXCollecte = valeurX(lonCollecte);
-                int valeurYCollecte = valeurY(latCollecte);
-                int valeurXDepot = valeurX(lonDepot);
-                int valeurYDepot = valeurY(latDepot);
+                    int valeurXCollecte = valeurX(lonCollecte);
+                    int valeurYCollecte = valeurY(latCollecte);
+                    int valeurXDepot = valeurX(lonDepot);
+                    int valeurYDepot = valeurY(latDepot);
 
-                Random rand = new Random();
-                int maximumCouleur = 255;
-                int r = rand.nextInt(maximumCouleur);
-                int gr = rand.nextInt(maximumCouleur);
-                int b = rand.nextInt(maximumCouleur);
+                    Random rand = new Random();
+                    int maximumCouleur = 255;
+                    int r = rand.nextInt(maximumCouleur);
+                    int gr = rand.nextInt(maximumCouleur);
+                    int b = rand.nextInt(maximumCouleur);
 
-                g2.setColor(new Color(r, gr, b));
+                    g2.setColor(new Color(r, gr, b));
 
-                g2.fillRoundRect(valeurXCollecte - 7, valeurYCollecte - 7, 14, 14, 14, 14);
-                g2.fillRect(valeurXDepot - 7, valeurYDepot - 7, 14, 14);
-
-
+                    g2.fillRoundRect(valeurXCollecte - 7, valeurYCollecte - 7, 14, 14, 14, 14);
+                    g2.fillRect(valeurXDepot - 7, valeurYDepot - 7, 14, 14);
+                }
             }
         }
-        else {
+        /*else {
             throw new IncompatibleAdresseException("Erreur d'adresse de départ, cette adresse n'appartient pas à la carte chargée ");
-        }
+        }*/
 
     }
 
