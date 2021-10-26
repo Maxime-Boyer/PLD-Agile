@@ -60,10 +60,14 @@ public class LecteurXML {
             {
                 //Get element
                 Element element = (Element)nodeList.item(i);
-                if ( (element.getNodeName() != "map")|| (element.getNodeName() != "intersection") || (element.getNodeName() != "segment")){
-                    throw new TagNameMapException("Erreur lors de la lecture ")
+                //System.out.println(element.getNodeName());
+                //System.out.println("valeur : "+ ((element.getNodeName().equals("map") == false ) && (element.getNodeName().equals("intersection") == false ) && (element.getNodeName().equals("segment") == false )));
+
+
+                if ( (element.getNodeName().equals("map") == false ) && (element.getNodeName().equals("intersection") == false ) && (element.getNodeName().equals("segment") == false )){
+                    throw new TagNameMapException("Erreur lors de la lecture du fichier xml de la carte, des balises incorrectes apparaissent dans le document. NOM BALISE INCORRECTE : "+element.getNodeName());
                 }
-                System.out.println(element.getNodeName());
+
             }
 
 
