@@ -217,6 +217,7 @@ public class LecteurXML {
                         Long idAdresseDepot = Long.parseLong(stringAdresseDepot);
                         Adresse adresseDepot;
                         if (!(carte.getListeAdresses().containsKey(idAdresseDepot))) {
+
                             throw new IncompatibleAdresseException("Erreur d'adresse de départ, cette adresse n'appartient pas à la carte chargée ");
                         } else {
                             adresseDepot = carte.obtenirAdresseParId(idAdresseDepot);
@@ -243,6 +244,7 @@ public class LecteurXML {
 
 
                         //String depart = eElement.getAttribute("departureTime");
+
                         tournee.setAdresseDepart(adresseDepot);
                         LocalTime heureDepart = LocalTime.parse(stringHeureDepart, DateTimeFormatter.ofPattern("H:m:s"));
                     /*int hour = heureDepart.get(ChronoField.CLOCK_HOUR_OF_DAY);
