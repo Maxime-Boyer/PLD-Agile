@@ -1,4 +1,4 @@
-package Algorithmie;
+/*package Algorithmie;
 
 import Model.Adresse;
 import Model.Carte;
@@ -13,7 +13,7 @@ public class CalculateurTournee {
     private Carte carte;
     private Tournee tournee;
 
-    private Dijkstra dijkstra;
+    //private Dijkstra dijkstra;
     private TSP tsp;
 
     private LinkedList<CheminEntreEtape> listeChemins;
@@ -64,4 +64,4 @@ public class CalculateurTournee {
     public TSP getTsp() {
         return tsp;
     }
-}
+}*/

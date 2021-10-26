@@ -1,6 +1,6 @@
 package Vue;
-
-import Algorithmie.CalculateurTournee;
+//
+//import Algorithmie.CalculateurTournee;
 import Model.Adresse;
 import Model.Carte;
 import Model.LecteurXML;
@@ -237,15 +237,15 @@ public class CartePanel extends JPanel {
         System.out.println("CartePane : dessinerItineraire");
 
         System.out.println("CartePane : dessinerItineraire -> inside loop");
-        CalculateurTournee calculTournee = new CalculateurTournee(carte, tournee);
+        /*CalculateurTournee calculTournee = new CalculateurTournee(carte, tournee);
         calculTournee.calculerTournee();
         Tournee itineraire = new Tournee();
-        itineraire = calculTournee.getTsp().getTournee();
+        itineraire = calculTournee.getTsp().getTournee();*/
         //HashMap<Long, LinkedList<CheminEntreEtape>> itineraire = new HashMap<>();
         //itineraire = calculTournee.calculerTournee();
         //System.out.println(itineraire);
 
-        for (int i = 0; i < itineraire.getListeChemins().size(); i++) {
+        /*for (int i = 0; i < itineraire.getListeChemins().size(); i++) {
             for (int j = 0; j < itineraire.getListeChemins().get(i).getListeSegment().size(); j++) {
                 Adresse origine = itineraire.getListeChemins().get(i).getListeSegment().get(j).getOrigine();
                 Adresse destination = itineraire.getListeChemins().get(i).getListeSegment().get(j).getDestination();
@@ -257,7 +257,7 @@ public class CartePanel extends JPanel {
                 g2.drawLine(origineX, origineY, destinationX, destinationY);
 
             }
-        }
+        }*/
 
 
     }
