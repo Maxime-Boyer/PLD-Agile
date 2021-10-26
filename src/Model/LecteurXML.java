@@ -214,7 +214,7 @@ public class LecteurXML {
                 if(!stringAdresseDepot.isBlank() && !stringHeureDepart.isBlank()){
                     //On vérifie si les attributs de la balise depot n'ont pas une valeur vide
                     if(!stringAdresseDepot.isEmpty() && !stringHeureDepart.isEmpty()) {
-                        Long idAdresseDepot = Long.parseLong(eElement.getAttribute("address"));
+                        Long idAdresseDepot = Long.parseLong(stringAdresseDepot);
                         Adresse adresseDepot;
                         if (!(carte.getListeAdresses().containsKey(idAdresseDepot))) {
                             throw new IncompatibleAdresseException("Erreur d'adresse de départ, cette adresse n'appartient pas à la carte chargée ");
@@ -242,9 +242,9 @@ public class LecteurXML {
                         }
 
 
-                        String depart = eElement.getAttribute("departureTime");
+                        //String depart = eElement.getAttribute("departureTime");
                         tournee.setAdresseDepart(adresseDepot);
-                        LocalTime heureDepart = LocalTime.parse(depart, DateTimeFormatter.ofPattern("H:m:s"));
+                        LocalTime heureDepart = LocalTime.parse(stringHeureDepart, DateTimeFormatter.ofPattern("H:m:s"));
                     /*int hour = heureDepart.get(ChronoField.CLOCK_HOUR_OF_DAY);
                     int minute = heureDepart.get(ChronoField.MINUTE_OF_HOUR);
                     int second = heureDepart.get(ChronoField.SECOND_OF_MINUTE);*/
