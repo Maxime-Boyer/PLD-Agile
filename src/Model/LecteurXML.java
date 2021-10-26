@@ -14,10 +14,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import Exceptions.*;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
 public class LecteurXML {
@@ -75,6 +72,9 @@ public class LecteurXML {
                 Node nNodeAdresse = nListAdresse.item(temp);
                 if (nNodeAdresse.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNodeAdresse;
+
+                    NamedNodeMap listeAttributs = nNodeAdresse.getAttributes();
+
 
                     String stringLatitude = eElement.getAttribute("latitude");
                     String stringLongitude = eElement.getAttribute("longitude");
