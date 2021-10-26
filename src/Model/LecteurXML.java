@@ -117,13 +117,13 @@ public class LecteurXML {
                     } else {
 
                         if (stringLongitude.isBlank()) {
-                            throw new MauvaisAttributBaliseIntersection("Erreur manque de l'attribut Longitude dans une balise intersection de la carte");
+                            throw new AbsenceAttributBaliseIntersection("Erreur manque de l'attribut Longitude dans une balise intersection de la carte");
                         }
                         if (stringId.isBlank()) {
-                            throw new MauvaisAttributBaliseIntersection("Erreur manque de l'attribut Id dans une balise intersection de la carte");
+                            throw new AbsenceAttributBaliseIntersection("Erreur manque de l'attribut Id dans une balise intersection de la carte");
                         }
                         if (stringLatitude.isBlank()) {
-                            throw new MauvaisAttributBaliseIntersection("Erreur manque de l'attribut Latitude dans une balise intersection de la carte");
+                            throw new AbsenceAttributBaliseIntersection("Erreur manque de l'attribut Latitude dans une balise intersection de la carte");
                         }
                     }
                 }
@@ -176,6 +176,10 @@ public class LecteurXML {
 
                 throw new PresenceEncodingEtVersion("Erreur lors de la lecture du fichier xml, il manque l'encodage et la version du fichier ");
             }
+
+            //On vérifie si les attributs de la balise Depot ne sont pas inexistant
+            String stringAdresseDepot = eElement.getAttribute("address");
+            String stringHeureDepart = eElement.getAttribute("departureTime");;
 
             Long idAdresseDepot = Long.parseLong(eElement.getAttribute("address"));
             Adresse adresseDepot ;
