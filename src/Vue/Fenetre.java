@@ -2,6 +2,7 @@ package Vue;
 
 import Controleur.Controleur;
 import Controleur.NomEtat;
+import Exceptions.NameFile;
 import Model.Carte;
 
 import javax.swing.*;
@@ -25,7 +26,7 @@ public class Fenetre extends JFrame {
     private MenuLateral menuLateral;
     private CartePanel cartePanel;
 
-    public Fenetre(Carte carte, Controleur controleur) {
+    public Fenetre(Carte carte, Controleur controleur) throws NameFile {
         this.setTitle("Raccourc'IF - Hexanome Détect'IF");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLayout(null);
@@ -42,7 +43,7 @@ public class Fenetre extends JFrame {
         this.setVisible(true);
     }
 
-    public void afficherEtat(NomEtat etat) {
+    public void afficherEtat(NomEtat etat) throws NameFile {
 
         switch (etat) {
             case ETAT_INITIAL:

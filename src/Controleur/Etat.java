@@ -1,5 +1,6 @@
 package Controleur;
 
+import Exceptions.NameFile;
 import Vue.Fenetre;
 
 public interface Etat {
@@ -9,7 +10,7 @@ public interface Etat {
      * @param c : le controlleur
      * @param fenetre : la fenêtre
      */
-    public default void chargerPlan(Controleur c, Fenetre fenetre){}
+    public default void chargerPlan(Controleur c, Fenetre fenetre) throws NameFile {}
 
     /**
      * Méthode appelé par le controlleur après avoir cliqué sur le bouton "Importer tournée"
@@ -17,9 +18,9 @@ public interface Etat {
      * @param fenetre : la fenêtre
      */
     public default void chargerNouveauPlan(Controleur c, Fenetre fenetre){}
-    public default void chargerListeRequete(Controleur c, Fenetre fenetre){}
+    public default void chargerListeRequete(Controleur c, Fenetre fenetre) throws NameFile {}
     public default void chargerNouvelleListeRequete(Controleur c, Fenetre fenetre){}
-    public default void preparerTournee(Controleur c, Fenetre fenetre){}
+    public default void preparerTournee(Controleur c, Fenetre fenetre) throws NameFile {}
     public default void supressionRequete(Controleur c, Fenetre fenetre){}
     public default void selectionPointCarte(Controleur c, Fenetre fenetre){}
     public default void validerSupressionRequete(Controleur c, Fenetre fenetre){}

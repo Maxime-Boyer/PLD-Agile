@@ -1,5 +1,6 @@
 package Controleur;
 
+import Exceptions.NameFile;
 import Model.Carte;
 import Vue.Fenetre;
 
@@ -28,7 +29,7 @@ public class Controleur {
      * Cré le controlleur de l'application
      * @param carte : la carte
      */
-    public Controleur(Carte carte) {
+    public Controleur(Carte carte) throws NameFile {
         this.carte = carte;
         //listofcommands
         this.etatActuel = etatInitial;
@@ -46,7 +47,7 @@ public class Controleur {
     /**
      * Méthode appelé par fenetre après avoir cliqué sur le bouton "Importer un plan"
      */
-    public void chargerPlan() {
+    public void chargerPlan() throws NameFile {
         etatActuel.chargerPlan(this, fenetre);
     }
 
@@ -60,7 +61,7 @@ public class Controleur {
     /**
      * Méthode appelé par fenetre après avoir cliqué sur le bouton "Importer tournée"
      */
-    public void chargerListeRequete() {
+    public void chargerListeRequete() throws NameFile {
         etatActuel.chargerListeRequete(this, fenetre);
     }
 
@@ -75,7 +76,7 @@ public class Controleur {
      * Méthode appelé par fenetre après avoir cliqué sur le bouton "Calculer l'itinéraire"
      * FIXME : cohérence du vocabulaire
      */
-    public void preparerTournee() {
+    public void preparerTournee() throws NameFile {
         etatActuel.preparerTournee(this, fenetre);
     }
 
