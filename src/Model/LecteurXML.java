@@ -203,25 +203,27 @@ public class LecteurXML {
             Element eElement = (Element) depot;
 
             //On vérifie si la balise depot existe
-            if(depot.getNodeValue().isEmpty()){
+            /*if(depot.getNodeValue().isEmpty()){
+                System.out.println("arrive ici");
                 throw new AbsenceBaliseDepot("Erreur la balise depot est absente dans le fichier");
-            }else {
+            }else {*/
 
                 //On vérifie si les attributs de la balise depot ne sont pas inexistant
                 String stringAdresseDepot = eElement.getAttribute("address");
+                System.out.println("stringAdresseDepot " + stringAdresseDepot);
                 String stringHeureDepart = eElement.getAttribute("departureTime");
 
-                if(!stringAdresseDepot.isBlank() && !stringHeureDepart.isBlank()){
+                if(!stringAdresseDepot.isEmpty() && !stringHeureDepart.isEmpty()){
                     //On vérifie si les attributs de la balise depot n'ont pas une valeur vide
-                    if(!stringAdresseDepot.isEmpty() && !stringHeureDepart.isEmpty()) {
-                        Long idAdresseDepot = Long.parseLong(stringAdresseDepot);
+                    if(!stringAdresseDepot.equals("") && !stringHeureDepart.equals("")) {
+                        Long idAdresseDepot = Long.parseLong(eElement.getAttribute("address"));
+                        System.out.println("idAdresseDepot " + idAdresseDepot);
                         Adresse adresseDepot;
                         if (!(carte.getListeAdresses().containsKey(idAdresseDepot))) {
                             throw new IncompatibleAdresseException("Erreur d'adresse de départ, cette adresse n'appartient pas à la carte chargée ");
                         } else {
                             adresseDepot = carte.obtenirAdresseParId(idAdresseDepot);
                         }
-
 
                         double latitudeAdresseDepot = adresseDepot.getLatitude();
                         double longitudeAdresseDepot = adresseDepot.getLongitude();
@@ -244,6 +246,8 @@ public class LecteurXML {
 
                         //String depart = eElement.getAttribute("departureTime");
                         tournee.setAdresseDepart(adresseDepot);
+
+
                         LocalTime heureDepart = LocalTime.parse(stringHeureDepart, DateTimeFormatter.ofPattern("H:m:s"));
                     /*int hour = heureDepart.get(ChronoField.CLOCK_HOUR_OF_DAY);
                     int minute = heureDepart.get(ChronoField.MINUTE_OF_HOUR);
@@ -322,8 +326,7 @@ public class LecteurXML {
                     }
 
                 }
-
-            }
+            //}
         }
         catch(IOException e){
             System.out.println(e);
