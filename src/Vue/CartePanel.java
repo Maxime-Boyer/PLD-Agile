@@ -63,7 +63,7 @@ public class CartePanel extends JPanel {
         String filename = "";
         JFrame frameSelectRequetes = new JFrame();
 
-        while(!nameFile.toLowerCase(Locale.ROOT).contains("requests")) {
+        while(!nameFile.toLowerCase(Locale.ROOT).contains("map")) {
             FileDialog fd = new FileDialog(frameSelectCarte, "Sélectionnez une carte au format xml", FileDialog.LOAD);
             fd.setDirectory("C:\\");
             fd.setFile("*.xml");

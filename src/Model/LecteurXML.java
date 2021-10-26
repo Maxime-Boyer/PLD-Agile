@@ -228,6 +228,18 @@ public class LecteurXML {
                 throw new PresenceEncodingEtVersionException("Erreur lors de la lecture du fichier xml, il manque l'encodage et la version du fichier ");
             }
 
+            //Renvoie toutes les balises du fichier xml
+            NodeList nodeList=document.getElementsByTagName("*");
+            for (int i=0; i<nodeList.getLength(); i++)
+            {
+                //Get element
+                Element element = (Element)nodeList.item(i);
+                if ( (element.getNodeName().equals("planningRequest") == false ) && (element.getNodeName().equals("depot") == false ) && (element.getNodeName().equals("request") == false )){
+                    throw new TagNameMapException("Erreur lors de la lecture du fichier xml de la tournée, des balises incorrectes apparaissent dans le document. NOM BALISE INCORRECTE : "+element.getNodeName());
+                }
+
+            }
+
             Node depot = document.getElementsByTagName("depot").item(0);
 
             Element eElement = (Element) depot;
@@ -253,7 +265,7 @@ public class LecteurXML {
                         for (int i = 0 ; i< listeAttributsDepot.getLength(); i++){
                             //System.out.println(listeAttributs.item(i).getNodeName());
 
-                            if(!listeAttributsDepot.item(i).getNodeName().equals("addresse") && !listeAttributsDepot.item(i).getNodeName().equals("departureTime")){
+                            if(!listeAttributsDepot.item(i).getNodeName().equals("address") && !listeAttributsDepot.item(i).getNodeName().equals("departureTime")){
                                 throw new AttributsIntersectionsExceptions("Erreur, les noms d'attributs de la balise depot ne sont pas corrects");
                             }
                         }
@@ -312,7 +324,7 @@ public class LecteurXML {
                                 }
 
                                 NamedNodeMap listeAttributsRequest = nNodeRequest.getAttributes();
-                                if(listeAttributsRequest.getLength() != 2){
+                                if(listeAttributsRequest.getLength() != 4){
                                     throw new AttributsDepotExceptions("Erreur, le nombre d'attributs de la balise request n°" + temp + " est différent du nombre attendu");
 
                                 }else{
