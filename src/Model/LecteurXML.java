@@ -56,42 +56,61 @@ public class LecteurXML {
 
 
 
+
             NodeList nListAdresse = document.getElementsByTagName("intersection");
 
             for (int temp = 0; temp < nListAdresse.getLength(); temp++) {
                 Node nNodeAdresse = nListAdresse.item(temp);
                 if (nNodeAdresse.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNodeAdresse;
-                    double latitude = Double.parseDouble(eElement.getAttribute("latitude"));
-                    if (latitude < 0.0){
-                        throw new NegatifLatitudeException("Erreur, la latitude d'un point de retrait est négative");
-                    }
+
+                    String stringLatitude = eElement.getAttribute("latitude");
+                    String stringLongitude = eElement.getAttribute("longitude");
+                    String stringId = eElement.getAttribute("id");
+
+                    if (!stringLatitude.isBlank() && !stringLongitude.isBlank() && !stringId.isBlank()) {
+
+                        double latitude = Double.parseDouble(stringLatitude);
+                        if (latitude < 0.0) {
+                            throw new NegatifLatitudeException("Erreur, la latitude d'un point de retrait est négative");
+                        }
 
 
-                    if (latitude < minLatitude){
-                        minLatitude = latitude;
-                    }
-                    if ( latitude > maxLatitude){
-                        maxLatitude = latitude;
-                    }
-                    double longitude = Double.parseDouble(eElement.getAttribute("longitude"));
+                        if (latitude < minLatitude) {
+                            minLatitude = latitude;
+                        }
+                        if (latitude > maxLatitude) {
+                            maxLatitude = latitude;
+                        }
+                        double longitude = Double.parseDouble(stringLongitude);
 
-                    if (longitude < 0.0){
-                        throw new NegatifLongitudeException("Erreur, la longitude d'un point de retrait  est négative");
-                    }
+                        if (longitude < 0.0) {
+                            throw new NegatifLongitudeException("Erreur, la longitude d'un point de retrait  est négative");
+                        }
 
-                    if(longitude < minLongitude){
-                        minLongitude = longitude;
-                    }
-                    if (longitude > maxLongitude){
-                        maxLongitude = longitude;
-                    }
-                    Long id = Long.parseLong(eElement.getAttribute("id"));
+                        if (longitude < minLongitude) {
+                            minLongitude = longitude;
+                        }
+                        if (longitude > maxLongitude) {
+                            maxLongitude = longitude;
+                        }
+                        Long id = Long.parseLong(stringId);
 
-                    Adresse adresse = new Adresse(latitude,longitude,id);
-                    carte.getListeAdresses().put(id,adresse);
-                    //System.out.println(carte.getListeAdresses().get(id));
+                        Adresse adresse = new Adresse(latitude, longitude, id);
+                        carte.getListeAdresses().put(id, adresse);
+                        //System.out.println(carte.getListeAdresses().get(id));
+                    } else {
 
+                        if (stringLongitude.isBlank()) {
+                            throw new MauvaisAttributBaliseIntersection("Erreur manque de l'attribut Longitude dans une balise intersection de la carte");
+                        }
+                        if (stringId.isBlank()) {
+                            throw new MauvaisAttributBaliseIntersection("Erreur manque de l'attribut Id dans une balise intersection de la carte");
+                        }
+                        if (stringLatitude.isBlank()) {
+                            throw new MauvaisAttributBaliseIntersection("Erreur manque de l'attribut Latitude dans une balise intersection de la carte");
+                        }
+                    }
                 }
             }
 

@@ -2,7 +2,7 @@ package Vue;
 //
 //import Algorithmie.CalculateurTournee;
 
-import Algorithmie.CalculateurTournee;
+//import Algorithmie.CalculateurTournee;
 import Exceptions.IncompatibleAdresseException;
 import Model.Adresse;
 import Model.Carte;
