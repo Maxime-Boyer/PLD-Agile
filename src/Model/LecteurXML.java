@@ -54,6 +54,21 @@ public class LecteurXML {
                 throw new PresenceEncodingEtVersion("Erreur lors de la lecture du fichier xml, il manque l'encodage et la version du fichier ");
             }
 
+            //Renvoie toutes les balises du fichier xml
+            NodeList nodeList=document.getElementsByTagName("*");
+            for (int i=0; i<nodeList.getLength(); i++)
+            {
+                //Get element
+                Element element = (Element)nodeList.item(i);
+                //System.out.println(element.getNodeName());
+                //System.out.println("valeur : "+ ((element.getNodeName().equals("map") == false ) && (element.getNodeName().equals("intersection") == false ) && (element.getNodeName().equals("segment") == false )));
+
+
+                if ( (element.getNodeName().equals("map") == false ) && (element.getNodeName().equals("intersection") == false ) && (element.getNodeName().equals("segment") == false )){
+                    throw new TagNameMapException("Erreur lors de la lecture du fichier xml de la carte, des balises incorrectes apparaissent dans le document. NOM BALISE INCORRECTE : "+element.getNodeName());
+                }
+
+            }
 
 
 
