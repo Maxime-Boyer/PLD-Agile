@@ -54,6 +54,17 @@ public class LecteurXML {
                 throw new PresenceEncodingEtVersion("Erreur lors de la lecture du fichier xml, il manque l'encodage et la version du fichier ");
             }
 
+            //Renvoie toutes les balises du fichier xml
+            NodeList nodeList=document.getElementsByTagName("*");
+            for (int i=0; i<nodeList.getLength(); i++)
+            {
+                //Get element
+                Element element = (Element)nodeList.item(i);
+                if ( (element.getNodeName() != "map")|| (element.getNodeName() != "intersection") || (element.getNodeName() != "segment")){
+                    throw new TagNameMapException("Erreur lors de la lecture ")
+                }
+                System.out.println(element.getNodeName());
+            }
 
 
             NodeList nListAdresse = document.getElementsByTagName("intersection");
