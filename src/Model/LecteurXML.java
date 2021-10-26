@@ -191,8 +191,7 @@ public class LecteurXML {
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document document =  db.parse(file);
             document.getDocumentElement().normalize();
-            Node depot = document.getElementsByTagName("depot").item(0);
-            Element eElement = (Element) depot;
+
             String line = Files.readAllLines(Paths.get(nomFichier)).get(0);
             //System.out.println(line);
             if ( !(line.contains("<?") && line.contains("?>"))){
@@ -200,109 +199,131 @@ public class LecteurXML {
                 throw new PresenceEncodingEtVersionException("Erreur lors de la lecture du fichier xml, il manque l'encodage et la version du fichier ");
             }
 
-            //On vérifie si les attributs de la balise Depot ne sont pas inexistant
-            String stringAdresseDepot = eElement.getAttribute("address");
-            String stringHeureDepart = eElement.getAttribute("departureTime");;
+            Node depot = document.getElementsByTagName("depot").item(0);
+            Element eElement = (Element) depot;
 
-            Long idAdresseDepot = Long.parseLong(eElement.getAttribute("address"));
-            Adresse adresseDepot ;
-            if(!(carte.getListeAdresses().containsKey(idAdresseDepot))){
-                throw new IncompatibleAdresseException("Erreur d'adresse de départ, cette adresse n'appartient pas à la carte chargée ");
-            }else{
-                adresseDepot = carte.obtenirAdresseParId(idAdresseDepot);
-            }
+            //On vérifie si la balise depot existe
+            if(depot.getNodeValue().isEmpty()){
+                throw new AbsenceBaliseDepot("Erreur la balise depot est absente dans le fichier");
+            }else {
 
+                //On vérifie si les attributs de la balise depot ne sont pas inexistant
+                String stringAdresseDepot = eElement.getAttribute("address");
+                String stringHeureDepart = eElement.getAttribute("departureTime");
 
-            double latitudeAdresseDepot = adresseDepot.getLatitude();
-            double longitudeAdresseDepot = adresseDepot.getLongitude();
-
-            if (latitudeAdresseDepot < 0.0){
-                throw new NegatifLatitudeException("Erreur, la latitude du départ est négative");
-            }
-
-            if (longitudeAdresseDepot < 0.0){
-                throw new NegatifLongitudeException("Erreur, la longitude du départ est négative");
-            }
-
-            if(  (latitudeAdresseDepot< minLatitude) || (latitudeAdresseDepot > maxLatitude) ){
-                throw new IncompatibleLatitudeException("Erreur, la latitude de l'adresse de départ n'apparatient pas au plan chargé");
-            }
-            if(  (longitudeAdresseDepot< minLongitude) || (longitudeAdresseDepot > maxLongitude) ){
-                throw new IncompatibleLongitudeException("Erreur, la longitude de l'adresse de départ n'apparatient au  plan chargé");
-            }
+                if(!stringAdresseDepot.isBlank() && !stringHeureDepart.isBlank()){
+                    //On vérifie si les attributs de la balise depot n'ont pas une valeur vide
+                    if(!stringAdresseDepot.isEmpty() && !stringHeureDepart.isEmpty()) {
+                        Long idAdresseDepot = Long.parseLong(eElement.getAttribute("address"));
+                        Adresse adresseDepot;
+                        if (!(carte.getListeAdresses().containsKey(idAdresseDepot))) {
+                            throw new IncompatibleAdresseException("Erreur d'adresse de départ, cette adresse n'appartient pas à la carte chargée ");
+                        } else {
+                            adresseDepot = carte.obtenirAdresseParId(idAdresseDepot);
+                        }
 
 
+                        double latitudeAdresseDepot = adresseDepot.getLatitude();
+                        double longitudeAdresseDepot = adresseDepot.getLongitude();
 
-            String depart = eElement.getAttribute("departureTime");
-            tournee.setAdresseDepart(adresseDepot);
-            LocalTime heureDepart = LocalTime.parse(depart, DateTimeFormatter.ofPattern("H:m:s"));
-            /*int hour = heureDepart.get(ChronoField.CLOCK_HOUR_OF_DAY);
-            int minute = heureDepart.get(ChronoField.MINUTE_OF_HOUR);
-            int second = heureDepart.get(ChronoField.SECOND_OF_MINUTE);*/
+                        if (latitudeAdresseDepot < 0.0) {
+                            throw new NegatifLatitudeException("Erreur, la latitude du départ est négative");
+                        }
 
-            tournee.setHeureDepart(heureDepart);
+                        if (longitudeAdresseDepot < 0.0) {
+                            throw new NegatifLongitudeException("Erreur, la longitude du départ est négative");
+                        }
 
-            NodeList nListRequetes = document.getElementsByTagName("request");
+                        if ((latitudeAdresseDepot < minLatitude) || (latitudeAdresseDepot > maxLatitude)) {
+                            throw new IncompatibleLatitudeException("Erreur, la latitude de l'adresse de départ n'apparatient pas au plan chargé");
+                        }
+                        if ((longitudeAdresseDepot < minLongitude) || (longitudeAdresseDepot > maxLongitude)) {
+                            throw new IncompatibleLongitudeException("Erreur, la longitude de l'adresse de départ n'apparatient au  plan chargé");
+                        }
 
 
-            for (int temp = 0; temp < nListRequetes.getLength(); temp++) {
-                Node nNodeRequest = nListRequetes.item(temp);
-                if (nNodeRequest.getNodeType() == Node.ELEMENT_NODE) {
-                    eElement = (Element) nNodeRequest;
+                        String depart = eElement.getAttribute("departureTime");
+                        tournee.setAdresseDepart(adresseDepot);
+                        LocalTime heureDepart = LocalTime.parse(depart, DateTimeFormatter.ofPattern("H:m:s"));
+                    /*int hour = heureDepart.get(ChronoField.CLOCK_HOUR_OF_DAY);
+                    int minute = heureDepart.get(ChronoField.MINUTE_OF_HOUR);
+                    int second = heureDepart.get(ChronoField.SECOND_OF_MINUTE);*/
 
-                    Long idAdresseRetrait = Long.parseLong(eElement.getAttribute("pickupAddress"));
-                    Long idAdresseLivraison = Long.parseLong(eElement.getAttribute("deliveryAddress"));
+                        tournee.setHeureDepart(heureDepart);
 
-                    if(!(carte.getListeAdresses().containsKey(idAdresseRetrait))){
-                        throw new IncompatibleAdresseException("Erreur sur une adresse de retrait, l'adresse n'appartient pas à la carte chargée ");
+                        NodeList nListRequetes = document.getElementsByTagName("request");
+
+
+                        for (int temp = 0; temp < nListRequetes.getLength(); temp++) {
+                            Node nNodeRequest = nListRequetes.item(temp);
+                            if (nNodeRequest.getNodeType() == Node.ELEMENT_NODE) {
+                                eElement = (Element) nNodeRequest;
+
+                                Long idAdresseRetrait = Long.parseLong(eElement.getAttribute("pickupAddress"));
+                                Long idAdresseLivraison = Long.parseLong(eElement.getAttribute("deliveryAddress"));
+
+                                if (!(carte.getListeAdresses().containsKey(idAdresseRetrait))) {
+                                    throw new IncompatibleAdresseException("Erreur sur une adresse de retrait, l'adresse n'appartient pas à la carte chargée ");
+                                }
+
+                                if (!(carte.getListeAdresses().containsKey(idAdresseLivraison))) {
+                                    throw new IncompatibleAdresseException("Erreur sur une adresse de livraison, l'adresse n'appartient pas à la carte chargée ");
+                                }
+
+                                Integer tempsRetrait = Integer.parseInt(eElement.getAttribute("pickupDuration"));
+                                Integer tempsLivraison = Integer.parseInt(eElement.getAttribute("deliveryDuration"));
+                                Adresse adresseRetrait = carte.obtenirAdresseParId(idAdresseRetrait);
+                                Adresse adresseLivraison = carte.obtenirAdresseParId(idAdresseLivraison);
+
+                                double latitudeAdresseRetrait = adresseRetrait.getLatitude();
+                                double longitudeAdresseRetrait = adresseRetrait.getLongitude();
+
+
+                                if ((latitudeAdresseRetrait < minLatitude) || (latitudeAdresseRetrait > maxLatitude)) {
+                                    throw new IncompatibleLatitudeException("Erreur, la latitude de d'une adresse n'apparatient pas au plan chargé");
+                                }
+                                if ((longitudeAdresseRetrait < minLongitude) || (longitudeAdresseRetrait > maxLongitude)) {
+                                    throw new IncompatibleLongitudeException("Erreur, la longitude d'une adresse n'apparatient au  plan chargé");
+                                }
+
+                                double latitudeAdresseLivraison = adresseLivraison.getLatitude();
+                                double longitudeAdresseLivraison = adresseLivraison.getLongitude();
+
+
+                                if ((latitudeAdresseLivraison < minLatitude) || (latitudeAdresseLivraison > maxLatitude)) {
+                                    throw new IncompatibleLatitudeException("Erreur, la latitude de l'adresse de départ n'apparatient pas au plan chargé");
+                                }
+                                if ((longitudeAdresseLivraison < minLongitude) || (longitudeAdresseLivraison > maxLongitude)) {
+                                    throw new IncompatibleLongitudeException("Erreur, la longitude de l'adresse de départ n'apparatient au le plan chargé");
+                                }
+
+
+                                Etape etapeRetrait = new Etape(adresseRetrait.getLatitude(), adresseRetrait.getLongitude(), idAdresseRetrait, tempsRetrait, null);
+                                Etape etapeLivraison = new Etape(adresseLivraison.getLatitude(), adresseLivraison.getLongitude(), idAdresseLivraison, tempsLivraison, null);
+                                Requete requete = new Requete(etapeRetrait, etapeLivraison);
+                                listeRequetes.add(requete);
+                            }
+                        }
+                        tournee.setListeRequetes(listeRequetes);
+                    }else {
+                        if(stringAdresseDepot.isEmpty()) {
+                            throw new ValeurAttributVideBaliseDepot("Erreur l'attribut address de la balise depot a une valeur vide");
+                        }
+                        if(stringHeureDepart.isEmpty()) {
+                            throw new ValeurAttributVideBaliseDepot("Erreur l'attribut departureTime de la balise depot a une valeur vide");
+                        }
+                    }
+                }else{
+                    if(stringHeureDepart.isBlank()){
+                        throw new AbsenceAttributBaliseDepot("Erreur l'attribut departureTime de la balise depot est inexistant");
+                    }
+                    if(stringAdresseDepot.isBlank()){
+                        throw new AbsenceAttributBaliseDepot("Erreur l'attribut adresse de la balise depot est inexistant");
                     }
 
-                    if(!(carte.getListeAdresses().containsKey(idAdresseLivraison))){
-                        throw new IncompatibleAdresseException("Erreur sur une adresse de livraison, l'adresse n'appartient pas à la carte chargée ");
-                    }
-
-                    Integer tempsRetrait = Integer.parseInt(eElement.getAttribute("pickupDuration"));
-                    Integer tempsLivraison = Integer.parseInt(eElement.getAttribute("deliveryDuration"));
-                    Adresse adresseRetrait = carte.obtenirAdresseParId(idAdresseRetrait);
-                    Adresse adresseLivraison = carte.obtenirAdresseParId(idAdresseLivraison);
-
-                    double latitudeAdresseRetrait = adresseRetrait.getLatitude();
-                    double longitudeAdresseRetrait = adresseRetrait.getLongitude();
-
-
-
-                    if(  (latitudeAdresseRetrait< minLatitude) || (latitudeAdresseRetrait > maxLatitude) ){
-                        throw new IncompatibleLatitudeException("Erreur, la latitude de d'une adresse n'apparatient pas au plan chargé");
-                    }
-                    if(  (longitudeAdresseRetrait< minLongitude) || (longitudeAdresseRetrait > maxLongitude) ){
-                        throw new IncompatibleLongitudeException("Erreur, la longitude d'une adresse n'apparatient au  plan chargé");
-                    }
-
-                    double latitudeAdresseLivraison = adresseLivraison.getLatitude();
-                    double longitudeAdresseLivraison = adresseLivraison.getLongitude();
-
-
-
-
-                    if(  (latitudeAdresseLivraison< minLatitude) || (latitudeAdresseLivraison > maxLatitude) ){
-                        throw new IncompatibleLatitudeException("Erreur, la latitude de l'adresse de départ n'apparatient pas au plan chargé");
-                    }
-                    if(  (longitudeAdresseLivraison< minLongitude) || (longitudeAdresseLivraison > maxLongitude) ){
-                        throw new IncompatibleLongitudeException("Erreur, la longitude de l'adresse de départ n'apparatient au le plan chargé");
-                    }
-
-
-
-
-
-
-                    Etape etapeRetrait = new Etape(adresseRetrait.getLatitude(),adresseRetrait.getLongitude(),idAdresseRetrait,tempsRetrait, null);
-                    Etape etapeLivraison = new Etape(adresseLivraison.getLatitude(),adresseLivraison.getLongitude(),idAdresseLivraison,tempsLivraison, null);
-                    Requete requete = new Requete(etapeRetrait, etapeLivraison);
-                    listeRequetes.add(requete);
                 }
+
             }
-            tournee.setListeRequetes(listeRequetes);
         }
         catch(IOException e){
             System.out.println(e);
