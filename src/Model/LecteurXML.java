@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.sql.SQLOutput;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -72,8 +71,22 @@ public class LecteurXML {
                 Node nNodeAdresse = nListAdresse.item(temp);
                 if (nNodeAdresse.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNodeAdresse;
-
+                    //liste de tous les attributs du tagname intersection
                     NamedNodeMap listeAttributs = nNodeAdresse.getAttributes();
+                    if(listeAttributs.getLength() != 3){
+                        throw new AttributsIntersectionsExceptions("Erreur, le nombre d'attributs de la balise intersection n° "+ temp +" est différent du nombre attendu ");
+
+                    }else{
+                        for (int i = 0 ; i< listeAttributs.getLength(); i++){
+                            //System.out.println(listeAttributs.item(i).getNodeName());
+
+                                if(   !listeAttributs.item(i).getNodeName().equals("id") && !listeAttributs.item(i).getNodeName().equals("latitude") && !listeAttributs.item(i).getNodeName().equals("longitude")  ){
+                                    throw new AttributsIntersectionsExceptions("Erreur, les attributs de la balise intersection n° "+ temp +" ne sont pas corrects");
+                                }
+
+                        }
+
+                    }
 
 
                     String stringLatitude = eElement.getAttribute("latitude");
@@ -131,6 +144,22 @@ public class LecteurXML {
                 Node nNodeSegment = nListSegment.item(temp);
                 if (nNodeSegment.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNodeSegment;
+
+                    NamedNodeMap listeAttributsSegment = nNodeSegment.getAttributes();
+                    if(listeAttributsSegment.getLength() != 4){
+                        throw new AttributsSegmentsExceptions("Erreur, le nombre d'attributs de la balise  segment n° "+ temp +" est différent du nombre attendu ");
+
+                    }else{
+                        for (int i = 0 ; i< listeAttributsSegment.getLength(); i++){
+                            //System.out.println(listeAttributs.item(i).getNodeName());
+
+                            if(   !listeAttributsSegment.item(i).getNodeName().equals("length") && !listeAttributsSegment.item(i).getNodeName().equals("name") && !listeAttributsSegment.item(i).getNodeName().equals("origin") && !listeAttributsSegment.item(i).getNodeName().equals("destination")  ){
+                                throw new AttributsIntersectionsExceptions("Erreur, les attributs de la balise segment n° "+ temp +" ne sont pas corrects");
+                            }
+
+                        }
+
+                    }
                     String slongueur = eElement.getAttribute("length");
                     String nom = eElement.getAttribute("name");
                     String origine = eElement.getAttribute("origin");
@@ -176,7 +205,7 @@ public class LecteurXML {
         }
     }
 
-    /**
+        /**
      *
      * @param nomFichier
      * @throws ParserConfigurationException
