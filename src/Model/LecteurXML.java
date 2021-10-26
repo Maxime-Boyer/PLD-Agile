@@ -51,7 +51,7 @@ public class LecteurXML {
             //System.out.println(line);
             if ( !(line.contains("<?") && line.contains("?>"))){
 
-                throw new PresenceEncodingEtVersion("Erreur lors de la lecture du fichier xml, il manque l'encodage et la version du fichier ");
+                throw new PresenceEncodingEtVersionException("Erreur lors de la lecture du fichier xml, il manque l'encodage et la version du fichier ");
             }
 
             //Renvoie toutes les balises du fichier xml
@@ -60,10 +60,6 @@ public class LecteurXML {
             {
                 //Get element
                 Element element = (Element)nodeList.item(i);
-                //System.out.println(element.getNodeName());
-                //System.out.println("valeur : "+ ((element.getNodeName().equals("map") == false ) && (element.getNodeName().equals("intersection") == false ) && (element.getNodeName().equals("segment") == false )));
-
-
                 if ( (element.getNodeName().equals("map") == false ) && (element.getNodeName().equals("intersection") == false ) && (element.getNodeName().equals("segment") == false )){
                     throw new TagNameMapException("Erreur lors de la lecture du fichier xml de la carte, des balises incorrectes apparaissent dans le document. NOM BALISE INCORRECTE : "+element.getNodeName());
                 }
@@ -117,13 +113,13 @@ public class LecteurXML {
                     } else {
 
                         if (stringLongitude.isBlank()) {
-                            throw new MauvaisAttributBaliseIntersection("Erreur manque de l'attribut Longitude dans une balise intersection de la carte");
+                            throw new MauvaisAttributBaliseIntersectionException("Erreur manque de l'attribut Longitude dans une balise intersection de la carte");
                         }
                         if (stringId.isBlank()) {
-                            throw new MauvaisAttributBaliseIntersection("Erreur manque de l'attribut Id dans une balise intersection de la carte");
+                            throw new MauvaisAttributBaliseIntersectionException("Erreur manque de l'attribut Id dans une balise intersection de la carte");
                         }
                         if (stringLatitude.isBlank()) {
-                            throw new MauvaisAttributBaliseIntersection("Erreur manque de l'attribut Latitude dans une balise intersection de la carte");
+                            throw new MauvaisAttributBaliseIntersectionException("Erreur manque de l'attribut Latitude dans une balise intersection de la carte");
                         }
                     }
                 }
@@ -134,13 +130,39 @@ public class LecteurXML {
                 Node nNodeSegment = nListSegment.item(temp);
                 if (nNodeSegment.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNodeSegment;
-                    Double longueur = Double.parseDouble(eElement.getAttribute("length"));
+                    String slongueur = eElement.getAttribute("length");
                     String nom = eElement.getAttribute("name");
-                    Long idOrigine = Long.parseLong(eElement.getAttribute("origin"));
-                    Long idDestination = Long.parseLong(eElement.getAttribute("destination"));
-                    Segment segment = new Segment(carte.obtenirAdresseParId(idOrigine),carte.obtenirAdresseParId(idDestination),nom,longueur);
-                    carte.getListeSegments().add(segment);
-                    //System.out.println(segment);
+                    String origine = eElement.getAttribute("origin");
+                    String destination = eElement.getAttribute("destination");
+
+                    if (!slongueur.isBlank() && !nom.isBlank() && !origine.isBlank() && !destination.isBlank()) {
+                        Double longueur = Double.parseDouble(eElement.getAttribute("length"));
+                        Long idOrigine = Long.parseLong(eElement.getAttribute("origin"));
+                        Long idDestination = Long.parseLong(eElement.getAttribute("destination"));
+                        Segment segment = new Segment(carte.obtenirAdresseParId(idOrigine),carte.obtenirAdresseParId(idDestination),nom,longueur);
+                        carte.getListeSegments().add(segment);
+                    }else{
+
+                        if (slongueur.isBlank() ){
+                            throw new MauvaisAttributBaliseSegmentException("Erreur manque de l'attribut length dans une balise segment de la carte");
+
+                        }
+                        if (nom.isBlank()){
+                            throw new MauvaisAttributBaliseSegmentException("Erreur manque de l'attribut name dans une balise segment de la carte");
+
+                        }
+                        if(origine.isBlank()){
+                            throw new MauvaisAttributBaliseSegmentException("Erreur manque de l'attribut origin dans une balise segment de la carte");
+
+                        }
+                        if(destination.isBlank()){
+                            throw new MauvaisAttributBaliseSegmentException("Erreur manque de l'attribut destination dans une balise segment de la carte");
+
+                        }
+
+                    }
+
+
 
                 }
             }
@@ -174,7 +196,7 @@ public class LecteurXML {
             //System.out.println(line);
             if ( !(line.contains("<?") && line.contains("?>"))){
 
-                throw new PresenceEncodingEtVersion("Erreur lors de la lecture du fichier xml, il manque l'encodage et la version du fichier ");
+                throw new PresenceEncodingEtVersionException("Erreur lors de la lecture du fichier xml, il manque l'encodage et la version du fichier ");
             }
 
             Long idAdresseDepot = Long.parseLong(eElement.getAttribute("address"));
