@@ -199,6 +199,10 @@ public class LecteurXML {
                 throw new PresenceEncodingEtVersionException("Erreur lors de la lecture du fichier xml, il manque l'encodage et la version du fichier ");
             }
 
+            //On vérifie si les attributs de la balise Depot ne sont pas inexistant
+            String stringAdresseDepot = eElement.getAttribute("address");
+            String stringHeureDepart = eElement.getAttribute("departureTime");;
+
             Long idAdresseDepot = Long.parseLong(eElement.getAttribute("address"));
             Adresse adresseDepot ;
             if(!(carte.getListeAdresses().containsKey(idAdresseDepot))){
