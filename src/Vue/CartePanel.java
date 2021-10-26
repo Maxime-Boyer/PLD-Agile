@@ -1,5 +1,6 @@
 package Vue;
 
+import Algorithmie.CalculateurTournee;
 import Model.Adresse;
 import Model.Carte;
 import Model.LecteurXML;
@@ -17,7 +18,6 @@ import java.util.Map;
 import java.util.Random;
 
 
-
 public class CartePanel extends JPanel {
     private int largeur;
     private int hauteur;
@@ -26,15 +26,17 @@ public class CartePanel extends JPanel {
     private double minLatitudeCarte;
     private double minLongitudeCarte;
     private boolean tourneeAppelee;
+    private boolean itinerairePrepare;
     private Carte carte = new Carte();
     private Tournee tournee = new Tournee();
     private LecteurXML lecteur = new LecteurXML();
 
-    public CartePanel(int largeurEcran, int hauteurEcran, Font policeTexte){
+    public CartePanel(int largeurEcran, int hauteurEcran, Font policeTexte) {
 
-        this.largeur = (int) 3*largeurEcran/4;
+        this.largeur = (int) 3 * largeurEcran / 4;
         this.hauteur = (int) hauteurEcran;
         this.tourneeAppelee = false;
+        this.itinerairePrepare = false;
         this.setBounds(0, 0, largeur, hauteur);
         this.setBackground(Color.WHITE);
         this.setLayout(null);
@@ -42,11 +44,11 @@ public class CartePanel extends JPanel {
         tracerCarte();
     }
 
-    public Tournee getTournee(){
+    public Tournee getTournee() {
         return tournee;
     }
 
-    public void tracerCarte(){
+    public void tracerCarte() {
         JFrame frameSelectCarte = new JFrame();
         FileDialog fd = new FileDialog(frameSelectCarte, "Sélectionnez une carte au format xml", FileDialog.LOAD);
         fd.setDirectory("C:\\");
@@ -59,9 +61,9 @@ public class CartePanel extends JPanel {
         else
             System.out.println("You chose " + filename);
 
-        try{
+        try {
             carte = lecteur.lectureCarte(filename);
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
 
@@ -69,7 +71,7 @@ public class CartePanel extends JPanel {
         maxLongitudeLatitudeCarte();
     }
 
-    public void tracerRequetes(){
+    public void tracerRequetes() {
 
         JFrame frameSelectRequetes = new JFrame();
         FileDialog fd = new FileDialog(frameSelectRequetes, "Sélectionnez une liste de requêtes au format xml", FileDialog.LOAD);
@@ -82,13 +84,19 @@ public class CartePanel extends JPanel {
         else
             System.out.println("You chose " + filename);
 
-        try{
+        try {
             tournee = lecteur.lectureRequete(filename);
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
         frameSelectRequetes.dispose();
+        itinerairePrepare = false;
         tourneeAppelee = true;
+    }
+
+    public void tracerItineraire() {
+        System.out.println("tracerItineraire");
+        itinerairePrepare = true;
     }
 
     public void repaint(Graphics g) {
@@ -97,36 +105,37 @@ public class CartePanel extends JPanel {
     }
 
     @Override
-    public void paintComponent(Graphics g)
-    {
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
         //System.out.println("hauteur ecran : " + hauteurEcran + " largeur ecran : " + largeurEcran);
         Graphics2D g2 = (Graphics2D) g;
         dessinerCarte(g2);
+        if (tourneeAppelee && itinerairePrepare)
+            dessinerItineraire(g2);
 
-        if(tourneeAppelee){
+        if (tourneeAppelee) {
             dessinerTournee(g2);
         }
     }
 
-    public int valeurX(double longitude){
+    public int valeurX(double longitude) {
         double ecartLongitude = maxLongitudeCarte - minLongitudeCarte;
         double coeffX = largeur / ecartLongitude;
-        int valeurXPixel = (int) Math.ceil((longitude - minLongitudeCarte)*coeffX);
+        int valeurXPixel = (int) Math.ceil((longitude - minLongitudeCarte) * coeffX);
 
         return valeurXPixel;
     }
 
-    public int valeurY(double latitude){
+    public int valeurY(double latitude) {
         double ecartLatitude = maxLatitudeCarte - minLatitudeCarte;
         double coeffY = hauteur / ecartLatitude;
-        int valeurYPixel = (int) Math.ceil((maxLatitudeCarte - latitude)*coeffY);
+        int valeurYPixel = (int) Math.ceil((maxLatitudeCarte - latitude) * coeffY);
 
         return valeurYPixel;
     }
 
-    public void dessinerCarte(Graphics g2){
+    public void dessinerCarte(Graphics g2) {
         g2.setColor(Color.BLACK);
         // BackGround
 
@@ -148,14 +157,14 @@ public class CartePanel extends JPanel {
         }
     }
 
-    public void dessinerTournee(Graphics g2){
+    public void dessinerTournee(Graphics g2) {
         Adresse depart = tournee.getAdresseDepart();
         double lonDepart = depart.getLongitude();
         double latDepart = depart.getLatitude();
         int valeurXDepart = valeurX(lonDepart);
         int valeurYDepart = valeurY(latDepart);
         g2.setColor(Color.RED);
-        g2.fillOval(valeurXDepart,valeurYDepart, 25,12);
+        g2.fillOval(valeurXDepart, valeurYDepart, 25, 12);
 
 
         for (int i = 0; i < tournee.getListeRequetes().size(); i++) {
@@ -178,16 +187,16 @@ public class CartePanel extends JPanel {
             int gr = rand.nextInt(maximumCouleur);
             int b = rand.nextInt(maximumCouleur);
 
-            g2.setColor(new Color(r,gr,b));
+            g2.setColor(new Color(r, gr, b));
 
-            g2.fillRoundRect(valeurXCollecte-7,valeurYCollecte-7,14, 14, 14, 14);
-            g2.fillRect(valeurXDepot-7,valeurYDepot-7,14, 14);
+            g2.fillRoundRect(valeurXCollecte - 7, valeurYCollecte - 7, 14, 14, 14, 14);
+            g2.fillRect(valeurXDepot - 7, valeurYDepot - 7, 14, 14);
 
 
         }
     }
 
-    public void afficherTournee(){
+    public void afficherTournee() {
 
         tourneeAppelee = true;
 
@@ -224,24 +233,52 @@ public class CartePanel extends JPanel {
         //}
     }
 
+    public void dessinerItineraire(Graphics g2) {
+        System.out.println("CartePane : dessinerItineraire");
 
-    public void maxLongitudeLatitudeCarte(){
+        System.out.println("CartePane : dessinerItineraire -> inside loop");
+        CalculateurTournee calculTournee = new CalculateurTournee(carte, tournee);
+        calculTournee.calculerTournee();
+        Tournee itineraire = new Tournee();
+        itineraire = calculTournee.getTsp().getTournee();
+        //HashMap<Long, LinkedList<CheminEntreEtape>> itineraire = new HashMap<>();
+        //itineraire = calculTournee.calculerTournee();
+        //System.out.println(itineraire);
+
+        for (int i = 0; i < itineraire.getListeChemins().size(); i++) {
+            for (int j = 0; j < itineraire.getListeChemins().get(i).getListeSegment().size(); j++) {
+                Adresse origine = itineraire.getListeChemins().get(i).getListeSegment().get(j).getOrigine();
+                Adresse destination = itineraire.getListeChemins().get(i).getListeSegment().get(j).getDestination();
+                int origineX = valeurX(origine.getLongitude());
+                int origineY = valeurY(origine.getLatitude());
+                int destinationX = valeurX(destination.getLongitude());
+                int destinationY = valeurY(destination.getLatitude());
+                g2.setColor(Color.RED);
+                g2.drawLine(origineX, origineY, destinationX, destinationY);
+
+            }
+        }
+
+
+    }
+
+    public void maxLongitudeLatitudeCarte() {
         double maxLongitude = 0.0D;
         double maxLatitude = 0.0D;
         double minLongitude = 1000.0D;
         double minLatitude = 1000.0D;
         for (Map.Entry mapentry : carte.getListeAdresses().entrySet()) {
             Adresse adresseCourante = (Adresse) mapentry.getValue();
-            if(adresseCourante.getLongitude() > maxLongitude){
+            if (adresseCourante.getLongitude() > maxLongitude) {
                 maxLongitude = adresseCourante.getLongitude();
             }
-            if(adresseCourante.getLatitude() > maxLatitude){
+            if (adresseCourante.getLatitude() > maxLatitude) {
                 maxLatitude = adresseCourante.getLatitude();
             }
-            if(adresseCourante.getLatitude() < minLatitude){
+            if (adresseCourante.getLatitude() < minLatitude) {
                 minLatitude = adresseCourante.getLatitude();
             }
-            if(adresseCourante.getLongitude() < minLongitude){
+            if (adresseCourante.getLongitude() < minLongitude) {
                 minLongitude = adresseCourante.getLongitude();
             }
         }
@@ -250,7 +287,7 @@ public class CartePanel extends JPanel {
         minLatitudeCarte = minLatitude;
         minLongitudeCarte = minLongitude;
 
-        System.out.println("maxLongitude : "+maxLongitude
+        System.out.println("maxLongitude : " + maxLongitude
                 + " | maxLatitude: " + maxLatitude
                 + " | minLatitude: " + minLatitude
                 + " | minLongitude: " + minLongitude);

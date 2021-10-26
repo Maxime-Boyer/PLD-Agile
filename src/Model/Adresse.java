@@ -1,7 +1,5 @@
 package Model;
 
-import java.util.List;
-
 public class Adresse {
     private double latitude;
     private double longitude;
