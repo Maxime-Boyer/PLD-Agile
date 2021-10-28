@@ -15,8 +15,13 @@ public class Astar {
     private HashMap<Long, Double> cout;
 
     // Contient les adresses grises, associees a leur cout : Pair<Cout, idAdresse>
-    //private PriorityQueue<Long, Double> adressesGrises;
-    PriorityQueue<NoeudAdresse> adressesGrises;
+    //private PriorityQueue<Long, Double> filePrioriteAdressesGises;
+    PriorityQueue<NoeudAdresse> filePrioriteAdressesGises;
+
+    // Contient les adresses grises (en attente de visite) associée à leur cout.
+    // Permet d'accéder en temps constant à l'objet NoeudAdresse.
+    // Doit être mis à jour en même temps que filePrioriteAdressesGises (stocke le même pointeur)
+    private HashMap<Long, NoeudAdresse> adressesGrises;
 
     // Contient les adresses noir (déjà visitées)
     private HashSet<Long> adressesNoire;
@@ -28,9 +33,10 @@ public class Astar {
 
         this.carte = carte;
         this.cout = new HashMap<>();
-        adressesGrises = new PriorityQueue<>();
+        filePrioriteAdressesGises = new PriorityQueue<>();
         adressesNoire = new HashSet<>();
         parent = new HashMap<>();
+        adressesGrises = new HashMap<>();
     }
 
     //Calcul l'heuristique avec la distance euclidienne
@@ -68,20 +74,23 @@ public class Astar {
         //Vide les listes
         parent.clear();
         cout.clear();
-        adressesGrises.clear();
+        filePrioriteAdressesGises.clear();
         adressesNoire.clear();
+        adressesGrises.clear();
 
         // On met le point de départ dans les maps grises
         cout.put(depart.getIdAdresse(), calculHeuristique(depart, arrivee));
-        adressesGrises.offer(new NoeudAdresse(depart.getIdAdresse(), cout.get(depart.getIdAdresse())));
+        NoeudAdresse nouveauNoeudAdresse = new NoeudAdresse(depart.getIdAdresse(), cout.get(depart.getIdAdresse()));
+        filePrioriteAdressesGises.offer(nouveauNoeudAdresse);
+        adressesGrises.put(nouveauNoeudAdresse.getIdAdresse(), nouveauNoeudAdresse);
         int nbLoop = 0;//TODO : delete this
-        while (!adressesGrises.isEmpty()) {
+        while (!filePrioriteAdressesGises.isEmpty()) {
             //System.out.println("Loop " + nbLoop);
 
             //Prend l'adresse de la liste grise ayant le cout min
-            Adresse adresseActuelle = carte.obtenirAdresseParId(adressesGrises.peek().getIdAdresse()); //O(1)
-            //System.out.println("    adresseActuelle="+adresseActuelle);
+            Adresse adresseActuelle = carte.obtenirAdresseParId(filePrioriteAdressesGises.peek().getIdAdresse()); //O(1)
 
+            //System.out.println("    adresseActuelle="+adresseActuelle);
             //Si on a atteint la destination alors on retourne le chemin trouve (etat actuel correspond à l'arrivee)
             if (adresseActuelle.getIdAdresse().equals(arrivee.getIdAdresse())) {
                 //System.out.println("    destination atteinte");
@@ -103,8 +112,9 @@ public class Astar {
 
             //Passe l'adresse actuelle en visitée
             adressesNoire.add(adresseActuelle.getIdAdresse());
-            adressesGrises.poll();
-            //System.out.println("    adressesGrises="+adressesGrises);
+            filePrioriteAdressesGises.poll();
+            adressesGrises.remove(adresseActuelle.getIdAdresse());
+            //System.out.println("    filePrioriteAdressesGises="+filePrioriteAdressesGises);
 
             //Visite les voisins de l'adresse actuelle
             for (Segment segSortants : adresseActuelle.getSegmentsSortants()) {
@@ -121,7 +131,12 @@ public class Astar {
                     else
                         cout.replace(voisin.getIdAdresse(), nouveauCout);
                     parent.put(voisin.getIdAdresse(), segSortants);
-                    adressesGrises.offer(new NoeudAdresse(voisin.getIdAdresse(), cout.get(voisin.getIdAdresse())));
+                    //Si le voisin n'est pas déjà gris, l'jaoute à la file de priorité
+                    if (adressesGrises.get(voisin.getIdAdresse())!= null)
+                        filePrioriteAdressesGises.offer(new NoeudAdresse(voisin.getIdAdresse(), cout.get(voisin.getIdAdresse())));
+                    //Sinon met à jour le cout de ce noeud gris
+                    else
+                        adressesGrises.get(voisin.getIdAdresse()).setCout(cout.get(voisin.getIdAdresse()));
                 }
             }
             nbLoop++;
