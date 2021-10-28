@@ -132,7 +132,7 @@ public class Astar {
                         cout.replace(voisin.getIdAdresse(), nouveauCout);
                     parent.put(voisin.getIdAdresse(), segSortants);
                     //Si le voisin n'est pas déjà gris, l'jaoute à la file de priorité
-                    if (adressesGrises.get(voisin.getIdAdresse())!= null)
+                    if (adressesGrises.get(voisin.getIdAdresse())== null)
                         filePrioriteAdressesGises.offer(new NoeudAdresse(voisin.getIdAdresse(), cout.get(voisin.getIdAdresse())));
                     //Sinon met à jour le cout de ce noeud gris
                     else

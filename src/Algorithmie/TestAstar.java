@@ -37,6 +37,10 @@ public class TestAstar {
         for (Segment segment : listeSegment)
             carte.ajouterSegment(segment);
 
+        NoeudAdresse noeudAdresse1 = new NoeudAdresse(1L, 1);
+        NoeudAdresse noeudAdresse2 = new NoeudAdresse(2L, 2);
+        System.out.println("noeudAdresse2>noeudAdresse1 : " + (noeudAdresse2.compareTo(noeudAdresse1)));
+
         Astar astar = new Astar(carte);
         CheminEntreEtape cheminEntreEtape = astar.executerAstar(e0, e1);
         System.out.println(cheminEntreEtape);

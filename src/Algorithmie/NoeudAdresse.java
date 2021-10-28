@@ -19,7 +19,7 @@ public class NoeudAdresse implements Comparable<NoeudAdresse> {
         if (this.cout == other.cout)
             return 0;
         else if (this.cout > other.cout)
-            return 0;
+            return 1;
         else
             return -1;
     }
