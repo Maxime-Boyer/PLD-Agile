@@ -1,68 +1,87 @@
 package Algorithmie;
 
-import Model.Adresse;
-import Model.Carte;
-import Model.CheminEntreEtape;
-import Model.Tournee;
+import Model.*;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 
 public class CalculateurTournee {
 
     private Carte carte;
     private Tournee tournee;
 
-    private Dijkstra dijkstra;
-    private TSP tsp;
-
-    private LinkedList<CheminEntreEtape> listeChemins;
-
+    /**
+     * Constructeur de CalculateurTournee
+     * @param carte : la carte
+     * @param tournee : la tournée souhaitée
+     */
     public CalculateurTournee(Carte carte, Tournee tournee){
 
         //Recuperation des informations
         this.carte = carte;
         this.tournee = tournee;
-
-        //Utilisation de Dijkstra et TSP
-        dijkstra = new Dijkstra(carte,tournee);
-
     }
 
-    public HashMap<Long,LinkedList<CheminEntreEtape>> calculerTournee(){
-
-        System.out.println("-------------- DEBUT ALGO ------------");
-        //Il faut remplacer par HashMap<Long idAdresseDepart, HashMap<Long idArrivee, CheminEntreEtape>>
-        HashMap<Long,LinkedList<CheminEntreEtape>> resultatDijkstra = dijkstra.calculerChemins();
-        System.out.println("------------ FIN DIJKSTRA ------------");
-        System.out.println(resultatDijkstra);
-
-        System.out.println(" before ");
-
-        System.out.println(tournee.getListeChemins());
-
-        System.out.println(" after ");
-
-        tsp = new TSP(carte,tournee,resultatDijkstra);
-        tsp.calculerTourneeInitiale();
-
-        System.out.println(tournee.getListeChemins());
-
-        tsp.calculerOrdreEtapes();
-
-        System.out.println(" after again ");
-
-        System.out.println(tournee.getListeChemins());
-
-
-        System.out.println("-------------- FIN ALGO ------------");
-
-
-        return resultatDijkstra;
-
+    /**
+     * Calcul la tournée passant par l'ensemble des étapes
+     */
+    public void calculerTournee (){
+        //Appel calculerGrapheCompletDesEtapes
+        //Appel TSP
     }
 
-    public TSP getTsp() {
-        return tsp;
+
+
+    /**
+     * Calcul le graphe complet de l'ensemble des étapes
+     * @return le graphe complet de l'ensemble des étapes
+     */
+    private HashMap<Long, HashMap<Long, CheminEntreEtape>> calculerGrapheCompletDesEtapes(){
+        Astar1 astar = new Astar1(carte);
+
+        // HashMap< idAresseDepart, HashMap<idAresseArrivee, CheminEntreEtape> >
+        HashMap<Long, HashMap<Long, CheminEntreEtape>> grapheCompletDesEtapes = new HashMap<>();
+
+        //Boucler pour construire le graphe complet
+        for(int depart=0 ; depart<tournee.getListeRequetes().size()*2 + 1 ; depart++) {
+            Adresse etapeDepart;
+            if(depart == tournee.getListeRequetes().size()*2) {
+                etapeDepart = tournee.getAdresseDepart();
+            } else {
+                if (depart % 2 == 0) {
+                    etapeDepart = tournee.getListeRequetes().get(depart / 2).getEtapeCollecte();
+                } else {
+                    etapeDepart = tournee.getListeRequetes().get(depart / 2).getEtapeDepot();
+                }
+            }
+
+            HashMap<Long, CheminEntreEtape> listeCheminEntreEtape = new HashMap<>();
+            for(int arr=0 ; arr<tournee.getListeRequetes().size()*2 + 1 ; arr++) {
+                if (arr != depart) {
+                    Adresse etapeArrivee;
+                    if(arr == tournee.getListeRequetes().size()*2) {
+                        etapeArrivee = tournee.getAdresseDepart();
+                    } else {
+                        if(arr%2==0) {
+                            etapeArrivee = tournee.getListeRequetes().get(arr/2).getEtapeCollecte();
+                        } else {
+                            etapeArrivee = tournee.getListeRequetes().get(arr/2).getEtapeDepot();
+                        }
+                    }
+                    System.out.println("etapeDepart="+etapeDepart.getIdAdresse()+", etapeArrivee"+etapeArrivee.getIdAdresse());
+                    CheminEntreEtape nouveauChemin = astar.chercherCheminEntreEtape(etapeDepart, etapeArrivee);
+                    listeCheminEntreEtape.put(etapeArrivee.getIdAdresse(), nouveauChemin);
+                    System.out.println("    longeurChemin="+nouveauChemin.getDistance());
+                    System.out.println("    listeCheminEntreEtape = " + listeCheminEntreEtape);
+                }
+            }
+
+            grapheCompletDesEtapes.put(etapeDepart.getIdAdresse(), listeCheminEntreEtape);
+        }
+
+
+        return grapheCompletDesEtapes;
     }
+
+
+
 }
