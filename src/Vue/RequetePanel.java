@@ -7,7 +7,7 @@ import javax.swing.border.LineBorder;
 
 public class RequetePanel extends JPanel {
 
-    public RequetePanel(int dureeCollecte, int dureeDepot, String adresseCollecte, String adresseDepot, int parentWidth, int valMarginBase, Font policeTexte, Font policeTexteImportant){
+    public RequetePanel(int dureeCollecte, int dureeDepot, String adresseCollecte, String adresseDepot, Color couleurBordure, int parentWidth, int valMarginBase, Font policeTexte, Font policeTexteImportant){
 
         /************************************************************************************/
         /*                              Panel principal                                     */
@@ -15,7 +15,13 @@ public class RequetePanel extends JPanel {
         this.setBackground(Color.WHITE);
         this.setBounds(0, 0, parentWidth, 130);
         this.setLayout(null);
-        this.setBorder(new LineBorder(Color.BLACK, 1, true));
+
+        float teinteRouge = (float) couleurBordure.getRed() / (float) 255;
+        float teinteVert = (float) couleurBordure.getGreen() / (float) 255;
+        float teinteBleue = (float) couleurBordure.getBlue() / (float) 255;
+        Color couleurFond = new Color(teinteRouge, teinteVert, teinteBleue, (float) 0.1);
+        this.setBackground(couleurFond);
+        this.setBorder(new LineBorder(couleurBordure, 2, true));
 
         /************************************************************************************/
         /*                               Label duree de collecte                            */

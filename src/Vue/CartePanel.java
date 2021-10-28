@@ -197,6 +197,7 @@ public class CartePanel extends JPanel {
             int valeurXDepot = valeurX(lonDepot);
             int valeurYDepot = valeurY(latDepot);
 
+            //g2.setColor(tournee.getListeRequetes().get(i).getCouleur());
 
 
             g2.setColor(tournee.getListeRequetes().get(i).getCouleurRequete());

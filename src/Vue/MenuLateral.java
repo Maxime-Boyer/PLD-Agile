@@ -75,7 +75,7 @@ public class MenuLateral extends JPanel {
             depot = tournee.getListeRequetes().get(i).getEtapeDepot();
 
             // TODO: remplacer les ID par les adresses
-            listeRequetes[i] = new RequetePanel(collecte.getDureeEtape(), depot.getDureeEtape(), "Adresse ID: " + collecte.getIdAdresse().toString(), "Adresse ID: " + depot.getIdAdresse().toString(), panelConsultation.getWidth(), valMarginBase, policeTexte, policeTexteImportant);
+            listeRequetes[i] = new RequetePanel(collecte.getDureeEtape(), depot.getDureeEtape(), "Adresse ID: " + collecte.getIdAdresse().toString(), "Adresse ID: " + depot.getIdAdresse().toString(), tournee.getListeRequetes().get(i).getCouleur(), panelConsultation.getWidth(), valMarginBase, policeTexte, policeTexteImportant);
 
             if(i > 0)
                 positionTop = listeRequetes[i-1].getY() + listeRequetes[i-1].getHeight() + 2*valMarginBase;
