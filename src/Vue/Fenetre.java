@@ -39,7 +39,7 @@ public class Fenetre extends JFrame {
         this.ecouteurBoutons = new EcouteurBoutons(controleur);
 
         afficherEtat(NomEtat.ETAT_INITIAL);
-        this.setResizable(false);
+        this.setResizable(true); //TODO: passer à false
         this.setVisible(true);
     }
 
