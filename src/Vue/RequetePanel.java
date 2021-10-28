@@ -2,6 +2,7 @@ package Vue;
 
 import javax.swing.*;
 import java.awt.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 
@@ -12,9 +13,9 @@ public class RequetePanel extends JPanel {
         /************************************************************************************/
         /*                              Panel principal                                     */
         /************************************************************************************/
-        this.setBackground(Color.WHITE);
-        this.setBounds(0, 0, parentWidth, 200);
-        this.setLayout(null);
+        BoxLayout boxlayout = new BoxLayout(this, BoxLayout.Y_AXIS);
+        this.setLayout(boxlayout);
+        this.setPreferredSize(new Dimension(parentWidth - 24, 170));
 
         float teinteRouge = (float) couleurBordure.getRed() / (float) 255;
         float teinteVert = (float) couleurBordure.getGreen() / (float) 255;
@@ -23,42 +24,60 @@ public class RequetePanel extends JPanel {
         this.setBackground(couleurFond);
         this.setBorder(new LineBorder(couleurBordure, 2, true));
 
+        JPanel panelInside = new JPanel();
+        BoxLayout boxlayoutInside = new BoxLayout(panelInside, BoxLayout.Y_AXIS);
+        panelInside.setLayout(boxlayoutInside);
+        panelInside.setOpaque(false);
+        panelInside.setBorder(new EmptyBorder(10, 10, 10, 10));
+
         /************************************************************************************/
         /*                               Label duree de collecte                            */
         /************************************************************************************/
-        JLabel labelTitreCollecte = new JLabel("Collecte - " + String.valueOf(dureeCollecte) + " sec");
-        labelTitreCollecte.setBounds(2*valMarginBase, valMarginBase, this.getWidth() - 4 * valMarginBase, 30);
+
+        JTextArea labelTitreCollecte = new JTextArea("Collecte - " + String.valueOf(dureeCollecte) + " sec");
+        labelTitreCollecte.setSize(this.getWidth() - 4 * valMarginBase, 30);
         labelTitreCollecte.setFont(policeTexteImportant);
-        this.add(labelTitreCollecte);
+        labelTitreCollecte.setLineWrap(true);
+        labelTitreCollecte.setWrapStyleWord(true);
+        labelTitreCollecte.setOpaque(false);
+        panelInside.add(labelTitreCollecte);
+        panelInside.add(Box.createRigidArea(new Dimension(0, valMarginBase)));
 
         /************************************************************************************/
         /*                            Label adresse de collecte                             */
         /************************************************************************************/
         JTextArea labelAdresseCollecte = new JTextArea(adresseCollecte);
-        labelAdresseCollecte.setBounds(2*valMarginBase, labelTitreCollecte.getY() + labelTitreCollecte.getHeight() - valMarginBase, this.getWidth() - 4 * valMarginBase, 45);
+        labelAdresseCollecte.setSize(this.getWidth() - 4 * valMarginBase, 45);
         labelAdresseCollecte.setFont(policeTexte);
         labelAdresseCollecte.setLineWrap(true);
         labelAdresseCollecte.setWrapStyleWord(true);
         labelAdresseCollecte.setOpaque(false);
-        this.add(labelAdresseCollecte);
+        panelInside.add(labelAdresseCollecte);
+        panelInside.add(Box.createRigidArea(new Dimension(0, 3*valMarginBase)));
 
         /************************************************************************************/
         /*                                 Label duree depot                                */
         /************************************************************************************/
-        JLabel labelTitreDepot = new JLabel("Dépôt - " + String.valueOf(dureeDepot) + " sec");
-        labelTitreDepot.setBounds(2*valMarginBase, labelAdresseCollecte.getY() + labelAdresseCollecte.getHeight() + valMarginBase, this.getWidth() - 4 * valMarginBase, 30);
+        JTextArea labelTitreDepot = new JTextArea("Dépôt - " + String.valueOf(dureeDepot) + " sec");
+        labelTitreDepot.setSize(this.getWidth() - 4 * valMarginBase, 30);
         labelTitreDepot.setFont(policeTexteImportant);
-        this.add(labelTitreDepot);
+        labelTitreDepot.setLineWrap(true);
+        labelTitreDepot.setWrapStyleWord(true);
+        labelTitreDepot.setOpaque(false);
+        panelInside.add(labelTitreDepot);
+        panelInside.add(Box.createRigidArea(new Dimension(0, valMarginBase)));
 
         /************************************************************************************/
         /*                                Label adresse de depot                            */
         /************************************************************************************/
         JTextArea labelAdresseDepot = new JTextArea(adresseDepot);
-        labelAdresseDepot.setBounds(2*valMarginBase, labelTitreDepot.getY() + labelTitreDepot.getHeight() - valMarginBase, this.getWidth() - 4 * valMarginBase, 45);
+        labelAdresseDepot.setSize(this.getWidth() - 4 * valMarginBase, 45);
         labelAdresseDepot.setFont(policeTexte);
         labelAdresseDepot.setLineWrap(true);
         labelAdresseDepot.setWrapStyleWord(true);
         labelAdresseDepot.setOpaque(false);
-        this.add(labelAdresseDepot);
+        panelInside.add(labelAdresseDepot);
+
+        this.add(panelInside);
     }
 }
