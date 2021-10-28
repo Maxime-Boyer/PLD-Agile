@@ -23,7 +23,8 @@ public class EcouteurBoutons implements ActionListener {
                 break;
             case Fenetre.IMPORT_TOURNEE:
                 controleur.chargerListeRequete();
-
+                //TODO : delete this
+                System.out.println("EcouteurBoutons : IMPORT_TOURNEE");
                 break;
             case Fenetre.PREPARER_TOURNEE:
                 controleur.preparerTournee();

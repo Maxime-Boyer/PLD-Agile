@@ -48,7 +48,6 @@ public class Tournee {
         this.listeChemins = listeChemins;
     }
 
-
     @Override
     public String toString() {
         return "Tournee{" +

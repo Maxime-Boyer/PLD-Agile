@@ -7,7 +7,7 @@ import Model.Carte;
 import javax.swing.*;
 import java.awt.*;
 
-public class Fenetre extends JFrame{
+public class Fenetre extends JFrame {
 
     protected final static String IMPORT_CARTE = "Importer carte";
     protected final static String IMPORT_TOURNEE = "Importer tournée";
@@ -24,8 +24,9 @@ public class Fenetre extends JFrame{
     private EcranAccueil ecranAccueil;
     private MenuLateral menuLateral;
     private CartePanel cartePanel;
+    private Legende legende;
 
-    public Fenetre(Carte carte, Controleur controleur){
+    public Fenetre(Carte carte, Controleur controleur) {
         this.setTitle("Raccourc'IF - Hexanome Détect'IF");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLayout(null);
@@ -38,32 +39,37 @@ public class Fenetre extends JFrame{
         this.ecouteurBoutons = new EcouteurBoutons(controleur);
 
         afficherEtat(NomEtat.ETAT_INITIAL);
-        this.setResizable(false);
+        this.setResizable(true); //TODO: passer à false
         this.setVisible(true);
     }
 
-    public void afficherEtat(NomEtat etat){
+    public void afficherEtat(NomEtat etat) {
 
-        switch (etat){
+        switch (etat) {
             case ETAT_INITIAL:
+                System.out.println("Frentre.afficherEtat() : ETAT_INITIAL");
                 // E0: Vue ecran Accueil
                 ecranAccueil = new EcranAccueil(this.getWidth(), this.getHeight(), policeSousTitre, policeTexte, this.ecouteurBoutons);
                 this.add(ecranAccueil);
                 break;
             case ETAT_PLAN_AFFICHE:
+                System.out.println("Frentre.afficherEtat() : ETAT_PLAN_AFFICHE");
                 //E1: Carte chargée
-                cartePanel = new CartePanel(this.getWidth(), this.getHeight()-20, policeTexte);
+                cartePanel = new CartePanel(this.getWidth(), this.getHeight() - 20, policeTexte);
                 this.add(cartePanel);
-                menuLateral = new MenuLateral(this.getWidth(), this.getHeight()-20, policeTexte, policeTexteImportant, ecouteurBoutons);
+                menuLateral = new MenuLateral(this.getWidth(), this.getHeight() - 20, policeTexte, policeTexteImportant, ecouteurBoutons);
                 this.add(menuLateral);
                 break;
             case ETAT_TOURNEE_CHARGEE:
+                System.out.println("Frentre.afficherEtat() : ETAT_TOURNEE_CHARGEE");
                 // E2: Tournee chargee
                 cartePanel.tracerRequetes();
                 menuLateral.afficherMenuRequete(cartePanel.getTournee());
+                legende = new Legende();
                 break;
             case ETAT_TOURNEE_PREPAREE:
-                //cartePanel.dessinerItineraire();
+                System.out.println("Frentre.afficherEtat() : ETAT_TOURNEE_PREPAREE");
+                cartePanel.tracerItineraire();
                 menuLateral.afficherMenuEtapes();
                 break;
         }
@@ -74,20 +80,23 @@ public class Fenetre extends JFrame{
     }
 
     //Permet de retirer des pannel
-    public void retirerElment(NomEtat etatPrecedent){
-        switch (etatPrecedent){
-            case ETAT_INITIAL:
-                if(ecranAccueil != null)
-                    this.remove(ecranAccueil);
-                break;
-            case ETAT_PLAN_AFFICHE:
-                if(cartePanel != null)
-                    this.remove(cartePanel);
-            case ETAT_TOURNEE_CHARGEE:
-                if(cartePanel != null)
-                    this.remove(cartePanel);
-                if(menuLateral != null)
-                    this.remove(menuLateral);
-        }
+    public void retirerEcranAccueil() {
+        this.remove(ecranAccueil);
+    }
+
+    public void retirerCartePanel() {
+        this.remove(cartePanel);
+    }
+
+    public void retirerMenuLateral() {
+        this.remove(menuLateral);
+    }
+
+    public void retirerMenuRequete() {
+        menuLateral.retirerMenuRequete();
+    }
+
+    public void retirerMenuEtape() {
+        menuLateral.retirerMenuEtape();
     }
 }

@@ -8,7 +8,14 @@ public class Etape extends Adresse{
     public Timestamp heureDePassage;
     public Integer dureeEtape;
 
-
+    /**
+     * Constructeur de la classe étape
+     * @param latitude
+     * @param longitude
+     * @param idAdresse
+     * @param dureeEtape
+     * @param heureDePassage
+     */
     public Etape(double latitude, double longitude, Long idAdresse, Integer dureeEtape, Timestamp heureDePassage) {
         super(latitude, longitude, idAdresse);
         this.dureeEtape = dureeEtape;
