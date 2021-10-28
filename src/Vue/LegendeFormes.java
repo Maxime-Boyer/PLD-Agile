@@ -17,7 +17,7 @@ public class LegendeFormes extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        var largeurSymbole = 14;
+        int largeurSymbole = 14;
         int valeurDepart = (int) largeur/2 - largeurSymbole/2;
 
         int valeurXBasGauche = valeurDepart;

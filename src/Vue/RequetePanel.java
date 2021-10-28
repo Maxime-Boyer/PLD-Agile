@@ -43,7 +43,7 @@ public class RequetePanel extends JPanel {
         /************************************************************************************/
         /*                                 Label duree depot                                */
         /************************************************************************************/
-        JLabel labelTitreDepot = new JLabel("Dépôt - " + String.valueOf(dureeDepot) + " min");
+        JLabel labelTitreDepot = new JLabel("Dépôt - " + String.valueOf(dureeDepot) + " sec");
         labelTitreDepot.setBounds(2*valMarginBase, labelAdresseCollecte.getY() + labelAdresseCollecte.getHeight() + valMarginBase, this.getWidth() - 4 * valMarginBase, 30);
         labelTitreDepot.setFont(policeTexteImportant);
         this.add(labelTitreDepot);

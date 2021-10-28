@@ -164,7 +164,23 @@ public class CartePanel extends JPanel {
         int valeurXDepart = valeurX(lonDepart);
         int valeurYDepart = valeurY(latDepart);
         g2.setColor(Color.RED);
-        g2.fillOval(valeurXDepart, valeurYDepart, 25, 12);
+        int valeurXBasGauche = valeurXDepart - 11;
+        int valeurYBasGauche = valeurYDepart + 5;
+
+        int valeurXBasDroite = valeurXDepart + 11;
+        int valeurYBasDroite = valeurYDepart + 5;
+
+        int valeurXHaute = valeurXDepart;
+        int valeurYHaute = valeurYDepart - 10;
+
+        int []XPoints = {valeurXBasGauche,valeurXBasDroite,valeurXHaute};
+        int []YPoints = {valeurYBasGauche,valeurYBasDroite,valeurYHaute};
+
+        g2.fillPolygon(XPoints,YPoints,3);
+
+
+
+        //zg2.fillOval(valeurXDepart, valeurYDepart, 25, 12);
 
 
         for (int i = 0; i < tournee.getListeRequetes().size(); i++) {
@@ -181,10 +197,15 @@ public class CartePanel extends JPanel {
             int valeurXDepot = valeurX(lonDepot);
             int valeurYDepot = valeurY(latDepot);
 
-            g2.setColor(tournee.getListeRequetes().get(i).getCouleur());
+            //g2.setColor(tournee.getListeRequetes().get(i).getCouleur());
+
+
+            g2.setColor(tournee.getListeRequetes().get(i).getCouleurRequete());
 
             g2.fillRoundRect(valeurXCollecte - 7, valeurYCollecte - 7, 14, 14, 14, 14);
             g2.fillRect(valeurXDepot - 7, valeurYDepot - 7, 14, 14);
+
+
         }
     }
 
