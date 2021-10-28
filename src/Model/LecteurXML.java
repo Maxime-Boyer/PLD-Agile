@@ -129,12 +129,69 @@ public class LecteurXML {
                 }
             }
             tournee.setListeRequetes(listeRequetes);
+
+            determinerNomAdresseEtapes(tournee);
         }
         catch(IOException e){
             System.out.println(e);
         }
         finally {
             return tournee;
+        }
+    }
+
+    // Parcourir chaque etape et tous les segments de la carte pour obtenir le nom des adresses
+    private void determinerNomAdresseEtapes(Tournee tournee){
+
+        Requete requete;
+        Segment segment, segmentCollecte1, segmentCollecte2, segmentDepot1, segmentDepot2;
+        String nomAdresseCollecte = "", nomAdresseDepot = "";
+
+        // parcours de toutes les requetes
+        for(int i = 0; i < tournee.getListeRequetes().size(); i++){
+            requete = tournee.getListeRequetes().get(i);
+
+            segmentCollecte1 = null;
+            segmentCollecte2 = null;
+            segmentDepot1 = null;
+            segmentDepot2 = null;
+
+            // recuperation de tous les segments
+            for(int j = 0; j < carte.getListeSegments().size(); j++){
+                segment = carte.getListeSegments().get(j);
+
+                // si les coordonnes de l'étape de collecte concordent avec celles d'une extremite du segment
+                if((requete.getEtapeCollecte().getLatitude() == segment.getOrigine().getLatitude() && requete.getEtapeCollecte().getLongitude() == segment.getOrigine().getLongitude()) ||
+                        (requete.getEtapeCollecte().getLatitude() == segment.getDestination().getLatitude() && requete.getEtapeCollecte().getLongitude() == segment.getDestination().getLongitude())){
+                    if(segmentCollecte1 == null){
+                        segmentCollecte1 = segment;
+                    }
+                    else if(segmentCollecte1 != null && segment.getNom() != segmentCollecte1.getNom()){
+                        segmentCollecte2 = segment;
+                    }
+                }
+
+                // si les coordonnes de l'étape de depot concordent avec celles d'une extremite du segment
+                if((requete.getEtapeDepot().getLatitude() == segment.getOrigine().getLatitude() && requete.getEtapeDepot().getLongitude() == segment.getOrigine().getLongitude()) ||
+                        (requete.getEtapeDepot().getLatitude() == segment.getDestination().getLatitude() && requete.getEtapeDepot().getLongitude() == segment.getDestination().getLongitude())){
+                    if(segmentDepot1 == null){
+                        segmentDepot1 = segment;
+                    }
+                    else if(segmentDepot1 != null && segment.getNom() != segmentDepot1.getNom()){
+                        segmentDepot2 = segment;
+                    }
+                }
+
+                if(segmentCollecte2 != null && segmentDepot2 != null){
+                    break;
+                }
+            }
+
+            // Création et attribution des noms des adresses
+            nomAdresseCollecte = "Intersection entre " + segmentCollecte1.getNom() + " et " + segmentCollecte2.getNom();
+            nomAdresseDepot = "Intersection entre " + segmentDepot1.getNom() + " et " + segmentDepot2.getNom();
+            requete.getEtapeCollecte().setNomAdresse(nomAdresseCollecte);
+            requete.getEtapeDepot().setNomAdresse(nomAdresseDepot);
         }
     }
 }

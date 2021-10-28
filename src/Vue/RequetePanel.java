@@ -13,7 +13,7 @@ public class RequetePanel extends JPanel {
         /*                              Panel principal                                     */
         /************************************************************************************/
         this.setBackground(Color.WHITE);
-        this.setBounds(0, 0, parentWidth, 130);
+        this.setBounds(0, 0, parentWidth, 200);
         this.setLayout(null);
 
         float teinteRouge = (float) couleurBordure.getRed() / (float) 255;
@@ -34,9 +34,10 @@ public class RequetePanel extends JPanel {
         /************************************************************************************/
         /*                            Label adresse de collecte                             */
         /************************************************************************************/
-        JLabel labelAdresseCollecte = new JLabel(adresseCollecte);
-        labelAdresseCollecte.setBounds(2*valMarginBase, labelTitreCollecte.getY() + labelTitreCollecte.getHeight() - valMarginBase, this.getWidth() - 4 * valMarginBase, 30);
+        JTextArea labelAdresseCollecte = new JTextArea(adresseCollecte);
+        labelAdresseCollecte.setBounds(2*valMarginBase, labelTitreCollecte.getY() + labelTitreCollecte.getHeight() - valMarginBase, this.getWidth() - 4 * valMarginBase, 60);
         labelAdresseCollecte.setFont(policeTexte);
+        labelAdresseCollecte.setLineWrap(true);
         this.add(labelAdresseCollecte);
 
         /************************************************************************************/
@@ -50,9 +51,10 @@ public class RequetePanel extends JPanel {
         /************************************************************************************/
         /*                                Label adresse de depot                            */
         /************************************************************************************/
-        JLabel labelAdresseDepot = new JLabel(adresseDepot);
-        labelAdresseDepot.setBounds(2*valMarginBase, labelTitreDepot.getY() + labelTitreDepot.getHeight() - valMarginBase, this.getWidth() - 4 * valMarginBase, 30);
+        JTextArea labelAdresseDepot = new JTextArea(adresseDepot);
+        labelAdresseDepot.setBounds(2*valMarginBase, labelTitreDepot.getY() + labelTitreDepot.getHeight() - valMarginBase, this.getWidth() - 4 * valMarginBase, 60);
         labelAdresseDepot.setFont(policeTexte);
+        labelAdresseDepot.setLineWrap(true);
         this.add(labelAdresseDepot);
     }
 }
