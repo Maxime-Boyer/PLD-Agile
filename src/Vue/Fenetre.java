@@ -24,6 +24,7 @@ public class Fenetre extends JFrame {
     private EcranAccueil ecranAccueil;
     private MenuLateral menuLateral;
     private CartePanel cartePanel;
+    private Legende legende;
 
     public Fenetre(Carte carte, Controleur controleur) {
         this.setTitle("Raccourc'IF - Hexanome Détect'IF");
@@ -38,7 +39,6 @@ public class Fenetre extends JFrame {
         this.ecouteurBoutons = new EcouteurBoutons(controleur);
 
         afficherEtat(NomEtat.ETAT_INITIAL);
-        this.setResizable(false);
         this.setVisible(true);
     }
 
@@ -64,6 +64,7 @@ public class Fenetre extends JFrame {
                 // E2: Tournee chargee
                 cartePanel.tracerRequetes();
                 menuLateral.afficherMenuRequete(cartePanel.getTournee());
+                legende = new Legende();
                 break;
             case ETAT_TOURNEE_PREPAREE:
                 System.out.println("Frentre.afficherEtat() : ETAT_TOURNEE_PREPAREE");
