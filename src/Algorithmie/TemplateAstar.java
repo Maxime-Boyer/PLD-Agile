@@ -60,10 +60,11 @@ public abstract class TemplateAstar implements Astar {
             for (Segment segSortants : adresseActuelle.getSegmentsSortants()) {
                 Adresse voisin = segSortants.getDestination();
                 // Il ne faut rien faire si le voisin est noir (deja visite)
-                if (! adressesNoire.contains(voisin.getIdAdresse()))
+                if (! adressesNoire.contains(voisin.getIdAdresse())) {
                     //TODO faire relacher ////////////////////
                     relacher();
-                if ()
+                    if ()
+                }
             }
 
 
