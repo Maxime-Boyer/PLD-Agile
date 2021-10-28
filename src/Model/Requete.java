@@ -27,6 +27,8 @@ public class Requete {
         return etapeDepot;
     }
 
+    public Color getCouleur() { return couleurRequete; }
+
     @Override
     public String toString() {
         return "Requete{" +

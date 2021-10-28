@@ -166,7 +166,7 @@ public class LecteurXML {
                     if(segmentCollecte1 == null){
                         segmentCollecte1 = segment;
                     }
-                    else if(segmentCollecte1 != null && segment.getNom() != segmentCollecte1.getNom()){
+                    else if(segmentCollecte1 != null && !segment.getNom().equals(segmentCollecte1.getNom())){
                         segmentCollecte2 = segment;
                     }
                 }
@@ -177,7 +177,7 @@ public class LecteurXML {
                     if(segmentDepot1 == null){
                         segmentDepot1 = segment;
                     }
-                    else if(segmentDepot1 != null && segment.getNom() != segmentDepot1.getNom()){
+                    else if(segmentDepot1 != null && !segment.getNom().equals(segmentDepot1.getNom())){
                         segmentDepot2 = segment;
                     }
                 }

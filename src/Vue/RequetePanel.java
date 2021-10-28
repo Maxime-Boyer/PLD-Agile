@@ -35,9 +35,11 @@ public class RequetePanel extends JPanel {
         /*                            Label adresse de collecte                             */
         /************************************************************************************/
         JTextArea labelAdresseCollecte = new JTextArea(adresseCollecte);
-        labelAdresseCollecte.setBounds(2*valMarginBase, labelTitreCollecte.getY() + labelTitreCollecte.getHeight() - valMarginBase, this.getWidth() - 4 * valMarginBase, 60);
+        labelAdresseCollecte.setBounds(2*valMarginBase, labelTitreCollecte.getY() + labelTitreCollecte.getHeight() - valMarginBase, this.getWidth() - 4 * valMarginBase, 45);
         labelAdresseCollecte.setFont(policeTexte);
         labelAdresseCollecte.setLineWrap(true);
+        labelAdresseCollecte.setWrapStyleWord(true);
+        labelAdresseCollecte.setOpaque(false);
         this.add(labelAdresseCollecte);
 
         /************************************************************************************/
@@ -52,9 +54,11 @@ public class RequetePanel extends JPanel {
         /*                                Label adresse de depot                            */
         /************************************************************************************/
         JTextArea labelAdresseDepot = new JTextArea(adresseDepot);
-        labelAdresseDepot.setBounds(2*valMarginBase, labelTitreDepot.getY() + labelTitreDepot.getHeight() - valMarginBase, this.getWidth() - 4 * valMarginBase, 60);
+        labelAdresseDepot.setBounds(2*valMarginBase, labelTitreDepot.getY() + labelTitreDepot.getHeight() - valMarginBase, this.getWidth() - 4 * valMarginBase, 45);
         labelAdresseDepot.setFont(policeTexte);
         labelAdresseDepot.setLineWrap(true);
+        labelAdresseDepot.setWrapStyleWord(true);
+        labelAdresseDepot.setOpaque(false);
         this.add(labelAdresseDepot);
     }
 }
