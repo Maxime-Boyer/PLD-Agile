@@ -32,6 +32,7 @@ public class CalculateurTournee {
     public HashMap<Long,LinkedList<CheminEntreEtape>> calculerTournee(){
 
         System.out.println("-------------- DEBUT ALGO ------------");
+        //Il faut remplacer par HashMap<Long idAdresseDepart, HashMap<Long idArrivee, CheminEntreEtape>>
         HashMap<Long,LinkedList<CheminEntreEtape>> resultatDijkstra = dijkstra.calculerChemins();
         System.out.println("------------ FIN DIJKSTRA ------------");
         System.out.println(resultatDijkstra);
