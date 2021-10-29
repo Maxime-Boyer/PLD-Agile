@@ -4,6 +4,7 @@ import Model.Tournee;
 import Model.Etape;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 
 public class MenuLateral extends JPanel {
@@ -81,6 +82,9 @@ public class MenuLateral extends JPanel {
         int yDebutPanelConsultation = (int) (panelImport.getY() + panelImport.getHeight() + 2 * valMarginBase +2);
         int yFinPanelConsultation = (int) (this.getHeight() - hauteurBouton - 4 * valMarginBase - 4);
         scrollPanel.setBounds(valMarginBase+2, yDebutPanelConsultation, this.getWidth()-2*valMarginBase - 4, yFinPanelConsultation - yDebutPanelConsultation );
+        Border border = BorderFactory.createEmptyBorder( 0, 0, 0, 0 );
+        scrollPanel.setViewportBorder( border );
+        scrollPanel.setBorder(border);
         this.add(scrollPanel);
 
         //creation du bouton de calcul d'itineraire
@@ -89,7 +93,7 @@ public class MenuLateral extends JPanel {
         this.add(boutonPreparerTournee);
     }
 
-    public void afficherMenuEtapes(){
+    public void afficherMenuEtapes(Tournee tournee){
 
         // Undo, Redo, Ajouter Etape
         panelBoutonsE4 = new JPanel();
@@ -97,7 +101,7 @@ public class MenuLateral extends JPanel {
         panelBoutonsE4.setLayout(null);
         this.add(panelBoutonsE4);
 
-        /*boutonUndo = new Bouton("<--", policeTexte, ecouteurBoutons);
+        boutonUndo = new Bouton("<--", policeTexte, ecouteurBoutons);
         boutonUndo.setBounds( 0,0, panelBoutonsE4.getWidth()/4 - valMarginBase*3/4, 50);
         panelBoutonsE4.add(boutonUndo);
 
@@ -107,27 +111,22 @@ public class MenuLateral extends JPanel {
 
         boutonAjouterEtape = new Bouton("Ajouter étape", policeTexte, ecouteurBoutons);
         boutonAjouterEtape.setBounds(boutonRedo.getX() + boutonRedo.getWidth() + valMarginBase,0, panelBoutonsE4.getWidth()/2 - valMarginBase/2, hauteurBouton);
-        panelBoutonsE4.add(boutonAjouterEtape);*/
+        panelBoutonsE4.add(boutonAjouterEtape);
 
         // suppr ancien panel consultation et construiction du nouveau
-        System.out.println("MENULATERAL : afficherMenuEtape");
         panelInsideScrollPanel.removeAll();
         int yDebutPanelConsultation = (int) (panelBoutonsE4.getY() + panelBoutonsE4.getHeight() + 2 * valMarginBase +2);
         int yFinPanelConsultation = (int) (this.getHeight() - hauteurBouton - 4 * valMarginBase - 4);
-        panelInsideScrollPanel.setBounds(valMarginBase+2, yDebutPanelConsultation, this.getWidth()-2*valMarginBase - 4, yFinPanelConsultation - yDebutPanelConsultation );
+        scrollPanel.setBounds(valMarginBase+2, yDebutPanelConsultation, this.getWidth()-2*valMarginBase - 4, yFinPanelConsultation - yDebutPanelConsultation );
 
         //affichage du détaille des étapes
         EtapePanel[] listeEtapes = new EtapePanel[10];
         int positionTop = 0;
-        /*for (int i = 0; i < 10; i++) {
-            listeEtapes[i] = new EtapePanel("8h18", false, 12, "20 Av. Albert Einstein", panelConsultation.getWidth(), valMarginBase, policeTexte, policeTexteImportant);
-
-            if(i > 0)
-                positionTop = listeEtapes[i-1].getY() + listeEtapes[i-1].getHeight() + 2*valMarginBase;
-
-            listeEtapes[i].setBounds(0, positionTop, panelConsultation.getWidth(), 110);
-            panelConsultation.add(listeEtapes[i]);
-        }*/
+        for (int i = 0; i < 10; i++) {
+            listeEtapes[i] = new EtapePanel("8h18", false, 12, "20 Av. Albert Einstein", Color.RED, panelInsideScrollPanel.getWidth(), valMarginBase, policeTexte, policeTexteImportant);
+            panelInsideScrollPanel.add(listeEtapes[i]);
+            panelInsideScrollPanel.add(Box.createRigidArea(new Dimension(0, 2*valMarginBase)));
+        }
 
         // bouton Exporter feuille de route
         this.remove(boutonPreparerTournee);

@@ -161,28 +161,27 @@ public class LecteurXML {
                 segment = carte.getListeSegments().get(j);
 
                 // si les coordonnes de l'étape de collecte concordent avec celles d'une extremite du segment
-                if((requete.getEtapeCollecte().getLatitude() == segment.getOrigine().getLatitude() && requete.getEtapeCollecte().getLongitude() == segment.getOrigine().getLongitude()) ||
-                        (requete.getEtapeCollecte().getLatitude() == segment.getDestination().getLatitude() && requete.getEtapeCollecte().getLongitude() == segment.getDestination().getLongitude())){
+                if(requete.getEtapeCollecte().getIdAdresse().equals(segment.getOrigine().getIdAdresse()) || requete.getEtapeCollecte().getIdAdresse().equals(segment.getDestination().getIdAdresse()) ){
                     if(segmentCollecte1 == null){
                         segmentCollecte1 = segment;
                     }
-                    else if(segmentCollecte1 != null && !segment.getNom().equals(segmentCollecte1.getNom())){
+                    else if(segmentCollecte2 == null || !segment.getNom().equals(segmentCollecte1.getNom())){
                         segmentCollecte2 = segment;
                     }
                 }
 
                 // si les coordonnes de l'étape de depot concordent avec celles d'une extremite du segment
-                if((requete.getEtapeDepot().getLatitude() == segment.getOrigine().getLatitude() && requete.getEtapeDepot().getLongitude() == segment.getOrigine().getLongitude()) ||
-                        (requete.getEtapeDepot().getLatitude() == segment.getDestination().getLatitude() && requete.getEtapeDepot().getLongitude() == segment.getDestination().getLongitude())){
+                if(requete.getEtapeDepot().getIdAdresse().equals(segment.getOrigine().getIdAdresse()) || requete.getEtapeDepot().getIdAdresse().equals(segment.getDestination().getIdAdresse())){
                     if(segmentDepot1 == null){
                         segmentDepot1 = segment;
                     }
-                    else if(segmentDepot1 != null && !segment.getNom().equals(segmentDepot1.getNom())){
+                    else if(segmentDepot2 == null || !segment.getNom().equals(segmentDepot1.getNom())){
                         segmentDepot2 = segment;
                     }
                 }
 
-                if(segmentCollecte2 != null && segmentDepot2 != null){
+                if(segmentCollecte1 != null && segmentDepot1 != null && segmentCollecte2 != null && segmentDepot2 != null
+                        && !segmentCollecte1.getNom().equals(segmentCollecte2.getNom()) && !segmentDepot1.getNom().equals(segmentDepot2.getNom())){
                     break;
                 }
             }

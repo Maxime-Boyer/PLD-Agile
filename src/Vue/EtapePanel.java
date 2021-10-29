@@ -1,75 +1,78 @@
 package Vue;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class EtapePanel extends JPanel {
 
-    public EtapePanel(String heurePassage, boolean estEtapeCollecte, int duree, String adresse , int parentWidth, int valMarginBase, Font policeTexte, Font policeTexteImportant){
+    public EtapePanel(String heurePassage, boolean estEtapeCollecte, int duree, String adresse , Color couleurBordure, int parentWidth, int valMarginBase, Font policeTexte, Font policeTexteImportant){
 
         /************************************************************************************/
         /*                              Panel principal                                     */
         /************************************************************************************/
-        this.setBounds(0, 0, parentWidth, 110);
-        this.setLayout(null);
+        BoxLayout boxlayout = new BoxLayout(this, BoxLayout.Y_AXIS);
+        this.setLayout(boxlayout);
+        this.setPreferredSize(new Dimension(parentWidth - 24, 110));
+
+        float teinteRouge = (float) couleurBordure.getRed() / (float) 255;
+        float teinteVert = (float) couleurBordure.getGreen() / (float) 255;
+        float teinteBleue = (float) couleurBordure.getBlue() / (float) 255;
+        Color couleurFond = new Color(teinteRouge, teinteVert, teinteBleue, (float) 0.1);
+        this.setBackground(couleurFond);
+        this.setBorder(new LineBorder(couleurBordure, 2, true));
+
+        JPanel panelInside = new JPanel();
+        BoxLayout boxlayoutInside = new BoxLayout(panelInside, BoxLayout.Y_AXIS);
+        panelInside.setLayout(boxlayoutInside);
+        panelInside.setOpaque(false);
+        panelInside.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         /************************************************************************************/
-        /*                               Label heure de passage                             */
+        /*                               Label duree de collecte                            */
         /************************************************************************************/
-        JLabel labelHeurePassage = new JLabel(heurePassage);
-        labelHeurePassage.setBounds(0, valMarginBase, this.getWidth(), 30);
+
+        String texteTitreEtape = "";
+        if(estEtapeCollecte){
+            texteTitreEtape = "Collecte - " + duree + " sec";
+        }
+        else{
+            texteTitreEtape = "Dépôt - " + duree + " sec";
+        }
+
+        JTextArea labelTitreCollecte = new JTextArea(texteTitreEtape);
+        labelTitreCollecte.setSize(this.getWidth() - 4 * valMarginBase, 30);
+        labelTitreCollecte.setFont(policeTexteImportant);
+        labelTitreCollecte.setLineWrap(true);
+        labelTitreCollecte.setWrapStyleWord(true);
+        labelTitreCollecte.setOpaque(false);
+        panelInside.add(labelTitreCollecte);
+        panelInside.add(Box.createRigidArea(new Dimension(0, valMarginBase/2)));
+
+        /************************************************************************************/
+        /*                            Label heure de passage                                */
+        /************************************************************************************/
+        JTextArea labelHeurePassage = new JTextArea("Heure de passage: "+heurePassage);
+        labelHeurePassage.setSize(this.getWidth() - 4 * valMarginBase, 45);
         labelHeurePassage.setFont(policeTexte);
-        this.add(labelHeurePassage);
+        labelHeurePassage.setLineWrap(true);
+        labelHeurePassage.setWrapStyleWord(true);
+        labelHeurePassage.setOpaque(false);
+        panelInside.add(labelHeurePassage);
+        panelInside.add(Box.createRigidArea(new Dimension(0, valMarginBase/2)));
 
         /************************************************************************************/
-        /*                               Panel corps Etape                                  */
+        /*                            Label adresse de collecte                             */
         /************************************************************************************/
-        JPanel panelCorpsEtape = new JPanel();
-        panelCorpsEtape.setBounds(0, labelHeurePassage.getY() + labelHeurePassage.getHeight(), this.getWidth(), 70);
-        panelCorpsEtape.setLayout(null);
+        JTextArea labelAdresseCollecte = new JTextArea(adresse);
+        labelAdresseCollecte.setSize(this.getWidth() - 4 * valMarginBase, 45);
+        labelAdresseCollecte.setFont(policeTexte);
+        labelAdresseCollecte.setLineWrap(true);
+        labelAdresseCollecte.setWrapStyleWord(true);
+        labelAdresseCollecte.setOpaque(false);
+        panelInside.add(labelAdresseCollecte);
 
-        if(estEtapeCollecte){
-            panelCorpsEtape.setBorder(new LineBorder(new Color(255, 255, 58), 2, true));
-            panelCorpsEtape.setBackground(new Color(255, 255, 220));
-        }
-        else{
-            panelCorpsEtape.setBorder(new LineBorder(new Color(78, 112, 255), 2, true));
-            panelCorpsEtape.setBackground(new Color(219, 225, 255));
-        }
-
-        this.add(panelCorpsEtape);
-
-        /************************************************************************************/
-        /*                            Label type Etape + duree                              */
-        /************************************************************************************/
-        JLabel labelTitreEtape = new JLabel();
-
-        if(estEtapeCollecte){
-            labelTitreEtape.setText("Collecte - " + duree + " min");
-        }
-        else{
-            labelTitreEtape.setText("Dépôt - " + duree + " min");
-        }
-
-        labelTitreEtape.setBounds(2 * valMarginBase, valMarginBase, 200, 30);
-        labelTitreEtape.setFont(policeTexteImportant);
-        panelCorpsEtape.add(labelTitreEtape);
-
-        /************************************************************************************/
-        /*                                    Label croix                                   */
-        /************************************************************************************/
-        JLabel labelCroix = new JLabel("X", SwingConstants.RIGHT);
-        labelCroix.setBounds(panelCorpsEtape.getWidth() - 2 * valMarginBase - 20, 0, 20, 30);
-        labelCroix.setFont(policeTexte);
-        panelCorpsEtape.add(labelCroix);
-
-        /************************************************************************************/
-        /*                                   Label Adresse                                  */
-        /************************************************************************************/
-        JLabel labelAdresse = new JLabel(adresse);
-        labelAdresse.setBounds(2 * valMarginBase, labelTitreEtape.getHeight() + labelTitreEtape.getY(), panelCorpsEtape.getWidth() - 4*valMarginBase, 30);
-        labelAdresse.setFont(policeTexte);
-        panelCorpsEtape.add(labelAdresse);
+        this.add(panelInside);
     }
 }

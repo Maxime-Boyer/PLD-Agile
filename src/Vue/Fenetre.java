@@ -70,7 +70,7 @@ public class Fenetre extends JFrame {
             case ETAT_TOURNEE_PREPAREE:
                 System.out.println("Frentre.afficherEtat() : ETAT_TOURNEE_PREPAREE");
                 cartePanel.tracerItineraire();
-                menuLateral.afficherMenuEtapes();
+                menuLateral.afficherMenuEtapes(cartePanel.getTournee());
                 break;
         }
 
