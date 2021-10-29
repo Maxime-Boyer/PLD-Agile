@@ -14,6 +14,7 @@ public class Fenetre extends JFrame {
     protected final static String PREPARER_TOURNEE = "Préparer tournée";
 
     private EcouteurBoutons ecouteurBoutons;
+    private EcouteurSurvol ecouteurSurvol;
 
     // definition des polices
     private Font policeTitre = new Font("SansSerif", Font.BOLD, 28);
@@ -37,6 +38,7 @@ public class Fenetre extends JFrame {
         this.setSize(dimensionsEcran.width, dimensionsEcran.height);
 
         this.ecouteurBoutons = new EcouteurBoutons(controleur);
+        this.ecouteurSurvol = new EcouteurSurvol(this);
 
         afficherEtat(NomEtat.ETAT_INITIAL);
         this.setResizable(true); //TODO: passer à false
@@ -55,9 +57,9 @@ public class Fenetre extends JFrame {
             case ETAT_PLAN_AFFICHE:
                 System.out.println("Frentre.afficherEtat() : ETAT_PLAN_AFFICHE");
                 //E1: Carte chargée
-                cartePanel = new CartePanel(this.getWidth(), this.getHeight() - 20, policeTexte);
+                cartePanel = new CartePanel(this.getWidth(), this.getHeight() - 20, policeTexte, ecouteurSurvol);
                 this.add(cartePanel);
-                menuLateral = new MenuLateral(this.getWidth(), this.getHeight() - 20, policeTexte, policeTexteImportant, ecouteurBoutons);
+                menuLateral = new MenuLateral(this.getWidth(), this.getHeight() - 20, policeTexte, policeTexteImportant, ecouteurBoutons, ecouteurSurvol);
                 this.add(menuLateral);
                 break;
             case ETAT_TOURNEE_CHARGEE:
@@ -78,6 +80,8 @@ public class Fenetre extends JFrame {
         this.revalidate();
         this.repaint();
     }
+
+    public CartePanel getCartePanel(){ return cartePanel; }
 
     //Permet de retirer des pannel
     public void retirerEcranAccueil() {

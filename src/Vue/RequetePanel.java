@@ -1,5 +1,7 @@
 package Vue;
 
+import Model.Etape;
+
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.EmptyBorder;
@@ -8,7 +10,13 @@ import javax.swing.border.LineBorder;
 
 public class RequetePanel extends JPanel {
 
-    public RequetePanel(int dureeCollecte, int dureeDepot, String adresseCollecte, String adresseDepot, Color couleurBordure, int parentWidth, int valMarginBase, Font policeTexte, Font policeTexteImportant){
+    private Etape collecte;
+    private Etape depot;
+
+    public RequetePanel(Etape collecte, Etape depot, Color couleurBordure, int parentWidth, int valMarginBase, Font policeTexte, Font policeTexteImportant, EcouteurSurvol ecouteurSurvol){
+
+        this.collecte = collecte;
+        this.depot = depot;
 
         /************************************************************************************/
         /*                              Panel principal                                     */
@@ -16,6 +24,7 @@ public class RequetePanel extends JPanel {
         BoxLayout boxlayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         this.setLayout(boxlayout);
         this.setPreferredSize(new Dimension(parentWidth - 24, 170));
+        this.addMouseListener(ecouteurSurvol);
 
         float teinteRouge = (float) couleurBordure.getRed() / (float) 255;
         float teinteVert = (float) couleurBordure.getGreen() / (float) 255;
@@ -34,7 +43,7 @@ public class RequetePanel extends JPanel {
         /*                               Label duree de collecte                            */
         /************************************************************************************/
 
-        JTextArea labelTitreCollecte = new JTextArea("Collecte - " + String.valueOf(dureeCollecte) + " sec");
+        JTextArea labelTitreCollecte = new JTextArea("Collecte - " + String.valueOf(collecte.getDureeEtape()) + " sec");
         labelTitreCollecte.setSize(this.getWidth() - 4 * valMarginBase, 30);
         labelTitreCollecte.setFont(policeTexteImportant);
         labelTitreCollecte.setLineWrap(true);
@@ -46,7 +55,7 @@ public class RequetePanel extends JPanel {
         /************************************************************************************/
         /*                            Label adresse de collecte                             */
         /************************************************************************************/
-        JTextArea labelAdresseCollecte = new JTextArea(adresseCollecte);
+        JTextArea labelAdresseCollecte = new JTextArea(collecte.getNomAdresse());
         labelAdresseCollecte.setSize(this.getWidth() - 4 * valMarginBase, 45);
         labelAdresseCollecte.setFont(policeTexte);
         labelAdresseCollecte.setLineWrap(true);
@@ -58,7 +67,7 @@ public class RequetePanel extends JPanel {
         /************************************************************************************/
         /*                                 Label duree depot                                */
         /************************************************************************************/
-        JTextArea labelTitreDepot = new JTextArea("Dépôt - " + String.valueOf(dureeDepot) + " sec");
+        JTextArea labelTitreDepot = new JTextArea("Dépôt - " + String.valueOf(depot.getDureeEtape()) + " sec");
         labelTitreDepot.setSize(this.getWidth() - 4 * valMarginBase, 30);
         labelTitreDepot.setFont(policeTexteImportant);
         labelTitreDepot.setLineWrap(true);
@@ -70,7 +79,7 @@ public class RequetePanel extends JPanel {
         /************************************************************************************/
         /*                                Label adresse de depot                            */
         /************************************************************************************/
-        JTextArea labelAdresseDepot = new JTextArea(adresseDepot);
+        JTextArea labelAdresseDepot = new JTextArea(depot.getNomAdresse());
         labelAdresseDepot.setSize(this.getWidth() - 4 * valMarginBase, 45);
         labelAdresseDepot.setFont(policeTexte);
         labelAdresseDepot.setLineWrap(true);
@@ -79,5 +88,13 @@ public class RequetePanel extends JPanel {
         panelInside.add(labelAdresseDepot);
 
         this.add(panelInside);
+    }
+
+    public Etape getCollecte() {
+        return collecte;
+    }
+
+    public Etape getDepot() {
+        return depot;
     }
 }

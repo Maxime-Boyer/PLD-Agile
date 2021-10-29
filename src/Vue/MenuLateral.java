@@ -14,6 +14,7 @@ public class MenuLateral extends JPanel {
     private Font policeTexte;
     private Font policeTexteImportant;
     private EcouteurBoutons ecouteurBoutons;
+    private EcouteurSurvol ecouteurSurvol;
 
     private JPanel panelImport;
     private Bouton boutonImporterPlan;
@@ -27,13 +28,14 @@ public class MenuLateral extends JPanel {
     private Bouton boutonAjouterEtape;
     private Bouton boutonExporterFeuilleRoute;
 
-    public MenuLateral(int largeurFenetre, int hauteurEcran, Font policeTexte, Font policeTexteImportant, EcouteurBoutons ecouteurBoutons){
+    public MenuLateral(int largeurFenetre, int hauteurEcran, Font policeTexte, Font policeTexteImportant, EcouteurBoutons ecouteurBoutons, EcouteurSurvol ecouteurSurvol){
 
         this.valMarginBase = 5;
         this.hauteurBouton = 50;
         this.policeTexte = policeTexte;
         this.policeTexteImportant = policeTexteImportant;
         this.ecouteurBoutons = ecouteurBoutons;
+        this.ecouteurSurvol = ecouteurSurvol;
 
         // propriétés du panel principal
         this.setBounds(largeurFenetre - largeurFenetre * 1/4, 0, largeurFenetre * 1/4, hauteurEcran);
@@ -71,7 +73,7 @@ public class MenuLateral extends JPanel {
             collecte = tournee.getListeRequetes().get(i).getEtapeCollecte();
             depot = tournee.getListeRequetes().get(i).getEtapeDepot();
 
-            listeRequetes[i] = new RequetePanel(collecte.getDureeEtape(), depot.getDureeEtape(), collecte.getNomAdresse(), depot.getNomAdresse(), tournee.getListeRequetes().get(i).getCouleur(), this.getWidth()-2*valMarginBase - 8, valMarginBase, policeTexte, policeTexteImportant);
+            listeRequetes[i] = new RequetePanel(collecte, depot, tournee.getListeRequetes().get(i).getCouleur(), this.getWidth()-2*valMarginBase - 8, valMarginBase, policeTexte, policeTexteImportant, ecouteurSurvol);
             panelInsideScrollPanel.add(listeRequetes[i]);
             panelInsideScrollPanel.add(Box.createRigidArea(new Dimension(0, 2*valMarginBase)));
         }

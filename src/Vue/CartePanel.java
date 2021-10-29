@@ -1,16 +1,14 @@
 package Vue;
 
 import Algorithmie.CalculateurTournee;
-import Model.Adresse;
-import Model.Carte;
-import Model.LecteurXML;
-import Model.Tournee;
+import Model.*;
 import org.xml.sax.SAXException;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -30,8 +28,11 @@ public class CartePanel extends JPanel {
     private Carte carte = new Carte();
     private Tournee tournee = new Tournee();
     private LecteurXML lecteur = new LecteurXML();
+    private JLabel labelPosition1;
+    private JLabel labelPosition2;
+    private ImageIcon iconPosition;
 
-    public CartePanel(int largeurEcran, int hauteurEcran, Font policeTexte) {
+    public CartePanel(int largeurEcran, int hauteurEcran, Font policeTexte, EcouteurSurvol ecouteurSurvol) {
 
         this.largeur = (int) 3 * largeurEcran / 4;
         this.hauteur = (int) hauteurEcran;
@@ -40,6 +41,18 @@ public class CartePanel extends JPanel {
         this.setBounds(0, 0, largeur, hauteur);
         this.setBackground(Color.WHITE);
         this.setLayout(null);
+        this.addMouseListener(ecouteurSurvol);
+
+        //initialisation image
+        iconPosition = new ImageIcon("src/images/Localisation.png");
+        Image imagePosition = iconPosition.getImage(); // transform it
+        Image newImagePosition = imagePosition.getScaledInstance(25, 30,  java.awt.Image.SCALE_SMOOTH);
+        iconPosition = new ImageIcon(newImagePosition);
+
+        labelPosition1 = new JLabel();
+        labelPosition2 = new JLabel();
+        labelPosition1.setIcon(iconPosition);
+        labelPosition2.setIcon(iconPosition);
 
         tracerCarte();
     }
@@ -69,6 +82,24 @@ public class CartePanel extends JPanel {
 
         frameSelectCarte.dispose();
         maxLongitudeLatitudeCarte();
+    }
+
+    public void indiquerPositionRequete(Etape collecte, Etape depot){
+        int x1 = valeurX(collecte.getLongitude()) - iconPosition.getIconWidth()/2;
+        int y1 = valeurY(collecte.getLatitude()) - iconPosition.getIconHeight()/2 - 25;
+        int x2 = valeurX(depot.getLongitude()) - iconPosition.getIconWidth()/2;
+        int y2 = valeurY(depot.getLatitude()) - iconPosition.getIconHeight()/2 - 25;
+        labelPosition1.setBounds(x1, y1, iconPosition.getIconWidth(), iconPosition.getIconHeight());
+        labelPosition2.setBounds(x2, y2, iconPosition.getIconWidth(), iconPosition.getIconHeight());
+        this.add(labelPosition1);
+        this.add(labelPosition2);
+        this.repaint();
+    }
+
+    public void supprimerPositionRequete(){
+        this.remove(labelPosition1);
+        this.remove(labelPosition2);
+        this.repaint();
     }
 
     public void tracerRequetes() {
