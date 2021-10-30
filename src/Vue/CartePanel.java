@@ -249,18 +249,19 @@ public class CartePanel extends JPanel {
 
         System.out.println("CartePane : dessinerItineraire -> inside loop");
         CalculateurTournee calculTournee = new CalculateurTournee(carte, tournee);
-        //calculTournee.calculerTournee();
+        calculTournee.calculerTournee();
 
-        //Tournee itineraire = new Tournee();
+        Tournee itineraire = new Tournee();
         //todo enlever commentaire
-        //itineraire = calculTournee.getTSP().getTournee();
+        itineraire = calculTournee.getTournee();
+        System.out.println("itineraire : "+itineraire);
         //fin todo
 
-        HashMap<Long, HashMap<Long, CheminEntreEtape>> itineraire = new HashMap<>();
-        itineraire = calculTournee.calculerTournee();
+        //HashMap<Long, HashMap<Long, CheminEntreEtape>> itineraire = new HashMap<>();
+        //itineraire = calculTournee.calculerTournee();
         //System.out.println(itineraire);
 
-        /*
+
         for (int i = 0; i < itineraire.getListeChemins().size(); i++) {
             for (int j = 0; j < itineraire.getListeChemins().get(i).getListeSegment().size(); j++) {
                 Adresse origine = itineraire.getListeChemins().get(i).getListeSegment().get(j).getOrigine();
@@ -271,9 +272,10 @@ public class CartePanel extends JPanel {
                 int destinationY = valeurY(destination.getLatitude());
                 g2.setColor(Color.RED);
                 g2.drawLine(origineX, origineY, destinationX, destinationY);
-
             }
-        }*/
+        }
+
+        /*
         boucle:
         {
             int ii=0;
@@ -297,7 +299,7 @@ public class CartePanel extends JPanel {
                     //}
                 }
             }
-        }
+        }*/
 
 
     }
