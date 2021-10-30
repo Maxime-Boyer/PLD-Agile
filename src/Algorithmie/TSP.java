@@ -12,7 +12,7 @@ import java.util.List;
 
 public class TSP {
 
-    private HashMap<Long,LinkedList<CheminEntreEtape>> resultatDijkstra;
+    private HashMap<Long, LinkedList<CheminEntreEtape>> resultatDijkstra;
 
     private LinkedList<CheminEntreEtape> listeCheminsActuelsAmodifier;
     private LinkedList<CheminEntreEtape> listeCheminsSwapAmodifier;
@@ -24,7 +24,7 @@ public class TSP {
         return tournee;
     }
 
-    public TSP(Carte carte, Tournee tournee, HashMap<Long,LinkedList<CheminEntreEtape>> resultatDijkstra){
+    public TSP(Carte carte, Tournee tournee, HashMap<Long, LinkedList<CheminEntreEtape>> resultatDijkstra){
 
         this.resultatDijkstra = resultatDijkstra;
 

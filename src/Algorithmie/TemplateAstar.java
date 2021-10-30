@@ -1,33 +1,43 @@
 package Algorithmie;
 
-import Model.Adresse;
-import Model.Carte;
-import Model.CheminEntreEtape;
-import Model.Segment;
+import Model.*;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.PriorityQueue;
 
 public abstract class TemplateAstar implements Astar {
 
-    private Carte carte;
-
     // Contient les adresses associees a leur antecedent : HashMap<idEnfant, SegmentDeParentAEnfant>
-    private HashMap<Long, Segment> parent;
+    private HashMap<Long, Segment> pi;
 
     // cout[p] est une estimation de la distance entre la position p et la cible
-    private HashMap<Long, Double> cout;
+    private HashMap<Long, Double> d;
 
     // Contient les adresses grises, associees a leur cout : Pair<Cout, idAdresse>
-    //private PriorityQueue<Long, Double> adressesGrises;
-    PriorityQueue<NoeudAdresse> adressesGrises;
+    //private PriorityQueue<Long, Double> filePrioriteAdressesGises;
+    PriorityQueue<NoeudAdresse> filePrioriteAdressesGises;
+
+    // Contient les adresses grises (en attente de visite) associée à leur cout.
+    // Permet d'accéder en temps constant à l'objet NoeudAdresse.
+    // Doit être mis à jour en même temps que filePrioriteAdressesGises (stocke le même pointeur)
+    private HashMap<Long, NoeudAdresse> adressesGrises;
 
     // Contient les adresses noir (déjà visitées)
     private HashSet<Long> adressesNoire;
 
+    // La carte
+    private Carte carte;
+
     public TemplateAstar(Carte carte) {
         this.carte = carte;
+        this.d = new HashMap<>();
+        filePrioriteAdressesGises = new PriorityQueue<>();
+        adressesNoire = new HashSet<>();
+        pi = new HashMap<>();
+        adressesGrises = new HashMap<>();
     }
 
     /**
@@ -40,37 +50,88 @@ public abstract class TemplateAstar implements Astar {
 
     //TODO : implémenter
     @Override
-    public CheminEntreEtape chercherCheminEntreEtape(Adresse depart, Adresse arrivee) {
+    public CheminEntreEtape chercherCheminEntreEtape(Etape depart, Etape arrivee) {
 
-        //TODO : vider les listes
+        //Vide les listes
+        pi.clear();
+        d.clear();
+        filePrioriteAdressesGises.clear();
+        adressesNoire.clear();
+        adressesGrises.clear();
 
         // On met le point de départ dans les maps grises
-        adressesGrises.offer(new NoeudAdresse(depart.getIdAdresse(), calculHeuristique(depart, arrivee)));
+        d.put(depart.getIdAdresse(), calculHeuristique(depart, arrivee));
+        NoeudAdresse nouveauNoeudAdresse = new NoeudAdresse(depart.getIdAdresse(), d.get(depart.getIdAdresse()));
+        filePrioriteAdressesGises.offer(nouveauNoeudAdresse);
+        adressesGrises.put(nouveauNoeudAdresse.getIdAdresse(), nouveauNoeudAdresse);
+        int nbLoop = 0;//TODO : delete this
+        while (!filePrioriteAdressesGises.isEmpty()) {
+            //System.out.println("Loop " + nbLoop++);
 
-        while (!adressesGrises.isEmpty()) {
             //Prend l'adresse de la liste grise ayant le cout min
-            Adresse adresseActuelle = carte.obtenirAdresseParId(adressesGrises.peek().getIdAdresse());
+            Adresse adresseActuelle = carte.obtenirAdresseParId(filePrioriteAdressesGises.peek().getIdAdresse()); //O(1)
+            //System.out.println("    adresseActuelle="+adresseActuelle);
 
             //Si on a atteint la destination alors on retourne le chemin trouve (etat actuel correspond à l'arrivee)
             if (adresseActuelle.getIdAdresse().equals(arrivee.getIdAdresse())) {
-                //TODO : retracer le chemin inverse
+                //System.out.println("    destination atteinte");
+                ArrayList<Segment> meilleurChemin = new ArrayList<>();
+                //Tant que l'adresse actuelle est differente de l'adresse de depart
+                int distance = 0;
+                while (!adresseActuelle.getIdAdresse().equals(depart.getIdAdresse())) {
+                    //System.out.println("        adresseActuelle="+adresseActuelle);
+                    //Ajoute le chemin pour aller du parent à l'adresse actuelle
+                    Segment segmentVenantDuParent = pi.get(adresseActuelle.getIdAdresse());
+                    meilleurChemin.add(0, segmentVenantDuParent);
+                    distance += segmentVenantDuParent.getLongueur();
+                    //L'adresse actuelle devient celle du parent
+                    adresseActuelle = segmentVenantDuParent.getOrigine();
+                    //System.out.println("        adresseParent="+adresseActuelle);
+                }
+                return new CheminEntreEtape(depart, arrivee, meilleurChemin, distance);
             }
+
+            //Passe l'adresse actuelle en visitée
+            adressesNoire.add(adresseActuelle.getIdAdresse());
+            //System.out.println("    filePrioriteAdressesGises="+filePrioriteAdressesGises);
+            filePrioriteAdressesGises.poll();
+            adressesGrises.remove(adresseActuelle.getIdAdresse());
+            //System.out.println("    filePrioriteAdressesGises="+filePrioriteAdressesGises);
 
             //Visite les voisins de l'adresse actuelle
             for (Segment segSortants : adresseActuelle.getSegmentsSortants()) {
                 Adresse voisin = segSortants.getDestination();
+
+                //System.out.println("voisin : "+voisin);
+
                 // Il ne faut rien faire si le voisin est noir (deja visite)
-                if (! adressesNoire.contains(voisin.getIdAdresse())) {
-                    //TODO faire relacher ////////////////////
-                    relacher();
-                    if ()
+                if (adressesNoire.contains(voisin.getIdAdresse())) continue;
+                // Si le voisin est blanc ou gris, il faut potentiellement mettre à jour la plus courte distance actuelle à ce voisin
+                double nouveauCout = d.get(adresseActuelle.getIdAdresse()) + segSortants.getLongueur() - calculHeuristique(adresseActuelle, arrivee) + calculHeuristique(voisin, arrivee);
+                if (!d.containsKey(voisin.getIdAdresse()) || (d.get(voisin.getIdAdresse()) > nouveauCout)) {
+                    //Si cette adresse n'a pas de cout associe ajoute le cout, sinon le remplace
+                    if (!d.containsKey(voisin.getIdAdresse())) {
+                        d.put(voisin.getIdAdresse(), nouveauCout);
+                        pi.put(voisin.getIdAdresse(), segSortants);
+                    } else {
+                        d.replace(voisin.getIdAdresse(), nouveauCout);
+                        pi.replace(voisin.getIdAdresse(), segSortants);
+                    }
+
+                    //Si le voisin n'est pas déjà gris, l'jaoute à la file de priorité
+                    if (!adressesGrises.containsKey(voisin.getIdAdresse())) {
+                        NoeudAdresse na = new NoeudAdresse(voisin.getIdAdresse(), d.get(voisin.getIdAdresse()));
+                        filePrioriteAdressesGises.offer(na);
+                        adressesGrises.put(voisin.getIdAdresse(),na);
+
+                        //Sinon met à jour le cout de ce noeud gris
+                    } else {
+                        adressesGrises.get(voisin.getIdAdresse()).setCout(d.get(voisin.getIdAdresse()));
+                    }
                 }
             }
-
-
-
+            nbLoop++;
         }
-
         return null;
     }
 

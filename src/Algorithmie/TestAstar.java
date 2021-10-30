@@ -32,13 +32,13 @@ public class TestAstar {
         Carte carte = new Carte("NomCarte");
 
         for (Adresse adresse : listeAdresse)
-            carte.ajouterAdresse(adresse);
+            carte.getListeAdresses().put(adresse.getIdAdresse(),adresse);
 
         for (Segment segment : listeSegment)
-            carte.ajouterSegment(segment);
+            carte.getListeSegments().add(segment);
 
-        AstarOLD astar = new AstarOLD(carte);
-        CheminEntreEtape cheminEntreEtape = astar.executerAstar(e0, e1);
+        Astar2 astar = new Astar2(carte);
+        CheminEntreEtape cheminEntreEtape = astar.chercherCheminEntreEtape(e0, e1);
         System.out.println(cheminEntreEtape);
     }
 

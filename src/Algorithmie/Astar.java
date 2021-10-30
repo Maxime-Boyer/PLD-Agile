@@ -1,8 +1,7 @@
 package Algorithmie;
 
-import Model.Adresse;
-import Model.Carte;
 import Model.CheminEntreEtape;
+import Model.Etape;
 
 public interface Astar {
 
@@ -12,5 +11,5 @@ public interface Astar {
      * @param arrivee : adresse d'arrivée
      * @return le plus court chemin entre ces deux adresses
      */
-    public CheminEntreEtape chercherCheminEntreEtape(Adresse depart, Adresse arrivee);
+    public CheminEntreEtape chercherCheminEntreEtape(Etape depart, Etape arrivee);
 }
