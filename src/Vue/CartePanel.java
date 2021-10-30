@@ -56,12 +56,12 @@ public class CartePanel extends JPanel {
 
     public void tracerCarte() {
 
+        /*
 
         JFrame frameSelectCarte = new JFrame();
 
         String nameFile = "";
         String filename = "";
-        JFrame frameSelectRequetes = new JFrame();
 
         while(!nameFile.toLowerCase(Locale.ROOT).contains("map")) {
             FileDialog fd = new FileDialog(frameSelectCarte, "Sélectionnez une carte au format xml", FileDialog.LOAD);
@@ -71,6 +71,15 @@ public class CartePanel extends JPanel {
             filename = fd.getDirectory() + fd.getFile();
             nameFile = fd.getFile();
         }
+         */
+
+        JFrame frameSelectCarte = new JFrame();
+
+        FileDialog fd = new FileDialog(frameSelectCarte, "Sélectionnez une carte au format xml", FileDialog.LOAD);
+        fd.setDirectory("C:\\");
+        fd.setFile("*.xml");
+        fd.setVisible(true);
+        String filename = fd.getDirectory() + fd.getFile();
 
         if (filename == null)
             System.out.println("You cancelled the choice");
@@ -79,15 +88,18 @@ public class CartePanel extends JPanel {
 
         try {
             carte = lecteur.lectureCarte(filename);
+            maxLongitudeLatitudeCarte();
         } catch (Exception e) {
             System.out.println(e);
         }
 
         frameSelectCarte.dispose();
-        maxLongitudeLatitudeCarte();
+
     }
 
     public void tracerRequetes() {
+
+        /*
 
         String nameFile = "";
         String filename = "";
@@ -102,6 +114,16 @@ public class CartePanel extends JPanel {
             filename = fd.getDirectory() + fd.getFile();
             nameFile = fd.getFile();
         }
+         */
+
+        JFrame frameSelectRequetes = new JFrame();
+
+        FileDialog fd = new FileDialog(frameSelectRequetes, "Sélectionnez une liste de requêtes au format xml", FileDialog.LOAD);
+        fd.setDirectory("C:\\");
+        fd.setFile("*.xml");
+        fd.setVisible(true);
+        String filename = fd.getDirectory() + fd.getFile();
+
         if (filename == null)
             System.out.println("You cancelled the choice");
         else
@@ -173,15 +195,18 @@ public class CartePanel extends JPanel {
 
         g2.setColor(Color.BLACK);
 
-        for (int i = 0; i < carte.getListeSegments().size(); i++) {
-            Adresse origine = carte.getListeSegments().get(i).getOrigine();
-            Adresse destination = carte.getListeSegments().get(i).getDestination();
-            int origineX = valeurX(origine.getLongitude());
-            int origineY = valeurY(origine.getLatitude());
-            int destinationX = valeurX(destination.getLongitude());
-            int destinationY = valeurY(destination.getLatitude());
+        if(!carte.getListeSegments().isEmpty()) {
 
-            g2.drawLine(origineX, origineY, destinationX, destinationY);
+            for (int i = 0; i < carte.getListeSegments().size(); i++) {
+                Adresse origine = carte.getListeSegments().get(i).getOrigine();
+                Adresse destination = carte.getListeSegments().get(i).getDestination();
+                int origineX = valeurX(origine.getLongitude());
+                int origineY = valeurY(origine.getLatitude());
+                int destinationX = valeurX(destination.getLongitude());
+                int destinationY = valeurY(destination.getLatitude());
+
+                g2.drawLine(origineX, origineY, destinationX, destinationY);
+            }
         }
     }
 
