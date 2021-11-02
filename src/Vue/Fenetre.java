@@ -8,6 +8,8 @@ import Model.Carte;
 import javax.swing.*;
 import java.awt.*;
 
+import static Controleur.NomEtat.ETAT_INITIAL;
+
 public class Fenetre extends JFrame {
 
     protected final static String IMPORT_CARTE = "Importer carte";
@@ -39,7 +41,7 @@ public class Fenetre extends JFrame {
 
         this.ecouteurBoutons = new EcouteurBoutons(controleur);
 
-        afficherEtat(NomEtat.ETAT_INITIAL);
+        afficherEtat(ETAT_INITIAL);
         this.setResizable(true); //TODO: passer à false
         this.setVisible(true);
     }
@@ -57,6 +59,8 @@ public class Fenetre extends JFrame {
                 System.out.println("Frentre.afficherEtat() : ETAT_PLAN_AFFICHE");
                 //E1: Carte chargée
                 cartePanel = new CartePanel(this.getWidth(), this.getHeight() - 20, policeTexte);
+                if (!cartePanel.tracerCarte())
+
                 this.add(cartePanel);
                 menuLateral = new MenuLateral(this.getWidth(), this.getHeight() - 20, policeTexte, policeTexteImportant, ecouteurBoutons);
                 this.add(menuLateral);

@@ -47,15 +47,14 @@ public class CartePanel extends JPanel {
         this.setBounds(0, 0, largeur, hauteur);
         this.setBackground(Color.WHITE);
         this.setLayout(null);
-
-        tracerCarte();
     }
 
     public Tournee getTournee() {
         return tournee;
     }
 
-    public void tracerCarte() {
+    public boolean tracerCarte() {
+        boolean etat = true;
 
         /*
 
@@ -82,20 +81,24 @@ public class CartePanel extends JPanel {
         fd.setVisible(true);
         String filename = fd.getDirectory() + fd.getFile();
 
-        if (filename == null)
-            System.out.println("You cancelled the choice");
-        else
-            System.out.println("You chose " + filename);
+        if (filename == null) {
+            etat = false;
+        }
 
         try {
             carte = lecteur.lectureCarte(filename);
             maxLongitudeLatitudeCarte();
         } catch (Exception e) {
-            System.out.println(e);
+            //En cas d'erreur
+            String messageErreur = e.getMessage();
+            System.out.println("ERREUR "+e);
+            JOptionPane.showMessageDialog(null, messageErreur);
+            etat = false;
         }
 
         frameSelectCarte.dispose();
-
+        System.out.println("etat " + etat);
+        return etat;
     }
 
     public void tracerRequetes() {

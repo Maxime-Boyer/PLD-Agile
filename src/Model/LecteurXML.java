@@ -39,9 +39,7 @@ public class LecteurXML {
      * @throws ParserConfigurationException
      * @throws SAXException
      */
-    public Carte lectureCarte(String nomFichier) throws ParserConfigurationException, SAXException{
-
-        try{
+    public Carte lectureCarte(String nomFichier) throws ParserConfigurationException, SAXException, PresenceEncodingEtVersionException, NameFile, IOException, TagNameMapException, AttributsIntersectionsExceptions, NegatifLatitudeException, NegatifLongitudeException, AttributsSegmentsExceptions {
 
             carte = new Carte(nomFichier);
 
@@ -180,13 +178,7 @@ public class LecteurXML {
                     carte.getListeSegments().add(segment);
                 }
             }
-        }
-        catch(IOException e){
-            System.out.println(e);
-        }
-        finally{
-            return carte;
-        }
+        return carte;
     }
 
         /**
@@ -236,9 +228,9 @@ public class LecteurXML {
             if(document.getElementsByTagName("depot").getLength() == 0){
                 throw new AbsenceBaliseDepot("Erreur la balise depot n'existe pas dans le fichier");
             }
-            if(document.getElementsByTagName("request").getLength() == 0){
+            /*if(document.getElementsByTagName("request").getLength() == 0){
                 throw new AbsenceBaliseRequest("Erreur aucune balise request dans le fichier");
-            }
+            }*/
 
             //On vérifie si la balise depot a des attributs
             if (!eElement.hasAttributes()) {
