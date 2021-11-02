@@ -95,13 +95,13 @@ public class LecteurXML {
                     String stringLongitude = eElement.getAttribute("longitude");
                     String stringId = eElement.getAttribute("id");
 
-                    if (stringLongitude.isBlank()) {
+                    if (stringLongitude.chars().allMatch(Character::isWhitespace)) {
                         throw new AttributsIntersectionsExceptions("Erreur manque de l'attribut Longitude dans une balise intersection de la carte");
                     }
-                    if (stringId.isBlank()) {
+                    if (stringId.chars().allMatch(Character::isWhitespace)) {
                         throw new AttributsIntersectionsExceptions("Erreur manque de l'attribut Id dans une balise intersection de la carte");
                     }
-                    if (stringLatitude.isBlank()) {
+                    if (stringLatitude.chars().allMatch(Character::isWhitespace)) {
                         throw new AttributsIntersectionsExceptions("Erreur manque de l'attribut Latitude dans une balise intersection de la carte");
                     }
 
@@ -163,20 +163,22 @@ public class LecteurXML {
                     String origine = eElement.getAttribute("origin");
                     String destination = eElement.getAttribute("destination");
 
-                    if (slongueur.isBlank()) {
+                    if (slongueur.chars().allMatch(Character::isWhitespace)) {
                         throw new AttributsSegmentsExceptions("Erreur manque de l'attribut length dans une balise segment de la carte");
                     }
-                    if (origine.isBlank()) {
+                    if (origine.chars().allMatch(Character::isWhitespace)) {
                         throw new AttributsSegmentsExceptions("Erreur manque de l'attribut origin dans une balise segment de la carte");
                     }
-                    if (destination.isBlank()) {
+                    if (destination.chars().allMatch(Character::isWhitespace)) {
                         throw new AttributsSegmentsExceptions("Erreur manque de l'attribut destination dans une balise segment de la carte");
                     }
 
                     Double longueur = Double.parseDouble(eElement.getAttribute("length"));
                     Long idOrigine = Long.parseLong(eElement.getAttribute("origin"));
                     Long idDestination = Long.parseLong(eElement.getAttribute("destination"));
-                    Segment segment = new Segment(carte.obtenirAdresseParId(idOrigine), carte.obtenirAdresseParId(idDestination), nom, longueur);
+
+                    Segment segment = new Segment(carte.obtenirAdresseParId(idOrigine),carte.obtenirAdresseParId(idDestination),nom,longueur);
+                    carte.obtenirAdresseParId(idOrigine).ajouterSegmentSortant(segment);
                     carte.getListeSegments().add(segment);
                 }
             }

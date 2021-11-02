@@ -1,9 +1,13 @@
 package Model;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class Adresse {
     private double latitude;
     private double longitude;
     private Long idAdresse;
+    private List<Segment> segmentsSortants;
 
     /**
      * Constructeur de la classe Adresse
@@ -15,6 +19,7 @@ public class Adresse {
         this.latitude = latitude;
         this.longitude = longitude;
         this.idAdresse = idAdresse;
+        segmentsSortants = new LinkedList<>();
     }
 
     /**
@@ -28,6 +33,14 @@ public class Adresse {
                 ", longitude=" + longitude +
                 ", idAdresse=" + idAdresse +
                 '}';
+    }
+
+    public void ajouterSegmentSortant(Segment segment) {
+        segmentsSortants.add(segment);
+    }
+
+    public List<Segment> getSegmentsSortants() {
+        return segmentsSortants;
     }
 
     /**
