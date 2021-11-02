@@ -11,6 +11,7 @@ import Model.Adresse;
 import Model.Carte;
 import Model.LecteurXML;
 import Model.Tournee;
+
 import org.xml.sax.SAXException;
 
 import javax.swing.*;
@@ -21,6 +22,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
@@ -306,11 +308,17 @@ public class CartePanel extends JPanel {
         System.out.println("CartePane : dessinerItineraire -> inside loop");
         CalculateurTournee calculTournee = new CalculateurTournee(carte, tournee);
         calculTournee.calculerTournee();
+
         Tournee itineraire = new Tournee();
-        itineraire = calculTournee.getTsp().getTournee();
-        //HashMap<Long, LinkedList<CheminEntreEtape>> itineraire = new HashMap<>();
+        //todo enlever commentaire
+        itineraire = calculTournee.getTournee();
+        System.out.println("itineraire : "+itineraire);
+        //fin todo
+
+        //HashMap<Long, HashMap<Long, CheminEntreEtape>> itineraire = new HashMap<>();
         //itineraire = calculTournee.calculerTournee();
         //System.out.println(itineraire);
+
 
         for (int i = 0; i < itineraire.getListeChemins().size(); i++) {
             for (int j = 0; j < itineraire.getListeChemins().get(i).getListeSegment().size(); j++) {
@@ -322,9 +330,34 @@ public class CartePanel extends JPanel {
                 int destinationY = valeurY(destination.getLatitude());
                 g2.setColor(Color.RED);
                 g2.drawLine(origineX, origineY, destinationX, destinationY);
-
             }
         }
+
+        /*
+        boucle:
+        {
+            int ii=0;
+            for (HashMap<Long, CheminEntreEtape> listeCheminEntreEtape : itineraire.values()) {
+                int i =0;
+                ii++;
+                for (CheminEntreEtape cee : listeCheminEntreEtape.values()) {
+                    i++;
+                    //if(i==3 && ii==1) {
+                        for (int j = 0; j < cee.getListeSegment().size(); j++) {
+                            Adresse origine = cee.getListeSegment().get(j).getOrigine();
+                            Adresse destination = cee.getListeSegment().get(j).getDestination();
+                            int origineX = valeurX(origine.getLongitude());
+                            int origineY = valeurY(origine.getLatitude());
+                            int destinationX = valeurX(destination.getLongitude());
+                            int destinationY = valeurY(destination.getLatitude());
+                            g2.setColor(Color.RED);
+                            g2.drawLine(origineX, origineY, destinationX, destinationY);
+                        }
+                        //break boucle;
+                    //}
+                }
+            }
+        }*/
 
 
     }

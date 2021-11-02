@@ -1,6 +1,7 @@
 package Controleur;
 
 import Exceptions.NameFile;
+import Algorithmie.CalculateurTournee;
 import Vue.Fenetre;
 
 public class EtatTourneeChargee implements Etat {
@@ -9,6 +10,12 @@ public class EtatTourneeChargee implements Etat {
     public void preparerTournee (Controleur controleur, Fenetre fenetre) throws NameFile {
         System.out.println("EtatTourneeChargee : preparerTournee");
         fenetre.afficherEtat(NomEtat.ETAT_TOURNEE_PREPAREE);
+
+        //Algo
+        //CalculateurTournee calculateurTournee = new CalculateurTournee(carte, tournee);
+        //= calculateurTournee.calculerTournee();
+        //Fin Algo
+
         controleur.setEtatActuel(controleur.etatTourneeOrdonnee);
     }
 
