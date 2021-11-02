@@ -1,4 +1,4 @@
-/*package Algorithmie;
+package Algorithmie;
 
 import Model.Adresse;
 import Model.Carte;
@@ -64,4 +64,4 @@ public class CalculateurTournee {
     public TSP getTsp() {
         return tsp;
     }
-}*/
+}

@@ -4,6 +4,7 @@ package Vue;
 
 //import Algorithmie.CalculateurTournee;
 
+import Algorithmie.CalculateurTournee;
 import Exceptions.IncompatibleAdresseException;
 import Exceptions.NameFile;
 import Model.Adresse;
@@ -254,13 +255,12 @@ public class CartePanel extends JPanel {
             //g2.setColor(tournee.getListeRequetes().get(i).getCouleur());
 
 
-            g2.setColor(tournee.getListeRequetes().get(i).getCouleurRequete());
+                    g2.setColor(tournee.getListeRequetes().get(i).getCouleurRequete());
 
                     g2.fillRoundRect(valeurXCollecte - 7, valeurYCollecte - 7, 14, 14, 14, 14);
                     g2.fillRect(valeurXDepot - 7, valeurYDepot - 7, 14, 14);
                 }
             }
-        }
         /*else {
             throw new IncompatibleAdresseException("Erreur d'adresse de départ, cette adresse n'appartient pas à la carte chargée ");
         }*/
@@ -270,10 +270,6 @@ public class CartePanel extends JPanel {
     public void afficherTournee() {
 
         tourneeAppelee = true;
-
-
-
-
 
              /*System.out.println("valeurXCollecte " + valeurXCollecte);
             System.out.println("valeurYCollecte " + valeurYCollecte);

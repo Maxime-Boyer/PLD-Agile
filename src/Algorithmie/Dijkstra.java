@@ -1,7 +1,7 @@
 package Algorithmie;
-/*
+
 import Model.*;
-//import javafx.util.Pair;
+import javafx.util.Pair;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -110,7 +110,7 @@ public class Dijkstra {
                 System.out.println("la");
             }*/
             //System.out.println(pairCoutMin.getKey().getClass());
-           /* boolean segmentTrouve = false;
+            boolean segmentTrouve = false;
             for(Segment segment : carte.getListeSegments()){
                 //if(segment.getOrigine().getIdAdresse() == 208769039){
                 //    System.out.println("ici");
@@ -204,7 +204,7 @@ public class Dijkstra {
         mapCoutNoir.put(segment.getOrigine().getIdAdresse(),cout);
 
     }
-    /*
+
     public Pair<Long, Double> coutMinimum(HashMap<Long,Double> hm){
 
         //On met dans coutMin la valeur max pour un double (si c'est pas assez grand cette ligne ne sera pas le seul probleme)
@@ -223,5 +223,5 @@ public class Dijkstra {
         Pair<Long, Double> pair = new Pair<>(adresseMin,coutMin);
         return pair;
 
-    }*/
-//}
+    }
+}
