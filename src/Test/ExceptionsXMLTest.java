@@ -36,28 +36,22 @@ class ExceptionsXMLTest {
             carte = lecteurXML.lectureCarte("./src/FichiersXMLTest/mediumMapEncodageVersionTest.xml");
         } catch (AttributsIntersectionsExceptions attributsIntersectionsExceptions) {
             attributsIntersectionsExceptions.printStackTrace();
+            fail();
         } catch (PresenceEncodingEtVersionException e) {
-            e.printStackTrace();
+            //Test passe
         } catch (AttributsSegmentsExceptions attributsSegmentsExceptions) {
-            attributsSegmentsExceptions.printStackTrace();
             fail();
         } catch (ParserConfigurationException e) {
-            e.printStackTrace();
             fail();
         } catch (IOException e) {
-            e.printStackTrace();
             fail();
         } catch (NegatifLongitudeException e) {
-            e.printStackTrace();
             fail();
         } catch (TagNameMapException e) {
-            e.printStackTrace();
             fail();
         } catch (NegatifLatitudeException e) {
-            e.printStackTrace();
             fail();
         } catch (SAXException e) {
-            e.printStackTrace();
             fail();
         }
 
@@ -71,6 +65,7 @@ class ExceptionsXMLTest {
             carte = lecteurXML.lectureCarte("./src/FichiersXMLTest/mediumMapAttributSegmentNombreTest.xml");
         } catch (AttributsIntersectionsExceptions attributsIntersectionsExceptions) {
             attributsIntersectionsExceptions.printStackTrace();
+            fail();
         } catch (PresenceEncodingEtVersionException e) {
             e.printStackTrace();
             fail();
