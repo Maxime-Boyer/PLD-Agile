@@ -7,7 +7,7 @@
     <intersection id="2292223595" latitude="45.73208" longitude="4.902046"/>
     <intersection id="2959901670" latitude="45.74698" longitude="4.867131"/>
     <intersection id="239601996" latitude="45.748684" longitude="4.902288"/>
-    <intersection id="2512682686" latitude="45.731544" longitude="4.8921347"/>
+    <intersection id="2512682686" latitude="45.731544" longitude="4.8921347" test = ""/>
     <intersection id="2512682687" latitude="45.73156" longitude="4.8923054"/>
     <intersection id="21604601" latitude="45.74265" longitude="4.8790674"/>
     <intersection id="25610684" latitude="45.741924" longitude="4.89364"/>
@@ -4542,7 +4542,7 @@
     <segment destination="191134383" length="121.14928" name="Rue Jean-Baptiste Durand" origin="191134496"/>
     <segment destination="3760142306" length="7.621921" name="" origin="452908361"/>
     <segment destination="3760142308" length="27.062717" name="" origin="452908361"/>
-    <segment destiination="1613914199" length="28.430933" name="Avenue Édouard Herriot" origin="452908361"/>
+    <segment destination="1613914199" length="28.430933" name="Avenue Édouard Herriot" origin="452908361"/>
     <segment destination="1613914197" length="233.383" name="" origin="452908352"/>
     <segment destination="33233726" length="202.5549" name="" origin="452908352"/>
 </map>

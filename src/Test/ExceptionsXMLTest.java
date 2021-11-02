@@ -36,6 +36,7 @@ class ExceptionsXMLTest {
             carte = lecteurXML.lectureCarte("./src/FichiersXMLTest/mediumMapEncodageVersionTest.xml");
         } catch (AttributsIntersectionsExceptions attributsIntersectionsExceptions) {
             attributsIntersectionsExceptions.printStackTrace();
+            fail();
         } catch (PresenceEncodingEtVersionException e) {
             e.printStackTrace();
         } catch (AttributsSegmentsExceptions attributsSegmentsExceptions) {
@@ -71,6 +72,7 @@ class ExceptionsXMLTest {
             carte = lecteurXML.lectureCarte("./src/FichiersXMLTest/mediumMapAttributSegmentNombreTest.xml");
         } catch (AttributsIntersectionsExceptions attributsIntersectionsExceptions) {
             attributsIntersectionsExceptions.printStackTrace();
+            fail();
         } catch (PresenceEncodingEtVersionException e) {
             e.printStackTrace();
             fail();
@@ -99,41 +101,7 @@ class ExceptionsXMLTest {
 
     }
 
-    @Test
-    void exceptionAttributDestinationBaliseSegment() {
-        try {
-            LecteurXML lecteurXML = new LecteurXML();
-            Carte carte = new Carte();
-            carte = lecteurXML.lectureCarte("./src/FichiersXMLTest/mediumMapAttributSegmentDestinationTest.xml");
-        } catch (AttributsIntersectionsExceptions attributsIntersectionsExceptions) {
-            attributsIntersectionsExceptions.printStackTrace();
-        } catch (PresenceEncodingEtVersionException e) {
-            e.printStackTrace();
-            fail();
-        } catch (AttributsSegmentsExceptions attributsSegmentsExceptions) {
-            attributsSegmentsExceptions.printStackTrace();
 
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-            fail();
-        } catch (IOException e) {
-            e.printStackTrace();
-            fail();
-        } catch (NegatifLongitudeException e) {
-            e.printStackTrace();
-            fail();
-        } catch (TagNameMapException e) {
-            e.printStackTrace();
-            fail();
-        } catch (NegatifLatitudeException e) {
-            e.printStackTrace();
-            fail();
-        } catch (SAXException e) {
-            e.printStackTrace();
-            fail();
-        }
-
-    }
 
     @Test
     void exceptionMauvaisAttributBaliseSegment() {
@@ -143,6 +111,7 @@ class ExceptionsXMLTest {
             carte = lecteurXML.lectureCarte("./src/FichiersXMLTest/mediumMapAttributSegmentDestinationTest.xml");
         } catch (AttributsIntersectionsExceptions attributsIntersectionsExceptions) {
             attributsIntersectionsExceptions.printStackTrace();
+            fail();
         } catch (PresenceEncodingEtVersionException e) {
             e.printStackTrace();
             fail();
@@ -180,6 +149,7 @@ class ExceptionsXMLTest {
             carte = lecteurXML.lectureCarte("./src/FichiersXMLTest/mediumMapLongitudeTest.xml");
         } catch (AttributsIntersectionsExceptions attributsIntersectionsExceptions) {
             attributsIntersectionsExceptions.printStackTrace();
+            fail();
         } catch (PresenceEncodingEtVersionException e) {
             e.printStackTrace();
             fail();
@@ -216,6 +186,7 @@ class ExceptionsXMLTest {
             carte = lecteurXML.lectureCarte("./src/FichiersXMLTest/mediumMapLatitudeTest.xml");
         } catch (AttributsIntersectionsExceptions attributsIntersectionsExceptions) {
             attributsIntersectionsExceptions.printStackTrace();
+            fail();
         } catch (PresenceEncodingEtVersionException e) {
             e.printStackTrace();
             fail();
@@ -243,4 +214,42 @@ class ExceptionsXMLTest {
         }
 
     }
+
+    /*
+    @Test
+    void exceptionNombreAttributBaliseIntersection() {
+        try {
+            LecteurXML lecteurXML = new LecteurXML();
+            Carte carte = new Carte();
+            carte = lecteurXML.lectureCarte("./src/FichiersXMLTest/mediumMapAttributIntersectionNombreTest.xml");
+        } catch (AttributsIntersectionsExceptions attributsIntersectionsExceptions) {
+            attributsIntersectionsExceptions.printStackTrace();
+
+        } catch (PresenceEncodingEtVersionException e) {
+            e.printStackTrace();
+            fail();
+        } catch (AttributsSegmentsExceptions attributsSegmentsExceptions) {
+            attributsSegmentsExceptions.printStackTrace();
+            fail();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+            fail();
+        } catch (IOException e) {
+            e.printStackTrace();
+            fail();
+        } catch (NegatifLongitudeException e) {
+            e.printStackTrace();
+            fail();
+        } catch (TagNameMapException e) {
+            e.printStackTrace();
+            fail();
+        } catch (NegatifLatitudeException e) {
+            e.printStackTrace();
+            fail();
+        } catch (SAXException e) {
+            e.printStackTrace();
+            fail();
+        }
+
+    }*/
 }
