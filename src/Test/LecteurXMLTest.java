@@ -111,7 +111,6 @@ class LecteurXMLTest {
      */
     @Test
     void verificationLonEtLatSurAdresse() throws ParserConfigurationException, SAXException, AttributsIntersectionsExceptions, PresenceEncodingEtVersionException, AttributsSegmentsExceptions, IOException, NegatifLongitudeException, TagNameMapException, NegatifLatitudeException {
-
         LecteurXML lecteurXML = new LecteurXML();
         Carte carte = new Carte();
         carte = lecteurXML.lectureCarte("./src/FichiersXML/mediumMap.xml");

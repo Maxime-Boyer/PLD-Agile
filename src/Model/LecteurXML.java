@@ -256,7 +256,7 @@ public class LecteurXML {
             }
 
             Long idAdresseDepot = Long.parseLong(eElement.getAttribute("address"));
-            System.out.println("idAdresseDepot " + idAdresseDepot);
+
             Adresse adresseDepot;
             if (!(carte.getListeAdresses().containsKey(idAdresseDepot))) {
                 throw new IncompatibleAdresseException("Erreur d'adresse de départ, cette adresse n'appartient pas à la carte chargée ");
