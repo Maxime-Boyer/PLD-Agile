@@ -13,7 +13,7 @@ public class CalculateurTournee {
     private Carte carte;
     private Tournee tournee;
 
-    //private Dijkstra dijkstra;
+    private Dijkstra dijkstra;
     private TSP tsp;
 
     private LinkedList<CheminEntreEtape> listeChemins;
