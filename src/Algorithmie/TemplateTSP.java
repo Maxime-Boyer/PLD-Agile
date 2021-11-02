@@ -74,7 +74,6 @@ public abstract class TemplateTSP implements TSP{
                     //On change le meilleur cout
                     coutMeilleureSolution = coutActuel+grapheCompletDesEtapes.get(adresseActuelle.getIdAdresse()).get(tournee.getAdresseDepart().getIdAdresse()).distance;
 
-                    System.out.println(coutMeilleureSolution + " :)");
                 }
             }
         } else if (coutActuel+evaluation(adresseActuelle,nonVisite) < coutMeilleureSolution){
