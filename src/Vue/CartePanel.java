@@ -212,13 +212,28 @@ public class CartePanel extends JPanel {
 
     public void dessinerTournee(Graphics g2) throws IncompatibleAdresseException {
         Adresse depart = tournee.getAdresseDepart();
-        if (depart != null){
-            double lonDepart = depart.getLongitude();
-            double latDepart = depart.getLatitude();
-            int valeurXDepart = valeurX(lonDepart);
-            int valeurYDepart = valeurY(latDepart);
-            g2.setColor(Color.RED);
-            g2.fillOval(valeurXDepart, valeurYDepart, 25, 12);
+        double lonDepart = depart.getLongitude();
+        double latDepart = depart.getLatitude();
+        int valeurXDepart = valeurX(lonDepart);
+        int valeurYDepart = valeurY(latDepart);
+        g2.setColor(Color.RED);
+        int valeurXBasGauche = valeurXDepart - 11;
+        int valeurYBasGauche = valeurYDepart + 5;
+
+        int valeurXBasDroite = valeurXDepart + 11;
+        int valeurYBasDroite = valeurYDepart + 5;
+
+        int valeurXHaute = valeurXDepart;
+        int valeurYHaute = valeurYDepart - 10;
+
+        int []XPoints = {valeurXBasGauche,valeurXBasDroite,valeurXHaute};
+        int []YPoints = {valeurYBasGauche,valeurYBasDroite,valeurYHaute};
+
+        g2.fillPolygon(XPoints,YPoints,3);
+
+
+
+        //zg2.fillOval(valeurXDepart, valeurYDepart, 25, 12);
 
             if(!tournee.getListeRequetes().isEmpty()){
 
@@ -236,13 +251,10 @@ public class CartePanel extends JPanel {
                     int valeurXDepot = valeurX(lonDepot);
                     int valeurYDepot = valeurY(latDepot);
 
-                    Random rand = new Random();
-                    int maximumCouleur = 255;
-                    int r = rand.nextInt(maximumCouleur);
-                    int gr = rand.nextInt(maximumCouleur);
-                    int b = rand.nextInt(maximumCouleur);
+            //g2.setColor(tournee.getListeRequetes().get(i).getCouleur());
 
-                    g2.setColor(new Color(r, gr, b));
+
+            g2.setColor(tournee.getListeRequetes().get(i).getCouleurRequete());
 
                     g2.fillRoundRect(valeurXCollecte - 7, valeurYCollecte - 7, 14, 14, 14, 14);
                     g2.fillRect(valeurXDepot - 7, valeurYDepot - 7, 14, 14);
@@ -296,15 +308,15 @@ public class CartePanel extends JPanel {
         System.out.println("CartePane : dessinerItineraire");
 
         System.out.println("CartePane : dessinerItineraire -> inside loop");
-        /*CalculateurTournee calculTournee = new CalculateurTournee(carte, tournee);
+        CalculateurTournee calculTournee = new CalculateurTournee(carte, tournee);
         calculTournee.calculerTournee();
         Tournee itineraire = new Tournee();
-        itineraire = calculTournee.getTsp().getTournee();*/
+        itineraire = calculTournee.getTsp().getTournee();
         //HashMap<Long, LinkedList<CheminEntreEtape>> itineraire = new HashMap<>();
         //itineraire = calculTournee.calculerTournee();
         //System.out.println(itineraire);
 
-        /*for (int i = 0; i < itineraire.getListeChemins().size(); i++) {
+        for (int i = 0; i < itineraire.getListeChemins().size(); i++) {
             for (int j = 0; j < itineraire.getListeChemins().get(i).getListeSegment().size(); j++) {
                 Adresse origine = itineraire.getListeChemins().get(i).getListeSegment().get(j).getOrigine();
                 Adresse destination = itineraire.getListeChemins().get(i).getListeSegment().get(j).getDestination();
@@ -316,7 +328,7 @@ public class CartePanel extends JPanel {
                 g2.drawLine(origineX, origineY, destinationX, destinationY);
 
             }
-        }*/
+        }
 
 
     }
