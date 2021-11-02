@@ -9,7 +9,7 @@ import java.awt.*;
 
 public class EtapePanel extends JPanel {
 
-    public EtapePanel(Etape etape, Boolean estCollecte, Color couleurBordure, int parentWidth, int valMarginBase, Font policeTexte, Font policeTexteImportant){
+    public EtapePanel(Etape etape, Boolean estCollecte, Color couleurBordure, int parentWidth, int valMarginBase, Font policeTexte, Font policeTexteImportant, EcouteurSurvol ecouteurSurvol){
 
         /************************************************************************************/
         /*                              Panel principal                                     */
@@ -17,6 +17,7 @@ public class EtapePanel extends JPanel {
         BoxLayout boxlayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         this.setLayout(boxlayout);
         this.setPreferredSize(new Dimension(parentWidth - 24, 110));
+        this.addMouseListener(ecouteurSurvol);
 
         float teinteRouge = (float) couleurBordure.getRed() / (float) 255;
         float teinteVert = (float) couleurBordure.getGreen() / (float) 255;
@@ -43,19 +44,25 @@ public class EtapePanel extends JPanel {
             texteTitreEtape = "Dépôt - " + etape.getDureeEtape() + " sec";
         }
 
-        JTextArea labelTitreCollecte = new JTextArea(texteTitreEtape);
-        labelTitreCollecte.setSize(this.getWidth() - 4 * valMarginBase, 30);
+        JPanel firstLine = new JPanel(new BorderLayout());
+        firstLine.setSize(this.getWidth() - 4 * valMarginBase, 30);
+        firstLine.setOpaque(false);
+
+        JLabel labelTitreCollecte = new JLabel(texteTitreEtape);
         labelTitreCollecte.setFont(policeTexteImportant);
-        labelTitreCollecte.setLineWrap(true);
-        labelTitreCollecte.setWrapStyleWord(true);
-        labelTitreCollecte.setOpaque(false);
-        panelInside.add(labelTitreCollecte);
+        firstLine.add(labelTitreCollecte, BorderLayout.LINE_START);
+
+        JLabel labelSuppr = new JLabel("X");
+        labelSuppr.addMouseListener(ecouteurSurvol);
+        firstLine.add(labelSuppr, BorderLayout.LINE_END);
+
+        panelInside.add(firstLine);
         panelInside.add(Box.createRigidArea(new Dimension(0, valMarginBase/2)));
 
         /************************************************************************************/
         /*                            Label heure de passage                                */
         /************************************************************************************/
-        String heurePassage = etape.getHeureDePassage().toString();
+        String heurePassage = etape.getHeureDePassage().getHours() + "h" + etape.getHeureDePassage().getMinutes();
         JTextArea labelHeurePassage = new JTextArea("Heure de passage: "+heurePassage);
         labelHeurePassage.setSize(this.getWidth() - 4 * valMarginBase, 45);
         labelHeurePassage.setFont(policeTexte);

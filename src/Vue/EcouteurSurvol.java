@@ -2,6 +2,8 @@ package Vue;
 
 import Controleur.Controleur;
 
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -36,6 +38,14 @@ public class EcouteurSurvol implements MouseListener {
         if(e.getSource() instanceof RequetePanel){
             fenetre.getCartePanel().indiquerPositionRequete(((RequetePanel) e.getSource()).getCollecte(), ((RequetePanel) e.getSource()).getDepot());
         }
+
+        if(e.getSource() instanceof JLabel && ((JLabel) e.getSource()).getText().equals("X")){
+            fenetre.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        }
+        else{
+            fenetre.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        }
+
         if(e.getSource() instanceof  CartePanel || e.getSource() instanceof  Bouton){
             fenetre.getCartePanel().supprimerPositionRequete();
         }

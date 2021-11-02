@@ -298,8 +298,6 @@ public class CartePanel extends JPanel {
 
             }
         }
-
-        System.out.println("on doit afficher ici");
     }
 
     public void maxLongitudeLatitudeCarte() {

@@ -152,7 +152,7 @@ public class MenuLateral extends JPanel {
             }
 
             // affichage de l'etape
-            listeEtapes[i] = new EtapePanel(etapeFinChemin, estCollecte, couleurBordure, panelInsideScrollPanel.getWidth(), valMarginBase, policeTexte, policeTexteImportant);
+            listeEtapes[i] = new EtapePanel(etapeFinChemin, estCollecte, couleurBordure, panelInsideScrollPanel.getWidth(), valMarginBase, policeTexte, policeTexteImportant, ecouteurSurvol);
             panelInsideScrollPanel.add(listeEtapes[i]);
             panelInsideScrollPanel.add(Box.createRigidArea(new Dimension(0, 2*valMarginBase)));
         }
