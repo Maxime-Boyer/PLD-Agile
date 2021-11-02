@@ -28,7 +28,7 @@ public class Fenetre extends JFrame {
     private CartePanel cartePanel;
     private Legende legende;
 
-    public Fenetre(Carte carte, Controleur controleur) throws NameFile {
+    public Fenetre(Carte carte, Controleur controleur) {
         this.setTitle("Raccourc'IF - Hexanome Détect'IF");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLayout(null);
@@ -45,7 +45,7 @@ public class Fenetre extends JFrame {
         this.setVisible(true);
     }
 
-    public void afficherEtat(NomEtat etat) throws NameFile {
+    public void afficherEtat(NomEtat etat) {
 
         switch (etat) {
             case ETAT_INITIAL:

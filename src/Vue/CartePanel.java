@@ -29,7 +29,7 @@ public class CartePanel extends JPanel {
     private Tournee tournee = new Tournee();
     private LecteurXML lecteur = new LecteurXML();
 
-    public CartePanel(int largeurEcran, int hauteurEcran, Font policeTexte) throws NameFile {
+    public CartePanel(int largeurEcran, int hauteurEcran, Font policeTexte) {
 
         this.largeur = (int) 3 * largeurEcran / 4;
         this.hauteur = (int) hauteurEcran;

@@ -39,13 +39,10 @@ public class LecteurXML {
      * @throws ParserConfigurationException
      * @throws SAXException
      */
-    public Carte lectureCarte(String nomFichier) throws ParserConfigurationException, SAXException, PresenceEncodingEtVersionException, NameFile, IOException, TagNameMapException, AttributsIntersectionsExceptions, NegatifLatitudeException, NegatifLongitudeException, AttributsSegmentsExceptions {
+    public Carte lectureCarte(String nomFichier) throws ParserConfigurationException, SAXException, PresenceEncodingEtVersionException, IOException, TagNameMapException, AttributsIntersectionsExceptions, NegatifLatitudeException, NegatifLongitudeException, AttributsSegmentsExceptions {
 
             carte = new Carte(nomFichier);
 
-            if(!nomFichier.toLowerCase(Locale.ROOT).contains("map")) {
-                throw new NameFile("Erreur ouverture du fichier le nom du fichier ne contient pas le mot map");
-            }
             File file = new File(nomFichier);
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -191,10 +188,6 @@ public class LecteurXML {
         List<Requete> listeRequetes = new  ArrayList<Requete>();
         Tournee tournee = new Tournee();
         try {
-
-            if(!nomFichier.toLowerCase(Locale.ROOT).contains("request")) {
-                throw new NameFile("Erreur ouverture du fichier le nom du fichier ne contient pas le mot request");
-            }
 
             File file = new File(nomFichier);
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();

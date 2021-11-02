@@ -5,14 +5,14 @@ import Vue.Fenetre;
 public class EtatTourneeChargee implements Etat {
 
     @Override
-    public void preparerTournee (Controleur controleur, Fenetre fenetre) throws NameFile {
+    public void preparerTournee (Controleur controleur, Fenetre fenetre) {
         System.out.println("EtatTourneeChargee : preparerTournee");
         fenetre.afficherEtat(NomEtat.ETAT_TOURNEE_PREPAREE);
         controleur.setEtatActuel(controleur.etatTourneeOrdonnee);
     }
 
     @Override
-    public void chargerListeRequete (Controleur controleur, Fenetre fenetre) throws NameFile {
+    public void chargerListeRequete (Controleur controleur, Fenetre fenetre) {
         System.out.println("EtatTourneeChargee : preparerTournee");
         fenetre.retirerMenuRequete();
         fenetre.afficherEtat(NomEtat.ETAT_TOURNEE_CHARGEE);
@@ -20,7 +20,7 @@ public class EtatTourneeChargee implements Etat {
     }
 
     @Override
-    public void chargerPlan (Controleur controleur, Fenetre fenetre) throws NameFile {
+    public void chargerPlan (Controleur controleur, Fenetre fenetre) {
         System.out.println("EtatTourneeChargee : chargerPlan");
         fenetre.retirerCartePanel();
         fenetre.retirerMenuLateral();
