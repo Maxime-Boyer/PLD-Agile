@@ -235,180 +235,177 @@ public class LecteurXML {
 
             if(document.getElementsByTagName("depot").getLength() == 0){
                 throw new AbsenceBaliseDepot("Erreur la balise depot n'existe pas dans le fichier");
+            }
+            if(document.getElementsByTagName("request").getLength() == 0){
+                throw new AbsenceBaliseRequest("Erreur aucune balise request dans le fichier");
+            }
+
+            //On vérifie si la balise depot a des attributs
+            if (!eElement.hasAttributes()) {
+                throw new AttributsDepotExceptions("Erreur la balise depot n'as pas d'attribut dans le fichier");
+            }
+
+            //On vérifie si les attributs de la balise depot ne sont pas inexistant
+            String stringAdresseDepot = eElement.getAttribute("address");
+            String stringHeureDepart = eElement.getAttribute("departureTime");
+
+            NamedNodeMap listeAttributsDepot = depot.getAttributes();
+            if(listeAttributsDepot.getLength() != 2){
+                throw new AttributsDepotExceptions("Erreur, le nombre d'attributs de la balise depot est différent du nombre attendu");
+
+            }else{
+                for (int i = 0 ; i< listeAttributsDepot.getLength(); i++){
+                    //System.out.println(listeAttributs.item(i).getNodeName());
+
+                    if(!listeAttributsDepot.item(i).getNodeName().equals("address") && !listeAttributsDepot.item(i).getNodeName().equals("departureTime")){
+                        throw new AttributsIntersectionsExceptions("Erreur, les noms d'attributs de la balise depot ne sont pas corrects");
+                    }
+                }
+            }
+
+            if (stringHeureDepart.isEmpty()) {
+                throw new AttributsDepotExceptions("Erreur l'attribut departureTime de la balise depot est inexistant ou n'a pas de valeur");
+            }
+            if (stringAdresseDepot.isEmpty()) {
+                throw new AttributsDepotExceptions("Erreur l'attribut adresse de la balise depot est inexistant ou n'a pas de valeur");
+            }
+
+            Long idAdresseDepot = Long.parseLong(eElement.getAttribute("address"));
+            System.out.println("idAdresseDepot " + idAdresseDepot);
+            Adresse adresseDepot;
+            if (!(carte.getListeAdresses().containsKey(idAdresseDepot))) {
+                throw new IncompatibleAdresseException("Erreur d'adresse de départ, cette adresse n'appartient pas à la carte chargée ");
+            } else {
+                adresseDepot = carte.obtenirAdresseParId(idAdresseDepot);
+            }
+
+            double latitudeAdresseDepot = adresseDepot.getLatitude();
+            double longitudeAdresseDepot = adresseDepot.getLongitude();
+
+            if (latitudeAdresseDepot < 0.0) {
+                throw new NegatifLatitudeException("Erreur, la latitude du départ est négative");
+            }
+
+            if (longitudeAdresseDepot < 0.0) {
+                throw new NegatifLongitudeException("Erreur, la longitude du départ est négative");
+            }
+
+            if ((latitudeAdresseDepot < minLatitude) || (latitudeAdresseDepot > maxLatitude)) {
+                throw new IncompatibleLatitudeException("Erreur, la latitude de l'adresse de départ n'apparatient pas au plan chargé");
+            }
+            if ((longitudeAdresseDepot < minLongitude) || (longitudeAdresseDepot > maxLongitude)) {
+                throw new IncompatibleLongitudeException("Erreur, la longitude de l'adresse de départ n'apparatient au  plan chargé");
+            }
+
+
+            //String depart = eElement.getAttribute("departureTime");
+            tournee.setAdresseDepart(adresseDepot);
+
+            if(verificationFormatDate(stringHeureDepart)) {
+                LocalTime heureDepart = LocalTime.parse(stringHeureDepart, DateTimeFormatter.ofPattern("H:m:s"));
+                tournee.setHeureDepart(heureDepart);
             }else {
+                throw new AttributsDepotExceptions("Erreur, l'attribut departureTime de la balise depot n'est pas au bon format");
+            }
 
-                //On vérifie si la balise depot a des attributs
-                if (!eElement.hasAttributes()) {
-                    throw new AttributsDepotExceptions("Erreur la balise depot n'as pas d'attribut dans le fichier");
-                } else {
+            NodeList nListRequetes = document.getElementsByTagName("request");
 
-                    //On vérifie si les attributs de la balise depot ne sont pas inexistant
-                    String stringAdresseDepot = eElement.getAttribute("address");
-                    String stringHeureDepart = eElement.getAttribute("departureTime");
+            if(nListRequetes.getLength() == 0){
+                throw new AbsenceBaliseRequest("Erreur aucune requête n'est présente dans le fichier");
+            }
 
-                    NamedNodeMap listeAttributsDepot = depot.getAttributes();
-                    if(listeAttributsDepot.getLength() != 2){
-                        throw new AttributsDepotExceptions("Erreur, le nombre d'attributs de la balise depot est différent du nombre attendu");
+            if(nListRequetes.getLength() > 0) {
+
+                for (int temp = 0; temp < nListRequetes.getLength(); temp++) {
+                    Node nNodeRequest = nListRequetes.item(temp);
+
+                    //On vérifie si la balise request a des attributs
+                    if (!eElement.hasAttributes()) {
+                        throw new AttributsRequestsExceptions("Erreur la balise request n°" + temp + " n'as pas d'attribut dans le fichier");
+                    }
+
+                    NamedNodeMap listeAttributsRequest = nNodeRequest.getAttributes();
+                    if(listeAttributsRequest.getLength() != 4){
+                        throw new AttributsDepotExceptions("Erreur, le nombre d'attributs de la balise request n°" + temp + " est différent du nombre attendu");
 
                     }else{
-                        for (int i = 0 ; i< listeAttributsDepot.getLength(); i++){
+                        for (int i = 0 ; i< listeAttributsRequest.getLength(); i++){
                             //System.out.println(listeAttributs.item(i).getNodeName());
 
-                            if(!listeAttributsDepot.item(i).getNodeName().equals("address") && !listeAttributsDepot.item(i).getNodeName().equals("departureTime")){
-                                throw new AttributsIntersectionsExceptions("Erreur, les noms d'attributs de la balise depot ne sont pas corrects");
+                            if(!listeAttributsRequest.item(i).getNodeName().equals("pickupAddress") && !listeAttributsRequest.item(i).getNodeName().equals("deliveryAddress") && !listeAttributsRequest.item(i).getNodeName().equals("pickupDuration") && !listeAttributsRequest.item(i).getNodeName().equals("deliveryDuration")){
+                                throw new AttributsIntersectionsExceptions("Erreur, les noms d'attributs de la balise request n°" + temp + " ne sont pas corrects");
                             }
+
                         }
+
                     }
 
-                    if (!stringAdresseDepot.isEmpty() && !stringHeureDepart.isEmpty()) {
-                        Long idAdresseDepot = Long.parseLong(eElement.getAttribute("address"));
-                        System.out.println("idAdresseDepot " + idAdresseDepot);
-                        Adresse adresseDepot;
-                        if (!(carte.getListeAdresses().containsKey(idAdresseDepot))) {
-                            throw new IncompatibleAdresseException("Erreur d'adresse de départ, cette adresse n'appartient pas à la carte chargée ");
-                        } else {
-                            adresseDepot = carte.obtenirAdresseParId(idAdresseDepot);
+                    if (nNodeRequest.getNodeType() == Node.ELEMENT_NODE) {
+                        eElement = (Element) nNodeRequest;
+
+                        String stringPickupAddress = eElement.getAttribute("pickupAddress");
+                        String stringDeliveryAddress = eElement.getAttribute("deliveryAddress");
+                        String stringPickupDuration = eElement.getAttribute("pickupDuration");
+                        String stringDeliveryDuration = eElement.getAttribute("deliveryDuration");
+
+                        if (stringPickupAddress.isEmpty()) {
+                            throw new AttributsRequestsExceptions("Erreur manque de l'attribut PickUpAddress (Adresse de collecte) dans une balise Requests de la Tournee");
+                        }
+                        if (stringDeliveryAddress.isEmpty()) {
+                            throw new AttributsRequestsExceptions("Erreur manque de l'attribut DeliveryAddress (Adresse de depot) dans une balise Requests de la Tournee");
+                        }
+                        if (stringPickupDuration.isEmpty()) {
+                            throw new AttributsRequestsExceptions("Erreur manque de l'attribut PickUpDuration (Durée de collecte) dans une balise Requests de la Tournee");
+                        }
+                        if (stringDeliveryDuration.isEmpty()) {
+                            throw new AttributsRequestsExceptions("Erreur manque de l'attribut DeliveryDuration (Durée de depot) dans une balise Requests de la Tournee");
                         }
 
-                        double latitudeAdresseDepot = adresseDepot.getLatitude();
-                        double longitudeAdresseDepot = adresseDepot.getLongitude();
+                        Long idAdresseRetrait = Long.parseLong(stringPickupAddress);
+                        Long idAdresseLivraison = Long.parseLong(stringDeliveryAddress);
 
-                        if (latitudeAdresseDepot < 0.0) {
-                            throw new NegatifLatitudeException("Erreur, la latitude du départ est négative");
+                        if (!(carte.getListeAdresses().containsKey(idAdresseRetrait))) {
+                            throw new IncompatibleAdresseException("Erreur sur une adresse de retrait, l'adresse n'appartient pas à la carte chargée ");
                         }
 
-                        if (longitudeAdresseDepot < 0.0) {
-                            throw new NegatifLongitudeException("Erreur, la longitude du départ est négative");
+                        if (!(carte.getListeAdresses().containsKey(idAdresseLivraison))) {
+                            throw new IncompatibleAdresseException("Erreur sur une adresse de livraison, l'adresse n'appartient pas à la carte chargée ");
                         }
 
-                        if ((latitudeAdresseDepot < minLatitude) || (latitudeAdresseDepot > maxLatitude)) {
+                        Integer tempsRetrait = Integer.parseInt(stringPickupDuration);
+                        Integer tempsLivraison = Integer.parseInt(stringDeliveryDuration);
+                        Adresse adresseRetrait = carte.obtenirAdresseParId(idAdresseRetrait);
+                        Adresse adresseLivraison = carte.obtenirAdresseParId(idAdresseLivraison);
+
+                        double latitudeAdresseRetrait = adresseRetrait.getLatitude();
+                        double longitudeAdresseRetrait = adresseRetrait.getLongitude();
+
+
+                        if ((latitudeAdresseRetrait < minLatitude) || (latitudeAdresseRetrait > maxLatitude)) {
+                            throw new IncompatibleLatitudeException("Erreur, la latitude de d'une adresse n'apparatient pas au plan chargé");
+                        }
+                        if ((longitudeAdresseRetrait < minLongitude) || (longitudeAdresseRetrait > maxLongitude)) {
+                            throw new IncompatibleLongitudeException("Erreur, la longitude d'une adresse n'apparatient au  plan chargé");
+                        }
+
+                        double latitudeAdresseLivraison = adresseLivraison.getLatitude();
+                        double longitudeAdresseLivraison = adresseLivraison.getLongitude();
+
+
+                        if ((latitudeAdresseLivraison < minLatitude) || (latitudeAdresseLivraison > maxLatitude)) {
                             throw new IncompatibleLatitudeException("Erreur, la latitude de l'adresse de départ n'apparatient pas au plan chargé");
                         }
-                        if ((longitudeAdresseDepot < minLongitude) || (longitudeAdresseDepot > maxLongitude)) {
-                            throw new IncompatibleLongitudeException("Erreur, la longitude de l'adresse de départ n'apparatient au  plan chargé");
+                        if ((longitudeAdresseLivraison < minLongitude) || (longitudeAdresseLivraison > maxLongitude)) {
+                            throw new IncompatibleLongitudeException("Erreur, la longitude de l'adresse de départ n'apparatient au le plan chargé");
                         }
 
 
-                        //String depart = eElement.getAttribute("departureTime");
-                        tournee.setAdresseDepart(adresseDepot);
-
-                        if(verificationFormatDate(stringHeureDepart)) {
-                            LocalTime heureDepart = LocalTime.parse(stringHeureDepart, DateTimeFormatter.ofPattern("H:m:s"));
-                            tournee.setHeureDepart(heureDepart);
-                        }else {
-                            throw new AttributsDepotExceptions("Erreur, l'attribut departureTime de la balise depot n'est pas au bon format");
-                        }
-
-                        NodeList nListRequetes = document.getElementsByTagName("request");
-
-                        if(nListRequetes.getLength() > 0) {
-
-                            for (int temp = 0; temp < nListRequetes.getLength(); temp++) {
-                                Node nNodeRequest = nListRequetes.item(temp);
-
-                                //On vérifie si la balise request a des attributs
-                                if (!eElement.hasAttributes()) {
-                                    throw new AttributsRequestsExceptions("Erreur la balise request n°" + temp + " n'as pas d'attribut dans le fichier");
-                                }
-
-                                NamedNodeMap listeAttributsRequest = nNodeRequest.getAttributes();
-                                if(listeAttributsRequest.getLength() != 4){
-                                    throw new AttributsDepotExceptions("Erreur, le nombre d'attributs de la balise request n°" + temp + " est différent du nombre attendu");
-
-                                }else{
-                                    for (int i = 0 ; i< listeAttributsRequest.getLength(); i++){
-                                        //System.out.println(listeAttributs.item(i).getNodeName());
-
-                                        if(!listeAttributsRequest.item(i).getNodeName().equals("pickupAddress") && !listeAttributsRequest.item(i).getNodeName().equals("deliveryAddress") && !listeAttributsRequest.item(i).getNodeName().equals("pickupDuration") && !listeAttributsRequest.item(i).getNodeName().equals("deliveryDuration")){
-                                            throw new AttributsIntersectionsExceptions("Erreur, les noms d'attributs de la balise request n°" + temp + " ne sont pas corrects");
-                                        }
-
-                                    }
-
-                                }
-
-                                if (nNodeRequest.getNodeType() == Node.ELEMENT_NODE) {
-                                    eElement = (Element) nNodeRequest;
-
-                                    String stringPickupAddress = eElement.getAttribute("pickupAddress");
-                                    String stringDeliveryAddress = eElement.getAttribute("deliveryAddress");
-                                    String stringPickupDuration = eElement.getAttribute("pickupDuration");
-                                    String stringDeliveryDuration = eElement.getAttribute("deliveryDuration");
-
-                                    if(!stringPickupAddress.isEmpty() && !stringPickupAddress.isEmpty() && !stringPickupAddress.isEmpty() && !stringPickupAddress.isEmpty()){
-
-                                        Long idAdresseRetrait = Long.parseLong(stringPickupAddress);
-                                        Long idAdresseLivraison = Long.parseLong(stringDeliveryAddress);
-
-                                        if (!(carte.getListeAdresses().containsKey(idAdresseRetrait))) {
-                                            throw new IncompatibleAdresseException("Erreur sur une adresse de retrait, l'adresse n'appartient pas à la carte chargée ");
-                                        }
-
-                                        if (!(carte.getListeAdresses().containsKey(idAdresseLivraison))) {
-                                            throw new IncompatibleAdresseException("Erreur sur une adresse de livraison, l'adresse n'appartient pas à la carte chargée ");
-                                        }
-
-                                        Integer tempsRetrait = Integer.parseInt(stringPickupDuration);
-                                        Integer tempsLivraison = Integer.parseInt(stringDeliveryDuration);
-                                        Adresse adresseRetrait = carte.obtenirAdresseParId(idAdresseRetrait);
-                                        Adresse adresseLivraison = carte.obtenirAdresseParId(idAdresseLivraison);
-
-                                        double latitudeAdresseRetrait = adresseRetrait.getLatitude();
-                                        double longitudeAdresseRetrait = adresseRetrait.getLongitude();
-
-
-                                        if ((latitudeAdresseRetrait < minLatitude) || (latitudeAdresseRetrait > maxLatitude)) {
-                                            throw new IncompatibleLatitudeException("Erreur, la latitude de d'une adresse n'apparatient pas au plan chargé");
-                                        }
-                                        if ((longitudeAdresseRetrait < minLongitude) || (longitudeAdresseRetrait > maxLongitude)) {
-                                            throw new IncompatibleLongitudeException("Erreur, la longitude d'une adresse n'apparatient au  plan chargé");
-                                        }
-
-                                        double latitudeAdresseLivraison = adresseLivraison.getLatitude();
-                                        double longitudeAdresseLivraison = adresseLivraison.getLongitude();
-
-
-                                        if ((latitudeAdresseLivraison < minLatitude) || (latitudeAdresseLivraison > maxLatitude)) {
-                                            throw new IncompatibleLatitudeException("Erreur, la latitude de l'adresse de départ n'apparatient pas au plan chargé");
-                                        }
-                                        if ((longitudeAdresseLivraison < minLongitude) || (longitudeAdresseLivraison > maxLongitude)) {
-                                            throw new IncompatibleLongitudeException("Erreur, la longitude de l'adresse de départ n'apparatient au le plan chargé");
-                                        }
-
-
-                                        Etape etapeRetrait = new Etape(adresseRetrait.getLatitude(), adresseRetrait.getLongitude(), idAdresseRetrait, tempsRetrait, null);
-                                        Etape etapeLivraison = new Etape(adresseLivraison.getLatitude(), adresseLivraison.getLongitude(), idAdresseLivraison, tempsLivraison, null);
-                                        Requete requete = new Requete(etapeRetrait, etapeLivraison);
-                                        listeRequetes.add(requete);
-                                    }else {
-                                        if(stringPickupAddress.isEmpty()){
-                                            throw new AttributsRequestsExceptions("Erreur manque de l'attribut PickUpAddress (Adresse de collecte) dans une balise Requests de la Tournee");
-                                        }
-                                        if(stringDeliveryAddress.isEmpty()){
-                                            throw new AttributsRequestsExceptions("Erreur manque de l'attribut DeliveryAddress (Adresse de depot) dans une balise Requests de la Tournee");
-                                        }
-                                        if(stringPickupDuration.isEmpty()){
-                                            throw new AttributsRequestsExceptions("Erreur manque de l'attribut PickUpDuration (Durée de collecte) dans une balise Requests de la Tournee");
-                                        }
-                                        if(stringDeliveryDuration.isEmpty()){
-                                            throw new AttributsRequestsExceptions("Erreur manque de l'attribut DeliveryDuration (Durée de depot) dans une balise Requests de la Tournee");
-                                        }
-                                    }
-                                }
-                                tournee.setListeRequetes(listeRequetes);
-                            }
-                        }else {
-                            throw new AbsenceBaliseRequest("Erreur aucune requête n'est présente dans le fichier");
-                        }
-                    } else {
-                        if (stringHeureDepart.isEmpty()) {
-                            throw new AttributsDepotExceptions("Erreur l'attribut departureTime de la balise depot est inexistant ou n'a pas de valeur");
-                        }
-                        if (stringAdresseDepot.isEmpty()) {
-                            throw new AttributsDepotExceptions("Erreur l'attribut adresse de la balise depot est inexistant ou n'a pas de valeur");
-                        }
-
+                        Etape etapeRetrait = new Etape(adresseRetrait.getLatitude(), adresseRetrait.getLongitude(), idAdresseRetrait, tempsRetrait, null);
+                        Etape etapeLivraison = new Etape(adresseLivraison.getLatitude(), adresseLivraison.getLongitude(), idAdresseLivraison, tempsLivraison, null);
+                        Requete requete = new Requete(etapeRetrait, etapeLivraison);
+                        listeRequetes.add(requete);
                     }
+                    tournee.setListeRequetes(listeRequetes);
                 }
             }
         }
