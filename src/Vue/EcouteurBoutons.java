@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import Controleur.Controleur;
-import Exceptions.NameFile;
 
 public class EcouteurBoutons implements ActionListener {
 

@@ -1,6 +1,5 @@
 package Controleur;
 
-import Exceptions.NameFile;
 import Model.Carte;
 import Vue.Fenetre;
 

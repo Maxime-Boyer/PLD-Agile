@@ -1,6 +1,5 @@
 package Controleur;
 
-import Exceptions.NameFile;
 import Vue.Fenetre;
 
 public class EtatTourneeChargee implements Etat {

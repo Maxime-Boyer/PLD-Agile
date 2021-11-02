@@ -1,6 +1,5 @@
 package RaccourcIF;
 
-import Exceptions.NameFile;
 import Model.Carte;
 import Controleur.Controleur;
 

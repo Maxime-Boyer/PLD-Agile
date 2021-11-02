@@ -2,7 +2,6 @@ package Vue;
 
 import Controleur.Controleur;
 import Controleur.NomEtat;
-import Exceptions.NameFile;
 import Model.Carte;
 
 import javax.swing.*;

@@ -6,23 +6,14 @@ package Vue;
 
 import Algorithmie.CalculateurTournee;
 import Exceptions.IncompatibleAdresseException;
-import Exceptions.NameFile;
 import Model.Adresse;
 import Model.Carte;
 import Model.LecteurXML;
 import Model.Tournee;
-import org.xml.sax.SAXException;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Map;
-import java.util.Random;
 
 
 public class CartePanel extends JPanel {
