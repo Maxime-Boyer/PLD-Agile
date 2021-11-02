@@ -34,7 +34,7 @@ public class CalculateurTournee {
         HashMap<Long, HashMap<Long, CheminEntreEtape>> grapheCompletDesEtapes = calculerGrapheCompletDesEtapes(new Astar2(carte));
         //System.out.println("Temps execution Astar2 : " + (System.currentTimeMillis()-msBefore));
 
-        TSP1 tsp = new TSP1(carte,tournee,grapheCompletDesEtapes);
+        TSP1 tsp = new TSP1(carte,tournee,grapheCompletDesEtapes,Integer.MAX_VALUE);
         tsp.chercherSolution();
         //tsp.calculerOrdreEtapes();
         return grapheCompletDesEtapes;

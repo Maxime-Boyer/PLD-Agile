@@ -8,6 +8,6 @@ public interface TSP {
 
     public Tournee obtenirSolution();
 
-    public void obtenirCoutSolution();
+    public int obtenirCoutSolution();
 
 }
