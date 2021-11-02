@@ -1,5 +1,6 @@
 package Vue;
 
+import Model.Requete;
 import Model.Tournee;
 import Model.Etape;
 
@@ -127,8 +128,7 @@ public class MenuLateral extends JPanel {
         int positionTop = 0;
         Etape etapeFinChemin; //on base notre affichage sur l'étape de fin uniquement
         Etape etapeDepot, etapeCollecte;
-        Color couleurBordure = Color.BLACK;
-        Boolean estCollecte = false;
+        Requete requete = null;
         String heurePassage = "";
         for (int i = 0; i < tournee.getListeChemins().size(); i++) {
             etapeFinChemin = tournee.getListeChemins().get(i).getEtapeArrivee();
@@ -139,20 +139,13 @@ public class MenuLateral extends JPanel {
                 etapeCollecte = tournee.getListeRequetes().get(j).getEtapeCollecte();
 
                 if(etapeDepot.getIdAdresse().equals(etapeFinChemin.getIdAdresse()) || etapeCollecte.getIdAdresse().equals(etapeFinChemin.getIdAdresse())){
-                    couleurBordure = tournee.getListeRequetes().get(j).getCouleur();
-
-                    if(etapeDepot.getIdAdresse().equals(etapeFinChemin.getIdAdresse())){
-                        estCollecte = false;
-                    }
-                    else{
-                        estCollecte = true;
-                    }
+                    requete = tournee.getListeRequetes().get(j);
                     break;
                 }
             }
 
             // affichage de l'etape
-            listeEtapes[i] = new EtapePanel(etapeFinChemin, estCollecte, couleurBordure, panelInsideScrollPanel.getWidth(), valMarginBase, policeTexte, policeTexteImportant, ecouteurSurvol);
+            listeEtapes[i] = new EtapePanel(etapeFinChemin, requete, panelInsideScrollPanel.getWidth(), valMarginBase, policeTexte, policeTexteImportant, ecouteurSurvol);
             panelInsideScrollPanel.add(listeEtapes[i]);
             panelInsideScrollPanel.add(Box.createRigidArea(new Dimension(0, 2*valMarginBase)));
         }

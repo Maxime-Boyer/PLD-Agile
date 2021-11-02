@@ -1,6 +1,7 @@
 package Vue;
 
 import Model.Etape;
+import Model.Requete;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -9,7 +10,9 @@ import java.awt.*;
 
 public class EtapePanel extends JPanel {
 
-    public EtapePanel(Etape etape, Boolean estCollecte, Color couleurBordure, int parentWidth, int valMarginBase, Font policeTexte, Font policeTexteImportant, EcouteurSurvol ecouteurSurvol){
+    private Requete requeteEtape;
+
+    public EtapePanel(Etape etape, Requete requeteEtape, int parentWidth, int valMarginBase, Font policeTexte, Font policeTexteImportant, EcouteurSurvol ecouteurSurvol){
 
         /************************************************************************************/
         /*                              Panel principal                                     */
@@ -19,6 +22,9 @@ public class EtapePanel extends JPanel {
         this.setPreferredSize(new Dimension(parentWidth - 24, 110));
         this.addMouseListener(ecouteurSurvol);
 
+        this.requeteEtape = requeteEtape;
+
+        Color couleurBordure = requeteEtape.getCouleur();
         float teinteRouge = (float) couleurBordure.getRed() / (float) 255;
         float teinteVert = (float) couleurBordure.getGreen() / (float) 255;
         float teinteBleue = (float) couleurBordure.getBlue() / (float) 255;
@@ -37,7 +43,7 @@ public class EtapePanel extends JPanel {
         /************************************************************************************/
 
         String texteTitreEtape = "";
-        if(estCollecte){
+        if(requeteEtape.getEtapeCollecte().getIdAdresse().equals(etape.getIdAdresse())){
             texteTitreEtape = "Collecte - " + etape.getDureeEtape() + " sec";
         }
         else{
@@ -84,5 +90,9 @@ public class EtapePanel extends JPanel {
         panelInside.add(labelAdresseCollecte);
 
         this.add(panelInside);
+    }
+
+    public Requete getRequeteEtape(){
+        return requeteEtape;
     }
 }
