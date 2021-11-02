@@ -36,7 +36,7 @@ public class EcouteurSurvol implements MouseListener {
         if(e.getSource() instanceof RequetePanel){
             fenetre.getCartePanel().indiquerPositionRequete(((RequetePanel) e.getSource()).getCollecte(), ((RequetePanel) e.getSource()).getDepot());
         }
-        if(e.getSource() instanceof  CartePanel){
+        if(e.getSource() instanceof  CartePanel || e.getSource() instanceof  Bouton){
             fenetre.getCartePanel().supprimerPositionRequete();
         }
     }

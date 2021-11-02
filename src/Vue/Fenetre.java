@@ -6,6 +6,8 @@ import Model.Carte;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.*;
+import java.util.Timer;
 
 public class Fenetre extends JFrame {
 

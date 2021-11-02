@@ -1,5 +1,7 @@
 package Vue;
 
+import Model.Etape;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -7,7 +9,7 @@ import java.awt.*;
 
 public class EtapePanel extends JPanel {
 
-    public EtapePanel(String heurePassage, boolean estEtapeCollecte, int duree, String adresse , Color couleurBordure, int parentWidth, int valMarginBase, Font policeTexte, Font policeTexteImportant){
+    public EtapePanel(Etape etape, Boolean estCollecte, Color couleurBordure, int parentWidth, int valMarginBase, Font policeTexte, Font policeTexteImportant){
 
         /************************************************************************************/
         /*                              Panel principal                                     */
@@ -34,11 +36,11 @@ public class EtapePanel extends JPanel {
         /************************************************************************************/
 
         String texteTitreEtape = "";
-        if(estEtapeCollecte){
-            texteTitreEtape = "Collecte - " + duree + " sec";
+        if(estCollecte){
+            texteTitreEtape = "Collecte - " + etape.getDureeEtape() + " sec";
         }
         else{
-            texteTitreEtape = "Dépôt - " + duree + " sec";
+            texteTitreEtape = "Dépôt - " + etape.getDureeEtape() + " sec";
         }
 
         JTextArea labelTitreCollecte = new JTextArea(texteTitreEtape);
@@ -53,6 +55,7 @@ public class EtapePanel extends JPanel {
         /************************************************************************************/
         /*                            Label heure de passage                                */
         /************************************************************************************/
+        String heurePassage = etape.getHeureDePassage().toString();
         JTextArea labelHeurePassage = new JTextArea("Heure de passage: "+heurePassage);
         labelHeurePassage.setSize(this.getWidth() - 4 * valMarginBase, 45);
         labelHeurePassage.setFont(policeTexte);
@@ -65,7 +68,7 @@ public class EtapePanel extends JPanel {
         /************************************************************************************/
         /*                            Label adresse de collecte                             */
         /************************************************************************************/
-        JTextArea labelAdresseCollecte = new JTextArea(adresse);
+        JTextArea labelAdresseCollecte = new JTextArea(etape.getNomAdresse());
         labelAdresseCollecte.setSize(this.getWidth() - 4 * valMarginBase, 45);
         labelAdresseCollecte.setFont(policeTexte);
         labelAdresseCollecte.setLineWrap(true);

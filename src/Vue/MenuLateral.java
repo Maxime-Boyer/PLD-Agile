@@ -91,6 +91,7 @@ public class MenuLateral extends JPanel {
 
         //creation du bouton de calcul d'itineraire
         boutonPreparerTournee = new Bouton(Fenetre.PREPARER_TOURNEE, policeTexte, ecouteurBoutons);
+        boutonPreparerTournee.addMouseListener(ecouteurSurvol);
         boutonPreparerTournee.setBounds( valMarginBase, this.getHeight() - hauteurBouton - valMarginBase, this.getWidth() - 2*valMarginBase, hauteurBouton);
         this.add(boutonPreparerTournee);
     }
@@ -124,8 +125,34 @@ public class MenuLateral extends JPanel {
         //affichage du détaille des étapes
         EtapePanel[] listeEtapes = new EtapePanel[10];
         int positionTop = 0;
-        for (int i = 0; i < 10; i++) {
-            listeEtapes[i] = new EtapePanel("8h18", false, 12, "20 Av. Albert Einstein", Color.RED, panelInsideScrollPanel.getWidth(), valMarginBase, policeTexte, policeTexteImportant);
+        Etape etapeFinChemin; //on base notre affichage sur l'étape de fin uniquement
+        Etape etapeDepot, etapeCollecte;
+        Color couleurBordure = Color.BLACK;
+        Boolean estCollecte = false;
+        String heurePassage = "";
+        for (int i = 0; i < tournee.getListeChemins().size(); i++) {
+            etapeFinChemin = tournee.getListeChemins().get(i).getEtapeArrivee();
+
+            //on determine dans quelle requete se trouve l'étape
+            for(int j = 0; j < tournee.getListeRequetes().size(); j++){
+                etapeDepot = tournee.getListeRequetes().get(j).getEtapeDepot();
+                etapeCollecte = tournee.getListeRequetes().get(j).getEtapeCollecte();
+
+                if(etapeDepot.getIdAdresse().equals(etapeFinChemin.getIdAdresse()) || etapeCollecte.getIdAdresse().equals(etapeFinChemin.getIdAdresse())){
+                    couleurBordure = tournee.getListeRequetes().get(j).getCouleur();
+
+                    if(etapeDepot.getIdAdresse().equals(etapeFinChemin.getIdAdresse())){
+                        estCollecte = false;
+                    }
+                    else{
+                        estCollecte = true;
+                    }
+                    break;
+                }
+            }
+
+            // affichage de l'etape
+            listeEtapes[i] = new EtapePanel(etapeFinChemin, estCollecte, couleurBordure, panelInsideScrollPanel.getWidth(), valMarginBase, policeTexte, policeTexteImportant);
             panelInsideScrollPanel.add(listeEtapes[i]);
             panelInsideScrollPanel.add(Box.createRigidArea(new Dimension(0, 2*valMarginBase)));
         }

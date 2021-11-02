@@ -31,6 +31,8 @@ public class CartePanel extends JPanel {
     private JLabel labelPosition1;
     private JLabel labelPosition2;
     private ImageIcon iconPosition;
+    private CalculateurTournee calculTournee;
+    private Tournee itineraire;
 
     public CartePanel(int largeurEcran, int hauteurEcran, Font policeTexte, EcouteurSurvol ecouteurSurvol) {
 
@@ -126,7 +128,11 @@ public class CartePanel extends JPanel {
     }
 
     public void tracerItineraire() {
-        System.out.println("tracerItineraire");
+        System.out.println("CartePane : dessinerItineraire");
+        this.calculTournee = new CalculateurTournee(carte, tournee);
+        calculTournee.calculerTournee();
+        itineraire = new Tournee();
+        itineraire = calculTournee.getTsp().getTournee();
         itinerairePrepare = true;
     }
 
@@ -278,16 +284,6 @@ public class CartePanel extends JPanel {
     }
 
     public void dessinerItineraire(Graphics g2) {
-        System.out.println("CartePane : dessinerItineraire");
-
-        System.out.println("CartePane : dessinerItineraire -> inside loop");
-        CalculateurTournee calculTournee = new CalculateurTournee(carte, tournee);
-        calculTournee.calculerTournee();
-        Tournee itineraire = new Tournee();
-        itineraire = calculTournee.getTsp().getTournee();
-        //HashMap<Long, LinkedList<CheminEntreEtape>> itineraire = new HashMap<>();
-        //itineraire = calculTournee.calculerTournee();
-        //System.out.println(itineraire);
 
         for (int i = 0; i < itineraire.getListeChemins().size(); i++) {
             for (int j = 0; j < itineraire.getListeChemins().get(i).getListeSegment().size(); j++) {
@@ -303,7 +299,7 @@ public class CartePanel extends JPanel {
             }
         }
 
-
+        System.out.println("on doit afficher ici");
     }
 
     public void maxLongitudeLatitudeCarte() {
