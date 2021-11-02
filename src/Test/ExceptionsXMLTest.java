@@ -104,7 +104,7 @@ class ExceptionsXMLTest {
         try {
             LecteurXML lecteurXML = new LecteurXML();
             Carte carte = new Carte();
-            carte = lecteurXML.lectureCarte("./src/FichiersXMLTest/mediumMapAttributSegmentNombreTest.xml");
+            carte = lecteurXML.lectureCarte("./src/FichiersXMLTest/mediumMapAttributSegmentDestinationTest.xml");
         } catch (AttributsIntersectionsExceptions attributsIntersectionsExceptions) {
             attributsIntersectionsExceptions.printStackTrace();
         } catch (PresenceEncodingEtVersionException e) {
@@ -128,6 +128,115 @@ class ExceptionsXMLTest {
         } catch (NegatifLatitudeException e) {
             e.printStackTrace();
             fail();
+        } catch (SAXException e) {
+            e.printStackTrace();
+            fail();
+        }
+
+    }
+
+    @Test
+    void exceptionMauvaisAttributBaliseSegment() {
+        try {
+            LecteurXML lecteurXML = new LecteurXML();
+            Carte carte = new Carte();
+            carte = lecteurXML.lectureCarte("./src/FichiersXMLTest/mediumMapAttributSegmentDestinationTest.xml");
+        } catch (AttributsIntersectionsExceptions attributsIntersectionsExceptions) {
+            attributsIntersectionsExceptions.printStackTrace();
+        } catch (PresenceEncodingEtVersionException e) {
+            e.printStackTrace();
+            fail();
+        } catch (AttributsSegmentsExceptions attributsSegmentsExceptions) {
+            attributsSegmentsExceptions.printStackTrace();
+
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+            fail();
+        } catch (IOException e) {
+            e.printStackTrace();
+            fail();
+        } catch (NegatifLongitudeException e) {
+            e.printStackTrace();
+            fail();
+        } catch (TagNameMapException e) {
+            e.printStackTrace();
+            fail();
+        } catch (NegatifLatitudeException e) {
+            e.printStackTrace();
+            fail();
+        } catch (SAXException e) {
+            e.printStackTrace();
+            fail();
+        }
+
+    }
+
+
+    @Test
+    void exceptionLongitudeNegative() {
+        try {
+            LecteurXML lecteurXML = new LecteurXML();
+            Carte carte = new Carte();
+            carte = lecteurXML.lectureCarte("./src/FichiersXMLTest/mediumMapLongitudeTest.xml");
+        } catch (AttributsIntersectionsExceptions attributsIntersectionsExceptions) {
+            attributsIntersectionsExceptions.printStackTrace();
+        } catch (PresenceEncodingEtVersionException e) {
+            e.printStackTrace();
+            fail();
+        } catch (AttributsSegmentsExceptions attributsSegmentsExceptions) {
+            attributsSegmentsExceptions.printStackTrace();
+            fail();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+            fail();
+        } catch (IOException e) {
+            e.printStackTrace();
+            fail();
+        } catch (NegatifLongitudeException e) {
+            e.printStackTrace();
+
+        } catch (TagNameMapException e) {
+            e.printStackTrace();
+            fail();
+        } catch (NegatifLatitudeException e) {
+            e.printStackTrace();
+            fail();
+        } catch (SAXException e) {
+            e.printStackTrace();
+            fail();
+        }
+
+    }
+
+    @Test
+    void exceptionLatitudeNegative() {
+        try {
+            LecteurXML lecteurXML = new LecteurXML();
+            Carte carte = new Carte();
+            carte = lecteurXML.lectureCarte("./src/FichiersXMLTest/mediumMapLatitudeTest.xml");
+        } catch (AttributsIntersectionsExceptions attributsIntersectionsExceptions) {
+            attributsIntersectionsExceptions.printStackTrace();
+        } catch (PresenceEncodingEtVersionException e) {
+            e.printStackTrace();
+            fail();
+        } catch (AttributsSegmentsExceptions attributsSegmentsExceptions) {
+            attributsSegmentsExceptions.printStackTrace();
+            fail();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+            fail();
+        } catch (IOException e) {
+            e.printStackTrace();
+            fail();
+        } catch (NegatifLongitudeException e) {
+            e.printStackTrace();
+            fail();
+        } catch (TagNameMapException e) {
+            e.printStackTrace();
+            fail();
+        } catch (NegatifLatitudeException e) {
+            e.printStackTrace();
+
         } catch (SAXException e) {
             e.printStackTrace();
             fail();
