@@ -4542,7 +4542,7 @@
     <segment destination="191134383" length="121.14928" name="Rue Jean-Baptiste Durand" origin="191134496"/>
     <segment destination="3760142306" length="7.621921" name="" origin="452908361"/>
     <segment destination="3760142308" length="27.062717" name="" origin="452908361"/>
-    <segment destiination="1613914199" length="28.430933" name="Avenue Édouard Herriot" origin="452908361"/>
+    <segment test="1613914199" length="28.430933" name="Avenue Édouard Herriot" origin="452908361"/>
     <segment destination="1613914197" length="233.383" name="" origin="452908352"/>
     <segment destination="33233726" length="202.5549" name="" origin="452908352"/>
 </map>

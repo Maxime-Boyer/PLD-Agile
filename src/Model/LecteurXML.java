@@ -147,7 +147,7 @@ public class LecteurXML {
                             //System.out.println(listeAttributs.item(i).getNodeName());
 
                             if (!listeAttributsSegment.item(i).getNodeName().equals("length") && !listeAttributsSegment.item(i).getNodeName().equals("name") && !listeAttributsSegment.item(i).getNodeName().equals("origin") && !listeAttributsSegment.item(i).getNodeName().equals("destination")) {
-                                throw new AttributsIntersectionsExceptions("Erreur, les attributs de la balise segment n° " + temp + " ne sont pas corrects");
+                                throw new AttributsSegmentsExceptions("Erreur, les attributs de la balise segment n° " + temp + " ne sont pas corrects");
                             }
 
                         }
@@ -243,7 +243,7 @@ public class LecteurXML {
                     //System.out.println(listeAttributs.item(i).getNodeName());
 
                     if(!listeAttributsDepot.item(i).getNodeName().equals("address") && !listeAttributsDepot.item(i).getNodeName().equals("departureTime")){
-                        throw new AttributsIntersectionsExceptions("Erreur, les noms d'attributs de la balise depot ne sont pas corrects");
+                        throw new AttributsDepotExceptions("Erreur, les noms d'attributs de la balise depot ne sont pas corrects");
                     }
                 }
             }
@@ -318,7 +318,7 @@ public class LecteurXML {
                             //System.out.println(listeAttributs.item(i).getNodeName());
 
                             if(!listeAttributsRequest.item(i).getNodeName().equals("pickupAddress") && !listeAttributsRequest.item(i).getNodeName().equals("deliveryAddress") && !listeAttributsRequest.item(i).getNodeName().equals("pickupDuration") && !listeAttributsRequest.item(i).getNodeName().equals("deliveryDuration")){
-                                throw new AttributsIntersectionsExceptions("Erreur, les noms d'attributs de la balise request n°" + temp + " ne sont pas corrects");
+                                throw new AttributsRequestsExceptions("Erreur, les noms d'attributs de la balise request n°" + temp + " ne sont pas corrects");
                             }
 
                         }

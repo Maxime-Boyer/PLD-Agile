@@ -96,12 +96,13 @@ class ExceptionsXMLTest {
 
 
 
+
     @Test
-    void exceptionMauvaisAttributBaliseSegment() {
+    void exceptionMauvaisAttributSegment() {
         try {
             LecteurXML lecteurXML = new LecteurXML();
             Carte carte = new Carte();
-            carte = lecteurXML.lectureCarte("./src/FichiersXMLTest/mediumMapAttributSegmentDestinationTest.xml");
+            carte = lecteurXML.lectureCarte("./src/FichiersXMLTest/mediumMapMauvaisAttributSegment.xml");
         } catch (AttributsIntersectionsExceptions attributsIntersectionsExceptions) {
             attributsIntersectionsExceptions.printStackTrace();
             fail();
@@ -109,7 +110,7 @@ class ExceptionsXMLTest {
             e.printStackTrace();
             fail();
         } catch (AttributsSegmentsExceptions attributsSegmentsExceptions) {
-            attributsSegmentsExceptions.printStackTrace();
+            //attributsSegmentsExceptions.printStackTrace();
 
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
@@ -132,7 +133,6 @@ class ExceptionsXMLTest {
         }
 
     }
-
 
     @Test
     void exceptionLongitudeNegative() {
@@ -208,7 +208,7 @@ class ExceptionsXMLTest {
 
     }
 
-    /*
+
     @Test
     void exceptionNombreAttributBaliseIntersection() {
         try {
@@ -244,5 +244,5 @@ class ExceptionsXMLTest {
             fail();
         }
 
-    }*/
+    }
 }

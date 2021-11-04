@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <map>
 <intersection id="2129259178" latitude="45.750404" longitude="4.8744674"/>
-<intersection id="2129259176" latitude="45.75171" longitude="4.8718166" />
+<intersection id="2129259176" latitude="45.75171" longitude="4.8718166"/>
 <intersection id="1850080438" latitude="45.754265" longitude="4.886816"/>
 <intersection id="2129259180" latitude="45.750214" longitude="4.8742905"/>
 <intersection id="2292223595" latitude="45.73208" longitude="4.902046"/>
@@ -1758,7 +1758,7 @@
 <segment destination="245025987" length="88.1617" name="Avenue du Bois" origin="245023208"/>
 <segment destination="27362561" length="207.18861" name="Rue de la Moselle" origin="27362560"/>
 <segment destination="350344029" length="119.93856" name="Avenue Général Frère" origin="27362560"/>
-<segment destination="27362905" length="102.411255" name="Avenue Général Frère" origin="27362560"  test="1234"/>
+<segment destination="27362905" length="102.411255" name="Avenue Général Frère" origin="27362560"/>
 <segment destination="27362904" length="219.08798" name="Rue de la Meuse" origin="27362561"/>
 <segment destination="27362560" length="207.18861" name="Rue de la Moselle" origin="27362561"/>
 <segment destination="27362911" length="41.032604" name="Rue de la Moselle" origin="27362561"/>
@@ -4544,5 +4544,5 @@
 <segment destination="3760142308" length="27.062717" name="" origin="452908361"/>
 <segment destination="1613914199" length="28.430933" name="Avenue Édouard Herriot" origin="452908361"/>
 <segment destination="1613914197" length="233.383" name="" origin="452908352"/>
-<segment destination="33233726" length="202.5549" name="" origin="452908352"/>
+<segment destination="33233726" length="202.5549" name="" origin="452908352" test=""/>
 </map>
