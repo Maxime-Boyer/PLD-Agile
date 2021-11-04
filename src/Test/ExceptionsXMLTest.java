@@ -245,4 +245,191 @@ class ExceptionsXMLTest {
         }
 
     }
+
+    @Test
+    void exceptionAbsenceVersionEncodageRequests() {
+        try {
+            LecteurXML lecteurXML = new LecteurXML();
+            Tournee tournee = new Tournee();
+            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/mediumRequestsEncodageVersionTest.xml");
+        } catch (IncompatibleLatitudeException e) {
+            e.printStackTrace();
+            fail();
+        } catch (AttributsRequestsExceptions attributsRequestsExceptions) {
+            attributsRequestsExceptions.printStackTrace();
+            fail();
+        } catch (AbsenceBaliseDepot absenceBaliseDepot) {
+            absenceBaliseDepot.printStackTrace();
+            fail();
+        } catch (PresenceEncodingEtVersionException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+            fail();
+        } catch (IncompatibleLongitudeException e) {
+            e.printStackTrace();
+            fail();
+        } catch (NegatifLongitudeException e) {
+            e.printStackTrace();
+            fail();
+        } catch (TagNameMapException e) {
+            e.printStackTrace();
+            fail();
+        } catch (SAXException e) {
+            e.printStackTrace();
+            fail();
+        } catch (AbsenceBaliseRequest absenceBaliseRequest) {
+            absenceBaliseRequest.printStackTrace();
+            fail();
+        } catch (IncompatibleAdresseException e) {
+            e.printStackTrace();
+            fail();
+        } catch (AttributsDepotExceptions attributsDepotExceptions) {
+            attributsDepotExceptions.printStackTrace();
+            fail();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+            fail();
+        } catch (NegatifLatitudeException e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+    @Test
+    void exceptionBaliseIncorrectRequests() {
+        try {
+            LecteurXML lecteurXML = new LecteurXML();
+            Tournee tournee = new Tournee();
+            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/mediumRequestsBaliseIncorrectTest.xml");
+        } catch (IncompatibleLatitudeException e) {
+            e.printStackTrace();
+            fail();
+        } catch (AttributsRequestsExceptions attributsRequestsExceptions) {
+            attributsRequestsExceptions.printStackTrace();
+            fail();
+        } catch (AbsenceBaliseDepot absenceBaliseDepot) {
+            absenceBaliseDepot.printStackTrace();
+            fail();
+        } catch (PresenceEncodingEtVersionException e) {
+            e.printStackTrace();
+            fail();
+        } catch (IOException e) {
+            e.printStackTrace();
+            fail();
+        } catch (IncompatibleLongitudeException e) {
+            e.printStackTrace();
+            fail();
+        } catch (NegatifLongitudeException e) {
+            e.printStackTrace();
+            fail();
+        } catch (TagNameMapException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+            fail();
+        } catch (AbsenceBaliseRequest absenceBaliseRequest) {
+            absenceBaliseRequest.printStackTrace();
+            fail();
+        } catch (IncompatibleAdresseException e) {
+            e.printStackTrace();
+            fail();
+        } catch (AttributsDepotExceptions attributsDepotExceptions) {
+            attributsDepotExceptions.printStackTrace();
+            fail();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+            fail();
+        } catch (NegatifLatitudeException e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+    @Test
+    void exceptionAbsenceBaliseDepot() {
+        try {
+            LecteurXML lecteurXML = new LecteurXML();
+            Tournee tournee = new Tournee();
+            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/mediumRequestsAbsenceBaliseDepotTest.xml");
+        } catch (IncompatibleLatitudeException e) {
+            e.printStackTrace();
+            fail();
+        } catch (AttributsRequestsExceptions attributsRequestsExceptions) {
+            attributsRequestsExceptions.printStackTrace();
+            fail();
+        } catch (AbsenceBaliseDepot absenceBaliseDepot) {
+            absenceBaliseDepot.printStackTrace();
+        } catch (PresenceEncodingEtVersionException e) {
+            e.printStackTrace();
+            fail();
+        } catch (IOException e) {
+            e.printStackTrace();
+            fail();
+        } catch (IncompatibleLongitudeException e) {
+            e.printStackTrace();
+            fail();
+        } catch (NegatifLongitudeException e) {
+            e.printStackTrace();
+            fail();
+        } catch (TagNameMapException e) {
+            e.printStackTrace();
+            fail();
+        } catch (SAXException e) {
+            e.printStackTrace();
+            fail();
+        } catch (AbsenceBaliseRequest absenceBaliseRequest) {
+            absenceBaliseRequest.printStackTrace();
+            fail();
+        } catch (IncompatibleAdresseException e) {
+            e.printStackTrace();
+            fail();
+        } catch (AttributsDepotExceptions attributsDepotExceptions) {
+            attributsDepotExceptions.printStackTrace();
+            fail();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+            fail();
+        } catch (NegatifLatitudeException e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+        @Test
+    void exceptionNombreAttributBaliseRequest() {
+        try {
+            LecteurXML lecteurXML = new LecteurXML();
+            Tournee tournee = new Tournee();
+            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/mediumRequestsAttributRequestNombreTest.xml");
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (IncompatibleAdresseException e) {
+            e.printStackTrace();
+        } catch (AbsenceBaliseDepot absenceBaliseDepot) {
+            absenceBaliseDepot.printStackTrace();
+        } catch (PresenceEncodingEtVersionException e) {
+            e.printStackTrace();
+        } catch (AttributsDepotExceptions attributsDepotExceptions) {
+            attributsDepotExceptions.printStackTrace();
+        } catch (NegatifLongitudeException e) {
+            e.printStackTrace();
+        } catch (TagNameMapException e) {
+            e.printStackTrace();
+        } catch (NegatifLatitudeException e) {
+            e.printStackTrace();
+        } catch (AbsenceBaliseRequest absenceBaliseRequest) {
+            absenceBaliseRequest.printStackTrace();
+        } catch (IncompatibleLatitudeException e) {
+            e.printStackTrace();
+        } catch (AttributsRequestsExceptions attributsRequestsExceptions) {
+            attributsRequestsExceptions.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (IncompatibleLongitudeException e) {
+            e.printStackTrace();
+        }
+    }
 }
