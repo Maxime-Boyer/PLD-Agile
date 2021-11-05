@@ -32,7 +32,7 @@ public class Legende extends JFrame{
         // labels de la legende
         legendeTriangle = new JLabel("Adresse de départ et d'arrivée");
         legendeRond = new JLabel("Adresse de collecte");
-        legendeCarre = new JLabel("Adresse de retrait");
+        legendeCarre = new JLabel("Adresse de dépôt");
 
         legendeTriangle.setBounds(ecartLabels, 10, this.getWidth() - ecartLabels, hauteurLigne);
         legendeRond.setBounds(ecartLabels, legendeTriangle.getY() + legendeTriangle.getHeight() + 10, this.getWidth() - ecartLabels, hauteurLigne);

@@ -10,4 +10,5 @@ public class RaccourcIF {
         Carte carte = new Carte();
         new Controleur(carte);
     }
+
 }
