@@ -94,6 +94,7 @@ class LecteurXMLTest {
         carte = lecteurXML.lectureCarte("./src/FichiersXML/mediumMap.xml");
         assertEquals(carte.obtenirAdresseParId(1701038065L).getLatitude(), 45.743904);
         assertEquals(carte.obtenirAdresseParId(1701038065L).getLongitude(), 4.893847);
+
     }
 
     /**
