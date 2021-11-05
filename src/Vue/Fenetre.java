@@ -3,6 +3,7 @@ package Vue;
 import Controleur.Controleur;
 import Controleur.NomEtat;
 import Model.Carte;
+import Model.Tournee;
 
 import javax.swing.*;
 import java.awt.*;
@@ -45,6 +46,40 @@ public class Fenetre extends JFrame {
         this.setVisible(true);
     }
 
+    /**
+     * Affiche le système de fichier et retourne le nom du fichier choisi
+     * @return nom du fichier choisi
+     */
+    public String afficherChoixFichier() {
+        System.out.println("Frentre.afficherChoixFichierCarte() : ETAT_CHOIX_FICHIER_CARTE");
+        MenuChoixFichier menuChoixFichier = new MenuChoixFichier();
+        System.out.println("    menuChoixFichier.getNomFichier(); = " + menuChoixFichier.getNomFichier());
+        return menuChoixFichier.getNomFichier();
+    }
+
+    public void afficherEtatPlanAffiche(Carte carte) {
+        System.out.println("Frentre.afficherEtatPlanAffiche(carte) : ETAT_PLAN_AFFICHE");
+        //E1: Carte chargée
+        cartePanel = new CartePanel(carte, this.getWidth(), this.getHeight() - 20, policeTexte);
+        this.add(cartePanel);
+        menuLateral = new MenuLateral(this.getWidth(), this.getHeight() - 20, policeTexte, policeTexteImportant, ecouteurBoutons);
+        this.add(menuLateral);
+
+        // repaint la fenetre
+        this.revalidate();
+        this.repaint();
+    }
+
+    public void afficherEtatTourneChargee (Tournee tournee) {
+        cartePanel.tracerRequetes(tournee);
+        menuLateral.afficherMenuRequete(cartePanel.getTournee());
+        legende = new Legende();
+
+        // repaint la fenetre
+        this.revalidate();
+        this.repaint();
+    }
+
     public void afficherEtat(NomEtat etat) {
 
         switch (etat) {
@@ -54,23 +89,21 @@ public class Fenetre extends JFrame {
                 ecranAccueil = new EcranAccueil(this.getWidth(), this.getHeight(), policeSousTitre, policeTexte, this.ecouteurBoutons);
                 this.add(ecranAccueil);
                 break;
-            case ETAT_PLAN_AFFICHE:
+            /*case ETAT_PLAN_AFFICHE:
                 System.out.println("Frentre.afficherEtat() : ETAT_PLAN_AFFICHE");
                 //E1: Carte chargée
-                cartePanel = new CartePanel(this.getWidth(), this.getHeight() - 20, policeTexte);
-                if (!cartePanel.tracerCarte())
-
+                cartePanel = new CartePanel(carte, this.getWidth(), this.getHeight() - 20, policeTexte);
                 this.add(cartePanel);
                 menuLateral = new MenuLateral(this.getWidth(), this.getHeight() - 20, policeTexte, policeTexteImportant, ecouteurBoutons);
                 this.add(menuLateral);
-                break;
-            case ETAT_TOURNEE_CHARGEE:
+                break;*/
+            /*case ETAT_TOURNEE_CHARGEE:
                 System.out.println("Frentre.afficherEtat() : ETAT_TOURNEE_CHARGEE");
                 // E2: Tournee chargee
                 cartePanel.tracerRequetes();
                 menuLateral.afficherMenuRequete(cartePanel.getTournee());
                 legende = new Legende();
-                break;
+                break;*/
             case ETAT_TOURNEE_PREPAREE:
                 System.out.println("Frentre.afficherEtat() : ETAT_TOURNEE_PREPAREE");
                 cartePanel.tracerItineraire();

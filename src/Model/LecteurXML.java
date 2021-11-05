@@ -18,13 +18,6 @@ import org.xml.sax.SAXException;
 
 public class LecteurXML {
 
-    private Carte carte = new Carte();
-    private double maxLongitude = Double.MIN_VALUE;;
-    private double maxLatitude = Double.MIN_VALUE;
-    private double minLatitude = Double.MAX_VALUE;
-    private double minLongitude = Double.MAX_VALUE;
-
-
     public LecteurXML() {
     }
 
@@ -34,9 +27,10 @@ public class LecteurXML {
      * @throws ParserConfigurationException
      * @throws SAXException
      */
-    public Carte lectureCarte(String nomFichier) throws ParserConfigurationException, SAXException, PresenceEncodingEtVersionException, IOException, TagNameMapException, AttributsIntersectionsException, NegatifLatitudeException, NegatifLongitudeException, AttributsSegmentsException {
+    public Carte lectureCarte(String nomFichier, Carte carte) throws ParserConfigurationException, SAXException, PresenceEncodingEtVersionException, IOException, TagNameMapException, AttributsIntersectionsException, NegatifLatitudeException, NegatifLongitudeException, AttributsSegmentsException {
 
-            carte = new Carte(nomFichier);
+            carte.reset();
+            carte.setNomCarte(nomFichier);
 
             File file = new File(nomFichier);
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -85,13 +79,13 @@ public class LecteurXML {
                     String stringLongitude = eElement.getAttribute("longitude");
                     String stringId = eElement.getAttribute("id");
 
-                    if (stringLongitude.isBlank()) {
+                    if (stringLongitude.chars().allMatch(Character::isWhitespace)) {
                         throw new AttributsIntersectionsException("Erreur manque de l'attribut Longitude dans une balise intersection de la carte");
                     }
-                    if (stringId.isBlank()) {
+                    if (stringId.chars().allMatch(Character::isWhitespace)) {
                         throw new AttributsIntersectionsException("Erreur manque de l'attribut Id dans une balise intersection de la carte");
                     }
-                    if (stringLatitude.isBlank()) {
+                    if (stringLatitude.chars().allMatch(Character::isWhitespace)) {
                         throw new AttributsIntersectionsException("Erreur manque de l'attribut Latitude dans une balise intersection de la carte");
                     }
 
@@ -100,25 +94,12 @@ public class LecteurXML {
                         throw new NegatifLatitudeException("Erreur, la latitude d'un point de retrait est négative");
                     }
 
-
-                    if (latitude < minLatitude) {
-                        minLatitude = latitude;
-                    }
-                    if (latitude > maxLatitude) {
-                        maxLatitude = latitude;
-                    }
                     double longitude = Double.parseDouble(stringLongitude);
 
                     if (longitude < 0.0) {
                         throw new NegatifLongitudeException("Erreur, la longitude d'un point de retrait  est négative");
                     }
 
-                    if (longitude < minLongitude) {
-                        minLongitude = longitude;
-                    }
-                    if (longitude > maxLongitude) {
-                        maxLongitude = longitude;
-                    }
                     Long id = Long.parseLong(stringId);
 
                     Adresse adresse = new Adresse(latitude, longitude, id);
@@ -153,13 +134,13 @@ public class LecteurXML {
                     String origine = eElement.getAttribute("origin");
                     String destination = eElement.getAttribute("destination");
 
-                    if (slongueur.isBlank()) {
+                    if (slongueur.chars().allMatch(Character::isWhitespace)) {
                         throw new AttributsSegmentsException("Erreur manque de l'attribut length dans une balise segment de la carte");
                     }
-                    if (origine.isBlank()) {
+                    if (origine.chars().allMatch(Character::isWhitespace)) {
                         throw new AttributsSegmentsException("Erreur manque de l'attribut origin dans une balise segment de la carte");
                     }
-                    if (destination.isBlank()) {
+                    if (destination.chars().allMatch(Character::isWhitespace)) {
                         throw new AttributsSegmentsException("Erreur manque de l'attribut destination dans une balise segment de la carte");
                     }
 
@@ -179,7 +160,10 @@ public class LecteurXML {
      * @throws ParserConfigurationException
      * @throws SAXException
      */
-    public Tournee lectureRequete(String nomFichier) throws ParserConfigurationException, SAXException, PresenceEncodingEtVersionException, TagNameMapException, AbsenceBaliseDepotException, AttributsDepotException, IncompatibleAdresseException, NegatifLatitudeException, NegatifLongitudeException, IOException, IncompatibleLatitudeException, IncompatibleLongitudeException, AbsenceBaliseRequestException, AttributsRequestsException {
+    public Tournee lectureRequete(String nomFichier, Carte carte) throws ParserConfigurationException, SAXException, PresenceEncodingEtVersionException, TagNameMapException, AbsenceBaliseDepotException, AttributsDepotException, IncompatibleAdresseException, NegatifLatitudeException, NegatifLongitudeException, IOException, IncompatibleLatitudeException, IncompatibleLongitudeException, AbsenceBaliseRequestException, AttributsRequestsException {
+
+        System.out.println("        nomFichier = " + nomFichier);
+
         List<Requete> listeRequetes = new  ArrayList<Requete>();
         Tournee tournee = new Tournee();
         File file = new File(nomFichier);
@@ -270,14 +254,6 @@ public class LecteurXML {
                 throw new NegatifLongitudeException("Erreur, la longitude du départ est négative");
             }
 
-            if ((latitudeAdresseDepot < minLatitude) || (latitudeAdresseDepot > maxLatitude)) {
-                throw new IncompatibleLatitudeException("Erreur, la latitude de l'adresse de départ n'apparatient pas au plan chargé");
-            }
-            if ((longitudeAdresseDepot < minLongitude) || (longitudeAdresseDepot > maxLongitude)) {
-                throw new IncompatibleLongitudeException("Erreur, la longitude de l'adresse de départ n'apparatient au  plan chargé");
-            }
-
-
             //String depart = eElement.getAttribute("departureTime");
             tournee.setAdresseDepart(adresseDepot);
         }
@@ -363,25 +339,8 @@ public class LecteurXML {
                         double latitudeAdresseRetrait = adresseRetrait.getLatitude();
                         double longitudeAdresseRetrait = adresseRetrait.getLongitude();
 
-
-                        if ((latitudeAdresseRetrait < minLatitude) || (latitudeAdresseRetrait > maxLatitude)) {
-                            throw new IncompatibleLatitudeException("Erreur, la latitude de d'une adresse n'apparatient pas au plan chargé");
-                        }
-                        if ((longitudeAdresseRetrait < minLongitude) || (longitudeAdresseRetrait > maxLongitude)) {
-                            throw new IncompatibleLongitudeException("Erreur, la longitude d'une adresse n'apparatient au  plan chargé");
-                        }
-
                         double latitudeAdresseLivraison = adresseLivraison.getLatitude();
                         double longitudeAdresseLivraison = adresseLivraison.getLongitude();
-
-
-                        if ((latitudeAdresseLivraison < minLatitude) || (latitudeAdresseLivraison > maxLatitude)) {
-                            throw new IncompatibleLatitudeException("Erreur, la latitude de l'adresse de départ n'apparatient pas au plan chargé");
-                        }
-                        if ((longitudeAdresseLivraison < minLongitude) || (longitudeAdresseLivraison > maxLongitude)) {
-                            throw new IncompatibleLongitudeException("Erreur, la longitude de l'adresse de départ n'apparatient au le plan chargé");
-                        }
-
 
                         Etape etapeRetrait = new Etape(adresseRetrait.getLatitude(), adresseRetrait.getLongitude(), idAdresseRetrait, tempsRetrait, null);
                         Etape etapeLivraison = new Etape(adresseLivraison.getLatitude(), adresseLivraison.getLongitude(), idAdresseLivraison, tempsLivraison, null);
@@ -392,6 +351,9 @@ public class LecteurXML {
                 tournee.setListeRequetes(listeRequetes);
             }
         }
+
+        System.out.println("LecteurXML tournee = " + tournee);
+
         return tournee;
     }
 

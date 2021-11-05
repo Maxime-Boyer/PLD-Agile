@@ -47,7 +47,9 @@ public class Controleur {
      * Méthode appelé par fenetre après avoir cliqué sur le bouton "Importer un plan"
      */
     public void chargerPlan() {
-        etatActuel.chargerPlan(this, fenetre);
+        etatActuel.chargerPlan(this, fenetre, carte);
+        System.out.println("Controlleur carte = ");
+        System.out.println( "       aaaaaaaaaaaaaaaaaaaaaaaa" + carte.getListeAdresses().get(0));
     }
 
     /**
@@ -61,7 +63,7 @@ public class Controleur {
      * Méthode appelé par fenetre après avoir cliqué sur le bouton "Importer tournée"
      */
     public void chargerListeRequete() {
-        etatActuel.chargerListeRequete(this, fenetre);
+        etatActuel.chargerListeRequete(this, fenetre, carte);
     }
 
     /**
@@ -181,4 +183,6 @@ public class Controleur {
     public void ajouterRequete() {
         etatActuel.ajouterRequete(this, fenetre);
     }
+
+    public Carte getCarte () {return carte;}
 }

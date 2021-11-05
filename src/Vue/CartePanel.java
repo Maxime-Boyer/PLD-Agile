@@ -25,12 +25,13 @@ public class CartePanel extends JPanel {
     private double minLongitudeCarte;
     private boolean tourneeAppelee;
     private boolean itinerairePrepare;
-    private Carte carte = new Carte();
     private Tournee tournee = new Tournee();
     private LecteurXML lecteur = new LecteurXML();
+    private Carte carte;
 
-    public CartePanel(int largeurEcran, int hauteurEcran, Font policeTexte) {
-
+    public CartePanel(Carte carte, int largeurEcran, int hauteurEcran, Font policeTexte) {
+        this.carte = carte;
+        maxLongitudeLatitudeCarte();
         this.largeur = (int) 3 * largeurEcran / 4;
         this.hauteur = (int) hauteurEcran;
         this.tourneeAppelee = false;
@@ -44,55 +45,17 @@ public class CartePanel extends JPanel {
         return tournee;
     }
 
-    public boolean tracerCarte() {
-        boolean etat = true;
+    //INUTILE
+    public void tracerCarte() {
 
-        /*
 
-        JFrame frameSelectCarte = new JFrame();
-
-        String nameFile = "";
-        String filename = "";
-
-        while(!nameFile.toLowerCase(Locale.ROOT).contains("map")) {
-            FileDialog fd = new FileDialog(frameSelectCarte, "Sélectionnez une carte au format xml", FileDialog.LOAD);
-            fd.setDirectory("C:\\");
-            fd.setFile("*.xml");
-            fd.setVisible(true);
-            filename = fd.getDirectory() + fd.getFile();
-            nameFile = fd.getFile();
-        }
-         */
-
-        JFrame frameSelectCarte = new JFrame();
-
-        FileDialog fd = new FileDialog(frameSelectCarte, "Sélectionnez une carte au format xml", FileDialog.LOAD);
-        fd.setDirectory("C:\\");
-        fd.setFile("*.xml");
-        fd.setVisible(true);
-        String filename = fd.getDirectory() + fd.getFile();
-
-        if (filename == null) {
-            etat = false;
-        }
-
-        try {
-            carte = lecteur.lectureCarte(filename);
-            maxLongitudeLatitudeCarte();
-        } catch (Exception e) {
-            //En cas d'erreur
-            String messageErreur = e.getMessage();
-            System.out.println("ERREUR "+e);
-            JOptionPane.showMessageDialog(null, messageErreur);
-            etat = false;
-        }
-
-        frameSelectCarte.dispose();
-        System.out.println("etat " + etat);
-        return etat;
     }
 
-    public void tracerRequetes() {
+    public void tracerRequetes(Tournee tournee) {
+        this.tournee = tournee;
+        System.out.println("        Tournee = " + tournee);
+        itinerairePrepare = false;
+        tourneeAppelee = true;
 
         /*
 
@@ -110,7 +73,7 @@ public class CartePanel extends JPanel {
             nameFile = fd.getFile();
         }
          */
-
+        /*
         JFrame frameSelectRequetes = new JFrame();
 
         FileDialog fd = new FileDialog(frameSelectRequetes, "Sélectionnez une liste de requêtes au format xml", FileDialog.LOAD);
@@ -131,7 +94,7 @@ public class CartePanel extends JPanel {
         }
         frameSelectRequetes.dispose();
         itinerairePrepare = false;
-        tourneeAppelee = true;
+        tourneeAppelee = true;*/
     }
 
     public void tracerItineraire() {

@@ -4,8 +4,9 @@ import java.sql.Array;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
-public class Tournee {
+public class Tournee extends Observable {
     private Adresse adresseDepart;
     private LocalTime heureDepart;
     private List<Requete> listeRequetes;

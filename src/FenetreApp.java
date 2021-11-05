@@ -34,12 +34,12 @@ public class FenetreApp {
 
         // E2 et +
 
-        CartePanel cartePanel = new CartePanel(dimensionsEcran.width*3/4, dimensionsEcran.height, policeTexte);
+        //CartePanel cartePanel = new CartePanel(dimensionsEcran.width*3/4, dimensionsEcran.height, policeTexte);
         //MenuLateral menuLateral = new MenuLateral(dimensionsEcran.width, dimensionsEcran.height, policeTexte, policeTexteImportant);
 
 
         // ajout des composants à la fenetre
-        fenetreApp.add(cartePanel);
+        //fenetreApp.add(cartePanel);
         //fenetreApp.add(menuLateral);
 
     }
