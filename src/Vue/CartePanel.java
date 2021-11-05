@@ -5,6 +5,7 @@ package Vue;
 //import Algorithmie.CalculateurTournee;
 
 import Algorithmie.CalculateurTournee;
+import Exceptions.AStarImpossibleException;
 import Exceptions.IncompatibleAdresseException;
 import Exceptions.NameFile;
 import Model.Adresse;
@@ -307,7 +308,11 @@ public class CartePanel extends JPanel {
 
         System.out.println("CartePane : dessinerItineraire -> inside loop");
         CalculateurTournee calculTournee = new CalculateurTournee(carte, tournee);
-        calculTournee.calculerTournee();
+        try {
+            calculTournee.calculerTournee();
+        } catch (AStarImpossibleException e) {
+            e.printStackTrace();
+        }
 
         Tournee itineraire = new Tournee();
         //todo enlever commentaire

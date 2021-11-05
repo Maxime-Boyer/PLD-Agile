@@ -1,5 +1,6 @@
 package Algorithmie;
 
+import Exceptions.AStarImpossibleException;
 import Model.*;
 
 import java.sql.Timestamp;
@@ -25,7 +26,7 @@ public class CalculateurTournee {
     /**
      * Calcul la tournée passant par l'ensemble des étapes
      */
-    public HashMap<Long, HashMap<Long, CheminEntreEtape>> calculerTournee (){
+    public HashMap<Long, HashMap<Long, CheminEntreEtape>> calculerTournee () throws AStarImpossibleException{
 
         //long msBefore = System.currentTimeMillis();
         //HashMap<Long, HashMap<Long, CheminEntreEtape>> grapheCompletDesEtapes = calculerGrapheCompletDesEtapes(new Astar1(carte));
@@ -49,7 +50,7 @@ public class CalculateurTournee {
      * Calcul le graphe complet de l'ensemble des étapes
      * @return le graphe complet de l'ensemble des étapes
      */
-    private HashMap<Long, HashMap<Long, CheminEntreEtape>> calculerGrapheCompletDesEtapes(Astar astar){
+    private HashMap<Long, HashMap<Long, CheminEntreEtape>> calculerGrapheCompletDesEtapes(Astar astar) throws AStarImpossibleException{
         //Astar1 astar = new Astar1(carte);
 
         // HashMap< idAresseDepart, HashMap<idAresseArrivee, CheminEntreEtape> >
@@ -83,6 +84,9 @@ public class CalculateurTournee {
                     }
                     //System.out.println("etapeDepart="+etapeDepart.getIdAdresse()+", etapeArrivee"+etapeArrivee.getIdAdresse());
                     CheminEntreEtape nouveauChemin = astar.chercherCheminEntreEtape(new Etape(etapeDepart.getLatitude(),etapeDepart.getLongitude(),etapeDepart.getIdAdresse(),0,new Timestamp(0)), new Etape(etapeArrivee.getLatitude(),etapeArrivee.getLongitude(),etapeArrivee.getIdAdresse(),0,new Timestamp(0)));
+                    if(nouveauChemin == null){
+                        throw new AStarImpossibleException("Les adresses "+etapeDepart.getIdAdresse()+" et "+etapeArrivee.getIdAdresse()+" renvoient un chemin null.");
+                    }
                     listeCheminEntreEtape.put(etapeArrivee.getIdAdresse(), nouveauChemin);
                     //System.out.println("    longeurChemin="+nouveauChemin.getDistance());
                     //System.out.println("    listeCheminEntreEtape = " + listeCheminEntreEtape);
