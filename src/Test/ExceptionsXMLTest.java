@@ -557,6 +557,7 @@ class ExceptionsXMLTest {
         try {
             LecteurXML lecteurXML = new LecteurXML();
             Tournee tournee = new Tournee();
+            carte = lecteurXML.lectureCarte("./src/FichiersXML/mediumMap.xml", carte);
             tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/mediumRequestsMauvaiseValeurAttributDepotTest2.xml", carte);
         } catch (IncompatibleLatitudeException e) {
             e.printStackTrace();
@@ -599,6 +600,12 @@ class ExceptionsXMLTest {
         } catch (NegatifLatitudeException e) {
             e.printStackTrace();
             fail();
+        } catch (AttributsSegmentsException e) {
+            e.printStackTrace();
+            fail();
+        } catch (AttributsIntersectionsException e) {
+            e.printStackTrace();
+            fail();
         }
     }
 
@@ -607,6 +614,7 @@ class ExceptionsXMLTest {
         try {
             LecteurXML lecteurXML = new LecteurXML();
             Tournee tournee = new Tournee();
+            carte = lecteurXML.lectureCarte("./src/FichiersXML/mediumMap.xml", carte);
             tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/mediumRequestsBaliseRequestsManquanteTest.xml", carte);
         } catch (IncompatibleLatitudeException e) {
             e.printStackTrace();
@@ -639,6 +647,7 @@ class ExceptionsXMLTest {
             e.printStackTrace();
         } catch (IncompatibleAdresseException e) {
             e.printStackTrace();
+
             fail();
         } catch (AttributsDepotException e) {
             e.printStackTrace();
@@ -647,6 +656,12 @@ class ExceptionsXMLTest {
             e.printStackTrace();
             fail();
         } catch (NegatifLatitudeException e) {
+            e.printStackTrace();
+            fail();
+        } catch (AttributsSegmentsException e) {
+            e.printStackTrace();
+            fail();
+        } catch (AttributsIntersectionsException e) {
             e.printStackTrace();
             fail();
         }
@@ -657,6 +672,7 @@ class ExceptionsXMLTest {
         try {
             LecteurXML lecteurXML = new LecteurXML();
             Tournee tournee = new Tournee();
+            carte = lecteurXML.lectureCarte("./src/FichiersXML/mediumMap.xml", carte);
             tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/mediumRequestsAttributRequestNombreTest.xml", carte);
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
@@ -697,6 +713,12 @@ class ExceptionsXMLTest {
             e.printStackTrace();
             fail();
         } catch (IncompatibleLongitudeException e) {
+            e.printStackTrace();
+            fail();
+        } catch (AttributsSegmentsException e) {
+            e.printStackTrace();
+            fail();
+        } catch (AttributsIntersectionsException e) {
             e.printStackTrace();
             fail();
         }
@@ -707,6 +729,7 @@ class ExceptionsXMLTest {
         try {
             LecteurXML lecteurXML = new LecteurXML();
             Tournee tournee = new Tournee();
+            carte = lecteurXML.lectureCarte("./src/FichiersXML/mediumMap.xml", carte);
             tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/mediumRequestsAttributRequestNombreTest.xml", carte);
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
@@ -747,6 +770,12 @@ class ExceptionsXMLTest {
             e.printStackTrace();
             fail();
         } catch (IncompatibleLongitudeException e) {
+            e.printStackTrace();
+            fail();
+        } catch (AttributsSegmentsException e) {
+            e.printStackTrace();
+            fail();
+        } catch (AttributsIntersectionsException e) {
             e.printStackTrace();
             fail();
         }
