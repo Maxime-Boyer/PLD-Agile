@@ -17,6 +17,9 @@ public class Fenetre extends JFrame {
     protected final static String IMPORT_TOURNEE = "Importer tournée";
     protected final static String PREPARER_TOURNEE = "Préparer tournée";
 
+    protected final static int valMarginBase = 5;
+    protected final static int hauteurBouton = 50;
+
     private EcouteurBoutons ecouteurBoutons;
     private EcouteurSurvol ecouteurSurvol;
 
@@ -37,6 +40,7 @@ public class Fenetre extends JFrame {
      * @param controleur: lke controleur du MVC
      */
     public Fenetre(Carte carte, Controleur controleur) {
+
         this.setTitle("Raccourc'IF - Hexanome Détect'IF");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLayout(null);
@@ -72,7 +76,7 @@ public class Fenetre extends JFrame {
     public void afficherEtatPlanAffiche(Carte carte) {
         System.out.println("Frentre.afficherEtatPlanAffiche(carte) : ETAT_PLAN_AFFICHE");
         //E1: Carte chargée
-        cartePanel = new CartePanel(carte, this.getWidth(), this.getHeight() - 20, policeTexte,ecouteurSurvol);
+        cartePanel = new CartePanel(carte, this.getWidth(), this.getHeight() - 20, policeTexte, ecouteurBoutons, ecouteurSurvol);
         this.add(cartePanel);
         menuLateral = new MenuLateral(this.getWidth(), this.getHeight() - 20, policeTexte, policeTexteImportant,ecouteurBoutons,ecouteurSurvol);
         this.add(menuLateral);

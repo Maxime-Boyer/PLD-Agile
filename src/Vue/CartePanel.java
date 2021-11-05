@@ -41,15 +41,18 @@ public class CartePanel extends JPanel {
     private ImageIcon iconPosition;
     private CalculateurTournee calculTournee;
     private Tournee itineraire;
+    private PopUpSaisieDuree popUpSaisieDuree;
 
     /**
      * Panel où est tracée la carte importée par l'utilisateur
+     * @param carte: l'objet carte du Modele
      * @param largeurEcran: largeur de la fenetre
      * @param hauteurEcran: hauteur de la fenetre
      * @param policeTexte: police a appliquer dans ce panel
+     * @param ecouteurBoutons: ecouteur permettant de saisir des evenements liés aux boutons
      * @param ecouteurSurvol: ecouteur permettant de saisir des evenements liés au survol de la souris
      */
-    public CartePanel(Carte carte, int largeurEcran, int hauteurEcran, Font policeTexte,EcouteurSurvol ecouteurSurvol) {
+    public CartePanel(Carte carte, int largeurEcran, int hauteurEcran, Font policeTexte, EcouteurBoutons ecouteurBoutons, EcouteurSurvol ecouteurSurvol) {
         this.carte = carte;
         maxLongitudeLatitudeCarte();
         this.largeur = (int) 3 * largeurEcran / 4;
@@ -71,6 +74,12 @@ public class CartePanel extends JPanel {
         labelPosition2 = new JLabel();
         labelPosition1.setIcon(iconPosition);
         labelPosition2.setIcon(iconPosition);
+
+        //ininitialisation du popup de saisie des durees lors de l'ajout d'une etape
+        popUpSaisieDuree = new PopUpSaisieDuree(policeTexte, ecouteurBoutons);
+        /* - Exemple d'utilisation -
+        popUpSaisieDuree.setPosition(200, 300);
+        this.add(popUpSaisieDuree);*/
     }
 
     /**

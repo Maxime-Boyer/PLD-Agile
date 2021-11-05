@@ -10,8 +10,6 @@ import java.awt.*;
 
 public class MenuLateral extends JPanel {
 
-    private int valMarginBase;
-    private int hauteurBouton;
     private Font policeTexte;
     private Font policeTexteImportant;
     private EcouteurBoutons ecouteurBoutons;
@@ -41,8 +39,6 @@ public class MenuLateral extends JPanel {
      */
     public MenuLateral(int largeurFenetre, int hauteurEcran, Font policeTexte, Font policeTexteImportant, EcouteurBoutons ecouteurBoutons, EcouteurSurvol ecouteurSurvol){
 
-        this.valMarginBase = 5;
-        this.hauteurBouton = 50;
         this.policeTexte = policeTexte;
         this.policeTexteImportant = policeTexteImportant;
         this.ecouteurBoutons = ecouteurBoutons;
@@ -57,7 +53,7 @@ public class MenuLateral extends JPanel {
         messageUtilisateur.setLineWrap(true);
         messageUtilisateur.setWrapStyleWord(true);
         messageUtilisateur.setOpaque(false);
-        messageUtilisateur.setBounds(2*valMarginBase, valMarginBase, this.getWidth()-4*valMarginBase, 35 );
+        messageUtilisateur.setBounds(2*Fenetre.valMarginBase, Fenetre.valMarginBase, this.getWidth()-4*Fenetre.valMarginBase, 35 );
         this.add(messageUtilisateur);
 
         /************************************************************************************/
@@ -65,16 +61,16 @@ public class MenuLateral extends JPanel {
         /************************************************************************************/
 
         panelImport = new JPanel();
-        panelImport.setBounds(valMarginBase, messageUtilisateur.getY()+messageUtilisateur.getHeight()+valMarginBase, this.getWidth()-2*valMarginBase, hauteurBouton );
+        panelImport.setBounds(Fenetre.valMarginBase, messageUtilisateur.getY()+messageUtilisateur.getHeight()+Fenetre.valMarginBase, this.getWidth()-2*Fenetre.valMarginBase, Fenetre.hauteurBouton );
         panelImport.setLayout(null);
         this.add(panelImport);
 
         boutonImporterPlan = new Bouton(Fenetre.IMPORT_CARTE, policeTexte, ecouteurBoutons);
-        boutonImporterPlan.setBounds( 0,0, panelImport.getWidth()/2 - valMarginBase/2, hauteurBouton);
+        boutonImporterPlan.setBounds( 0,0, panelImport.getWidth()/2 - Fenetre.valMarginBase/2, Fenetre.hauteurBouton);
         panelImport.add(boutonImporterPlan);
 
         boutonImporterTournee = new Bouton(Fenetre.IMPORT_TOURNEE, policeTexte, ecouteurBoutons);
-        boutonImporterTournee.setBounds(panelImport.getWidth()/2 + valMarginBase/2,0, panelImport.getWidth()/2 - valMarginBase/2, hauteurBouton);
+        boutonImporterTournee.setBounds(panelImport.getWidth()/2 + Fenetre.valMarginBase/2,0, panelImport.getWidth()/2 - Fenetre.valMarginBase/2, Fenetre.hauteurBouton);
         panelImport.add(boutonImporterTournee);
     }
 
@@ -95,17 +91,17 @@ public class MenuLateral extends JPanel {
             collecte = tournee.getListeRequetes().get(i).getEtapeCollecte();
             depot = tournee.getListeRequetes().get(i).getEtapeDepot();
 
-            listeRequetes[i] = new RequetePanel(collecte, depot, tournee.getListeRequetes().get(i).getCouleur(), this.getWidth()-2*valMarginBase - 8, valMarginBase, policeTexte, policeTexteImportant, ecouteurSurvol);
+            listeRequetes[i] = new RequetePanel(collecte, depot, tournee.getListeRequetes().get(i).getCouleur(), this.getWidth()-2*Fenetre.valMarginBase - 8, Fenetre.valMarginBase, policeTexte, policeTexteImportant, ecouteurSurvol);
             panelInsideScrollPanel.add(listeRequetes[i]);
-            panelInsideScrollPanel.add(Box.createRigidArea(new Dimension(0, 2*valMarginBase)));
+            panelInsideScrollPanel.add(Box.createRigidArea(new Dimension(0, 2*Fenetre.valMarginBase)));
         }
 
         this.scrollPanel = new JScrollPane(panelInsideScrollPanel);
         scrollPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        int yDebutPanelConsultation = (int) (panelImport.getY() + panelImport.getHeight() + 2 * valMarginBase +2);
-        int yFinPanelConsultation = (int) (this.getHeight() - hauteurBouton - 4 * valMarginBase - 4);
-        scrollPanel.setBounds(valMarginBase+2, yDebutPanelConsultation, this.getWidth()-2*valMarginBase - 4, yFinPanelConsultation - yDebutPanelConsultation );
+        int yDebutPanelConsultation = (int) (panelImport.getY() + panelImport.getHeight() + 2 * Fenetre.valMarginBase +2);
+        int yFinPanelConsultation = (int) (this.getHeight() - Fenetre.hauteurBouton - 4 * Fenetre.valMarginBase - 4);
+        scrollPanel.setBounds(Fenetre.valMarginBase+2, yDebutPanelConsultation, this.getWidth()-2*Fenetre.valMarginBase - 4, yFinPanelConsultation - yDebutPanelConsultation );
         Border border = BorderFactory.createEmptyBorder( 0, 0, 0, 0 );
         scrollPanel.setViewportBorder( border );
         scrollPanel.setBorder(border);
@@ -114,7 +110,7 @@ public class MenuLateral extends JPanel {
         //creation du bouton de calcul d'itineraire
         boutonPreparerTournee = new Bouton(Fenetre.PREPARER_TOURNEE, policeTexte, ecouteurBoutons);
         boutonPreparerTournee.addMouseListener(ecouteurSurvol);
-        boutonPreparerTournee.setBounds( valMarginBase, this.getHeight() - hauteurBouton - valMarginBase, this.getWidth() - 2*valMarginBase, hauteurBouton);
+        boutonPreparerTournee.setBounds( Fenetre.valMarginBase, this.getHeight() - Fenetre.hauteurBouton - Fenetre.valMarginBase, this.getWidth() - 2*Fenetre.valMarginBase, Fenetre.hauteurBouton);
         this.add(boutonPreparerTournee);
     }
 
@@ -126,27 +122,27 @@ public class MenuLateral extends JPanel {
 
         // Undo, Redo, Ajouter Etape
         panelBoutonsE4 = new JPanel();
-        panelBoutonsE4.setBounds(valMarginBase, panelImport.getY() + panelImport.getHeight() + valMarginBase, this.getWidth()-2*valMarginBase, hauteurBouton );
+        panelBoutonsE4.setBounds(Fenetre.valMarginBase, panelImport.getY() + panelImport.getHeight() + Fenetre.valMarginBase, this.getWidth()-2*Fenetre.valMarginBase, Fenetre.hauteurBouton );
         panelBoutonsE4.setLayout(null);
         this.add(panelBoutonsE4);
 
         boutonUndo = new Bouton("<--", policeTexte, ecouteurBoutons);
-        boutonUndo.setBounds( 0,0, panelBoutonsE4.getWidth()/4 - valMarginBase*3/4, 50);
+        boutonUndo.setBounds( 0,0, panelBoutonsE4.getWidth()/4 - Fenetre.valMarginBase*3/4, 50);
         panelBoutonsE4.add(boutonUndo);
 
         boutonRedo = new Bouton("-->", policeTexte, ecouteurBoutons);
-        boutonRedo.setBounds(boutonUndo.getX() + boutonUndo.getWidth() + valMarginBase,0, panelBoutonsE4.getWidth()/4 - valMarginBase*3/4 -1, hauteurBouton);
+        boutonRedo.setBounds(boutonUndo.getX() + boutonUndo.getWidth() + Fenetre.valMarginBase,0, panelBoutonsE4.getWidth()/4 - Fenetre.valMarginBase*3/4 -1, Fenetre.hauteurBouton);
         panelBoutonsE4.add(boutonRedo);
 
         boutonAjouterEtape = new Bouton("Ajouter étape", policeTexte, ecouteurBoutons);
-        boutonAjouterEtape.setBounds(boutonRedo.getX() + boutonRedo.getWidth() + valMarginBase,0, panelBoutonsE4.getWidth()/2 - valMarginBase/2, hauteurBouton);
+        boutonAjouterEtape.setBounds(boutonRedo.getX() + boutonRedo.getWidth() + Fenetre.valMarginBase,0, panelBoutonsE4.getWidth()/2 - Fenetre.valMarginBase/2, Fenetre.hauteurBouton);
         panelBoutonsE4.add(boutonAjouterEtape);
 
         // suppr ancien panel consultation et construiction du nouveau
         panelInsideScrollPanel.removeAll();
-        int yDebutPanelConsultation = (int) (panelBoutonsE4.getY() + panelBoutonsE4.getHeight() + 2 * valMarginBase +2);
-        int yFinPanelConsultation = (int) (this.getHeight() - hauteurBouton - 4 * valMarginBase - 4);
-        scrollPanel.setBounds(valMarginBase+2, yDebutPanelConsultation, this.getWidth()-2*valMarginBase - 4, yFinPanelConsultation - yDebutPanelConsultation );
+        int yDebutPanelConsultation = (int) (panelBoutonsE4.getY() + panelBoutonsE4.getHeight() + 2 * Fenetre.valMarginBase +2);
+        int yFinPanelConsultation = (int) (this.getHeight() - Fenetre.hauteurBouton - 4 * Fenetre.valMarginBase - 4);
+        scrollPanel.setBounds(Fenetre.valMarginBase+2, yDebutPanelConsultation, this.getWidth()-2*Fenetre.valMarginBase - 4, yFinPanelConsultation - yDebutPanelConsultation );
 
         //affichage du détaille des étapes
         EtapePanel[] listeEtapes = new EtapePanel[tournee.getListeChemins().size()];
@@ -171,15 +167,15 @@ public class MenuLateral extends JPanel {
             }
 
             // affichage de l'etape
-            listeEtapes[i] = new EtapePanel(etapeFinChemin, requete, panelInsideScrollPanel.getWidth(), valMarginBase, policeTexte, policeTexteImportant, ecouteurSurvol);
+            listeEtapes[i] = new EtapePanel(etapeFinChemin, requete, panelInsideScrollPanel.getWidth(), Fenetre.valMarginBase, policeTexte, policeTexteImportant, ecouteurSurvol);
             panelInsideScrollPanel.add(listeEtapes[i]);
-            panelInsideScrollPanel.add(Box.createRigidArea(new Dimension(0, 2*valMarginBase)));
+            panelInsideScrollPanel.add(Box.createRigidArea(new Dimension(0, 2*Fenetre.valMarginBase)));
         }
 
         // bouton Exporter feuille de route
         this.remove(boutonPreparerTournee);
         boutonExporterFeuilleRoute = new Bouton("Exporter feuille de route", policeTexte, ecouteurBoutons);
-        boutonExporterFeuilleRoute.setBounds( valMarginBase, this.getHeight() - hauteurBouton - valMarginBase, this.getWidth() - 2*valMarginBase, hauteurBouton);
+        boutonExporterFeuilleRoute.setBounds( Fenetre.valMarginBase, this.getHeight() - Fenetre.hauteurBouton - Fenetre.valMarginBase, this.getWidth() - 2*Fenetre.valMarginBase, Fenetre.hauteurBouton);
         this.add(boutonExporterFeuilleRoute);
     }
 
