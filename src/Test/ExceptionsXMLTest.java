@@ -278,14 +278,14 @@ class ExceptionsXMLTest {
         } catch (SAXException e) {
             e.printStackTrace();
             fail();
-        } catch (AbsenceBaliseRequestException AbsenceBaliseRequestException) {
-            AbsenceBaliseRequestException.printStackTrace();
+        } catch (AbsenceBaliseRequestException e) {
+            e.printStackTrace();
             fail();
         } catch (IncompatibleAdresseException e) {
             e.printStackTrace();
             fail();
-        } catch (AttributsDepotException attributsDepotException) {
-            attributsDepotException.printStackTrace();
+        } catch (AttributsDepotException e) {
+            e.printStackTrace();
             fail();
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
@@ -305,11 +305,11 @@ class ExceptionsXMLTest {
         } catch (IncompatibleLatitudeException e) {
             e.printStackTrace();
             fail();
-        } catch (AttributsRequestsException attributsRequestsException) {
-            attributsRequestsException.printStackTrace();
+        } catch (AttributsRequestsException e) {
+            e.printStackTrace();
             fail();
-        } catch (AbsenceBaliseDepotException AbsenceBaliseDepotException) {
-            AbsenceBaliseDepotException.printStackTrace();
+        } catch (AbsenceBaliseDepotException e) {
+            e.printStackTrace();
             fail();
         } catch (PresenceEncodingEtVersionException e) {
             e.printStackTrace();
@@ -328,14 +328,14 @@ class ExceptionsXMLTest {
         } catch (SAXException e) {
             e.printStackTrace();
             fail();
-        } catch (AbsenceBaliseRequestException AbsenceBaliseRequestException) {
-            AbsenceBaliseRequestException.printStackTrace();
+        } catch (AbsenceBaliseRequestException e) {
+            e.printStackTrace();
             fail();
         } catch (IncompatibleAdresseException e) {
             e.printStackTrace();
             fail();
-        } catch (AttributsDepotException attributsDepotException) {
-            attributsDepotException.printStackTrace();
+        } catch (AttributsDepotException e) {
+            e.printStackTrace();
             fail();
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
@@ -355,11 +355,11 @@ class ExceptionsXMLTest {
         } catch (IncompatibleLatitudeException e) {
             e.printStackTrace();
             fail();
-        } catch (AttributsRequestsException attributsRequestsException) {
-            attributsRequestsException.printStackTrace();
+        } catch (AttributsRequestsException e) {
+            e.printStackTrace();
             fail();
-        } catch (AbsenceBaliseDepotException AbsenceBaliseDepotException) {
-            AbsenceBaliseDepotException.printStackTrace();
+        } catch (AbsenceBaliseDepotException absenceBaliseDepotException) {
+            absenceBaliseDepotException.printStackTrace();
         } catch (PresenceEncodingEtVersionException e) {
             e.printStackTrace();
             fail();
@@ -378,14 +378,14 @@ class ExceptionsXMLTest {
         } catch (SAXException e) {
             e.printStackTrace();
             fail();
-        } catch (AbsenceBaliseRequestException AbsenceBaliseRequestException) {
-            AbsenceBaliseRequestException.printStackTrace();
+        } catch (AbsenceBaliseRequestException e) {
+            e.printStackTrace();
             fail();
         } catch (IncompatibleAdresseException e) {
             e.printStackTrace();
             fail();
-        } catch (AttributsDepotException attributsDepotException) {
-            attributsDepotException.printStackTrace();
+        } catch (AttributsDepotException e) {
+            e.printStackTrace();
             fail();
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
@@ -429,14 +429,14 @@ class ExceptionsXMLTest {
         } catch (SAXException e) {
             e.printStackTrace();
             fail();
-        } catch (AbsenceBaliseRequestException AbsenceBaliseRequestException) {
-            AbsenceBaliseRequestException.printStackTrace();
+        } catch (AbsenceBaliseRequestException e) {
+            e.printStackTrace();
             fail();
         } catch (IncompatibleAdresseException e) {
             e.printStackTrace();
             fail();
-        } catch (AttributsDepotException attributsDepotException) {
-            attributsDepotException.printStackTrace();
+        } catch (AttributsDepotException e) {
+            e.printStackTrace();
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
             fail();
@@ -455,11 +455,11 @@ class ExceptionsXMLTest {
         } catch (IncompatibleLatitudeException e) {
             e.printStackTrace();
             fail();
-        } catch (AttributsRequestsException attributsRequestsException) {
-            attributsRequestsException.printStackTrace();
+        } catch (AttributsRequestsException e) {
+            e.printStackTrace();
             fail();
-        } catch (AbsenceBaliseDepotException AbsenceBaliseDepotException) {
-            AbsenceBaliseDepotException.printStackTrace();
+        } catch (AbsenceBaliseDepotException e) {
+            e.printStackTrace();
             fail();
         } catch (PresenceEncodingEtVersionException e) {
             e.printStackTrace();
@@ -479,14 +479,14 @@ class ExceptionsXMLTest {
         } catch (SAXException e) {
             e.printStackTrace();
             fail();
-        } catch (AbsenceBaliseRequestException AbsenceBaliseRequestException) {
-            AbsenceBaliseRequestException.printStackTrace();
+        } catch (AbsenceBaliseRequestException e) {
+            e.printStackTrace();
             fail();
         } catch (IncompatibleAdresseException e) {
             e.printStackTrace();
             fail();
-        } catch (AttributsDepotException attributsDepotException) {
-            attributsDepotException.printStackTrace();
+        } catch (AttributsDepotException e) {
+            e.printStackTrace();
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
             fail();
@@ -505,11 +505,11 @@ class ExceptionsXMLTest {
         } catch (IncompatibleLatitudeException e) {
             e.printStackTrace();
             fail();
-        } catch (AttributsRequestsException attributsRequestsException) {
-            attributsRequestsException.printStackTrace();
+        } catch (AttributsRequestsException e) {
+            e.printStackTrace();
             fail();
-        } catch (AbsenceBaliseDepotException AbsenceBaliseDepotException) {
-            AbsenceBaliseDepotException.printStackTrace();
+        } catch (AbsenceBaliseDepotException e) {
+            e.printStackTrace();
             fail();
         } catch (PresenceEncodingEtVersionException e) {
             e.printStackTrace();
@@ -529,14 +529,14 @@ class ExceptionsXMLTest {
         } catch (SAXException e) {
             e.printStackTrace();
             fail();
-        } catch (AbsenceBaliseRequestException AbsenceBaliseRequestException) {
-            AbsenceBaliseRequestException.printStackTrace();
+        } catch (AbsenceBaliseRequestException e) {
+            e.printStackTrace();
             fail();
         } catch (IncompatibleAdresseException e) {
             e.printStackTrace();
             fail();
-        } catch (AttributsDepotException attributsDepotException) {
-            attributsDepotException.printStackTrace();
+        } catch (AttributsDepotException e) {
+            e.printStackTrace();
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
             fail();
@@ -555,11 +555,11 @@ class ExceptionsXMLTest {
         } catch (IncompatibleLatitudeException e) {
             e.printStackTrace();
             fail();
-        } catch (AttributsRequestsException attributsRequestsException) {
-            attributsRequestsException.printStackTrace();
+        } catch (AttributsRequestsException e) {
+            e.printStackTrace();
             fail();
-        } catch (AbsenceBaliseDepotException AbsenceBaliseDepotException) {
-            AbsenceBaliseDepotException.printStackTrace();
+        } catch (AbsenceBaliseDepotException e) {
+            e.printStackTrace();
             fail();
         } catch (PresenceEncodingEtVersionException e) {
             e.printStackTrace();
@@ -579,14 +579,14 @@ class ExceptionsXMLTest {
         } catch (SAXException e) {
             e.printStackTrace();
             fail();
-        } catch (AbsenceBaliseRequestException AbsenceBaliseRequestException) {
-            AbsenceBaliseRequestException.printStackTrace();
+        } catch (AbsenceBaliseRequestException e) {
+            e.printStackTrace();
             fail();
         } catch (IncompatibleAdresseException e) {
             e.printStackTrace();
             fail();
-        } catch (AttributsDepotException attributsDepotException) {
-            attributsDepotException.printStackTrace();
+        } catch (AttributsDepotException e) {
+            e.printStackTrace();
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
             fail();
@@ -605,11 +605,11 @@ class ExceptionsXMLTest {
         } catch (IncompatibleLatitudeException e) {
             e.printStackTrace();
             fail();
-        } catch (AttributsRequestsException attributsRequestsException) {
-            attributsRequestsException.printStackTrace();
+        } catch (AttributsRequestsException e) {
+            e.printStackTrace();
             fail();
-        } catch (AbsenceBaliseDepotException AbsenceBaliseDepotException) {
-            AbsenceBaliseDepotException.printStackTrace();
+        } catch (AbsenceBaliseDepotException e) {
+            e.printStackTrace();
             fail();
         } catch (PresenceEncodingEtVersionException e) {
             e.printStackTrace();
@@ -629,13 +629,13 @@ class ExceptionsXMLTest {
         } catch (SAXException e) {
             e.printStackTrace();
             fail();
-        } catch (AbsenceBaliseRequestException AbsenceBaliseRequestException) {
-            AbsenceBaliseRequestException.printStackTrace();
+        } catch (AbsenceBaliseRequestException e) {
+            e.printStackTrace();
         } catch (IncompatibleAdresseException e) {
             e.printStackTrace();
             fail();
-        } catch (AttributsDepotException attributsDepotException) {
-            attributsDepotException.printStackTrace();
+        } catch (AttributsDepotException e) {
+            e.printStackTrace();
             fail();
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
@@ -661,14 +661,14 @@ class ExceptionsXMLTest {
         } catch (IncompatibleAdresseException e) {
             e.printStackTrace();
             fail();
-        } catch (AbsenceBaliseDepotException AbsenceBaliseDepotException) {
-            AbsenceBaliseDepotException.printStackTrace();
+        } catch (AbsenceBaliseDepotException e) {
+            e.printStackTrace();
             fail();
         } catch (PresenceEncodingEtVersionException e) {
             e.printStackTrace();
             fail();
-        } catch (AttributsDepotException attributsDepotException) {
-            attributsDepotException.printStackTrace();
+        } catch (AttributsDepotException e) {
+            e.printStackTrace();
             fail();
         } catch (NegatifLongitudeException e) {
             e.printStackTrace();
@@ -679,14 +679,14 @@ class ExceptionsXMLTest {
         } catch (NegatifLatitudeException e) {
             e.printStackTrace();
             fail();
-        } catch (AbsenceBaliseRequestException AbsenceBaliseRequestException) {
-            AbsenceBaliseRequestException.printStackTrace();
+        } catch (AbsenceBaliseRequestException e) {
+            e.printStackTrace();
             fail();
         } catch (IncompatibleLatitudeException e) {
             e.printStackTrace();
             fail();
-        } catch (AttributsRequestsException attributsRequestsException) {
-            attributsRequestsException.printStackTrace();
+        } catch (AttributsRequestsException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
             fail();
@@ -711,14 +711,14 @@ class ExceptionsXMLTest {
         } catch (IncompatibleAdresseException e) {
             e.printStackTrace();
             fail();
-        } catch (AbsenceBaliseDepotException AbsenceBaliseDepotException) {
-            AbsenceBaliseDepotException.printStackTrace();
+        } catch (AbsenceBaliseDepotException e) {
+            e.printStackTrace();
             fail();
         } catch (PresenceEncodingEtVersionException e) {
             e.printStackTrace();
             fail();
-        } catch (AttributsDepotException attributsDepotException) {
-            attributsDepotException.printStackTrace();
+        } catch (AttributsDepotException e) {
+            e.printStackTrace();
             fail();
         } catch (NegatifLongitudeException e) {
             e.printStackTrace();
@@ -729,14 +729,14 @@ class ExceptionsXMLTest {
         } catch (NegatifLatitudeException e) {
             e.printStackTrace();
             fail();
-        } catch (AbsenceBaliseRequestException AbsenceBaliseRequestException) {
-            AbsenceBaliseRequestException.printStackTrace();
+        } catch (AbsenceBaliseRequestException e) {
+            e.printStackTrace();
             fail();
         } catch (IncompatibleLatitudeException e) {
             e.printStackTrace();
             fail();
-        } catch (AttributsRequestsException attributsRequestsException) {
-            attributsRequestsException.printStackTrace();
+        } catch (AttributsRequestsException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
             fail();
@@ -760,14 +760,14 @@ class ExceptionsXMLTest {
             fail();
         } catch (IncompatibleAdresseException e) {
             e.printStackTrace();
-        } catch (AbsenceBaliseDepotException AbsenceBaliseDepotException) {
-            AbsenceBaliseDepotException.printStackTrace();
+        } catch (AbsenceBaliseDepotException e) {
+            e.printStackTrace();
             fail();
         } catch (PresenceEncodingEtVersionException e) {
             e.printStackTrace();
             fail();
-        } catch (AttributsDepotException AttributsDepotException) {
-            AttributsDepotException.printStackTrace();
+        } catch (AttributsDepotException e) {
+            e.printStackTrace();
             fail();
         } catch (NegatifLongitudeException e) {
             e.printStackTrace();
@@ -778,14 +778,14 @@ class ExceptionsXMLTest {
         } catch (NegatifLatitudeException e) {
             e.printStackTrace();
             fail();
-        } catch (AbsenceBaliseRequestException AbsenceBaliseRequestException) {
-            AbsenceBaliseRequestException.printStackTrace();
+        } catch (AbsenceBaliseRequestException e) {
+            e.printStackTrace();
             fail();
         } catch (IncompatibleLatitudeException e) {
             e.printStackTrace();
             fail();
-        } catch (AttributsRequestsException AttributsRequestsException) {
-            AttributsRequestsException.printStackTrace();
+        } catch (AttributsRequestsException e) {
+            e.printStackTrace();
             fail();
         } catch (IOException e) {
             e.printStackTrace();
@@ -810,14 +810,14 @@ class ExceptionsXMLTest {
             fail();
         } catch (IncompatibleAdresseException e) {
             e.printStackTrace();
-        } catch (AbsenceBaliseDepotException AbsenceBaliseDepotException) {
-            AbsenceBaliseDepotException.printStackTrace();
+        } catch (AbsenceBaliseDepotException e) {
+            e.printStackTrace();
             fail();
         } catch (PresenceEncodingEtVersionException e) {
             e.printStackTrace();
             fail();
-        } catch (AttributsDepotException AttributsDepotException) {
-            AttributsDepotException.printStackTrace();
+        } catch (AttributsDepotException e) {
+            e.printStackTrace();
             fail();
         } catch (NegatifLongitudeException e) {
             e.printStackTrace();
@@ -828,14 +828,14 @@ class ExceptionsXMLTest {
         } catch (NegatifLatitudeException e) {
             e.printStackTrace();
             fail();
-        } catch (AbsenceBaliseRequestException AbsenceBaliseRequestException) {
-            AbsenceBaliseRequestException.printStackTrace();
+        } catch (AbsenceBaliseRequestException e) {
+            e.printStackTrace();
             fail();
         } catch (IncompatibleLatitudeException e) {
             e.printStackTrace();
             fail();
-        } catch (AttributsRequestsException AttributsRequestsException) {
-            AttributsRequestsException.printStackTrace();
+        } catch (AttributsRequestsException e) {
+            e.printStackTrace();
             fail();
         } catch (IOException e) {
             e.printStackTrace();
@@ -860,14 +860,14 @@ class ExceptionsXMLTest {
             fail();
         } catch (IncompatibleAdresseException e) {
             e.printStackTrace();
-        } catch (AbsenceBaliseDepotException AbsenceBaliseDepotException) {
-            AbsenceBaliseDepotException.printStackTrace();
+        } catch (AbsenceBaliseDepotException e) {
+            e.printStackTrace();
             fail();
         } catch (PresenceEncodingEtVersionException e) {
             e.printStackTrace();
             fail();
-        } catch (AttributsDepotException AttributsDepotException) {
-            AttributsDepotException.printStackTrace();
+        } catch (AttributsDepotException e) {
+            e.printStackTrace();
             fail();
         } catch (NegatifLongitudeException e) {
             e.printStackTrace();
@@ -878,14 +878,14 @@ class ExceptionsXMLTest {
         } catch (NegatifLatitudeException e) {
             e.printStackTrace();
             fail();
-        } catch (AbsenceBaliseRequestException AbsenceBaliseRequestException) {
-            AbsenceBaliseRequestException.printStackTrace();
+        } catch (AbsenceBaliseRequestException e) {
+            e.printStackTrace();
             fail();
         } catch (IncompatibleLatitudeException e) {
             e.printStackTrace();
             fail();
-        } catch (AttributsRequestsException AttributsRequestsException) {
-            AttributsRequestsException.printStackTrace();
+        } catch (AttributsRequestsException e) {
+            e.printStackTrace();
             fail();
         } catch (IOException e) {
             e.printStackTrace();
