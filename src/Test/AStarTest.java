@@ -2,12 +2,13 @@ package Test;
 
 import Algorithmie.Astar2;
 import Algorithmie.CalculateurTournee;
-import Exceptions.AStarImpossibleException;
+import Exceptions.*;
 import Model.*;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,13 +24,13 @@ public class AStarTest {
      * Test chargement d'une carte à partir d'un fichier XML correct sans exception
      */
     @Test
-    void detectionAStarImpossible() throws ParserConfigurationException,SAXException {
+    void detectionAStarImpossible() throws AttributsIntersectionsException,AttributsSegmentsException,ParserConfigurationException, SAXException, PresenceEncodingEtVersionException, TagNameMapException, AbsenceBaliseDepotException, AttributsDepotException, IncompatibleAdresseException, NegatifLatitudeException, NegatifLongitudeException, IOException, IncompatibleLatitudeException, IncompatibleLongitudeException, AbsenceBaliseRequestException, AttributsRequestsException {
         try {
             LecteurXML lecteurXML = new LecteurXML();
             Carte carte = new Carte();
-            carte = lecteurXML.lectureCarte("./src/FichiersXML/mapImpossibleTest.xml");
+            carte = lecteurXML.lectureCarte("./src/FichiersXML/mapImpossibleTest.xml",carte);
             Tournee tournee = new Tournee();
-            tournee = lecteurXML.lectureRequete("./src/FichiersXML/requestsImpossibleTest.xml");
+            tournee = lecteurXML.lectureRequete("./src/FichiersXML/requestsImpossibleTest.xml",carte);
             CalculateurTournee calculateurTournee = new CalculateurTournee(carte, tournee);
             calculateurTournee.calculerGrapheCompletDesEtapes(new Astar2(carte));
         } catch (AStarImpossibleException e){
@@ -41,13 +42,13 @@ public class AStarTest {
      * Test chargement d'une carte à partir d'un fichier XML correct sans exception
      */
     @Test
-    void verificationBonFonctionnementAStar1() throws ParserConfigurationException,SAXException {
+    void verificationBonFonctionnementAStar1() throws AttributsIntersectionsException,AttributsSegmentsException,ParserConfigurationException, SAXException, PresenceEncodingEtVersionException, TagNameMapException, AbsenceBaliseDepotException, AttributsDepotException, IncompatibleAdresseException, NegatifLatitudeException, NegatifLongitudeException, IOException, IncompatibleLatitudeException, IncompatibleLongitudeException, AbsenceBaliseRequestException, AttributsRequestsException {
 
         LecteurXML lecteurXML = new LecteurXML();
         Carte carte = new Carte();
-        carte = lecteurXML.lectureCarte("./src/FichiersXML/mapAstar1Test.xml");
+        carte = lecteurXML.lectureCarte("./src/FichiersXML/mapAstar1Test.xml",carte);
         Tournee tournee = new Tournee();
-        tournee = lecteurXML.lectureRequete("./src/FichiersXML/requestsAstar1Test.xml");
+        tournee = lecteurXML.lectureRequete("./src/FichiersXML/requestsAstar1Test.xml",carte);
         CalculateurTournee calculateurTournee = new CalculateurTournee(carte, tournee);
 
         /*
@@ -81,13 +82,13 @@ public class AStarTest {
      * Test chargement d'une carte à partir d'un fichier XML correct sans exception
      */
     @Test
-    void verificationBonFonctionnementAStar2() throws ParserConfigurationException,SAXException {
+    void verificationBonFonctionnementAStar2() throws AttributsIntersectionsException,AttributsSegmentsException,ParserConfigurationException, SAXException, PresenceEncodingEtVersionException, TagNameMapException, AbsenceBaliseDepotException, AttributsDepotException, IncompatibleAdresseException, NegatifLatitudeException, NegatifLongitudeException, IOException, IncompatibleLatitudeException, IncompatibleLongitudeException, AbsenceBaliseRequestException, AttributsRequestsException {
         try {
             LecteurXML lecteurXML = new LecteurXML();
             Carte carte = new Carte();
-            carte = lecteurXML.lectureCarte("./src/FichiersXML/mapLargeTest.xml");
+            carte = lecteurXML.lectureCarte("./src/FichiersXML/mapLargeTest.xml",carte);
             Tournee tournee = new Tournee();
-            tournee = lecteurXML.lectureRequete("./src/FichiersXML/requestsLargeTest.xml");
+            tournee = lecteurXML.lectureRequete("./src/FichiersXML/requestsLargeTest.xml",carte);
             CalculateurTournee calculateurTournee = new CalculateurTournee(carte, tournee);
             calculateurTournee.calculerGrapheCompletDesEtapes(new Astar2(carte));
         } catch (AStarImpossibleException e){
@@ -99,13 +100,13 @@ public class AStarTest {
      * Test chargement d'une carte à partir d'un fichier XML correct sans exception
      */
     @Test
-    void verificationNombreDeCheminAstar() throws ParserConfigurationException,SAXException,AStarImpossibleException {
+    void verificationNombreDeCheminAstar() throws AStarImpossibleException,AttributsIntersectionsException,AttributsSegmentsException,ParserConfigurationException, SAXException, PresenceEncodingEtVersionException, TagNameMapException, AbsenceBaliseDepotException, AttributsDepotException, IncompatibleAdresseException, NegatifLatitudeException, NegatifLongitudeException, IOException, IncompatibleLatitudeException, IncompatibleLongitudeException, AbsenceBaliseRequestException, AttributsRequestsException {
 
         LecteurXML lecteurXML = new LecteurXML();
         Carte carte = new Carte();
-        carte = lecteurXML.lectureCarte("./src/FichiersXML/mapLargeTest.xml");
+        carte = lecteurXML.lectureCarte("./src/FichiersXML/mapLargeTest.xml",carte);
         Tournee tournee = new Tournee();
-        tournee = lecteurXML.lectureRequete("./src/FichiersXML/requestsLargeTest.xml");
+        tournee = lecteurXML.lectureRequete("./src/FichiersXML/requestsLargeTest.xml",carte);
         CalculateurTournee calculateurTournee = new CalculateurTournee(carte, tournee);
         HashMap<Long, HashMap<Long, CheminEntreEtape>> graphComplet = calculateurTournee.calculerGrapheCompletDesEtapes(new Astar2(carte));
 
@@ -122,13 +123,13 @@ public class AStarTest {
      * Test chargement d'une carte à partir d'un fichier XML correct sans exception
      */
     @Test
-    void verificationCheminsNonNullAStar()  throws ParserConfigurationException,SAXException,AStarImpossibleException {
+    void verificationCheminsNonNullAStar()  throws AStarImpossibleException,AttributsIntersectionsException,AttributsSegmentsException,ParserConfigurationException, SAXException, PresenceEncodingEtVersionException, TagNameMapException, AbsenceBaliseDepotException, AttributsDepotException, IncompatibleAdresseException, NegatifLatitudeException, NegatifLongitudeException, IOException, IncompatibleLatitudeException, IncompatibleLongitudeException, AbsenceBaliseRequestException, AttributsRequestsException {
 
         LecteurXML lecteurXML = new LecteurXML();
         Carte carte = new Carte();
-        carte = lecteurXML.lectureCarte("./src/FichiersXML/mapLargeTest.xml");
+        carte = lecteurXML.lectureCarte("./src/FichiersXML/mapLargeTest.xml",carte);
         Tournee tournee = new Tournee();
-        tournee = lecteurXML.lectureRequete("./src/FichiersXML/requestsLargeTest.xml");
+        tournee = lecteurXML.lectureRequete("./src/FichiersXML/requestsLargeTest.xml",carte);
         CalculateurTournee calculateurTournee = new CalculateurTournee(carte, tournee);
         HashMap<Long, HashMap<Long, CheminEntreEtape>> graphComplet = calculateurTournee.calculerGrapheCompletDesEtapes(new Astar2(carte));
 
@@ -142,13 +143,13 @@ public class AStarTest {
     }
 
     @Test
-    void detectionMemeDepartAriveeAStar()  throws ParserConfigurationException,SAXException,AStarImpossibleException {
+    void detectionMemeDepartAriveeAStar()  throws  AStarImpossibleException,AttributsIntersectionsException,AttributsSegmentsException,ParserConfigurationException, SAXException, PresenceEncodingEtVersionException, TagNameMapException, AbsenceBaliseDepotException, AttributsDepotException, IncompatibleAdresseException, NegatifLatitudeException, NegatifLongitudeException, IOException, IncompatibleLatitudeException, IncompatibleLongitudeException, AbsenceBaliseRequestException, AttributsRequestsException {
 
         LecteurXML lecteurXML = new LecteurXML();
         Carte carte = new Carte();
-        carte = lecteurXML.lectureCarte("./src/FichiersXML/mapLargeTest.xml");
+        carte = lecteurXML.lectureCarte("./src/FichiersXML/mapLargeTest.xml",carte);
         Tournee tournee = new Tournee();
-        tournee = lecteurXML.lectureRequete("./src/FichiersXML/requestsLargeTest.xml");
+        tournee = lecteurXML.lectureRequete("./src/FichiersXML/requestsLargeTest.xml",carte);
         CalculateurTournee calculateurTournee = new CalculateurTournee(carte, tournee);
 
         Astar2 astar = new Astar2(carte);
