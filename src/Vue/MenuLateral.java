@@ -28,6 +28,7 @@ public class MenuLateral extends JPanel {
     private Bouton boutonRedo;
     private Bouton boutonAjouterEtape;
     private Bouton boutonExporterFeuilleRoute;
+    private JTextArea messageUtilisateur;
 
     public MenuLateral(int largeurFenetre, int hauteurEcran, Font policeTexte, Font policeTexteImportant, EcouteurBoutons ecouteurBoutons, EcouteurSurvol ecouteurSurvol){
 
@@ -42,13 +43,20 @@ public class MenuLateral extends JPanel {
         this.setBounds(largeurFenetre - largeurFenetre * 1/4, 0, largeurFenetre * 1/4, hauteurEcran);
         this.setLayout(null);
 
+        messageUtilisateur = new JTextArea();
+        messageUtilisateur.setFont(policeTexte);
+        messageUtilisateur.setLineWrap(true);
+        messageUtilisateur.setWrapStyleWord(true);
+        messageUtilisateur.setOpaque(false);
+        messageUtilisateur.setBounds(2*valMarginBase, valMarginBase, this.getWidth()-4*valMarginBase, 35 );
+        this.add(messageUtilisateur);
 
         /************************************************************************************/
         /*                          Panel boutons d'import                                  */
         /************************************************************************************/
 
         panelImport = new JPanel();
-        panelImport.setBounds(valMarginBase, valMarginBase, this.getWidth()-2*valMarginBase, hauteurBouton );
+        panelImport.setBounds(valMarginBase, messageUtilisateur.getY()+messageUtilisateur.getHeight()+valMarginBase, this.getWidth()-2*valMarginBase, hauteurBouton );
         panelImport.setLayout(null);
         this.add(panelImport);
 
@@ -156,6 +164,10 @@ public class MenuLateral extends JPanel {
         boutonExporterFeuilleRoute = new Bouton("Exporter feuille de route", policeTexte, ecouteurBoutons);
         boutonExporterFeuilleRoute.setBounds( valMarginBase, this.getHeight() - hauteurBouton - valMarginBase, this.getWidth() - 2*valMarginBase, hauteurBouton);
         this.add(boutonExporterFeuilleRoute);
+    }
+
+    public void setMessageUtilisateur(String texte){
+        messageUtilisateur.setText(texte);
     }
 
     //FIXME : ajouter if not null
