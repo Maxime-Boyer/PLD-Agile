@@ -9,6 +9,7 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.sql.Timestamp;
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AStarTest {
 
     /**
-     * Test chargement d'une carte à partir d'un fichier XML correct sans exception
+     * Test de detection des AStar impossibles : il n'est pas possible de rejoindre deux adresses du graphe.
      */
     @Test
     void detectionAStarImpossible() throws ParserConfigurationException,SAXException {
@@ -38,7 +39,7 @@ public class AStarTest {
     }
 
     /**
-     * Test chargement d'une carte à partir d'un fichier XML correct sans exception
+     * Test du Astar sur un graphe mauvais pour l'heuristique.
      */
     @Test
     void verificationBonFonctionnementAStar1() throws ParserConfigurationException,SAXException {
@@ -60,7 +61,7 @@ public class AStarTest {
         Adresse etapeArrivee = tournee.getListeRequetes().get(0).getEtapeCollecte();
 
         Astar2 astar = new Astar2(carte);
-        CheminEntreEtape cee = astar.chercherCheminEntreEtape(new Etape(etapeDepart.getLatitude(),etapeDepart.getLongitude(),etapeDepart.getIdAdresse(),0,new Timestamp(0)), new Etape(etapeArrivee.getLatitude(),etapeArrivee.getLongitude(),etapeArrivee.getIdAdresse(),0,new Timestamp(0)));
+        CheminEntreEtape cee = astar.chercherCheminEntreEtape(new Etape(etapeDepart.getLatitude(),etapeDepart.getLongitude(),etapeDepart.getIdAdresse(),0, LocalTime.of(0,0,0,0)), new Etape(etapeArrivee.getLatitude(),etapeArrivee.getLongitude(),etapeArrivee.getIdAdresse(),0,LocalTime.of(0,0,0,0)));
 
         long[] idAdresseTheorique = {1, 5, 6, 7, 4};
         Segment s;
@@ -78,7 +79,7 @@ public class AStarTest {
     }
 
     /**
-     * Test chargement d'une carte à partir d'un fichier XML correct sans exception
+     * Test de Astar sur un graphe ayant beaucoup de branches
      */
     @Test
     void verificationBonFonctionnementAStar2() throws ParserConfigurationException,SAXException {
@@ -96,7 +97,7 @@ public class AStarTest {
     }
 
     /**
-     * Test chargement d'une carte à partir d'un fichier XML correct sans exception
+     * Verification du bon nombre de chemin sur une grosse tournee
      */
     @Test
     void verificationNombreDeCheminAstar() throws ParserConfigurationException,SAXException,AStarImpossibleException {
@@ -119,7 +120,7 @@ public class AStarTest {
 
 
     /**
-     * Test chargement d'une carte à partir d'un fichier XML correct sans exception
+     * Verification de la presence de chemin non null au retour du Astar sur une grosse tournee
      */
     @Test
     void verificationCheminsNonNullAStar()  throws ParserConfigurationException,SAXException,AStarImpossibleException {
@@ -141,6 +142,9 @@ public class AStarTest {
         }
     }
 
+    /**
+     * Verification du bon fonctionnement du Astar lorsque le depart et l'arrivee correspondent a la meme adresse
+     */
     @Test
     void detectionMemeDepartAriveeAStar()  throws ParserConfigurationException,SAXException,AStarImpossibleException {
 
@@ -152,36 +156,8 @@ public class AStarTest {
         CalculateurTournee calculateurTournee = new CalculateurTournee(carte, tournee);
 
         Astar2 astar = new Astar2(carte);
-        Etape etape = new Etape(tournee.getAdresseDepart().getLatitude(),tournee.getAdresseDepart().getLongitude(),tournee.getAdresseDepart().getIdAdresse(),0,new Timestamp(0));
+        Etape etape = new Etape(tournee.getAdresseDepart().getLatitude(),tournee.getAdresseDepart().getLongitude(),tournee.getAdresseDepart().getIdAdresse(),0,LocalTime.of(0,0,0,0));
         astar.chercherCheminEntreEtape(etape, etape);
 
     }
-
-    protected double distance(Adresse adresse, Adresse arrivee) {
-        double degToRad = 0.01745329;
-        double rayonTerre = 6371; // in kilometers
-
-        //Convertion degré à radian
-        double lat1 = adresse.getLatitude() * degToRad;
-        double lat2 = arrivee.getLatitude() * degToRad;
-        double lon1 = adresse.getLongitude() * degToRad;
-        double lon2 = arrivee.getLongitude() * degToRad;
-
-        // Haversine formula
-        double dlon = lon2 - lon1;
-        double dlat = lat2 - lat1;
-        double a = Math.pow(Math.sin(dlat / 2), 2)
-                + Math.cos(lat1) * Math.cos(lat2)
-                * Math.pow(Math.sin(dlon / 2), 2);
-
-        double c = 2 * Math.asin(Math.sqrt(a));
-
-        // Rayon de la terre of en m
-        double r = 6371000;
-
-        // Retourne la distance
-        return (c * r);
-    }
-
-
 }
