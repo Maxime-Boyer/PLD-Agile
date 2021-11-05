@@ -5,15 +5,27 @@ package Vue;
 //import Algorithmie.CalculateurTournee;
 
 import Algorithmie.CalculateurTournee;
+import Exceptions.AStarImpossibleException;
 import Exceptions.IncompatibleAdresseException;
 import Model.Adresse;
 import Model.Carte;
 import Model.LecteurXML;
 import Model.Tournee;
+import Exceptions.NameFile;
+import Model.*;
+
+import org.xml.sax.SAXException;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
 
 
 public class CartePanel extends JPanel {
@@ -25,8 +37,14 @@ public class CartePanel extends JPanel {
     private double minLongitudeCarte;
     private boolean tourneeAppelee;
     private boolean itinerairePrepare;
+    private Carte carte = new Carte();
     private Tournee tournee = new Tournee();
     private LecteurXML lecteur = new LecteurXML();
+    private JLabel labelPosition1;
+    private JLabel labelPosition2;
+    private ImageIcon iconPosition;
+    private CalculateurTournee calculTournee;
+    private Tournee itineraire;
     private Carte carte;
 
     public CartePanel(Carte carte, int largeurEcran, int hauteurEcran, Font policeTexte) {
@@ -39,13 +57,25 @@ public class CartePanel extends JPanel {
         this.setBounds(0, 0, largeur, hauteur);
         this.setBackground(Color.WHITE);
         this.setLayout(null);
+        this.addMouseListener(ecouteurSurvol);
+
+        //initialisation image
+        iconPosition = new ImageIcon("src/images/Localisation.png");
+        Image imagePosition = iconPosition.getImage(); // transform it
+        Image newImagePosition = imagePosition.getScaledInstance(25, 30,  java.awt.Image.SCALE_SMOOTH);
+        iconPosition = new ImageIcon(newImagePosition);
+
+        labelPosition1 = new JLabel();
+        labelPosition2 = new JLabel();
+        labelPosition1.setIcon(iconPosition);
+        labelPosition2.setIcon(iconPosition);
+
     }
 
     public Tournee getTournee() {
         return tournee;
     }
 
-    //INUTILE
     public void tracerCarte() {
 
 
@@ -99,6 +129,18 @@ public class CartePanel extends JPanel {
 
     public void tracerItineraire() {
         System.out.println("tracerItineraire");
+
+        calculTournee = new CalculateurTournee(carte, tournee);
+
+        try {
+            calculTournee.calculerTournee();
+        } catch (AStarImpossibleException e) {
+            e.printStackTrace();
+        }
+
+        itineraire = new Tournee();
+        itineraire = calculTournee.getTournee();
+
         itinerairePrepare = true;
     }
 
@@ -258,14 +300,7 @@ public class CartePanel extends JPanel {
     }
 
     public void dessinerItineraire(Graphics g2) {
-        System.out.println("CartePane : dessinerItineraire");
-
-        System.out.println("CartePane : dessinerItineraire -> inside loop");
-        CalculateurTournee calculTournee = new CalculateurTournee(carte, tournee);
-        calculTournee.calculerTournee();
-        Tournee itineraire = new Tournee();
-        itineraire = calculTournee.getTsp().getTournee();
-        //HashMap<Long, LinkedList<CheminEntreEtape>> itineraire = new HashMap<>();
+        //HashMap<Long, HashMap<Long, CheminEntreEtape>> itineraire = new HashMap<>();
         //itineraire = calculTournee.calculerTournee();
         //System.out.println(itineraire);
 
