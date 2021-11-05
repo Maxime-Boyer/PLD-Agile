@@ -1,6 +1,5 @@
 package Model;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,17 +8,13 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import Exceptions.*;
-import org.junit.platform.commons.util.StringUtils;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
-
-import static java.lang.Float.isNaN;
 
 public class LecteurXML {
 
@@ -39,7 +34,7 @@ public class LecteurXML {
      * @throws ParserConfigurationException
      * @throws SAXException
      */
-    public Carte lectureCarte(String nomFichier) throws ParserConfigurationException, SAXException, PresenceEncodingEtVersionException, IOException, TagNameMapException, AttributsIntersectionsExceptions, NegatifLatitudeException, NegatifLongitudeException, AttributsSegmentsExceptions {
+    public Carte lectureCarte(String nomFichier) throws ParserConfigurationException, SAXException, PresenceEncodingEtVersionException, IOException, TagNameMapException, AttributsIntersectionsException, NegatifLatitudeException, NegatifLongitudeException, AttributsSegmentsException {
 
             carte = new Carte(nomFichier);
 
@@ -73,14 +68,14 @@ public class LecteurXML {
                     //liste de tous les attributs du tagname intersection
                     NamedNodeMap listeAttributs = nNodeAdresse.getAttributes();
                     if (listeAttributs.getLength() != 3) {
-                        throw new AttributsIntersectionsExceptions("Erreur, le nombre d'attributs de la balise intersection n° " + temp + " est différent du nombre attendu ");
+                        throw new AttributsIntersectionsException("Erreur, le nombre d'attributs de la balise intersection n° " + temp + " est différent du nombre attendu ");
 
                     } else {
                         for (int i = 0; i < listeAttributs.getLength(); i++) {
                             //System.out.println(listeAttributs.item(i).getNodeName());
 
                             if (!listeAttributs.item(i).getNodeName().equals("id") && !listeAttributs.item(i).getNodeName().equals("latitude") && !listeAttributs.item(i).getNodeName().equals("longitude")) {
-                                throw new AttributsIntersectionsExceptions("Erreur, les attributs de la balise intersection n° " + temp + " ne sont pas corrects");
+                                throw new AttributsIntersectionsException("Erreur, les attributs de la balise intersection n° " + temp + " ne sont pas corrects");
                             }
                         }
                     }
@@ -91,13 +86,13 @@ public class LecteurXML {
                     String stringId = eElement.getAttribute("id");
 
                     if (stringLongitude.isBlank()) {
-                        throw new AttributsIntersectionsExceptions("Erreur manque de l'attribut Longitude dans une balise intersection de la carte");
+                        throw new AttributsIntersectionsException("Erreur manque de l'attribut Longitude dans une balise intersection de la carte");
                     }
                     if (stringId.isBlank()) {
-                        throw new AttributsIntersectionsExceptions("Erreur manque de l'attribut Id dans une balise intersection de la carte");
+                        throw new AttributsIntersectionsException("Erreur manque de l'attribut Id dans une balise intersection de la carte");
                     }
                     if (stringLatitude.isBlank()) {
-                        throw new AttributsIntersectionsExceptions("Erreur manque de l'attribut Latitude dans une balise intersection de la carte");
+                        throw new AttributsIntersectionsException("Erreur manque de l'attribut Latitude dans une balise intersection de la carte");
                     }
 
                     double latitude = Double.parseDouble(stringLatitude);
@@ -140,14 +135,14 @@ public class LecteurXML {
 
                     NamedNodeMap listeAttributsSegment = nNodeSegment.getAttributes();
                     if (listeAttributsSegment.getLength() != 4) {
-                        throw new AttributsSegmentsExceptions("Erreur, le nombre d'attributs de la balise  segment n° " + temp + " est différent du nombre attendu ");
+                        throw new AttributsSegmentsException("Erreur, le nombre d'attributs de la balise  segment n° " + temp + " est différent du nombre attendu ");
 
                     } else {
                         for (int i = 0; i < listeAttributsSegment.getLength(); i++) {
                             //System.out.println(listeAttributs.item(i).getNodeName());
 
                             if (!listeAttributsSegment.item(i).getNodeName().equals("length") && !listeAttributsSegment.item(i).getNodeName().equals("name") && !listeAttributsSegment.item(i).getNodeName().equals("origin") && !listeAttributsSegment.item(i).getNodeName().equals("destination")) {
-                                throw new AttributsSegmentsExceptions("Erreur, les attributs de la balise segment n° " + temp + " ne sont pas corrects");
+                                throw new AttributsSegmentsException("Erreur, les attributs de la balise segment n° " + temp + " ne sont pas corrects");
                             }
 
                         }
@@ -159,13 +154,13 @@ public class LecteurXML {
                     String destination = eElement.getAttribute("destination");
 
                     if (slongueur.isBlank()) {
-                        throw new AttributsSegmentsExceptions("Erreur manque de l'attribut length dans une balise segment de la carte");
+                        throw new AttributsSegmentsException("Erreur manque de l'attribut length dans une balise segment de la carte");
                     }
                     if (origine.isBlank()) {
-                        throw new AttributsSegmentsExceptions("Erreur manque de l'attribut origin dans une balise segment de la carte");
+                        throw new AttributsSegmentsException("Erreur manque de l'attribut origin dans une balise segment de la carte");
                     }
                     if (destination.isBlank()) {
-                        throw new AttributsSegmentsExceptions("Erreur manque de l'attribut destination dans une balise segment de la carte");
+                        throw new AttributsSegmentsException("Erreur manque de l'attribut destination dans une balise segment de la carte");
                     }
 
                     Double longueur = Double.parseDouble(eElement.getAttribute("length"));
@@ -184,7 +179,7 @@ public class LecteurXML {
      * @throws ParserConfigurationException
      * @throws SAXException
      */
-    public Tournee lectureRequete(String nomFichier) throws ParserConfigurationException, SAXException, PresenceEncodingEtVersionException, TagNameMapException, AbsenceBaliseDepot, AttributsDepotExceptions, IncompatibleAdresseException, NegatifLatitudeException, NegatifLongitudeException, IOException, IncompatibleLatitudeException, IncompatibleLongitudeException, AbsenceBaliseRequest, AttributsRequestsExceptions {
+    public Tournee lectureRequete(String nomFichier) throws ParserConfigurationException, SAXException, PresenceEncodingEtVersionException, TagNameMapException, AbsenceBaliseDepotException, AttributsDepotException, IncompatibleAdresseException, NegatifLatitudeException, NegatifLongitudeException, IOException, IncompatibleLatitudeException, IncompatibleLongitudeException, AbsenceBaliseRequestException, AttributsRequestsException {
         List<Requete> listeRequetes = new  ArrayList<Requete>();
         Tournee tournee = new Tournee();
         File file = new File(nomFichier);
@@ -217,7 +212,7 @@ public class LecteurXML {
         Element eElement = (Element) depot;
 
         if(document.getElementsByTagName("depot").getLength() == 0){
-            throw new AbsenceBaliseDepot("Erreur la balise depot n'existe pas dans le fichier");
+            throw new AbsenceBaliseDepotException("Erreur la balise depot n'existe pas dans le fichier");
         }
         /*if(document.getElementsByTagName("request").getLength() == 0){
             throw new AbsenceBaliseRequest("Erreur aucune balise request dans le fichier");
@@ -225,7 +220,7 @@ public class LecteurXML {
 
         //On vérifie si la balise depot a des attributs
         if (!eElement.hasAttributes()) {
-            throw new AttributsDepotExceptions("Erreur la balise depot n'as pas d'attribut dans le fichier");
+            throw new AttributsDepotException("Erreur la balise depot n'as pas d'attribut dans le fichier");
         }
 
         //On vérifie si les attributs de la balise depot ne sont pas inexistant
@@ -234,23 +229,23 @@ public class LecteurXML {
 
         NamedNodeMap listeAttributsDepot = depot.getAttributes();
         if(listeAttributsDepot.getLength() != 2){
-            throw new AttributsDepotExceptions("Erreur, le nombre d'attributs de la balise depot est différent du nombre attendu");
+            throw new AttributsDepotException("Erreur, le nombre d'attributs de la balise depot est différent du nombre attendu");
 
         }else{
             for (int i = 0 ; i< listeAttributsDepot.getLength(); i++){
                 //System.out.println(listeAttributs.item(i).getNodeName());
 
                 if(!listeAttributsDepot.item(i).getNodeName().equals("address") && !listeAttributsDepot.item(i).getNodeName().equals("departureTime")){
-                    throw new AttributsDepotExceptions("Erreur, les noms d'attributs de la balise depot ne sont pas corrects");
+                    throw new AttributsDepotException("Erreur, les noms d'attributs de la balise depot ne sont pas corrects");
                 }
             }
         }
 
         if (stringHeureDepart.isEmpty()) {
-            throw new AttributsDepotExceptions("Erreur l'attribut departureTime de la balise depot est inexistant ou n'a pas de valeur");
+            throw new AttributsDepotException("Erreur l'attribut departureTime de la balise depot est inexistant ou n'a pas de valeur");
         }
         if (stringAdresseDepot.isEmpty()) {
-            throw new AttributsDepotExceptions("Erreur l'attribut adresse de la balise depot est inexistant ou n'a pas de valeur");
+            throw new AttributsDepotException("Erreur l'attribut adresse de la balise depot est inexistant ou n'a pas de valeur");
         }
 
         Long idAdresseDepot = Long.parseLong(eElement.getAttribute("address"));
@@ -291,13 +286,13 @@ public class LecteurXML {
             LocalTime heureDepart = LocalTime.parse(stringHeureDepart, DateTimeFormatter.ofPattern("H:m:s"));
             tournee.setHeureDepart(heureDepart);
         }else {
-            throw new AttributsDepotExceptions("Erreur, l'attribut departureTime de la balise depot n'est pas au bon format");
+            throw new AttributsDepotException("Erreur, l'attribut departureTime de la balise depot n'est pas au bon format");
         }
 
         NodeList nListRequetes = document.getElementsByTagName("request");
 
         if(nListRequetes.getLength() == 0){
-            throw new AbsenceBaliseRequest("Erreur aucune requête n'est présente dans le fichier");
+            throw new AbsenceBaliseRequestException("Erreur aucune requête n'est présente dans le fichier");
         }
 
         if(nListRequetes.getLength() > 0) {
@@ -307,19 +302,19 @@ public class LecteurXML {
 
                 //On vérifie si la balise request a des attributs
                 if (!eElement.hasAttributes()) {
-                    throw new AttributsRequestsExceptions("Erreur la balise request n°" + temp + " n'as pas d'attribut dans le fichier");
+                    throw new AttributsRequestsException("Erreur la balise request n°" + temp + " n'as pas d'attribut dans le fichier");
                 }
 
                 NamedNodeMap listeAttributsRequest = nNodeRequest.getAttributes();
                 if(listeAttributsRequest.getLength() != 4){
-                    throw new AttributsRequestsExceptions("Erreur, le nombre d'attributs de la balise request n°" + temp + " est différent du nombre attendu");
+                    throw new AttributsRequestsException("Erreur, le nombre d'attributs de la balise request n°" + temp + " est différent du nombre attendu");
 
                 }else{
                     for (int i = 0 ; i< listeAttributsRequest.getLength(); i++){
                         //System.out.println(listeAttributs.item(i).getNodeName());
 
                         if(!listeAttributsRequest.item(i).getNodeName().equals("pickupAddress") && !listeAttributsRequest.item(i).getNodeName().equals("deliveryAddress") && !listeAttributsRequest.item(i).getNodeName().equals("pickupDuration") && !listeAttributsRequest.item(i).getNodeName().equals("deliveryDuration")){
-                            throw new AttributsRequestsExceptions("Erreur, les noms d'attributs de la balise request n°" + temp + " ne sont pas corrects");
+                            throw new AttributsRequestsException("Erreur, les noms d'attributs de la balise request n°" + temp + " ne sont pas corrects");
                         }
 
                     }
@@ -335,16 +330,16 @@ public class LecteurXML {
                     String stringDeliveryDuration = eElement.getAttribute("deliveryDuration");
 
                     if (stringPickupAddress.isEmpty()) {
-                        throw new AttributsRequestsExceptions("Erreur manque de l'attribut PickUpAddress (Adresse de collecte) dans une balise Requests de la Tournee");
+                        throw new AttributsRequestsException("Erreur manque de l'attribut PickUpAddress (Adresse de collecte) dans une balise Requests de la Tournee");
                     }
                     if (stringDeliveryAddress.isEmpty()) {
-                        throw new AttributsRequestsExceptions("Erreur manque de l'attribut DeliveryAddress (Adresse de depot) dans une balise Requests de la Tournee");
+                        throw new AttributsRequestsException("Erreur manque de l'attribut DeliveryAddress (Adresse de depot) dans une balise Requests de la Tournee");
                     }
                     if (stringPickupDuration.isEmpty()) {
-                        throw new AttributsRequestsExceptions("Erreur manque de l'attribut PickUpDuration (Durée de collecte) dans une balise Requests de la Tournee");
+                        throw new AttributsRequestsException("Erreur manque de l'attribut PickUpDuration (Durée de collecte) dans une balise Requests de la Tournee");
                     }
                     if (stringDeliveryDuration.isEmpty()) {
-                        throw new AttributsRequestsExceptions("Erreur manque de l'attribut DeliveryDuration (Durée de depot) dans une balise Requests de la Tournee");
+                        throw new AttributsRequestsException("Erreur manque de l'attribut DeliveryDuration (Durée de depot) dans une balise Requests de la Tournee");
                     }
 
                     Long idAdresseRetrait = Long.parseLong(stringPickupAddress);
