@@ -349,47 +349,50 @@ public class LecteurXML {
 
                     Long idAdresseRetrait = Long.parseLong(stringPickupAddress);
                     Long idAdresseLivraison = Long.parseLong(stringDeliveryAddress);
+                    if (carte.getListeAdresses() != null) {
 
-                    if (!(carte.getListeAdresses().containsKey(idAdresseRetrait))) {
-                        throw new IncompatibleAdresseException("Erreur sur une adresse de retrait, l'adresse n'appartient pas à la carte chargée ");
+
+                        if (!(carte.getListeAdresses().containsKey(idAdresseRetrait))) {
+                            throw new IncompatibleAdresseException("Erreur sur une adresse de retrait, l'adresse n'appartient pas à la carte chargée ");
+                        }
+
+                        if (!(carte.getListeAdresses().containsKey(idAdresseLivraison))) {
+                            throw new IncompatibleAdresseException("Erreur sur une adresse de livraison, l'adresse n'appartient pas à la carte chargée ");
+                        }
+
+                        Integer tempsRetrait = Integer.parseInt(stringPickupDuration);
+                        Integer tempsLivraison = Integer.parseInt(stringDeliveryDuration);
+                        Adresse adresseRetrait = carte.obtenirAdresseParId(idAdresseRetrait);
+                        Adresse adresseLivraison = carte.obtenirAdresseParId(idAdresseLivraison);
+
+                        double latitudeAdresseRetrait = adresseRetrait.getLatitude();
+                        double longitudeAdresseRetrait = adresseRetrait.getLongitude();
+
+
+                        if ((latitudeAdresseRetrait < minLatitude) || (latitudeAdresseRetrait > maxLatitude)) {
+                            throw new IncompatibleLatitudeException("Erreur, la latitude de d'une adresse n'apparatient pas au plan chargé");
+                        }
+                        if ((longitudeAdresseRetrait < minLongitude) || (longitudeAdresseRetrait > maxLongitude)) {
+                            throw new IncompatibleLongitudeException("Erreur, la longitude d'une adresse n'apparatient au  plan chargé");
+                        }
+
+                        double latitudeAdresseLivraison = adresseLivraison.getLatitude();
+                        double longitudeAdresseLivraison = adresseLivraison.getLongitude();
+
+
+                        if ((latitudeAdresseLivraison < minLatitude) || (latitudeAdresseLivraison > maxLatitude)) {
+                            throw new IncompatibleLatitudeException("Erreur, la latitude de l'adresse de départ n'apparatient pas au plan chargé");
+                        }
+                        if ((longitudeAdresseLivraison < minLongitude) || (longitudeAdresseLivraison > maxLongitude)) {
+                            throw new IncompatibleLongitudeException("Erreur, la longitude de l'adresse de départ n'apparatient au le plan chargé");
+                        }
+
+
+                        Etape etapeRetrait = new Etape(adresseRetrait.getLatitude(), adresseRetrait.getLongitude(), idAdresseRetrait, tempsRetrait, null);
+                        Etape etapeLivraison = new Etape(adresseLivraison.getLatitude(), adresseLivraison.getLongitude(), idAdresseLivraison, tempsLivraison, null);
+                        Requete requete = new Requete(etapeRetrait, etapeLivraison);
+                        listeRequetes.add(requete);
                     }
-
-                    if (!(carte.getListeAdresses().containsKey(idAdresseLivraison))) {
-                        throw new IncompatibleAdresseException("Erreur sur une adresse de livraison, l'adresse n'appartient pas à la carte chargée ");
-                    }
-
-                    Integer tempsRetrait = Integer.parseInt(stringPickupDuration);
-                    Integer tempsLivraison = Integer.parseInt(stringDeliveryDuration);
-                    Adresse adresseRetrait = carte.obtenirAdresseParId(idAdresseRetrait);
-                    Adresse adresseLivraison = carte.obtenirAdresseParId(idAdresseLivraison);
-
-                    double latitudeAdresseRetrait = adresseRetrait.getLatitude();
-                    double longitudeAdresseRetrait = adresseRetrait.getLongitude();
-
-
-                    if ((latitudeAdresseRetrait < minLatitude) || (latitudeAdresseRetrait > maxLatitude)) {
-                        throw new IncompatibleLatitudeException("Erreur, la latitude de d'une adresse n'apparatient pas au plan chargé");
-                    }
-                    if ((longitudeAdresseRetrait < minLongitude) || (longitudeAdresseRetrait > maxLongitude)) {
-                        throw new IncompatibleLongitudeException("Erreur, la longitude d'une adresse n'apparatient au  plan chargé");
-                    }
-
-                    double latitudeAdresseLivraison = adresseLivraison.getLatitude();
-                    double longitudeAdresseLivraison = adresseLivraison.getLongitude();
-
-
-                    if ((latitudeAdresseLivraison < minLatitude) || (latitudeAdresseLivraison > maxLatitude)) {
-                        throw new IncompatibleLatitudeException("Erreur, la latitude de l'adresse de départ n'apparatient pas au plan chargé");
-                    }
-                    if ((longitudeAdresseLivraison < minLongitude) || (longitudeAdresseLivraison > maxLongitude)) {
-                        throw new IncompatibleLongitudeException("Erreur, la longitude de l'adresse de départ n'apparatient au le plan chargé");
-                    }
-
-
-                    Etape etapeRetrait = new Etape(adresseRetrait.getLatitude(), adresseRetrait.getLongitude(), idAdresseRetrait, tempsRetrait, null);
-                    Etape etapeLivraison = new Etape(adresseLivraison.getLatitude(), adresseLivraison.getLongitude(), idAdresseLivraison, tempsLivraison, null);
-                    Requete requete = new Requete(etapeRetrait, etapeLivraison);
-                    listeRequetes.add(requete);
                 }
                 tournee.setListeRequetes(listeRequetes);
             }
