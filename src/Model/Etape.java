@@ -5,8 +5,11 @@ import java.util.Date;
 
 public class Etape extends Adresse{
 
+    // TODO: Pourquoi public???
     public Timestamp heureDePassage;
     public Integer dureeEtape;
+    private String nomAdresse;
+
 
     /**
      * Constructeur de la classe étape
@@ -20,7 +23,7 @@ public class Etape extends Adresse{
         super(latitude, longitude, idAdresse);
         this.dureeEtape = dureeEtape;
         this.heureDePassage=heureDePassage;
-
+        this.nomAdresse = "";
     }
 
     public Date getHeureDePassage() {
@@ -29,6 +32,12 @@ public class Etape extends Adresse{
 
     public Integer getDureeEtape() {
         return dureeEtape;
+    }
+
+    public String getNomAdresse() { return nomAdresse; }
+
+    public void setNomAdresse(String  nomAdresse){
+        this.nomAdresse = nomAdresse;
     }
 
     @Override

@@ -1,26 +1,22 @@
 package Vue;
-//
-//import Algorithmie.CalculateurTournee;
-
-//import Algorithmie.CalculateurTournee;
 
 import Algorithmie.CalculateurTournee;
 import Exceptions.IncompatibleAdresseException;
 import Exceptions.NameFile;
-import Model.Adresse;
-import Model.Carte;
-import Model.LecteurXML;
-import Model.Tournee;
+import Model.*;
+
 import org.xml.sax.SAXException;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
@@ -37,8 +33,13 @@ public class CartePanel extends JPanel {
     private Carte carte = new Carte();
     private Tournee tournee = new Tournee();
     private LecteurXML lecteur = new LecteurXML();
+    private JLabel labelPosition1;
+    private JLabel labelPosition2;
+    private ImageIcon iconPosition;
+    private CalculateurTournee calculTournee;
+    private Tournee itineraire;
 
-    public CartePanel(int largeurEcran, int hauteurEcran, Font policeTexte) throws NameFile {
+    public CartePanel(int largeurEcran, int hauteurEcran, Font policeTexte, EcouteurSurvol ecouteurSurvol) throws NameFile {
 
         this.largeur = (int) 3 * largeurEcran / 4;
         this.hauteur = (int) hauteurEcran;
@@ -47,6 +48,18 @@ public class CartePanel extends JPanel {
         this.setBounds(0, 0, largeur, hauteur);
         this.setBackground(Color.WHITE);
         this.setLayout(null);
+        this.addMouseListener(ecouteurSurvol);
+
+        //initialisation image
+        iconPosition = new ImageIcon("src/images/Localisation.png");
+        Image imagePosition = iconPosition.getImage(); // transform it
+        Image newImagePosition = imagePosition.getScaledInstance(25, 30,  java.awt.Image.SCALE_SMOOTH);
+        iconPosition = new ImageIcon(newImagePosition);
+
+        labelPosition1 = new JLabel();
+        labelPosition2 = new JLabel();
+        labelPosition1.setIcon(iconPosition);
+        labelPosition2.setIcon(iconPosition);
 
         tracerCarte();
     }
@@ -56,24 +69,6 @@ public class CartePanel extends JPanel {
     }
 
     public void tracerCarte() {
-
-        /*
-
-        JFrame frameSelectCarte = new JFrame();
-
-        String nameFile = "";
-        String filename = "";
-
-        while(!nameFile.toLowerCase(Locale.ROOT).contains("map")) {
-            FileDialog fd = new FileDialog(frameSelectCarte, "Sélectionnez une carte au format xml", FileDialog.LOAD);
-            fd.setDirectory("C:\\");
-            fd.setFile("*.xml");
-            fd.setVisible(true);
-            filename = fd.getDirectory() + fd.getFile();
-            nameFile = fd.getFile();
-        }
-         */
-
         JFrame frameSelectCarte = new JFrame();
 
         FileDialog fd = new FileDialog(frameSelectCarte, "Sélectionnez une carte au format xml", FileDialog.LOAD);
@@ -98,27 +93,27 @@ public class CartePanel extends JPanel {
 
     }
 
+    public void indiquerPositionRequete(Etape collecte, Etape depot){
+        int x1 = valeurX(collecte.getLongitude()) - iconPosition.getIconWidth()/2;
+        int y1 = valeurY(collecte.getLatitude()) - iconPosition.getIconHeight()/2 - 25;
+        int x2 = valeurX(depot.getLongitude()) - iconPosition.getIconWidth()/2;
+        int y2 = valeurY(depot.getLatitude()) - iconPosition.getIconHeight()/2 - 25;
+        labelPosition1.setBounds(x1, y1, iconPosition.getIconWidth(), iconPosition.getIconHeight());
+        labelPosition2.setBounds(x2, y2, iconPosition.getIconWidth(), iconPosition.getIconHeight());
+        this.add(labelPosition1);
+        this.add(labelPosition2);
+        this.repaint();
+    }
+
+    public void supprimerPositionRequete(){
+        this.remove(labelPosition1);
+        this.remove(labelPosition2);
+        this.repaint();
+    }
+
     public void tracerRequetes() {
 
-        /*
-
-        String nameFile = "";
-        String filename = "";
         JFrame frameSelectRequetes = new JFrame();
-
-        while(!nameFile.toLowerCase(Locale.ROOT).contains("requests")) {
-
-            FileDialog fd = new FileDialog(frameSelectRequetes, "Sélectionnez une liste de requêtes au format xml", FileDialog.LOAD);
-            fd.setDirectory("C:\\");
-            fd.setFile("*.xml");
-            fd.setVisible(true);
-            filename = fd.getDirectory() + fd.getFile();
-            nameFile = fd.getFile();
-        }
-         */
-
-        JFrame frameSelectRequetes = new JFrame();
-
         FileDialog fd = new FileDialog(frameSelectRequetes, "Sélectionnez une liste de requêtes au format xml", FileDialog.LOAD);
         fd.setDirectory("C:\\");
         fd.setFile("*.xml");
@@ -142,6 +137,13 @@ public class CartePanel extends JPanel {
 
     public void tracerItineraire() {
         System.out.println("tracerItineraire");
+
+        calculTournee = new CalculateurTournee(carte, tournee);
+        calculTournee.calculerTournee();
+
+        itineraire = new Tournee();
+        itineraire = calculTournee.getTournee();
+
         itinerairePrepare = true;
     }
 
@@ -301,14 +303,8 @@ public class CartePanel extends JPanel {
     }
 
     public void dessinerItineraire(Graphics g2) {
-        System.out.println("CartePane : dessinerItineraire");
 
-        System.out.println("CartePane : dessinerItineraire -> inside loop");
-        CalculateurTournee calculTournee = new CalculateurTournee(carte, tournee);
-        calculTournee.calculerTournee();
-        Tournee itineraire = new Tournee();
-        itineraire = calculTournee.getTsp().getTournee();
-        //HashMap<Long, LinkedList<CheminEntreEtape>> itineraire = new HashMap<>();
+        //HashMap<Long, HashMap<Long, CheminEntreEtape>> itineraire = new HashMap<>();
         //itineraire = calculTournee.calculerTournee();
         //System.out.println(itineraire);
 
@@ -322,11 +318,8 @@ public class CartePanel extends JPanel {
                 int destinationY = valeurY(destination.getLatitude());
                 g2.setColor(Color.RED);
                 g2.drawLine(origineX, origineY, destinationX, destinationY);
-
             }
         }
-
-
     }
 
     public void maxLongitudeLatitudeCarte() {

@@ -1,9 +1,11 @@
 package Vue;
 
+import Model.Requete;
 import Model.Tournee;
 import Model.Etape;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 
 public class MenuLateral extends JPanel {
@@ -13,25 +15,28 @@ public class MenuLateral extends JPanel {
     private Font policeTexte;
     private Font policeTexteImportant;
     private EcouteurBoutons ecouteurBoutons;
+    private EcouteurSurvol ecouteurSurvol;
 
     private JPanel panelImport;
     private Bouton boutonImporterPlan;
     private Bouton boutonImporterTournee;
     private JPanel panelBoutonsE4;
-    private JPanel panelConsultation;
+    private JScrollPane scrollPanel;
+    private JPanel panelInsideScrollPanel;
     private Bouton boutonPreparerTournee;
     private Bouton boutonUndo;
     private Bouton boutonRedo;
     private Bouton boutonAjouterEtape;
     private Bouton boutonExporterFeuilleRoute;
 
-    public MenuLateral(int largeurFenetre, int hauteurEcran, Font policeTexte, Font policeTexteImportant, EcouteurBoutons ecouteurBoutons){
+    public MenuLateral(int largeurFenetre, int hauteurEcran, Font policeTexte, Font policeTexteImportant, EcouteurBoutons ecouteurBoutons, EcouteurSurvol ecouteurSurvol){
 
         this.valMarginBase = 5;
         this.hauteurBouton = 50;
         this.policeTexte = policeTexte;
         this.policeTexteImportant = policeTexteImportant;
         this.ecouteurBoutons = ecouteurBoutons;
+        this.ecouteurSurvol = ecouteurSurvol;
 
         // propriétés du panel principal
         this.setBounds(largeurFenetre - largeurFenetre * 1/4, 0, largeurFenetre * 1/4, hauteurEcran);
@@ -58,15 +63,10 @@ public class MenuLateral extends JPanel {
 
     public void afficherMenuRequete(Tournee tournee){
 
-        //creation du pannel permettant d'afficher le détail des requêtes ou des étapes
-        int yDebutPanelConsultation = (int) (panelImport.getY() + panelImport.getHeight() + 2 * valMarginBase +2);
-        int yFinPanelConsultation = (int) (this.getHeight() - hauteurBouton - 4 * valMarginBase - 4);
-        panelConsultation = new JPanel();
-        panelConsultation.setBounds(valMarginBase+2, yDebutPanelConsultation, this.getWidth()-2*valMarginBase - 4, yFinPanelConsultation - yDebutPanelConsultation );
-        panelConsultation.setLayout(null);
-        this.add(panelConsultation);
-
         //affichage du détaillé des requêtes
+        this.panelInsideScrollPanel = new JPanel(null);
+        BoxLayout boxlayout = new BoxLayout(panelInsideScrollPanel, BoxLayout.Y_AXIS);
+        panelInsideScrollPanel.setLayout(boxlayout);
         RequetePanel[] listeRequetes = new RequetePanel[10];
         int positionTop = 0;
         Etape collecte, depot;
@@ -74,23 +74,30 @@ public class MenuLateral extends JPanel {
             collecte = tournee.getListeRequetes().get(i).getEtapeCollecte();
             depot = tournee.getListeRequetes().get(i).getEtapeDepot();
 
-            // TODO: remplacer les ID par les adresses
-            listeRequetes[i] = new RequetePanel(collecte.getDureeEtape(), depot.getDureeEtape(), "Adresse ID: " + collecte.getIdAdresse().toString(), "Adresse ID: " + depot.getIdAdresse().toString(), tournee.getListeRequetes().get(i).getCouleurRequete(), panelConsultation.getWidth(), valMarginBase, policeTexte, policeTexteImportant);
-
-            if(i > 0)
-                positionTop = listeRequetes[i-1].getY() + listeRequetes[i-1].getHeight() + 2*valMarginBase;
-
-            listeRequetes[i].setBounds(0, positionTop, panelConsultation.getWidth(), 130);
-            panelConsultation.add(listeRequetes[i]);
+            listeRequetes[i] = new RequetePanel(collecte, depot, tournee.getListeRequetes().get(i).getCouleur(), this.getWidth()-2*valMarginBase - 8, valMarginBase, policeTexte, policeTexteImportant, ecouteurSurvol);
+            panelInsideScrollPanel.add(listeRequetes[i]);
+            panelInsideScrollPanel.add(Box.createRigidArea(new Dimension(0, 2*valMarginBase)));
         }
+
+        this.scrollPanel = new JScrollPane(panelInsideScrollPanel);
+        scrollPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        int yDebutPanelConsultation = (int) (panelImport.getY() + panelImport.getHeight() + 2 * valMarginBase +2);
+        int yFinPanelConsultation = (int) (this.getHeight() - hauteurBouton - 4 * valMarginBase - 4);
+        scrollPanel.setBounds(valMarginBase+2, yDebutPanelConsultation, this.getWidth()-2*valMarginBase - 4, yFinPanelConsultation - yDebutPanelConsultation );
+        Border border = BorderFactory.createEmptyBorder( 0, 0, 0, 0 );
+        scrollPanel.setViewportBorder( border );
+        scrollPanel.setBorder(border);
+        this.add(scrollPanel);
 
         //creation du bouton de calcul d'itineraire
         boutonPreparerTournee = new Bouton(Fenetre.PREPARER_TOURNEE, policeTexte, ecouteurBoutons);
+        boutonPreparerTournee.addMouseListener(ecouteurSurvol);
         boutonPreparerTournee.setBounds( valMarginBase, this.getHeight() - hauteurBouton - valMarginBase, this.getWidth() - 2*valMarginBase, hauteurBouton);
         this.add(boutonPreparerTournee);
     }
 
-    public void afficherMenuEtapes(){
+    public void afficherMenuEtapes(Tournee tournee){
 
         // Undo, Redo, Ajouter Etape
         panelBoutonsE4 = new JPanel();
@@ -98,7 +105,7 @@ public class MenuLateral extends JPanel {
         panelBoutonsE4.setLayout(null);
         this.add(panelBoutonsE4);
 
-        /*boutonUndo = new Bouton("<--", policeTexte, ecouteurBoutons);
+        boutonUndo = new Bouton("<--", policeTexte, ecouteurBoutons);
         boutonUndo.setBounds( 0,0, panelBoutonsE4.getWidth()/4 - valMarginBase*3/4, 50);
         panelBoutonsE4.add(boutonUndo);
 
@@ -108,27 +115,41 @@ public class MenuLateral extends JPanel {
 
         boutonAjouterEtape = new Bouton("Ajouter étape", policeTexte, ecouteurBoutons);
         boutonAjouterEtape.setBounds(boutonRedo.getX() + boutonRedo.getWidth() + valMarginBase,0, panelBoutonsE4.getWidth()/2 - valMarginBase/2, hauteurBouton);
-        panelBoutonsE4.add(boutonAjouterEtape);*/
+        panelBoutonsE4.add(boutonAjouterEtape);
 
         // suppr ancien panel consultation et construiction du nouveau
-        System.out.println("MENULATERAL : afficherMenuEtape");
-        panelConsultation.removeAll();
+        panelInsideScrollPanel.removeAll();
         int yDebutPanelConsultation = (int) (panelBoutonsE4.getY() + panelBoutonsE4.getHeight() + 2 * valMarginBase +2);
         int yFinPanelConsultation = (int) (this.getHeight() - hauteurBouton - 4 * valMarginBase - 4);
-        panelConsultation.setBounds(valMarginBase+2, yDebutPanelConsultation, this.getWidth()-2*valMarginBase - 4, yFinPanelConsultation - yDebutPanelConsultation );
+        scrollPanel.setBounds(valMarginBase+2, yDebutPanelConsultation, this.getWidth()-2*valMarginBase - 4, yFinPanelConsultation - yDebutPanelConsultation );
 
         //affichage du détaille des étapes
         EtapePanel[] listeEtapes = new EtapePanel[10];
         int positionTop = 0;
-        /*for (int i = 0; i < 10; i++) {
-            listeEtapes[i] = new EtapePanel("8h18", false, 12, "20 Av. Albert Einstein", panelConsultation.getWidth(), valMarginBase, policeTexte, policeTexteImportant);
+        Etape etapeFinChemin; //on base notre affichage sur l'étape de fin uniquement
+        Etape etapeDepot, etapeCollecte;
+        Requete requete = null;
+        String heurePassage = "";
+        System.out.println("-----------Affichage de " + tournee.getListeChemins().size() + "etapes");
+        for (int i = 0; i < tournee.getListeChemins().size(); i++) {
+            etapeFinChemin = tournee.getListeChemins().get(i).getEtapeArrivee();
 
-            if(i > 0)
-                positionTop = listeEtapes[i-1].getY() + listeEtapes[i-1].getHeight() + 2*valMarginBase;
+            //on determine dans quelle requete se trouve l'étape
+            for(int j = 0; j < tournee.getListeRequetes().size(); j++){
+                etapeDepot = tournee.getListeRequetes().get(j).getEtapeDepot();
+                etapeCollecte = tournee.getListeRequetes().get(j).getEtapeCollecte();
 
-            listeEtapes[i].setBounds(0, positionTop, panelConsultation.getWidth(), 110);
-            panelConsultation.add(listeEtapes[i]);
-        }*/
+                if(etapeDepot.getIdAdresse().equals(etapeFinChemin.getIdAdresse()) || etapeCollecte.getIdAdresse().equals(etapeFinChemin.getIdAdresse())){
+                    requete = tournee.getListeRequetes().get(j);
+                    break;
+                }
+            }
+
+            // affichage de l'etape
+            listeEtapes[i] = new EtapePanel(etapeFinChemin, requete, panelInsideScrollPanel.getWidth(), valMarginBase, policeTexte, policeTexteImportant, ecouteurSurvol);
+            panelInsideScrollPanel.add(listeEtapes[i]);
+            panelInsideScrollPanel.add(Box.createRigidArea(new Dimension(0, 2*valMarginBase)));
+        }
 
         // bouton Exporter feuille de route
         this.remove(boutonPreparerTournee);
@@ -139,7 +160,7 @@ public class MenuLateral extends JPanel {
 
     //FIXME : ajouter if not null
     public void retirerMenuRequete() {
-        this.remove(panelConsultation);
+        this.remove(scrollPanel);
         this.remove(boutonPreparerTournee);
     }
 
@@ -149,7 +170,7 @@ public class MenuLateral extends JPanel {
         //this.remove(boutonUndo);
         //this.remove(boutonRedo);
         //this.remove(boutonAjouterEtape);
-        this.remove(panelConsultation);
+        this.remove(scrollPanel);
         this.remove(boutonExporterFeuilleRoute);
     }
 }
