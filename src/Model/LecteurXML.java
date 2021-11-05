@@ -312,7 +312,7 @@ public class LecteurXML {
 
                 NamedNodeMap listeAttributsRequest = nNodeRequest.getAttributes();
                 if(listeAttributsRequest.getLength() != 4){
-                    throw new AttributsDepotExceptions("Erreur, le nombre d'attributs de la balise request n°" + temp + " est différent du nombre attendu");
+                    throw new AttributsRequestsExceptions("Erreur, le nombre d'attributs de la balise request n°" + temp + " est différent du nombre attendu");
 
                 }else{
                     for (int i = 0 ; i< listeAttributsRequest.getLength(); i++){
