@@ -447,11 +447,11 @@ class ExceptionsXMLTest {
     }
 
     @Test
-    void exceptionAttributDepotExceptions2() {
+    void exceptionMauvaisAttributDepotExceptions() {
         try {
             LecteurXML lecteurXML = new LecteurXML();
             Tournee tournee = new Tournee();
-            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/mediumRequestsAttributDepotNombreTest2.xml");
+            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/mediumRequestsMauvaisAttributDepotTest.xml");
         } catch (IncompatibleLatitudeException e) {
             e.printStackTrace();
             fail();
@@ -497,11 +497,11 @@ class ExceptionsXMLTest {
     }
 
     @Test
-    void exceptionAttributDepotExceptions3() {
+    void exceptionMauvaiseValeurAttributDepotExceptions() {
         try {
             LecteurXML lecteurXML = new LecteurXML();
             Tournee tournee = new Tournee();
-            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/mediumRequestsAttributDepotNombreTest3.xml");
+            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/mediumRequestsMauvaiseValeurAttributDepotTest.xml");
         } catch (IncompatibleLatitudeException e) {
             e.printStackTrace();
             fail();
@@ -547,11 +547,11 @@ class ExceptionsXMLTest {
     }
 
     @Test
-    void exceptionAttributDepotExceptions4() {
+    void exceptionMauvaiseValeurAttributDepotExceptions2() {
         try {
             LecteurXML lecteurXML = new LecteurXML();
             Tournee tournee = new Tournee();
-            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/mediumRequestsAttributDepotNombreTest4.xml");
+            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/mediumRequestsMauvaiseValeurAttributDepotTest2.xml");
         } catch (IncompatibleLatitudeException e) {
             e.printStackTrace();
             fail();
