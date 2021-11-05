@@ -57,7 +57,7 @@ public abstract class TemplateTSP implements TSP{
 
         //On s'arrete au temps limite
         if (System.currentTimeMillis() - tempsDepart > tempsLimite){
-            System.out.println(coutMeilleureSolution);
+            //System.out.println(coutMeilleureSolution);
             return;
         }
 
@@ -78,7 +78,7 @@ public abstract class TemplateTSP implements TSP{
                     //On change le meilleur cout
                     coutMeilleureSolution = coutActuel+grapheCompletDesEtapes.get(adresseActuelle.getIdAdresse()).get(tournee.getAdresseDepart().getIdAdresse()).distance;
 
-                    System.out.println("coutMeilleureSolution : "+ coutMeilleureSolution+ " ; in : "+(System.currentTimeMillis() - tempsDepart));
+                    //System.out.println("coutMeilleureSolution : "+ coutMeilleureSolution+ " ; in : "+(System.currentTimeMillis() - tempsDepart));
                 }
             }
         } else if (coutActuel+evaluation(adresseActuelle,nonVisite) < coutMeilleureSolution){
