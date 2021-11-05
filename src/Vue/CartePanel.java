@@ -1,16 +1,22 @@
 package Vue;
+//
+//import Algorithmie.CalculateurTournee;
+
+//import Algorithmie.CalculateurTournee;
 
 import Algorithmie.CalculateurTournee;
 import Exceptions.AStarImpossibleException;
 import Exceptions.IncompatibleAdresseException;
+import Model.Adresse;
+import Model.Carte;
+import Model.LecteurXML;
+import Model.Tournee;
 import Exceptions.NameFile;
 import Model.*;
 
 import org.xml.sax.SAXException;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
@@ -19,7 +25,6 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 
 public class CartePanel extends JPanel {
@@ -31,17 +36,18 @@ public class CartePanel extends JPanel {
     private double minLongitudeCarte;
     private boolean tourneeAppelee;
     private boolean itinerairePrepare;
-    private Carte carte = new Carte();
     private Tournee tournee = new Tournee();
     private LecteurXML lecteur = new LecteurXML();
+    private Carte carte;
     private JLabel labelPosition1;
     private JLabel labelPosition2;
     private ImageIcon iconPosition;
     private CalculateurTournee calculTournee;
     private Tournee itineraire;
 
-    public CartePanel(int largeurEcran, int hauteurEcran, Font policeTexte, EcouteurSurvol ecouteurSurvol) throws NameFile {
-
+    public CartePanel(Carte carte, int largeurEcran, int hauteurEcran, Font policeTexte) {
+        this.carte = carte;
+        maxLongitudeLatitudeCarte();
         this.largeur = (int) 3 * largeurEcran / 4;
         this.hauteur = (int) hauteurEcran;
         this.tourneeAppelee = false;
@@ -69,31 +75,9 @@ public class CartePanel extends JPanel {
         return tournee;
     }
 
+    //INUTILE
     public void tracerCarte() {
-        JFrame frameSelectCarte = new JFrame();
-
-        FileDialog fd = new FileDialog(frameSelectCarte, "Sélectionnez une carte au format xml", FileDialog.LOAD);
-        fd.setDirectory("C:\\");
-        fd.setFile("*.xml");
-        fd.setVisible(true);
-        String filename = fd.getDirectory() + fd.getFile();
-
-        if (filename == null)
-            System.out.println("You cancelled the choice");
-        else
-            System.out.println("You chose " + filename);
-
-        try {
-            carte = lecteur.lectureCarte(filename);
-            maxLongitudeLatitudeCarte();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-        frameSelectCarte.dispose();
-
     }
-
     public void indiquerPositionRequete(Etape collecte, Etape depot){
         int x1 = valeurX(collecte.getLongitude()) - iconPosition.getIconWidth()/2;
         int y1 = valeurY(collecte.getLatitude()) - iconPosition.getIconHeight()/2 - 25;
@@ -111,10 +95,31 @@ public class CartePanel extends JPanel {
         this.remove(labelPosition2);
         this.repaint();
     }
+    public void tracerRequetes(Tournee tournee) {
+        this.tournee = tournee;
+        System.out.println("        Tournee = " + tournee);
+        itinerairePrepare = false;
+        tourneeAppelee = true;
 
-    public void tracerRequetes() {
+        /*
 
+        String nameFile = "";
+        String filename = "";
         JFrame frameSelectRequetes = new JFrame();
+
+        while(!nameFile.toLowerCase(Locale.ROOT).contains("requests")) {
+
+            FileDialog fd = new FileDialog(frameSelectRequetes, "Sélectionnez une liste de requêtes au format xml", FileDialog.LOAD);
+            fd.setDirectory("C:\\");
+            fd.setFile("*.xml");
+            fd.setVisible(true);
+            filename = fd.getDirectory() + fd.getFile();
+            nameFile = fd.getFile();
+        }
+         */
+        /*
+        JFrame frameSelectRequetes = new JFrame();
+
         FileDialog fd = new FileDialog(frameSelectRequetes, "Sélectionnez une liste de requêtes au format xml", FileDialog.LOAD);
         fd.setDirectory("C:\\");
         fd.setFile("*.xml");
@@ -133,7 +138,7 @@ public class CartePanel extends JPanel {
         }
         frameSelectRequetes.dispose();
         itinerairePrepare = false;
-        tourneeAppelee = true;
+        tourneeAppelee = true;*/
     }
 
     public void tracerItineraire() {
@@ -309,7 +314,15 @@ public class CartePanel extends JPanel {
     }
 
     public void dessinerItineraire(Graphics g2) {
-        //HashMap<Long, HashMap<Long, CheminEntreEtape>> itineraire = new HashMap<>();
+       /* System.out.println("CartePane : dessinerItineraire");
+
+        System.out.println("CartePane : dessinerItineraire -> inside loop");
+        CalculateurTournee calculTournee = new CalculateurTournee(carte, tournee);
+        calculTournee.calculerTournee();
+        Tournee itineraire = new Tournee();
+        itineraire = calculTournee.getTsp().getTournee();*/
+
+        //HashMap<Long, LinkedList<CheminEntreEtape>> itineraire = new HashMap<>();
         //itineraire = calculTournee.calculerTournee();
         //System.out.println(itineraire);
 
@@ -323,8 +336,11 @@ public class CartePanel extends JPanel {
                 int destinationY = valeurY(destination.getLatitude());
                 g2.setColor(Color.RED);
                 g2.drawLine(origineX, origineY, destinationX, destinationY);
+
             }
         }
+
+
     }
 
     public void maxLongitudeLatitudeCarte() {

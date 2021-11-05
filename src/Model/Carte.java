@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class Carte {
 
-    private Map<Long,Adresse> listeAdresses ;
+    private Map<Long,Adresse> listeAdresses;
     private List<Segment>listeSegments;
     private String nomCarte;
 
@@ -25,7 +25,12 @@ public class Carte {
      * constreucteur vide de la carte
      */
     public Carte() {
+        listeAdresses = new HashMap<Long,Adresse>();
+        listeSegments = new ArrayList<Segment>();
+    }
 
+    public void setNomCarte(String nomCarte) {
+        this.nomCarte = nomCarte;
     }
 
     /**
@@ -52,5 +57,11 @@ public class Carte {
      */
     public List<Segment> getListeSegments() {
         return listeSegments;
+    }
+
+    public void reset() {
+        this.nomCarte = "";
+        listeAdresses = new HashMap<Long,Adresse>();
+        listeSegments = new ArrayList<Segment>();
     }
 }

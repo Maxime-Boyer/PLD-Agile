@@ -10,6 +10,8 @@ import java.awt.*;
 import java.util.*;
 import java.util.Timer;
 
+import static Controleur.NomEtat.ETAT_INITIAL;
+
 public class Fenetre extends JFrame {
 
     protected final static String IMPORT_CARTE = "Importer carte";
@@ -30,7 +32,7 @@ public class Fenetre extends JFrame {
     private CartePanel cartePanel;
     private Legende legende;
 
-    public Fenetre(Carte carte, Controleur controleur) throws NameFile {
+    public Fenetre(Carte carte, Controleur controleur) {
         this.setTitle("Raccourc'IF - Hexanome Détect'IF");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLayout(null);
@@ -43,12 +45,46 @@ public class Fenetre extends JFrame {
         this.ecouteurBoutons = new EcouteurBoutons(controleur);
         this.ecouteurSurvol = new EcouteurSurvol(this);
 
-        afficherEtat(NomEtat.ETAT_INITIAL);
+        afficherEtat(ETAT_INITIAL);
         this.setResizable(true); //TODO: passer à false
         this.setVisible(true);
     }
 
-    public void afficherEtat(NomEtat etat) throws NameFile {
+    /**
+     * Affiche le système de fichier et retourne le nom du fichier choisi
+     * @return nom du fichier choisi
+     */
+    public String afficherChoixFichier() {
+        System.out.println("Frentre.afficherChoixFichierCarte() : ETAT_CHOIX_FICHIER_CARTE");
+        MenuChoixFichier menuChoixFichier = new MenuChoixFichier();
+        System.out.println("    menuChoixFichier.getNomFichier(); = " + menuChoixFichier.getNomFichier());
+        return menuChoixFichier.getNomFichier();
+    }
+
+    public void afficherEtatPlanAffiche(Carte carte) {
+        System.out.println("Frentre.afficherEtatPlanAffiche(carte) : ETAT_PLAN_AFFICHE");
+        //E1: Carte chargée
+        cartePanel = new CartePanel(carte, this.getWidth(), this.getHeight() - 20, policeTexte);
+        this.add(cartePanel);
+        menuLateral = new MenuLateral(this.getWidth(), this.getHeight() - 20, policeTexte, policeTexteImportant, ecouteurBoutons);
+        this.add(menuLateral);
+
+        // repaint la fenetre
+        this.revalidate();
+        this.repaint();
+    }
+
+    public void afficherEtatTourneChargee (Tournee tournee) {
+        cartePanel.tracerRequetes(tournee);
+        menuLateral.afficherMenuRequete(cartePanel.getTournee());
+        legende = new Legende();
+
+        // repaint la fenetre
+        this.revalidate();
+        this.repaint();
+    }
+
+    public void afficherEtat(NomEtat etat) {
 
         switch (etat) {
             case ETAT_INITIAL:
@@ -57,7 +93,7 @@ public class Fenetre extends JFrame {
                 ecranAccueil = new EcranAccueil(this.getWidth(), this.getHeight(), policeSousTitre, policeTexte, this.ecouteurBoutons);
                 this.add(ecranAccueil);
                 break;
-            case ETAT_PLAN_AFFICHE:
+            /*case ETAT_PLAN_AFFICHE:
                 System.out.println("Frentre.afficherEtat() : ETAT_PLAN_AFFICHE");
                 //E1: Carte chargée
                 cartePanel = new CartePanel(this.getWidth(), this.getHeight() - 20, policeTexte, ecouteurSurvol);
@@ -73,7 +109,7 @@ public class Fenetre extends JFrame {
                 menuLateral.afficherMenuRequete(cartePanel.getTournee());
                 menuLateral.setMessageUtilisateur("Veuillez préparer la tournée pour visualiser l'itinéraire sur la carte.");
                 legende = new Legende();
-                break;
+                break;*/
             case ETAT_TOURNEE_PREPAREE:
                 System.out.println("Frentre.afficherEtat() : ETAT_TOURNEE_PREPAREE ");
                 cartePanel.tracerItineraire();

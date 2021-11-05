@@ -1,5 +1,6 @@
 package Test;
 
+import Exceptions.*;
 import Model.Carte;
 import Model.LecteurXML;
 import Model.Tournee;
@@ -8,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
+
+import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -37,11 +40,31 @@ class LecteurXMLTest {
         try {
             LecteurXML lecteurXML = new LecteurXML();
             Carte carte = new Carte();
-            carte = lecteurXML.lectureCarte("./src/FichiersXML/mediumMap.xml");
+            carte = lecteurXML.lectureCarte("./src/FichiersXML/mediumMap.xml", carte);
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
             fail();
         } catch (SAXException e) {
+            e.printStackTrace();
+            fail();
+        } catch (AttributsIntersectionsException attributsIntersectionsException) {
+            attributsIntersectionsException.printStackTrace();
+        } catch (PresenceEncodingEtVersionException e) {
+            e.printStackTrace();
+            fail();
+        } catch (AttributsSegmentsException attributsSegmentsException) {
+            attributsSegmentsException.printStackTrace();
+            fail();
+        } catch (IOException e) {
+            e.printStackTrace();
+            fail();
+        } catch (NegatifLongitudeException e) {
+            e.printStackTrace();
+            fail();
+        } catch (TagNameMapException e) {
+            e.printStackTrace();
+            fail();
+        } catch (NegatifLatitudeException e) {
             e.printStackTrace();
             fail();
         }
@@ -51,10 +74,10 @@ class LecteurXMLTest {
      * Test chargement d'une carte à partir d'un fichier XML correct pour vérifier si on lit bien le bon nombre d'Adresse
      */
     @Test
-    void lectureAddresseCarte() throws ParserConfigurationException, SAXException {
+    void lectureAddresseCarte() throws ParserConfigurationException, SAXException, AttributsIntersectionsException, PresenceEncodingEtVersionException, AttributsSegmentsException, IOException, NegatifLongitudeException, TagNameMapException, NegatifLatitudeException {
         LecteurXML lecteurXML = new LecteurXML();
         Carte carte = new Carte();
-        carte = lecteurXML.lectureCarte("./src/FichiersXML/mediumMap.xml");
+        carte = lecteurXML.lectureCarte("./src/FichiersXML/mediumMap.xml", carte);
         assertEquals(1448, carte.getListeAdresses().size());
     }
 
@@ -62,11 +85,11 @@ class LecteurXMLTest {
      * Test chargement d'une carte à partir d'un fichier XML correct pour vérifier si on lit bien le bon nombre d'Adresse
      */
     @Test
-    void lectureSegmentCarte() throws ParserConfigurationException, SAXException {
+    void lectureSegmentCarte() throws ParserConfigurationException, SAXException, AttributsIntersectionsException, PresenceEncodingEtVersionException, AttributsSegmentsException, IOException, NegatifLongitudeException, TagNameMapException, NegatifLatitudeException {
 
         LecteurXML lecteurXML = new LecteurXML();
         Carte carte = new Carte();
-        carte = lecteurXML.lectureCarte("./src/FichiersXML/mediumMap.xml");
+        carte = lecteurXML.lectureCarte("./src/FichiersXML/mediumMap.xml", carte);
         assertEquals(3097, carte.getListeSegments().size());
 
     }
@@ -75,11 +98,11 @@ class LecteurXMLTest {
      * Test chargement d'une carte à partir d'un fichier XML correct pour vérifier la présence d'une Adresse précise
      */
     @Test
-    void presenceAdressePreciseDansCarte() throws ParserConfigurationException, SAXException {
+    void presenceAdressePreciseDansCarte() throws ParserConfigurationException, SAXException, AttributsIntersectionsException, PresenceEncodingEtVersionException, AttributsSegmentsException, IOException, NegatifLongitudeException, TagNameMapException, NegatifLatitudeException {
 
         LecteurXML lecteurXML = new LecteurXML();
         Carte carte = new Carte();
-        carte = lecteurXML.lectureCarte("./src/FichiersXML/mediumMap.xml");
+        carte = lecteurXML.lectureCarte("./src/FichiersXML/mediumMap.xml", carte);
         assertTrue(carte.getListeAdresses().containsKey(3370328152L));
     }
 
@@ -87,11 +110,10 @@ class LecteurXMLTest {
      * Test vérification d'une Adresse d'un fichier XML a bien les bonnes valeurs de longitude et latitude
      */
     @Test
-    void verificationLonEtLatSurAdresse() throws ParserConfigurationException, SAXException {
-
+    void verificationLonEtLatSurAdresse() throws ParserConfigurationException, SAXException, AttributsIntersectionsException, PresenceEncodingEtVersionException, AttributsSegmentsException, IOException, NegatifLongitudeException, TagNameMapException, NegatifLatitudeException {
         LecteurXML lecteurXML = new LecteurXML();
         Carte carte = new Carte();
-        carte = lecteurXML.lectureCarte("./src/FichiersXML/mediumMap.xml");
+        carte = lecteurXML.lectureCarte("./src/FichiersXML/mediumMap.xml", carte);
         assertEquals(carte.obtenirAdresseParId(1701038065L).getLatitude(), 45.743904);
         assertEquals(carte.obtenirAdresseParId(1701038065L).getLongitude(), 4.893847);
     }
@@ -105,8 +127,8 @@ class LecteurXMLTest {
         try {
             LecteurXML lecteurXML = new LecteurXML();
             Carte carte = new Carte();
-            carte = lecteurXML.lectureCarte("./src/FichiersXML/mediumMap.xml");
-            Tournee tournee = lecteurXML.lectureRequete("./src/FichiersXML/requestsMedium5.xml");
+            carte = lecteurXML.lectureCarte("./src/FichiersXML/mediumMap.xml", carte);
+            Tournee tournee = lecteurXML.lectureRequete("./src/FichiersXML/requestsMedium5.xml", carte);
         } catch (Exception e) {
             e.printStackTrace();
             fail();

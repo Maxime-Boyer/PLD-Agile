@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import Controleur.Controleur;
-import Exceptions.NameFile;
 
 public class EcouteurBoutons implements ActionListener {
 
@@ -20,27 +19,21 @@ public class EcouteurBoutons implements ActionListener {
         // Forward the corresponding message to the controller
         switch (e.getActionCommand()){
             case Fenetre.IMPORT_CARTE:
-                try {
-                    controleur.chargerPlan();
-                } catch (NameFile ex) {
-                    ex.printStackTrace();
-                }
+
+                controleur.chargerPlan();
+
                 break;
             case Fenetre.IMPORT_TOURNEE:
-                try {
-                    controleur.chargerListeRequete();
-                } catch (NameFile ex) {
-                    ex.printStackTrace();
-                }
+
+                controleur.chargerListeRequete();
+
                 //TODO : delete this
                 System.out.println("EcouteurBoutons : IMPORT_TOURNEE");
                 break;
             case Fenetre.PREPARER_TOURNEE:
-                try {
-                    controleur.preparerTournee();
-                } catch (NameFile ex) {
-                    ex.printStackTrace();
-                }
+
+                controleur.preparerTournee();
+
                 break;
         }
     }
