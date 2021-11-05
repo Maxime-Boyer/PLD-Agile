@@ -13,6 +13,10 @@ public class Legende extends JFrame{
     private int ecartLabels;
     private int hauteurLigne;
 
+    /**
+     * Affichage d'une legende pour expliquer à l'utilisateur la signification
+     * du rond, du carre et du triangle
+     */
     public Legende(){
 
         //parametres de la fenetre

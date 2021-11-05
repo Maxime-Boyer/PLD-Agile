@@ -10,6 +10,10 @@ public class EcouteurSurvol implements MouseListener {
     private Fenetre fenetre;
     private RequetePanel requeteSurvolee;
 
+    /**
+     * Creation d'une classe permettant de gérer les actions de survol
+     * @param fenetre: la fenetre de l'application
+     */
     public EcouteurSurvol(Fenetre fenetre){
         this.fenetre = fenetre;
     }
@@ -29,6 +33,10 @@ public class EcouteurSurvol implements MouseListener {
 
     }
 
+    /**
+     * Gestion des survols et modification de la fenetre en fonction
+     * @param e: l'evenemen t à gérer
+     */
     @Override
     public void mouseEntered(MouseEvent e) {
         if(e.getSource() instanceof RequetePanel){

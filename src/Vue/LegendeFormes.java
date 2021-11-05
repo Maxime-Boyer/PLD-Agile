@@ -8,12 +8,21 @@ public class LegendeFormes extends JPanel {
     private int largeur;
     private int hauteur;
 
+    /**
+     * Zone d'affichage des formes géométriques de la legende
+     * @param largeur: largeur de la zone
+     * @param hauteur: hauteur de la zone
+     */
     public LegendeFormes(int largeur, int hauteur){
         this.largeur = largeur;
         this.hauteur = hauteur;
         this.setBounds(0, 0, largeur, hauteur);
     }
 
+    /**
+     * Tracé du carré, du rond et du triangle dans la zone dediee
+     * @param g
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

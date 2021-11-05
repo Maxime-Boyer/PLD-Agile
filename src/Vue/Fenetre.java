@@ -31,6 +31,11 @@ public class Fenetre extends JFrame {
     private CartePanel cartePanel;
     private Legende legende;
 
+    /**
+     * Cree la fenetre dans laquelle s'ouvre l'application
+     * @param carte: la carte a afficher
+     * @param controleur: lke controleur du MVC
+     */
     public Fenetre(Carte carte, Controleur controleur) {
         this.setTitle("Raccourc'IF - Hexanome Détect'IF");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -60,6 +65,10 @@ public class Fenetre extends JFrame {
         return menuChoixFichier.getNomFichier();
     }
 
+    /**
+     * TODO
+     * @param carte
+     */
     public void afficherEtatPlanAffiche(Carte carte) {
         System.out.println("Frentre.afficherEtatPlanAffiche(carte) : ETAT_PLAN_AFFICHE");
         //E1: Carte chargée
@@ -73,6 +82,10 @@ public class Fenetre extends JFrame {
         this.repaint();
     }
 
+    /**
+     * TODO
+     * @param tournee
+     */
     public void afficherEtatTourneChargee (Tournee tournee) {
         cartePanel.tracerRequetes(tournee);
         menuLateral.afficherMenuRequete(cartePanel.getTournee());
@@ -83,6 +96,10 @@ public class Fenetre extends JFrame {
         this.repaint();
     }
 
+    /**
+     * Affiche les etas détermines par le controleur
+     * @param etat: l'etat a afficher
+     */
     public void afficherEtat(NomEtat etat) {
 
         switch (etat) {
@@ -122,8 +139,15 @@ public class Fenetre extends JFrame {
         this.repaint();
     }
 
+    /**
+     * geteur
+     * @return: le panel d'affichage de la carte
+     */
     public CartePanel getCartePanel(){ return cartePanel; }
 
+    /**
+     * Les methodes suivantes permenttent de retirer des elements de la fenetre
+     */
     //Permet de retirer des pannel
     public void retirerEcranAccueil() {
         this.remove(ecranAccueil);

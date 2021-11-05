@@ -12,6 +12,16 @@ public class EtapePanel extends JPanel {
 
     private Requete requeteEtape;
 
+    /**
+     * Panel gerant l'affichage d'une atape dans l'affichage textuel des étapes triées de la tournee
+     * @param etape: l'etape a afficher
+     * @param requeteEtape: la requete auquel appartient l'étape
+     * @param parentWidth: la largeur du composant où doit etre affichee l'etape
+     * @param valMarginBase: l'ecart standard en vigeur dans l'application
+     * @param policeTexte: la police a appliquer au texte
+     * @param policeTexteImportant: la police a appliquer aux textes à mettre en evidence
+     * @param ecouteurSurvol: l'ecouteur gerant les evenements de survol afin de pointer la requete sur la carte
+     */
     public EtapePanel(Etape etape, Requete requeteEtape, int parentWidth, int valMarginBase, Font policeTexte, Font policeTexteImportant, EcouteurSurvol ecouteurSurvol){
 
         /************************************************************************************/
@@ -92,6 +102,10 @@ public class EtapePanel extends JPanel {
         this.add(panelInside);
     }
 
+    /**
+     * geteur
+     * @return: la requete auquel appartient l'etape afffichee
+     */
     public Requete getRequeteEtape(){
         return requeteEtape;
     }

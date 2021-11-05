@@ -30,6 +30,15 @@ public class MenuLateral extends JPanel {
     private Bouton boutonExporterFeuilleRoute;
     private JTextArea messageUtilisateur;
 
+    /**
+     * Constructeur du panel de manu associé a la carte
+     * @param largeurFenetre: largeur de la fenetre
+     * @param hauteurEcran: hauteur de la fenetre
+     * @param policeTexte: la police a appliquer au texte du menu
+     * @param policeTexteImportant: la police a appliquer au texte du menu a mettre en evidence
+     * @param ecouteurBoutons: l'ecouteur gerant les clics des boutons
+     * @param ecouteurSurvol: l'ecouteur gerant les survols de la souris
+     */
     public MenuLateral(int largeurFenetre, int hauteurEcran, Font policeTexte, Font policeTexteImportant, EcouteurBoutons ecouteurBoutons, EcouteurSurvol ecouteurSurvol){
 
         this.valMarginBase = 5;
@@ -69,6 +78,10 @@ public class MenuLateral extends JPanel {
         panelImport.add(boutonImporterTournee);
     }
 
+    /**
+     * Affichage de la vue textuelle de la tournee non triee
+     * @param tournee: la tournee a afficher
+     */
     public void afficherMenuRequete(Tournee tournee){
 
         //affichage du détaillé des requêtes
@@ -105,6 +118,10 @@ public class MenuLateral extends JPanel {
         this.add(boutonPreparerTournee);
     }
 
+    /**
+     * Affichage de la vue textuelle de la tournee triee
+     * @param tournee: la tournee a afficher
+     */
     public void afficherMenuEtapes(Tournee tournee){
 
         // Undo, Redo, Ajouter Etape
@@ -166,17 +183,25 @@ public class MenuLateral extends JPanel {
         this.add(boutonExporterFeuilleRoute);
     }
 
+    /**
+     * seteur
+     * @param texte: texte permettant de guider l'utilisateur
+     */
     public void setMessageUtilisateur(String texte){
         messageUtilisateur.setText(texte);
     }
 
-    //FIXME : ajouter if not null
+    /**
+     * Permet de retirer l'affichage textuel de la requete non triee
+     */
     public void retirerMenuRequete() {
         this.remove(scrollPanel);
         this.remove(boutonPreparerTournee);
     }
 
-    //FIXME : ajouter if not null
+    /**
+     * Permet de retirer l'affichage textuel de la requete triee
+     */
     public void retirerMenuEtape() {
         this.remove(panelBoutonsE4);
         //this.remove(boutonUndo);

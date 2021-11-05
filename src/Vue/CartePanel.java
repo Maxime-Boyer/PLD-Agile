@@ -1,8 +1,4 @@
 package Vue;
-//
-//import Algorithmie.CalculateurTournee;
-
-//import Algorithmie.CalculateurTournee;
 
 import Algorithmie.CalculateurTournee;
 import Exceptions.AStarImpossibleException;
@@ -46,6 +42,13 @@ public class CartePanel extends JPanel {
     private CalculateurTournee calculTournee;
     private Tournee itineraire;
 
+    /**
+     * Panel où est tracée la carte importée par l'utilisateur
+     * @param largeurEcran: largeur de la fenetre
+     * @param hauteurEcran: hauteur de la fenetre
+     * @param policeTexte: police a appliquer dans ce panel
+     * @param ecouteurSurvol: ecouteur permettant de saisir des evenements liés au survol de la souris
+     */
     public CartePanel(Carte carte, int largeurEcran, int hauteurEcran, Font policeTexte,EcouteurSurvol ecouteurSurvol) {
         this.carte = carte;
         maxLongitudeLatitudeCarte();
@@ -68,17 +71,21 @@ public class CartePanel extends JPanel {
         labelPosition2 = new JLabel();
         labelPosition1.setIcon(iconPosition);
         labelPosition2.setIcon(iconPosition);
-
-        tracerCarte();
     }
 
+    /**
+     * geteur
+     * @return: la tournee affichee sur la carte
+     */
     public Tournee getTournee() {
         return tournee;
     }
 
-    //INUTILE
-    public void tracerCarte() {
-    }
+    /**
+     * Place les images permettant de pointer une requete sur la carte a l'utilisateur
+     * @param collecte: Etape de collecte de la requete à identifier
+     * @param depot: Etape de dépot de la requete à identifier
+     */
     public void indiquerPositionRequete(Etape collecte, Etape depot){
         int x1 = valeurX(collecte.getLongitude()) - iconPosition.getIconWidth()/2;
         int y1 = valeurY(collecte.getLatitude()) - iconPosition.getIconHeight()/2 - 25;
@@ -91,59 +98,29 @@ public class CartePanel extends JPanel {
         this.repaint();
     }
 
+    /**
+     * Cache les images permettant de pointer une requete sur la carte a l'utilisateur
+     */
     public void supprimerPositionRequete(){
         this.remove(labelPosition1);
         this.remove(labelPosition2);
         this.repaint();
     }
+
+    /**
+     * Initialise l'attribut tournee avec la tournee passee en entree. Indique a la methode paint que la tournee peut etre affichee
+     * @param tournee: la tournee a tracer
+     */
     public void tracerRequetes(Tournee tournee) {
         this.tournee = tournee;
-        System.out.println("        Tournee = " + tournee);
         itinerairePrepare = false;
         tourneeAppelee = true;
-
-        /*
-
-        String nameFile = "";
-        String filename = "";
-        JFrame frameSelectRequetes = new JFrame();
-
-        while(!nameFile.toLowerCase(Locale.ROOT).contains("requests")) {
-
-            FileDialog fd = new FileDialog(frameSelectRequetes, "Sélectionnez une liste de requêtes au format xml", FileDialog.LOAD);
-            fd.setDirectory("C:\\");
-            fd.setFile("*.xml");
-            fd.setVisible(true);
-            filename = fd.getDirectory() + fd.getFile();
-            nameFile = fd.getFile();
-        }
-         */
-        /*
-        JFrame frameSelectRequetes = new JFrame();
-
-        FileDialog fd = new FileDialog(frameSelectRequetes, "Sélectionnez une liste de requêtes au format xml", FileDialog.LOAD);
-        fd.setDirectory("C:\\");
-        fd.setFile("*.xml");
-        fd.setVisible(true);
-        String filename = fd.getDirectory() + fd.getFile();
-
-        if (filename == null)
-            System.out.println("You cancelled the choice");
-        else
-            System.out.println("You chose " + filename);
-
-        try {
-            tournee = lecteur.lectureRequete(filename);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        frameSelectRequetes.dispose();
-        itinerairePrepare = false;
-        tourneeAppelee = true;*/
     }
 
+    /**
+     * Lance le calcule de l'itineraire et indique à la méthode paint que l'itinéraire est pret a etre trace
+     */
     public void tracerItineraire() {
-        System.out.println("tracerItineraire");
 
         calculTournee = new CalculateurTournee(carte, tournee);
 
@@ -159,16 +136,22 @@ public class CartePanel extends JPanel {
         itinerairePrepare = true;
     }
 
+    /**
+     * methode repaint
+     */
     public void repaint(Graphics g) {
         super.repaint();
         paintComponent(g);
     }
 
+    /**
+     * Méthode paint permettant d'effectuer tous les tracés graphiques
+     * @param g
+     */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        //System.out.println("hauteur ecran : " + hauteurEcran + " largeur ecran : " + largeurEcran);
         Graphics2D g2 = (Graphics2D) g;
         dessinerCarte(g2);
         if (tourneeAppelee && itinerairePrepare)
@@ -184,6 +167,11 @@ public class CartePanel extends JPanel {
         }
     }
 
+    /**
+     * Traduit une coordonnée de longitude à px sur l'axe x
+     * @param longitude: la logitude a convertir
+     * @return: l'équivalent en px sur x de la longitude entree
+     */
     public int valeurX(double longitude) {
         double ecartLongitude = maxLongitudeCarte - minLongitudeCarte;
         double coeffX = largeur / ecartLongitude;
@@ -192,6 +180,11 @@ public class CartePanel extends JPanel {
         return valeurXPixel;
     }
 
+    /**
+     * Traduit une coordonnée de latitude à px sur l'axe y
+     * @param latitude: la latitude a convertir
+     * @return: l'équivalent en px sur y de la latitude entree
+     */
     public int valeurY(double latitude) {
         double ecartLatitude = maxLatitudeCarte - minLatitudeCarte;
         double coeffY = hauteur / ecartLatitude;
@@ -200,6 +193,9 @@ public class CartePanel extends JPanel {
         return valeurYPixel;
     }
 
+    /**
+     * Dessine la carte dans le panel
+     */
     public void dessinerCarte(Graphics g2) {
         g2.setColor(Color.BLACK);
         // BackGround
@@ -225,6 +221,10 @@ public class CartePanel extends JPanel {
         }
     }
 
+    /**
+     * Dessine les carres, ronds et triangles indiquant les différentes Etapes de la requete
+     * @throws IncompatibleAdresseException: //TODO
+     */
     public void dessinerTournee(Graphics g2) throws IncompatibleAdresseException {
         Adresse depart = tournee.getAdresseDepart();
         double lonDepart = depart.getLongitude();
@@ -281,51 +281,10 @@ public class CartePanel extends JPanel {
 
     }
 
-    public void afficherTournee() {
-
-        tourneeAppelee = true;
-
-             /*System.out.println("valeurXCollecte " + valeurXCollecte);
-            System.out.println("valeurYCollecte " + valeurYCollecte);
-            System.out.println("valeurXDepot " + valeurXDepot);
-            System.out.println("valeurYDepot " + valeurYDepot);*/
-
-            /*BoutonRond boutonCollecte = new BoutonRond();
-            JButton boutonDepot = new JButton();
-
-            boutonCollecte.setBounds(valeurXCollecte-7,valeurYCollecte-7, 15, 15);
-            boutonDepot.setBounds(valeurXDepot-7,valeurYDepot-7, 15, 15);
-            boutonCollecte.setBorderPainted(false);
-            boutonDepot.setBorderPainted(false);
-            boutonCollecte.setOpaque(true);
-            boutonDepot.setOpaque(true);
-            Random rand = new Random();
-            int maximumCouleur = 255;
-            int r = rand.nextInt(maximumCouleur);
-            int g = rand.nextInt(maximumCouleur);
-            int b = rand.nextInt(maximumCouleur);
-
-            //boutonCollecte.setBackground(new Color( r,g,b));
-            boutonDepot.setBackground(new Color( r,g,b));
-
-            this.add(boutonCollecte);
-            this.add(boutonDepot);*/
-
-        //}
-    }
-
+    /**
+     * trace l'itineraire sur la carte
+     */
     public void dessinerItineraire(Graphics g2) {
-       /* System.out.println("CartePane : dessinerItineraire");
-
-        System.out.println("CartePane : dessinerItineraire -> inside loop");
-        CalculateurTournee calculTournee = new CalculateurTournee(carte, tournee);
-        calculTournee.calculerTournee();
-        Tournee itineraire = new Tournee();
-        itineraire = calculTournee.getTsp().getTournee();*/
-
-        //HashMap<Long, LinkedList<CheminEntreEtape>> itineraire = new HashMap<>();
-        //itineraire = calculTournee.calculerTournee();
-        //System.out.println(itineraire);
 
         for (int i = 0; i < itineraire.getListeChemins().size(); i++) {
             for (int j = 0; j < itineraire.getListeChemins().get(i).getListeSegment().size(); j++) {
@@ -337,13 +296,13 @@ public class CartePanel extends JPanel {
                 int destinationY = valeurY(destination.getLatitude());
                 g2.setColor(Color.RED);
                 g2.drawLine(origineX, origineY, destinationX, destinationY);
-
             }
         }
-
-
     }
 
+    /**
+     * Definit les coordonnées en px des extremites du panel
+     */
     public void maxLongitudeLatitudeCarte() {
         double maxLongitude = 0.0D;
         double maxLatitude = 0.0D;
@@ -368,10 +327,5 @@ public class CartePanel extends JPanel {
         maxLatitudeCarte = maxLatitude;
         minLatitudeCarte = minLatitude;
         minLongitudeCarte = minLongitude;
-
-        System.out.println("maxLongitude : " + maxLongitude
-                + " | maxLatitude: " + maxLatitude
-                + " | minLatitude: " + minLatitude
-                + " | minLongitude: " + minLongitude);
     }
 }

@@ -11,6 +11,10 @@ public class ImagePanel extends JPanel{
 
     private BufferedImage image;
 
+    /**
+     * Classe permettant de charger et d'afficher une image
+     * @param pathImage: le path de l'image a afficher
+     */
     public ImagePanel(String pathImage) {
         try {
             image = ImageIO.read(new File(pathImage));
@@ -19,6 +23,9 @@ public class ImagePanel extends JPanel{
         }
     }
 
+    /**
+     * Affichage de l'image
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
