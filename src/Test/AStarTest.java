@@ -28,9 +28,9 @@ public class AStarTest {
         try {
             LecteurXML lecteurXML = new LecteurXML();
             Carte carte = new Carte();
-            carte = lecteurXML.lectureCarte("./src/FichiersXML/mapImpossibleTest.xml",carte);
+            carte = lecteurXML.lectureCarte("./src/FichiersXMLTest/mapImpossibleTest.xml",carte);
             Tournee tournee = new Tournee();
-            tournee = lecteurXML.lectureRequete("./src/FichiersXML/requestsImpossibleTest.xml",carte);
+            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/requestsImpossibleTest.xml",carte);
             CalculateurTournee calculateurTournee = new CalculateurTournee(carte, tournee);
             calculateurTournee.calculerGrapheCompletDesEtapes(new Astar2(carte));
         } catch (AStarImpossibleException e){
@@ -46,9 +46,9 @@ public class AStarTest {
 
         LecteurXML lecteurXML = new LecteurXML();
         Carte carte = new Carte();
-        carte = lecteurXML.lectureCarte("./src/FichiersXML/mapAstar1Test.xml",carte);
+        carte = lecteurXML.lectureCarte("./src/FichiersXMLTest/mapAstar1Test.xml",carte);
         Tournee tournee = new Tournee();
-        tournee = lecteurXML.lectureRequete("./src/FichiersXML/requestsAstar1Test.xml",carte);
+        tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/requestsAstar1Test.xml",carte);
         CalculateurTournee calculateurTournee = new CalculateurTournee(carte, tournee);
 
         /*
@@ -86,9 +86,9 @@ public class AStarTest {
         try {
             LecteurXML lecteurXML = new LecteurXML();
             Carte carte = new Carte();
-            carte = lecteurXML.lectureCarte("./src/FichiersXML/mapLargeTest.xml",carte);
+            carte = lecteurXML.lectureCarte("./src/FichiersXMLTest/mapLargeTest.xml",carte);
             Tournee tournee = new Tournee();
-            tournee = lecteurXML.lectureRequete("./src/FichiersXML/requestsLargeTest.xml",carte);
+            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/requestsLargeTest.xml",carte);
             CalculateurTournee calculateurTournee = new CalculateurTournee(carte, tournee);
             calculateurTournee.calculerGrapheCompletDesEtapes(new Astar2(carte));
         } catch (AStarImpossibleException e){
@@ -104,9 +104,9 @@ public class AStarTest {
 
         LecteurXML lecteurXML = new LecteurXML();
         Carte carte = new Carte();
-        carte = lecteurXML.lectureCarte("./src/FichiersXML/mapLargeTest.xml",carte);
+        carte = lecteurXML.lectureCarte("./src/FichiersXMLTest/mapLargeTest.xml",carte);
         Tournee tournee = new Tournee();
-        tournee = lecteurXML.lectureRequete("./src/FichiersXML/requestsLargeTest.xml",carte);
+        tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/requestsLargeTest.xml",carte);
         CalculateurTournee calculateurTournee = new CalculateurTournee(carte, tournee);
         HashMap<Long, HashMap<Long, CheminEntreEtape>> graphComplet = calculateurTournee.calculerGrapheCompletDesEtapes(new Astar2(carte));
 
@@ -127,9 +127,9 @@ public class AStarTest {
 
         LecteurXML lecteurXML = new LecteurXML();
         Carte carte = new Carte();
-        carte = lecteurXML.lectureCarte("./src/FichiersXML/mapLargeTest.xml",carte);
+        carte = lecteurXML.lectureCarte("./src/FichiersXMLTest/mapLargeTest.xml",carte);
         Tournee tournee = new Tournee();
-        tournee = lecteurXML.lectureRequete("./src/FichiersXML/requestsLargeTest.xml",carte);
+        tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/requestsLargeTest.xml",carte);
         CalculateurTournee calculateurTournee = new CalculateurTournee(carte, tournee);
         HashMap<Long, HashMap<Long, CheminEntreEtape>> graphComplet = calculateurTournee.calculerGrapheCompletDesEtapes(new Astar2(carte));
 
@@ -147,9 +147,9 @@ public class AStarTest {
 
         LecteurXML lecteurXML = new LecteurXML();
         Carte carte = new Carte();
-        carte = lecteurXML.lectureCarte("./src/FichiersXML/mapLargeTest.xml",carte);
+        carte = lecteurXML.lectureCarte("./src/FichiersXMLTest/mapLargeTest.xml",carte);
         Tournee tournee = new Tournee();
-        tournee = lecteurXML.lectureRequete("./src/FichiersXML/requestsLargeTest.xml",carte);
+        tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/requestsLargeTest.xml",carte);
         CalculateurTournee calculateurTournee = new CalculateurTournee(carte, tournee);
 
         Astar2 astar = new Astar2(carte);
