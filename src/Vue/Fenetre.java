@@ -64,18 +64,21 @@ public class Fenetre extends JFrame {
                 this.add(cartePanel);
                 menuLateral = new MenuLateral(this.getWidth(), this.getHeight() - 20, policeTexte, policeTexteImportant, ecouteurBoutons, ecouteurSurvol);
                 this.add(menuLateral);
+                menuLateral.setMessageUtilisateur("Veuillez importer une tournée au format xml pour l'afficher sur la carte.");
                 break;
             case ETAT_TOURNEE_CHARGEE:
                 System.out.println("Frentre.afficherEtat() : ETAT_TOURNEE_CHARGEE");
                 // E2: Tournee chargee
                 cartePanel.tracerRequetes();
                 menuLateral.afficherMenuRequete(cartePanel.getTournee());
+                menuLateral.setMessageUtilisateur("Veuillez préparer la tournée pour visualiser l'itinéraire sur la carte.");
                 legende = new Legende();
                 break;
             case ETAT_TOURNEE_PREPAREE:
                 System.out.println("Frentre.afficherEtat() : ETAT_TOURNEE_PREPAREE ");
                 cartePanel.tracerItineraire();
                 menuLateral.afficherMenuEtapes(cartePanel.getTournee());
+                menuLateral.setMessageUtilisateur("Maintenant vous pouvez éditer votre tournée ou exporter la feuille de route.");
                 break;
         }
 
