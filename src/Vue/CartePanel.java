@@ -137,6 +137,13 @@ public class CartePanel extends JPanel {
 
     public void tracerItineraire() {
         System.out.println("tracerItineraire");
+
+        calculTournee = new CalculateurTournee(carte, tournee);
+        calculTournee.calculerTournee();
+
+        itineraire = new Tournee();
+        itineraire = calculTournee.getTournee();
+
         itinerairePrepare = true;
     }
 
@@ -296,17 +303,6 @@ public class CartePanel extends JPanel {
     }
 
     public void dessinerItineraire(Graphics g2) {
-        System.out.println("CartePane : dessinerItineraire");
-
-        System.out.println("CartePane : dessinerItineraire -> inside loop");
-        CalculateurTournee calculTournee = new CalculateurTournee(carte, tournee);
-        calculTournee.calculerTournee();
-
-        Tournee itineraire = new Tournee();
-        //todo enlever commentaire
-        itineraire = calculTournee.getTournee();
-        System.out.println("itineraire : "+itineraire);
-        //fin todo
 
         //HashMap<Long, HashMap<Long, CheminEntreEtape>> itineraire = new HashMap<>();
         //itineraire = calculTournee.calculerTournee();
