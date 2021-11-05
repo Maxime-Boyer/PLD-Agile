@@ -45,8 +45,9 @@ public class EtatPlanAffiche implements Etat {
         //Appel la méthode qui vérifie si le fichier est valide et récupère la carte
         LecteurXML lecteur = new LecteurXML();
         try {
-
+            System.out.println("EtatPlanAffiche : carte before = " + carte);
             carte = lecteur.lectureCarte(nomFichier, carte);
+            System.out.println("EtatPlanAffiche : carte succes = " + carte);
             //Change vers l'état PlanAffiche avec la nouvelle carte
             fenetre.retirerCartePanel();
             fenetre.retirerMenuLateral();
@@ -57,6 +58,7 @@ public class EtatPlanAffiche implements Etat {
             String messageErreur = e.getMessage();
             System.out.println("ERREUR "+e);
             JOptionPane.showMessageDialog(null, messageErreur);
+            System.out.println("EtatPlanAffiche : carte echec = " + carte);
             //Change vers l'état Initial
             /*fenetre.retirerCartePanel();
             fenetre.retirerMenuLateral();

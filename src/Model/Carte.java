@@ -64,4 +64,19 @@ public class Carte {
         listeAdresses = new HashMap<Long,Adresse>();
         listeSegments = new ArrayList<Segment>();
     }
+
+    public void clone(Carte carte) {
+        this.listeAdresses = carte.listeAdresses;
+        this.listeSegments = carte.listeSegments;
+        this.nomCarte = carte.nomCarte;
+    }
+
+    @Override
+    public String toString() {
+        return "Carte{" +
+                "listeAdresses=" + listeAdresses.size() +
+                ", listeSegments=" + listeSegments.size() +
+                ", nomCarte='" + nomCarte + '\'' +
+                '}';
+    }
 }
