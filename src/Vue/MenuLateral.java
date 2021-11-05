@@ -130,7 +130,7 @@ public class MenuLateral extends JPanel {
         Etape etapeDepot, etapeCollecte;
         Requete requete = null;
         String heurePassage = "";
-        System.out.println("-----------Affichage de " + tournee.getListeChemins().size() + "etapes");
+
         for (int i = 0; i < tournee.getListeChemins().size(); i++) {
             etapeFinChemin = tournee.getListeChemins().get(i).getEtapeArrivee();
 
