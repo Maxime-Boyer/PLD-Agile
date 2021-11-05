@@ -1,6 +1,7 @@
 package Vue;
 
 import Algorithmie.CalculateurTournee;
+import Exceptions.AStarImpossibleException;
 import Exceptions.IncompatibleAdresseException;
 import Exceptions.NameFile;
 import Model.*;
@@ -139,7 +140,12 @@ public class CartePanel extends JPanel {
         System.out.println("tracerItineraire");
 
         calculTournee = new CalculateurTournee(carte, tournee);
-        calculTournee.calculerTournee();
+
+        try {
+            calculTournee.calculerTournee();
+        } catch (AStarImpossibleException e) {
+            e.printStackTrace();
+        }
 
         itineraire = new Tournee();
         itineraire = calculTournee.getTournee();
@@ -303,7 +309,6 @@ public class CartePanel extends JPanel {
     }
 
     public void dessinerItineraire(Graphics g2) {
-
         //HashMap<Long, HashMap<Long, CheminEntreEtape>> itineraire = new HashMap<>();
         //itineraire = calculTournee.calculerTournee();
         //System.out.println(itineraire);

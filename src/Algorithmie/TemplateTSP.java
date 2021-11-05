@@ -26,6 +26,7 @@ public abstract class TemplateTSP implements TSP{
             mapRequete.put(req.getEtapeCollecte().getIdAdresse(),req);
             mapRequete.put(req.getEtapeDepot().getIdAdresse(),req);
         }
+
     }
 
     protected abstract int evaluation(Adresse adresseActuelle,List<Adresse> nonVisite);
@@ -55,7 +56,10 @@ public abstract class TemplateTSP implements TSP{
     private void separationEtEvaluation(Adresse adresseActuelle, List<Adresse> nonVisite, List<Adresse> visite, int coutActuel){
 
         //On s'arrete au temps limite
-        if (System.currentTimeMillis() - tempsDepart > tempsLimite) return;
+        if (System.currentTimeMillis() - tempsDepart > tempsLimite){
+            //System.out.println(coutMeilleureSolution);
+            return;
+        }
 
         if (nonVisite.size() == 0){
             //On retourne au point de depart
@@ -63,9 +67,9 @@ public abstract class TemplateTSP implements TSP{
                 //Si on trouve une solution meilleure que celles deja trouvees
                 if (coutActuel+grapheCompletDesEtapes.get(adresseActuelle.getIdAdresse()).get(tournee.getAdresseDepart().getIdAdresse()).distance < coutMeilleureSolution){
 
+                    //On exporte la meilleure sol
                     List<CheminEntreEtape> listeCee = new LinkedList<>();
                     tournee.setListeChemins(listeCee);
-                    //On exporte la meilleure sol
                     for(int i=0 ; i<visite.size()-1 ; i++){
                         listeCee.add(grapheCompletDesEtapes.get(visite.get(i).getIdAdresse()).get(visite.get(i+1).getIdAdresse()));
                     }
@@ -74,21 +78,39 @@ public abstract class TemplateTSP implements TSP{
                     //On change le meilleur cout
                     coutMeilleureSolution = coutActuel+grapheCompletDesEtapes.get(adresseActuelle.getIdAdresse()).get(tournee.getAdresseDepart().getIdAdresse()).distance;
 
+                    //System.out.println("coutMeilleureSolution : "+ coutMeilleureSolution+ " ; in : "+(System.currentTimeMillis() - tempsDepart));
                 }
             }
         } else if (coutActuel+evaluation(adresseActuelle,nonVisite) < coutMeilleureSolution){
             Iterator<Adresse> it = iterateur(adresseActuelle, nonVisite);
             while (it.hasNext()){
                 Adresse prochaineAdresse = it.next();
-                visite.add(prochaineAdresse);
-                nonVisite.remove(prochaineAdresse);
-                separationEtEvaluation(prochaineAdresse, nonVisite, visite,
-                        coutActuel+grapheCompletDesEtapes.get(adresseActuelle.getIdAdresse()).get(prochaineAdresse.getIdAdresse()).distance);
-                visite.remove(prochaineAdresse);
-                nonVisite.add(prochaineAdresse);
+
+                if(contrainteCollecteDepot(prochaineAdresse,visite)) {
+
+                    visite.add(prochaineAdresse);
+                    nonVisite.remove(prochaineAdresse);
+                    separationEtEvaluation(prochaineAdresse, nonVisite, visite,
+                            coutActuel + grapheCompletDesEtapes.get(adresseActuelle.getIdAdresse()).get(prochaineAdresse.getIdAdresse()).distance);
+                    visite.remove(prochaineAdresse);
+                    nonVisite.add(prochaineAdresse);
+
+                }
             }
         }
 
+    }
+
+    private boolean contrainteCollecteDepot(Adresse prochaineAdresse, List<Adresse> visite){
+        if(mapRequete.get(prochaineAdresse.getIdAdresse()).getEtapeCollecte() == prochaineAdresse){
+            return true;
+        } else {
+            if(visite.contains(mapRequete.get(prochaineAdresse.getIdAdresse()).getEtapeCollecte())){
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
     @Override

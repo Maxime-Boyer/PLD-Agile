@@ -124,7 +124,7 @@ public class MenuLateral extends JPanel {
         scrollPanel.setBounds(valMarginBase+2, yDebutPanelConsultation, this.getWidth()-2*valMarginBase - 4, yFinPanelConsultation - yDebutPanelConsultation );
 
         //affichage du détaille des étapes
-        EtapePanel[] listeEtapes = new EtapePanel[10];
+        EtapePanel[] listeEtapes = new EtapePanel[tournee.getListeChemins().size()];
         int positionTop = 0;
         Etape etapeFinChemin; //on base notre affichage sur l'étape de fin uniquement
         Etape etapeDepot, etapeCollecte;
