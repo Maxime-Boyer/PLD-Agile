@@ -11,13 +11,14 @@ import Model.Adresse;
 import Model.Carte;
 import Model.LecteurXML;
 import Model.Tournee;
-import Exceptions.NameFile;
+
 import Model.*;
 
 import org.xml.sax.SAXException;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -45,7 +46,7 @@ public class CartePanel extends JPanel {
     private CalculateurTournee calculTournee;
     private Tournee itineraire;
 
-    public CartePanel(Carte carte, int largeurEcran, int hauteurEcran, Font policeTexte) {
+    public CartePanel(Carte carte, int largeurEcran, int hauteurEcran, Font policeTexte,EcouteurSurvol ecouteurSurvol) {
         this.carte = carte;
         maxLongitudeLatitudeCarte();
         this.largeur = (int) 3 * largeurEcran / 4;

@@ -1,14 +1,13 @@
 package Vue;
 
+
 import Controleur.Controleur;
 import Controleur.NomEtat;
-import Exceptions.NameFile;
 import Model.Carte;
+import Model.Tournee;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.*;
-import java.util.Timer;
 
 import static Controleur.NomEtat.ETAT_INITIAL;
 
@@ -64,9 +63,9 @@ public class Fenetre extends JFrame {
     public void afficherEtatPlanAffiche(Carte carte) {
         System.out.println("Frentre.afficherEtatPlanAffiche(carte) : ETAT_PLAN_AFFICHE");
         //E1: Carte chargée
-        cartePanel = new CartePanel(carte, this.getWidth(), this.getHeight() - 20, policeTexte);
+        cartePanel = new CartePanel(carte, this.getWidth(), this.getHeight() - 20, policeTexte,ecouteurSurvol);
         this.add(cartePanel);
-        menuLateral = new MenuLateral(this.getWidth(), this.getHeight() - 20, policeTexte, policeTexteImportant, ecouteurBoutons);
+        menuLateral = new MenuLateral(this.getWidth(), this.getHeight() - 20, policeTexte, policeTexteImportant,ecouteurBoutons,ecouteurSurvol);
         this.add(menuLateral);
 
         // repaint la fenetre
