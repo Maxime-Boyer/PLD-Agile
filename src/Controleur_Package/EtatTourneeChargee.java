@@ -1,9 +1,8 @@
-package Controleur;
+package Controleur_Package;
 
 import Model.Carte;
 import Model.LecteurXML;
 import Model.Tournee;
-import Algorithmie.CalculateurTournee;
 import Vue.Fenetre;
 
 import javax.swing.*;

@@ -1,7 +1,7 @@
 package RaccourcIF;
 
 import Model.Carte;
-import Controleur.Controleur;
+import Controleur_Package.Controleur;
 
 public class RaccourcIF {
 

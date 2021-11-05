@@ -1,15 +1,15 @@
 package Vue;
 
 
-import Controleur.Controleur;
-import Controleur.NomEtat;
+import Controleur_Package.Controleur;
+import Controleur_Package.NomEtat;
 import Model.Carte;
 import Model.Tournee;
 
 import javax.swing.*;
 import java.awt.*;
 
-import static Controleur.NomEtat.ETAT_INITIAL;
+import static Controleur_Package.NomEtat.ETAT_INITIAL;
 
 public class Fenetre extends JFrame {
 

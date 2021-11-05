@@ -1,4 +1,4 @@
-package Controleur;
+package Controleur_Package;
 
 import Model.Carte;
 import Model.LecteurXML;
