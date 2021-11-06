@@ -15,6 +15,7 @@ import org.xml.sax.SAXException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseListener;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -429,7 +430,40 @@ public class CartePanel extends JPanel {
             }
         }
 
-        //dessine un rond pour chaque changement
+        //dessine les flèches de direction
+        Polygon teteFleche = new Polygon();
+        teteFleche.addPoint(0,9);
+        teteFleche.addPoint(-4,1);
+        teteFleche.addPoint(4,1);
+        for (int i = 0; i < itineraire.getListeChemins().size(); i++) {
+            for (int j = 0; j < itineraire.getListeChemins().get(i).getListeSegment().size(); j++) {
+                Adresse origine = itineraire.getListeChemins().get(i).getListeSegment().get(j).getOrigine();
+                Adresse destination = itineraire.getListeChemins().get(i).getListeSegment().get(j).getDestination();
+                int origineX = valeurX(origine.getLongitude());
+                int origineY = valeurY(origine.getLatitude());
+                int destinationX = valeurX(destination.getLongitude());
+                int destinationY = valeurY(destination.getLatitude());
+
+                //Si le segment est trop petit, on n'affiche pas la fleche
+                //FIXME prend en compte les segments 1 par 1, et non la liste de segment sur la meme rue
+                if((origineX-destinationX)*(origineX-destinationX)+(origineY-destinationY)*(origineY-destinationY) > 20*20){
+                    g2.setColor(Color.white);
+
+                    AffineTransform at1 = g2.getTransform();
+                    AffineTransform at2 = (AffineTransform) at1.clone();
+                    at2.translate((origineX+destinationX)/2.,(origineY+destinationY)/2.);
+                    double angle = Math.atan2(destinationY-origineY,destinationX-origineX);
+                    at2.rotate(angle - Math.PI/2);
+                    g2.setTransform(at2);
+                    g2.fill(teteFleche);
+                    g2.setTransform(at1);
+
+                }
+            }
+        }
+
+
+        //dessine un rond pour chaque changement de rue
         String nomAdressePrecedente = "";
         for (int i = 0; i < itineraire.getListeChemins().size(); i++) {
             for (int j = 0; j < itineraire.getListeChemins().get(i).getListeSegment().size(); j++) {
@@ -440,6 +474,7 @@ public class CartePanel extends JPanel {
                 int destinationX = valeurX(destination.getLongitude());
                 int destinationY = valeurY(destination.getLatitude());
 
+                //On n'affiche pas toutes les adresses, mais uniquement les changements de rue
                 if(!nomAdressePrecedente.equals(itineraire.getListeChemins().get(i).getListeSegment().get(j).getNom())){
                     g2.setColor(Color.DARK_GRAY);
                     g2.fillOval(origineX-3,origineY-3,7,7);

@@ -99,6 +99,10 @@ public class MenuLateral extends JPanel {
         }
 
         this.scrollPanel = new JScrollPane(panelInsideScrollPanel);
+
+        //repaint au scroll
+        scrollPanel.getViewport().setScrollMode(JViewport.SIMPLE_SCROLL_MODE);
+
         scrollPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         int yDebutPanelConsultation = (int) (panelImport.getY() + panelImport.getHeight() + 2 * Fenetre.valMarginBase +2);
@@ -208,4 +212,5 @@ public class MenuLateral extends JPanel {
         this.remove(scrollPanel);
         this.remove(boutonExporterFeuilleRoute);
     }
+
 }
