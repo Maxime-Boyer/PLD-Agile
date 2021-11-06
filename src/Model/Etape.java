@@ -1,12 +1,11 @@
 package Model;
 
-import java.sql.Timestamp;
-import java.util.Date;
+import java.time.LocalTime;
 
 public class Etape extends Adresse{
 
     // TODO: Pourquoi public???
-    public Timestamp heureDePassage;
+    private LocalTime heureDePassage;
     public Integer dureeEtape;
     private String nomAdresse;
 
@@ -19,14 +18,14 @@ public class Etape extends Adresse{
      * @param dureeEtape
      * @param heureDePassage
      */
-    public Etape(double latitude, double longitude, Long idAdresse, Integer dureeEtape, Timestamp heureDePassage) {
+    public Etape(double latitude, double longitude, Long idAdresse, Integer dureeEtape, LocalTime heureDePassage) {
         super(latitude, longitude, idAdresse);
         this.dureeEtape = dureeEtape;
         this.heureDePassage=heureDePassage;
         this.nomAdresse = "";
     }
 
-    public Date getHeureDePassage() {
+    public LocalTime getHeureDePassage() {
         return heureDePassage;
     }
 
@@ -35,6 +34,10 @@ public class Etape extends Adresse{
     }
 
     public String getNomAdresse() { return nomAdresse; }
+
+    public void setHeureDePassage(LocalTime heureDePassage) {
+        this.heureDePassage = heureDePassage;
+    }
 
     public void setNomAdresse(String  nomAdresse){
         this.nomAdresse = nomAdresse;

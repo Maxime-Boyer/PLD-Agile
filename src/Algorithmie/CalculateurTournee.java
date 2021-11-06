@@ -4,6 +4,7 @@ import Exceptions.AStarImpossibleException;
 import Model.*;
 
 import java.sql.Timestamp;
+import java.time.LocalTime;
 import java.util.HashMap;
 
 public class CalculateurTournee {
@@ -25,6 +26,8 @@ public class CalculateurTournee {
 
     /**
      * Calcul la tournée passant par l'ensemble des étapes
+     * @return
+     * @throws AStarImpossibleException
      */
     public HashMap<Long, HashMap<Long, CheminEntreEtape>> calculerTournee () throws AStarImpossibleException{
 
@@ -41,14 +44,19 @@ public class CalculateurTournee {
         //TSP1 tspBis = new TSP1(carte,tournee,grapheCompletDesEtapes,20000);
         //tspBis.chercherSolution();
         //tsp.calculerOrdreEtapes();
+
+        ajouteHeureDePassage(tournee);
+
+
         return grapheCompletDesEtapes;
     }
 
 
-
     /**
      * Calcul le graphe complet de l'ensemble des étapes
+     * @param astar
      * @return le graphe complet de l'ensemble des étapes
+     * @throws AStarImpossibleException
      */
     public HashMap<Long, HashMap<Long, CheminEntreEtape>> calculerGrapheCompletDesEtapes(Astar astar) throws AStarImpossibleException{
         //Astar1 astar = new Astar1(carte);
@@ -58,9 +66,9 @@ public class CalculateurTournee {
 
         //Boucler pour construire le graphe complet
         for(int iDepart=0 ; iDepart<tournee.getListeRequetes().size()*2 + 1 ; iDepart++) {
-            Adresse etapeDepart;
+            Etape etapeDepart;
             if(iDepart == tournee.getListeRequetes().size()*2) {
-                etapeDepart = tournee.getAdresseDepart();
+                etapeDepart = new Etape(tournee.getAdresseDepart().getLatitude(),tournee.getAdresseDepart().getLongitude(),tournee.getAdresseDepart().getIdAdresse(),0,LocalTime.of(0,0,0,0));
             } else {
                 if (iDepart % 2 == 0) {
                     etapeDepart = tournee.getListeRequetes().get(iDepart / 2).getEtapeCollecte();
@@ -72,9 +80,9 @@ public class CalculateurTournee {
             HashMap<Long, CheminEntreEtape> listeCheminEntreEtape = new HashMap<>();
             for(int arr=0 ; arr<tournee.getListeRequetes().size()*2 + 1 ; arr++) {
                 if (arr != iDepart) {
-                    Adresse etapeArrivee;
+                    Etape etapeArrivee;
                     if(arr == tournee.getListeRequetes().size()*2) {
-                        etapeArrivee = tournee.getAdresseDepart();
+                        etapeArrivee = new Etape(tournee.getAdresseDepart().getLatitude(),tournee.getAdresseDepart().getLongitude(),tournee.getAdresseDepart().getIdAdresse(),0,LocalTime.of(0,0,0,0));
                     } else {
                         if(arr%2==0) {
                             etapeArrivee = tournee.getListeRequetes().get(arr/2).getEtapeCollecte();
@@ -83,7 +91,8 @@ public class CalculateurTournee {
                         }
                     }
                     //System.out.println("etapeDepart="+etapeDepart.getIdAdresse()+", etapeArrivee"+etapeArrivee.getIdAdresse());
-                    CheminEntreEtape nouveauChemin = astar.chercherCheminEntreEtape(new Etape(etapeDepart.getLatitude(),etapeDepart.getLongitude(),etapeDepart.getIdAdresse(),0,new Timestamp(0)), new Etape(etapeArrivee.getLatitude(),etapeArrivee.getLongitude(),etapeArrivee.getIdAdresse(),0,new Timestamp(0)));
+
+                    CheminEntreEtape nouveauChemin = astar.chercherCheminEntreEtape(etapeDepart,etapeArrivee);
                     if(nouveauChemin == null){
                         throw new AStarImpossibleException("Les adresses "+etapeDepart.getIdAdresse()+" et "+etapeArrivee.getIdAdresse()+" renvoient un chemin null.");
                     }
@@ -96,8 +105,17 @@ public class CalculateurTournee {
             grapheCompletDesEtapes.put(etapeDepart.getIdAdresse(), listeCheminEntreEtape);
         }
 
-
         return grapheCompletDesEtapes;
+    }
+
+    private void ajouteHeureDePassage(Tournee tournee){
+        int vitesse = 15; //15 km.h-1
+        LocalTime heureActuelle = tournee.getDateDepart();
+        for(CheminEntreEtape cee : tournee.getListeChemins()){
+            cee.getEtapeDepart().setHeureDePassage(heureActuelle);
+            heureActuelle = heureActuelle.plusSeconds(cee.getEtapeDepart().getDureeEtape() + ((cee.distance/(vitesse*1000))*60));
+            cee.getEtapeArrivee().setHeureDePassage(heureActuelle);
+        }
     }
 
     public Tournee getTournee(){

@@ -213,16 +213,15 @@ public class CartePanel extends JPanel {
     /**
      * Dessine la carte dans le panel
      */
-    public void dessinerCarte(Graphics g2) {
-        g2.setColor(Color.BLACK);
+    public void dessinerCarte(Graphics g) {
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
         // BackGround
-
-        g2.setColor(Color.WHITE);
-
+        g2.setColor(Color.GRAY);
         g2.fillRect(0, 0, getSize().width, getSize().height);
 
-        g2.setColor(Color.BLACK);
-
+        //Contour Segments
         if(!carte.getListeSegments().isEmpty()) {
 
             for (int i = 0; i < carte.getListeSegments().size(); i++) {
@@ -233,9 +232,52 @@ public class CartePanel extends JPanel {
                 int destinationX = valeurX(destination.getLongitude());
                 int destinationY = valeurY(destination.getLatitude());
 
+                Stroke s = g2.getStroke();
+                g2.setStroke(new BasicStroke(7));
+                g2.setColor(Color.DARK_GRAY);
                 g2.drawLine(origineX, origineY, destinationX, destinationY);
+                g2.setStroke(s);
             }
         }
+
+        //Interieur Segments
+        if(!carte.getListeSegments().isEmpty()) {
+
+            for (int i = 0; i < carte.getListeSegments().size(); i++) {
+                Adresse origine = carte.getListeSegments().get(i).getOrigine();
+                Adresse destination = carte.getListeSegments().get(i).getDestination();
+                int origineX = valeurX(origine.getLongitude());
+                int origineY = valeurY(origine.getLatitude());
+                int destinationX = valeurX(destination.getLongitude());
+                int destinationY = valeurY(destination.getLatitude());
+
+                Stroke s = g2.getStroke();
+                g2.setStroke(new BasicStroke(3));
+                g2.setColor(Color.WHITE);
+                g2.drawLine(origineX, origineY, destinationX, destinationY);
+                g2.setStroke(s);
+            }
+        }
+
+        /*
+        //Adresses
+        if(!carte.getListeSegments().isEmpty()) {
+
+            for (int i = 0; i < carte.getListeSegments().size(); i++) {
+                Adresse origine = carte.getListeSegments().get(i).getOrigine();
+                Adresse destination = carte.getListeSegments().get(i).getDestination();
+                int origineX = valeurX(origine.getLongitude());
+                int origineY = valeurY(origine.getLatitude());
+                int destinationX = valeurX(destination.getLongitude());
+                int destinationY = valeurY(destination.getLatitude());
+
+
+                g2.setColor(Color.DARK_GRAY);
+                g2.fillOval(origineX-4,origineY-4,9,9);
+                g2.setColor(Color.WHITE);
+                g2.fillOval(origineX-3,origineY-3,7,7);
+            }
+        }*/
     }
 
     /**

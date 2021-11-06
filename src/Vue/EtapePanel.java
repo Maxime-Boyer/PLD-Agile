@@ -78,7 +78,7 @@ public class EtapePanel extends JPanel {
         /************************************************************************************/
         /*                            Label heure de passage                                */
         /************************************************************************************/
-        String heurePassage = etape.getHeureDePassage().getHours() + "h" + etape.getHeureDePassage().getMinutes();
+        String heurePassage = etape.getHeureDePassage().getHour() + "h" + etape.getHeureDePassage().getMinute();
         JTextArea labelHeurePassage = new JTextArea("Heure de passage: "+heurePassage);
         labelHeurePassage.setSize(this.getWidth() - 4 * valMarginBase, 45);
         labelHeurePassage.setFont(policeTexte);
