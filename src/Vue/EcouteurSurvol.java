@@ -20,7 +20,7 @@ public class EcouteurSurvol implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
+        //fenetre.getMenuLateral().setMessageUtilisateur("Clique avec ecouteur survol");
     }
 
     @Override

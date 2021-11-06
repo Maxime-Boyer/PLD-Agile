@@ -77,7 +77,7 @@ public class Fenetre extends JFrame {
     public void afficherEtatPlanAffiche(Carte carte) {
         System.out.println("Frentre.afficherEtatPlanAffiche(carte) : ETAT_PLAN_AFFICHE");
         //E1: Carte chargée
-        cartePanel = new CartePanel(carte, this.getWidth(), this.getHeight() - 20, policeTexte, ecouteurBoutons, ecouteurSurvol);
+        cartePanel = new CartePanel(carte, this.getWidth(), this.getHeight() - 20, policeTexte, ecouteurBoutons, ecouteurSouris);
         this.add(cartePanel);
         menuLateral = new MenuLateral(this.getWidth(), this.getHeight() - 20, policeTexte, policeTexteImportant,ecouteurBoutons,ecouteurSurvol);
         this.add(menuLateral);

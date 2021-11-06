@@ -1,4 +1,4 @@
 package Controleur_Package;
 
-public class EtatAjoutRequete6DureeDepot {
+public class EtatAjoutRequete6DureeDepot implements Etat{
 }

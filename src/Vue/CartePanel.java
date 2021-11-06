@@ -168,11 +168,11 @@ public class CartePanel extends JPanel {
         Graphics2D g2 = (Graphics2D) g;
         dessinerCarte(g2);
         if (tourneeAppelee && itinerairePrepare)
-            dessinerItineraire(g2);
+            dessinerItineraire();
 
         if (tourneeAppelee) {
             try {
-                dessinerTournee(g2);
+                dessinerTournee();
             } catch (IncompatibleAdresseException e) {
                 e.printStackTrace();
 

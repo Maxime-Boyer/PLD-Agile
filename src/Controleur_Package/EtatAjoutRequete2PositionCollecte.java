@@ -1,4 +1,4 @@
 package Controleur_Package;
 
-public class EtatAjoutRequete2PositionCollecte {
+public class EtatAjoutRequete2PositionCollecte implements Etat{
 }

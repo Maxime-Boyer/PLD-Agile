@@ -1,4 +1,4 @@
 package Controleur_Package;
 
-public class EtatAjoutRequete4PointDepot {
+public class EtatAjoutRequete4PointDepot implements Etat{
 }
