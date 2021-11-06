@@ -45,11 +45,12 @@ public class MenuLateral extends JPanel {
         this.ecouteurSurvol = ecouteurSurvol;
 
         // propriétés du panel principal
-        this.setBounds(largeurFenetre - largeurFenetre * 1/4, 0, largeurFenetre * 1/4, hauteurEcran);
+        this.setBounds(largeurFenetre * 3/4, 0, largeurFenetre/4, hauteurEcran);
         this.setLayout(null);
 
         messageUtilisateur = new JTextArea();
         messageUtilisateur.setFont(policeTexte);
+        messageUtilisateur.setEditable(false);
         messageUtilisateur.setLineWrap(true);
         messageUtilisateur.setWrapStyleWord(true);
         messageUtilisateur.setOpaque(false);
@@ -84,6 +85,7 @@ public class MenuLateral extends JPanel {
         this.panelInsideScrollPanel = new JPanel(null);
         BoxLayout boxlayout = new BoxLayout(panelInsideScrollPanel, BoxLayout.Y_AXIS);
         panelInsideScrollPanel.setLayout(boxlayout);
+
         RequetePanel[] listeRequetes = new RequetePanel[tournee.getListeRequetes().size()];
         int positionTop = 0;
         Etape collecte, depot;

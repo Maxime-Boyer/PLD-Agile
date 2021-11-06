@@ -97,7 +97,7 @@ public class Fenetre extends JFrame {
      */
     public void afficherEtatTourneChargee (Tournee tournee) {
         cartePanel.tracerRequetes(tournee);
-        menuLateral.afficherMenuRequete(cartePanel.getTournee());
+        menuLateral.afficherMenuRequete(tournee);
         legende = new Legende();
 
         // repaint la fenetre

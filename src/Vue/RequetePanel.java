@@ -57,6 +57,7 @@ public class RequetePanel extends JPanel {
         JTextArea labelTitreCollecte = new JTextArea("Collecte - " + String.valueOf(collecte.getDureeEtape()) + " sec");
         labelTitreCollecte.setSize(this.getWidth() - 4 * valMarginBase, 30);
         labelTitreCollecte.setFont(policeTexteImportant);
+        labelTitreCollecte.setEditable(false);
         labelTitreCollecte.setLineWrap(true);
         labelTitreCollecte.setWrapStyleWord(true);
         labelTitreCollecte.setOpaque(false);
@@ -69,6 +70,7 @@ public class RequetePanel extends JPanel {
         JTextArea labelAdresseCollecte = new JTextArea(collecte.getNomAdresse());
         labelAdresseCollecte.setSize(this.getWidth() - 4 * valMarginBase, 45);
         labelAdresseCollecte.setFont(policeTexte);
+        labelAdresseCollecte.setEditable(false);
         labelAdresseCollecte.setLineWrap(true);
         labelAdresseCollecte.setWrapStyleWord(true);
         labelAdresseCollecte.setOpaque(false);
@@ -81,6 +83,7 @@ public class RequetePanel extends JPanel {
         JTextArea labelTitreDepot = new JTextArea("Dépôt - " + String.valueOf(depot.getDureeEtape()) + " sec");
         labelTitreDepot.setSize(this.getWidth() - 4 * valMarginBase, 30);
         labelTitreDepot.setFont(policeTexteImportant);
+        labelTitreDepot.setEditable(false);
         labelTitreDepot.setLineWrap(true);
         labelTitreDepot.setWrapStyleWord(true);
         labelTitreDepot.setOpaque(false);
@@ -93,6 +96,7 @@ public class RequetePanel extends JPanel {
         JTextArea labelAdresseDepot = new JTextArea(depot.getNomAdresse());
         labelAdresseDepot.setSize(this.getWidth() - 4 * valMarginBase, 45);
         labelAdresseDepot.setFont(policeTexte);
+        labelAdresseDepot.setEditable(false);
         labelAdresseDepot.setLineWrap(true);
         labelAdresseDepot.setWrapStyleWord(true);
         labelAdresseDepot.setOpaque(false);

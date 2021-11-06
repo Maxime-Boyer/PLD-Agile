@@ -285,7 +285,7 @@ public class CartePanel extends JPanel {
         int []YPointsContour = {valeurYBasGauche,valeurYBasDroite,valeurYHaute};
         int []XPointsInterieur = {valeurXBasGauche+2,valeurXBasDroite-2,valeurXHaute};
         int []YPointsInterieur = {valeurYBasGauche-2,valeurYBasDroite-2,valeurYHaute+2};
-        
+
         g2.setColor(new Color(128, 0, 0));
         g2.fillPolygon(XPointsContour,YPointsContour,3);
         g2.setColor(Color.RED);
@@ -426,6 +426,27 @@ public class CartePanel extends JPanel {
                 g2.setColor(new Color(51, 204, 255));
                 g2.drawLine(origineX, origineY, destinationX, destinationY);
                 g2.setStroke(s);
+            }
+        }
+
+        //dessine un rond pour chaque changement
+        String nomAdressePrecedente = "";
+        for (int i = 0; i < itineraire.getListeChemins().size(); i++) {
+            for (int j = 0; j < itineraire.getListeChemins().get(i).getListeSegment().size(); j++) {
+                Adresse origine = itineraire.getListeChemins().get(i).getListeSegment().get(j).getOrigine();
+                Adresse destination = itineraire.getListeChemins().get(i).getListeSegment().get(j).getDestination();
+                int origineX = valeurX(origine.getLongitude());
+                int origineY = valeurY(origine.getLatitude());
+                int destinationX = valeurX(destination.getLongitude());
+                int destinationY = valeurY(destination.getLatitude());
+
+                if(!nomAdressePrecedente.equals(itineraire.getListeChemins().get(i).getListeSegment().get(j).getNom())){
+                    g2.setColor(Color.DARK_GRAY);
+                    g2.fillOval(origineX-3,origineY-3,7,7);
+                    g2.setColor(Color.WHITE);
+                    g2.fillOval(origineX-2,origineY-2,5,5);
+                }
+                nomAdressePrecedente = itineraire.getListeChemins().get(i).getListeSegment().get(j).getNom();
             }
         }
     }
