@@ -185,5 +185,5 @@ public class Controleur {
     }
 
 
-    public Carte getCarte () {return carte;}
+    //public Carte getCarte () {return carte;}
 }

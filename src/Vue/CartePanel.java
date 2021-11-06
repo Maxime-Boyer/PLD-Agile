@@ -206,6 +206,23 @@ public class CartePanel extends JPanel {
         return valeurYPixel;
     }
 
+    public double valeurLongitude(int posX) {
+        /*double ecartLongitude = maxLongitudeCarte - minLongitudeCarte;
+        double coeffX = largeur / ecartLongitude;*/
+        double valeurLongitude = (posX / coeffX) + minLongitudeCarte;
+
+        return valeurLongitude;
+    }
+
+    public double valeurLatitude(int posY) {
+        /*double ecartLatitude = maxLatitudeCarte - minLatitudeCarte;
+        double coeffY = hauteur / ecartLatitude;*/
+
+        double valeurLatitude = -(posY / coeffY) + maxLatitudeCarte;
+
+        return valeurLatitude;
+    }
+
     /**
      * Dessine la carte dans le panel
      */
