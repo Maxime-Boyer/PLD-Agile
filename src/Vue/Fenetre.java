@@ -16,6 +16,7 @@ public class Fenetre extends JFrame {
     protected final static String IMPORT_CARTE = "Importer carte";
     protected final static String IMPORT_TOURNEE = "Importer tournée";
     protected final static String PREPARER_TOURNEE = "Préparer tournée";
+    protected final static String AJOUT_REQUETE = "Ajouter requête";
 
     protected final static int valMarginBase = 5;
     protected final static int hauteurBouton = 50;
@@ -135,6 +136,12 @@ public class Fenetre extends JFrame {
                 cartePanel.tracerItineraire();
                 menuLateral.afficherMenuEtapes(cartePanel.getTournee());
                 menuLateral.setMessageUtilisateur("Maintenant vous pouvez éditer votre tournée ou exporter la feuille de route.");
+                break;
+            case ETAT_AJOUT_REQUETE:
+                System.out.println("Frentre.afficherEtat() : ETAT_AJOUT_REQUETE ");
+                menuLateral.afficherMenuEtapes(cartePanel.getTournee());
+                menuLateral.retirerBoutonsMenu();
+                menuLateral.setMessageUtilisateur("Ajouter une Etape de collecte: [Clique Gauche] sur une Adresse de la Carte " + "[Clique Droit] pour annuler");
                 break;
         }
 

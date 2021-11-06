@@ -65,4 +65,11 @@ public class EtatPlanAffiche implements Etat {
         }
     }
 
+    @Override
+    public void ajoutRequete (Controleur controleur, Fenetre fenetre){
+        fenetre.getMenuLateral().retirerBoutonsMenu();
+        fenetre.getMenuLateral().setMessageUtilisateur("Ajouter une Etape de collecte: [Clique Gauche] sur une Adresse de la Carte " + "[Clique Droit] pour annuler");
+        controleur.setEtatActuel(controleur.etatAjoutRequete1PointCollecte);
+    }
+
 }
