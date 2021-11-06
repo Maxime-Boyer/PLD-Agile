@@ -13,6 +13,17 @@ public class RequetePanel extends JPanel {
     private Etape collecte;
     private Etape depot;
 
+    /**
+     * Panel permettant d'afficher la vue textuelle d'une requete
+     * @param collecte: l'etape de collecte de la requete
+     * @param depot: l'étape de depot de la requete
+     * @param couleurBordure: couleur de requete (servira pour la bordure)
+     * @param parentWidth: largeur du panel où sera affichee la requete
+     * @param valMarginBase: valeur de l'ecart standard en vigueur dans l'application
+     * @param policeTexte: la police a appliquer au texte de la requete
+     * @param policeTexteImportant: la police a appliquer au texte a mettre en evidence dans la requete
+     * @param ecouteurSurvol: l'ecouteur gerant les evenements de survol afin de pointer la requete sur la carte
+     */
     public RequetePanel(Etape collecte, Etape depot, Color couleurBordure, int parentWidth, int valMarginBase, Font policeTexte, Font policeTexteImportant, EcouteurSurvol ecouteurSurvol){
 
         this.collecte = collecte;
@@ -90,10 +101,18 @@ public class RequetePanel extends JPanel {
         this.add(panelInside);
     }
 
+    /**
+     * Geteur
+     * @return etape de collecte
+     */
     public Etape getCollecte() {
         return collecte;
     }
 
+    /**
+     * Geteur
+     * @return etape de depot
+     */
     public Etape getDepot() {
         return depot;
     }

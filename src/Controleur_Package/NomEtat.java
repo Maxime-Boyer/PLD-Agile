@@ -1,4 +1,4 @@
-package Controleur;
+package Controleur_Package;
 
 public enum NomEtat {
     ETAT_INITIAL,

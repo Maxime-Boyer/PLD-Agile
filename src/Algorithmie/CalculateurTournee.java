@@ -50,7 +50,7 @@ public class CalculateurTournee {
      * Calcul le graphe complet de l'ensemble des étapes
      * @return le graphe complet de l'ensemble des étapes
      */
-    private HashMap<Long, HashMap<Long, CheminEntreEtape>> calculerGrapheCompletDesEtapes(Astar astar) throws AStarImpossibleException{
+    public HashMap<Long, HashMap<Long, CheminEntreEtape>> calculerGrapheCompletDesEtapes(Astar astar) throws AStarImpossibleException{
         //Astar1 astar = new Astar1(carte);
 
         // HashMap< idAresseDepart, HashMap<idAresseArrivee, CheminEntreEtape> >

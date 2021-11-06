@@ -1,20 +1,24 @@
 package Vue;
 
-import Controleur.Controleur;
-import Controleur.NomEtat;
+
+import Controleur_Package.Controleur;
+import Controleur_Package.NomEtat;
 import Model.Carte;
 import Model.Tournee;
 
 import javax.swing.*;
 import java.awt.*;
 
-import static Controleur.NomEtat.ETAT_INITIAL;
+import static Controleur_Package.NomEtat.ETAT_INITIAL;
 
 public class Fenetre extends JFrame {
 
     protected final static String IMPORT_CARTE = "Importer carte";
     protected final static String IMPORT_TOURNEE = "Importer tournée";
     protected final static String PREPARER_TOURNEE = "Préparer tournée";
+
+    protected final static int valMarginBase = 5;
+    protected final static int hauteurBouton = 50;
 
     private EcouteurBoutons ecouteurBoutons;
     private EcouteurSurvol ecouteurSurvol;
@@ -30,7 +34,13 @@ public class Fenetre extends JFrame {
     private CartePanel cartePanel;
     private Legende legende;
 
+    /**
+     * Cree la fenetre dans laquelle s'ouvre l'application
+     * @param carte: la carte a afficher
+     * @param controleur: lke controleur du MVC
+     */
     public Fenetre(Carte carte, Controleur controleur) {
+
         this.setTitle("Raccourc'IF - Hexanome Détect'IF");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLayout(null);
@@ -59,10 +69,14 @@ public class Fenetre extends JFrame {
         return menuChoixFichier.getNomFichier();
     }
 
+    /**
+     * TODO
+     * @param carte
+     */
     public void afficherEtatPlanAffiche(Carte carte) {
         System.out.println("Frentre.afficherEtatPlanAffiche(carte) : ETAT_PLAN_AFFICHE");
         //E1: Carte chargée
-        cartePanel = new CartePanel(carte, this.getWidth(), this.getHeight() - 20, policeTexte, ecouteurSurvol);
+        cartePanel = new CartePanel(carte, this.getWidth(), this.getHeight() - 20, policeTexte, ecouteurBoutons, ecouteurSurvol);
         this.add(cartePanel);
         menuLateral = new MenuLateral(this.getWidth(), this.getHeight() - 20, policeTexte, policeTexteImportant, ecouteurBoutons, ecouteurSurvol);
         this.add(menuLateral);
@@ -72,6 +86,10 @@ public class Fenetre extends JFrame {
         this.repaint();
     }
 
+    /**
+     * TODO
+     * @param tournee
+     */
     public void afficherEtatTourneChargee (Tournee tournee) {
         cartePanel.tracerRequetes(tournee);
         menuLateral.afficherMenuRequete(cartePanel.getTournee());
@@ -82,6 +100,10 @@ public class Fenetre extends JFrame {
         this.repaint();
     }
 
+    /**
+     * Affiche les etas détermines par le controleur
+     * @param etat: l'etat a afficher
+     */
     public void afficherEtat(NomEtat etat) {
 
         switch (etat) {
@@ -101,8 +123,6 @@ public class Fenetre extends JFrame {
                 menuLateral.setMessageUtilisateur("Veuillez importer une tournée au format xml pour l'afficher sur la carte.");
                 break;
             case ETAT_TOURNEE_CHARGEE:
-                break;*/
-            /*case ETAT_TOURNEE_CHARGEE:
                 System.out.println("Frentre.afficherEtat() : ETAT_TOURNEE_CHARGEE");
                 // E2: Tournee chargee
                 cartePanel.tracerRequetes();
@@ -123,8 +143,15 @@ public class Fenetre extends JFrame {
         this.repaint();
     }
 
+    /**
+     * geteur
+     * @return: le panel d'affichage de la carte
+     */
     public CartePanel getCartePanel(){ return cartePanel; }
 
+    /**
+     * Les methodes suivantes permenttent de retirer des elements de la fenetre
+     */
     //Permet de retirer des pannel
     public void retirerEcranAccueil() {
         this.remove(ecranAccueil);

@@ -15,6 +15,9 @@ import java.util.Map;
 public class MenuChoixFichier extends JPanel {
     private String nomFichier;
 
+    /**
+     * TODO
+     */
     public MenuChoixFichier() {
         JFrame frameSelectCarte = new JFrame();
 

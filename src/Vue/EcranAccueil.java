@@ -4,6 +4,14 @@ import java.awt.*;
 
 public class EcranAccueil extends JPanel{
 
+    /**
+     * Initialisation de la vue correspondant à l'état 0 (arrivee de l'utilisateur sur l'application)
+     * @param largeurEcran: la largeur de la fenetre
+     * @param hauteurEcran: hauteur de la fenetre
+     * @param policeSousTitre: police à appliquer sur les sous titres
+     * @param policeTexte: police à appliquer sur le texte
+     * @param ecouteurBoutons: ecouteur à placer sur le bouton de la vue
+     */
     public EcranAccueil(int largeurEcran, int hauteurEcran, Font policeSousTitre, Font policeTexte, EcouteurBoutons ecouteurBoutons) {
 
         // propriétés du pannel principal
