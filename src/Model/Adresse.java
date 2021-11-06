@@ -22,6 +22,16 @@ public class Adresse {
         segmentsSortants = new LinkedList<>();
     }
 
+    public Adresse() {
+        segmentsSortants = new LinkedList<>();
+    }
+
+    public Adresse(double latitude, double longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+        segmentsSortants = new LinkedList<>();
+    }
+
     /**
      * methode permettant l'affichage de l'adresse
      * @return

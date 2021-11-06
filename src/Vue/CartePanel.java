@@ -33,6 +33,10 @@ public class CartePanel extends JPanel {
     private double minLongitudeCarte;
     private boolean tourneeAppelee;
     private boolean itinerairePrepare;
+    private  double ecartLatitude;
+    private double coeffY;
+    private double ecartLongitude;
+    private double coeffX;
     private Tournee tournee = new Tournee();
     private LecteurXML lecteur = new LecteurXML();
     private Carte carte;
@@ -182,8 +186,8 @@ public class CartePanel extends JPanel {
      * @return: l'équivalent en px sur x de la longitude entree
      */
     public int valeurX(double longitude) {
-        double ecartLongitude = maxLongitudeCarte - minLongitudeCarte;
-        double coeffX = largeur / ecartLongitude;
+        /*double ecartLongitude = maxLongitudeCarte - minLongitudeCarte;
+        double coeffX = largeur / ecartLongitude;*/
         int valeurXPixel = (int) Math.ceil((longitude - minLongitudeCarte) * coeffX);
 
         return valeurXPixel;
@@ -195,8 +199,8 @@ public class CartePanel extends JPanel {
      * @return: l'équivalent en px sur y de la latitude entree
      */
     public int valeurY(double latitude) {
-        double ecartLatitude = maxLatitudeCarte - minLatitudeCarte;
-        double coeffY = hauteur / ecartLatitude;
+        /*double ecartLatitude = maxLatitudeCarte - minLatitudeCarte;
+        double coeffY = hauteur / ecartLatitude;*/
         int valeurYPixel = (int) Math.ceil((maxLatitudeCarte - latitude) * coeffY);
 
         return valeurYPixel;
@@ -336,5 +340,12 @@ public class CartePanel extends JPanel {
         maxLatitudeCarte = maxLatitude;
         minLatitudeCarte = minLatitude;
         minLongitudeCarte = minLongitude;
+
+        ecartLatitude = maxLatitudeCarte - minLatitudeCarte;
+        coeffY = hauteur / ecartLatitude;
+
+        ecartLongitude = maxLongitudeCarte - minLongitudeCarte;
+        coeffX = largeur / ecartLongitude;
+
     }
 }

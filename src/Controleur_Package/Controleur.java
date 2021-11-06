@@ -1,13 +1,16 @@
 package Controleur_Package;
 
+import Model.Adresse;
 import Model.Carte;
+import Model.Tournee;
 import Vue.Fenetre;
 
 public class Controleur {
 
     private Carte carte;
     private Fenetre fenetre;
-    //listofcommands
+    private Tournee tournee;
+    private ListeDeCommandes listeDeCommandes;
     private Etat etatActuel;
 
     // Instances associés à chaque état possible du controleur
@@ -176,13 +179,11 @@ public class Controleur {
         etatActuel.ajoutRequeteDureeDepot(this, fenetre);
     }
 
-    /**
-     * Méthode appelé par fenetre après avoir cliqué sur le bouton "Valider l'ajout de la requête"
-     * TODO : préciser
-     */
-    public void ajouterRequete() {
-        etatActuel.ajouterRequete(this, fenetre);
+
+    public void cliqueGauche(Adresse a){
+        etatActuel.cliqueGauche(this, fenetre,carte,listeDeCommandes, tournee, a);
     }
+
 
     public Carte getCarte () {return carte;}
 }

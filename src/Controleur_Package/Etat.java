@@ -1,6 +1,8 @@
 package Controleur_Package;
 
+import Model.Adresse;
 import Model.Carte;
+import Model.Tournee;
 import Vue.Fenetre;
 
 public interface Etat {
