@@ -3,7 +3,7 @@ package Vue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import Controleur_Package.Controleur;
+import Controleur.Controleur;
 
 public class EcouteurBoutons implements ActionListener {
 

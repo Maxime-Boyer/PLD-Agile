@@ -41,9 +41,8 @@ public class CartePanel extends JPanel {
     private CalculateurTournee calculTournee;
     private Tournee itineraire;
     private Carte carte;
-
-    public CartePanel(Carte carte, int largeurEcran, int hauteurEcran, Font policeTexte, EcouteurSurvol ecouteurSurvol) {
     private PopUpSaisieDuree popUpSaisieDuree;
+
 
     /**
      * Panel où est tracée la carte importée par l'utilisateur
