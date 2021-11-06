@@ -18,6 +18,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.HashMap;
@@ -33,10 +34,12 @@ public class CartePanel extends JPanel {
     private double minLongitudeCarte;
     private boolean tourneeAppelee;
     private boolean itinerairePrepare;
-    private  double ecartLatitude;
+    private double ecartLatitude;
     private double coeffY;
     private double ecartLongitude;
     private double coeffX;
+    private ArrayList<Adresse> nouvelleAdresse = new ArrayList<>();
+
     private Tournee tournee = new Tournee();
     private LecteurXML lecteur = new LecteurXML();
     private Carte carte;
@@ -181,8 +184,7 @@ public class CartePanel extends JPanel {
             }
         }
 
-
-
+        dessinerNouvelleRequete();
     }
 
     /**
@@ -335,14 +337,28 @@ public class CartePanel extends JPanel {
         }
     }
 
-    public void afficherEtape (Adresse collecte){
-        double lonCollecte = collecte.getLongitude();
-        double latCollecte = collecte.getLatitude();
-        int valeurXCollecte = valeurX(lonCollecte);
-        int valeurYCollecte = valeurY(latCollecte);
-        g.setColor(Color.RED);
-        g.fillRoundRect(valeurXCollecte - 7, valeurYCollecte - 7, 14, 14, 14, 14);
-        g.fillRect(valeurXCollecte - 7, valeurYCollecte - 7, 14, 14);
+    public void dessinerNouvelleRequete() {
+        for(int i = 0; i < nouvelleAdresse.size(); i++){
+            double lonEtape = nouvelleAdresse.get(i).getLongitude();
+            double latEtape = nouvelleAdresse.get(i).getLatitude();
+            int valeurXEtape = valeurX(lonEtape);
+            int valeurYEtape = valeurY(latEtape);
+            g.setColor(Color.RED);
+            if(i == 0){
+                g.fillRoundRect(valeurXEtape - 7, valeurYEtape - 7, 14, 14, 14, 14);
+            }else if(i == 1){
+                g.fillRect(valeurXEtape - 7, valeurYEtape - 7, 14, 14);
+            }
+        }
+    }
+
+    public void ajouterAdresseNouvelleRequete(Adresse a){
+        nouvelleAdresse.add(a);
+        repaint();
+    }
+
+    public void viderNouvelleRequete(){
+        nouvelleAdresse.clear();
     }
 
 
