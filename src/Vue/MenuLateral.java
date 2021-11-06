@@ -67,7 +67,7 @@ public class MenuLateral extends JPanel {
         this.panelInsideScrollPanel = new JPanel(null);
         BoxLayout boxlayout = new BoxLayout(panelInsideScrollPanel, BoxLayout.Y_AXIS);
         panelInsideScrollPanel.setLayout(boxlayout);
-        RequetePanel[] listeRequetes = new RequetePanel[10];
+        RequetePanel[] listeRequetes = new RequetePanel[tournee.getListeRequetes().size()];
         int positionTop = 0;
         Etape collecte, depot;
         for (int i = 0; i < tournee.getListeRequetes().size(); i++) {

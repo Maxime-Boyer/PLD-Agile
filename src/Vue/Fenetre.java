@@ -38,27 +38,32 @@ public class Fenetre extends JFrame {
 
         // Récupération des dimensions de l'écran
         Dimension dimensionsEcran = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setSize(dimensionsEcran.width, dimensionsEcran.height);
+        this.setSize(dimensionsEcran.width*2/3, dimensionsEcran.height*2/3);
+        setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
+
+        this.setLocationRelativeTo(null);
 
         this.ecouteurBoutons = new EcouteurBoutons(controleur);
         this.ecouteurSurvol = new EcouteurSurvol(this);
 
-        afficherEtat(NomEtat.ETAT_INITIAL);
         this.setResizable(true); //TODO: passer à false
+
         this.setVisible(true);
+
+        afficherEtat(NomEtat.ETAT_INITIAL);
     }
 
     public void afficherEtat(NomEtat etat) throws NameFile {
 
         switch (etat) {
             case ETAT_INITIAL:
-                System.out.println("Frentre.afficherEtat() : ETAT_INITIAL");
+                System.out.println("Fenetre.afficherEtat() : ETAT_INITIAL");
                 // E0: Vue ecran Accueil
                 ecranAccueil = new EcranAccueil(this.getWidth(), this.getHeight(), policeSousTitre, policeTexte, this.ecouteurBoutons);
                 this.add(ecranAccueil);
                 break;
             case ETAT_PLAN_AFFICHE:
-                System.out.println("Frentre.afficherEtat() : ETAT_PLAN_AFFICHE");
+                System.out.println("Fenetre.afficherEtat() : ETAT_PLAN_AFFICHE");
                 //E1: Carte chargée
                 cartePanel = new CartePanel(this.getWidth(), this.getHeight() - 20, policeTexte, ecouteurSurvol);
                 this.add(cartePanel);
@@ -66,14 +71,14 @@ public class Fenetre extends JFrame {
                 this.add(menuLateral);
                 break;
             case ETAT_TOURNEE_CHARGEE:
-                System.out.println("Frentre.afficherEtat() : ETAT_TOURNEE_CHARGEE");
+                System.out.println("Fenetre.afficherEtat() : ETAT_TOURNEE_CHARGEE");
                 // E2: Tournee chargee
                 cartePanel.tracerRequetes();
                 menuLateral.afficherMenuRequete(cartePanel.getTournee());
                 legende = new Legende();
                 break;
             case ETAT_TOURNEE_PREPAREE:
-                System.out.println("Frentre.afficherEtat() : ETAT_TOURNEE_PREPAREE ");
+                System.out.println("Fenetre.afficherEtat() : ETAT_TOURNEE_PREPAREE ");
                 cartePanel.tracerItineraire();
                 menuLateral.afficherMenuEtapes(cartePanel.getTournee());
                 break;
