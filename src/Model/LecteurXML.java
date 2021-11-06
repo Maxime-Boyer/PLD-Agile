@@ -150,6 +150,7 @@ public class LecteurXML {
                     Long idOrigine = Long.parseLong(eElement.getAttribute("origin"));
                     Long idDestination = Long.parseLong(eElement.getAttribute("destination"));
                     Segment segment = new Segment(newCarte.obtenirAdresseParId(idOrigine), newCarte.obtenirAdresseParId(idDestination), nom, longueur);
+                    newCarte.obtenirAdresseParId(idOrigine).ajouterSegmentSortant(segment);
                     newCarte.getListeSegments().add(segment);
 
                 }
