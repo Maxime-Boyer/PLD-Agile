@@ -101,6 +101,11 @@ public class Fenetre extends JFrame {
         this.repaint();
     }
 
+    public void afficherEtatAjoutRequete(){
+        menuLateral.retirerBoutonsMenu();
+        menuLateral.setMessageUtilisateur("Ajouter une Etape de collecte: [Clique Gauche] sur une Adresse de la Carte " + "[Clique Droit] pour annuler");
+    }
+
     /**
      * Affiche les etas détermines par le controleur
      * @param etat: l'etat a afficher
