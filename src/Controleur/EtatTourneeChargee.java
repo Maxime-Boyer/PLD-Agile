@@ -13,11 +13,17 @@ public class EtatTourneeChargee implements Etat {
     public void preparerTournee (Controleur controleur, Fenetre fenetre) {
         System.out.println("EtatTourneeChargee : preparerTournee");
         fenetre.afficherEtat(NomEtat.ETAT_TOURNEE_PREPAREE);
+
+        //Algo
+        //CalculateurTournee calculateurTournee = new CalculateurTournee(carte, tournee);
+        //= calculateurTournee.calculerTournee();
+        //Fin Algo
+
         controleur.setEtatActuel(controleur.etatTourneeOrdonnee);
     }
 
     @Override
-    public void chargerListeRequete (Controleur controleur, Fenetre fenetre, Carte carte) {
+    public void chargerListeRequete (Controleur controleur, Fenetre fenetre) {
         System.out.println("EtatTourneeChargee : preparerTournee");
         /*fenetre.retirerMenuRequete();
         fenetre.afficherEtat(NomEtat.ETAT_TOURNEE_CHARGEE);

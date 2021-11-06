@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
-public class Dijkstra {
+public class DijkstraBis {
 
     private HashMap<Long, Segment> pi;
 
@@ -23,7 +23,7 @@ public class Dijkstra {
     private HashMap<Long,LinkedList<CheminEntreEtape>> resultatDijkstra;
 
 
-    public Dijkstra(Carte carte, Tournee tournee){
+    public DijkstraBis(Carte carte, Tournee tournee){
 
         this.tournee = tournee;
         this.carte = carte;

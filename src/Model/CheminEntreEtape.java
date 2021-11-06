@@ -2,7 +2,7 @@ package Model;
 
 import java.util.List;
 
-public class CheminEntreEtape {
+public class CheminEntreEtape implements Comparable<CheminEntreEtape> {
 
     public Etape etapeDepart;
     public Etape etapeArrivee;
@@ -53,5 +53,10 @@ public class CheminEntreEtape {
      */
     public Integer getDistance() {
         return distance;
+    }
+
+    @Override
+    public int compareTo(CheminEntreEtape o) {
+        return this.getDistance() - o.getDistance();
     }
 }

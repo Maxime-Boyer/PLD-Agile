@@ -4,6 +4,8 @@
 # Log file
 *.log
 
+out/
+
 # IntelliJ IDEA
 .idea
 *.iws
