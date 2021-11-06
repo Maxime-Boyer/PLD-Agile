@@ -105,7 +105,7 @@ public class LecteurXML {
                     Long id = Long.parseLong(stringId);
 
                     Adresse adresse = new Adresse(latitude, longitude, id);
-                    carte.getListeAdresses().put(id, adresse);
+                    newCarte.getListeAdresses().put(id, adresse);
                     //System.out.println(carte.getListeAdresses().get(id));
                 }
             }
@@ -353,7 +353,7 @@ public class LecteurXML {
                         listeRequetes.add(requete);
                     }
                     tournee.setListeRequetes(listeRequetes);
-                    determinerNomAdresseEtapes(tournee);
+                    determinerNomAdresseEtapes(tournee, carte);
                 }
             }
         }
@@ -406,7 +406,7 @@ public class LecteurXML {
 
 
     // Parcourir chaque etape et tous les segments de la carte pour obtenir le nom des adresses
-    private void determinerNomAdresseEtapes(Tournee tournee){
+    private void determinerNomAdresseEtapes(Tournee tournee, Carte carte){
 
         Requete requete;
         Segment segment, segmentCollecte1, segmentCollecte2, segmentDepot1, segmentDepot2;

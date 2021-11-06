@@ -23,7 +23,7 @@ public class EtatTourneeChargee implements Etat {
     }
 
     @Override
-    public void chargerListeRequete (Controleur controleur, Fenetre fenetre) {
+    public void chargerListeRequete (Controleur controleur, Fenetre fenetre, Carte carte) {
         System.out.println("EtatTourneeChargee : preparerTournee");
         /*fenetre.retirerMenuRequete();
         fenetre.afficherEtat(NomEtat.ETAT_TOURNEE_CHARGEE);

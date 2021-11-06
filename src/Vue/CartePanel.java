@@ -7,25 +7,11 @@ package Vue;
 import Algorithmie.CalculateurTournee;
 import Exceptions.AStarImpossibleException;
 import Exceptions.IncompatibleAdresseException;
-import Model.Adresse;
-import Model.Carte;
-import Model.LecteurXML;
-import Model.Tournee;
-import Exceptions.NameFile;
 import Model.*;
 
-import org.xml.sax.SAXException;
-
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Map;
-import java.util.Random;
 
 
 public class CartePanel extends JPanel {
@@ -37,7 +23,6 @@ public class CartePanel extends JPanel {
     private double minLongitudeCarte;
     private boolean tourneeAppelee;
     private boolean itinerairePrepare;
-    private Carte carte = new Carte();
     private Tournee tournee = new Tournee();
     private LecteurXML lecteur = new LecteurXML();
     private JLabel labelPosition1;
@@ -47,7 +32,7 @@ public class CartePanel extends JPanel {
     private Tournee itineraire;
     private Carte carte;
 
-    public CartePanel(Carte carte, int largeurEcran, int hauteurEcran, Font policeTexte) {
+    public CartePanel(Carte carte, int largeurEcran, int hauteurEcran, Font policeTexte, EcouteurSurvol ecouteurSurvol) {
         this.carte = carte;
         maxLongitudeLatitudeCarte();
         this.largeur = (int) 3 * largeurEcran / 4;
@@ -76,6 +61,7 @@ public class CartePanel extends JPanel {
         return tournee;
     }
 
+    //INUTILE
     public void tracerCarte() {
 
 
@@ -129,6 +115,7 @@ public class CartePanel extends JPanel {
 
     public void tracerItineraire() {
         System.out.println("tracerItineraire");
+        System.out.println("    tracerItineraire : carte = "+carte + ", tournee = "+tournee);
 
         calculTournee = new CalculateurTournee(carte, tournee);
 
@@ -319,6 +306,24 @@ public class CartePanel extends JPanel {
         }
 
 
+    }
+
+    public void indiquerPositionRequete(Etape collecte, Etape depot){
+        int x1 = valeurX(collecte.getLongitude()) - iconPosition.getIconWidth()/2;
+        int y1 = valeurY(collecte.getLatitude()) - iconPosition.getIconHeight()/2 - 25;
+        int x2 = valeurX(depot.getLongitude()) - iconPosition.getIconWidth()/2;
+        int y2 = valeurY(depot.getLatitude()) - iconPosition.getIconHeight()/2 - 25;
+        labelPosition1.setBounds(x1, y1, iconPosition.getIconWidth(), iconPosition.getIconHeight());
+        labelPosition2.setBounds(x2, y2, iconPosition.getIconWidth(), iconPosition.getIconHeight());
+        this.add(labelPosition1);
+        this.add(labelPosition2);
+        this.repaint();
+    }
+
+    public void supprimerPositionRequete(){
+        this.remove(labelPosition1);
+        this.remove(labelPosition2);
+        this.repaint();
     }
 
     public void maxLongitudeLatitudeCarte() {
