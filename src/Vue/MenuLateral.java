@@ -206,4 +206,17 @@ public class MenuLateral extends JPanel {
         this.remove(scrollPanel);
         this.remove(boutonExporterFeuilleRoute);
     }
+
+    /**
+     * Permet de retirer l'affichage textuel de tous les boutons
+     */
+    public void retirerBoutonsMenu() {
+        this.remove(panelBoutonsE4);
+        this.remove(boutonAjouterEtape);
+        this.remove(scrollPanel);
+        this.remove(boutonExporterFeuilleRoute);
+        this.remove(boutonImporterPlan);
+        this.remove(boutonImporterTournee);
+        this.remove(boutonPreparerTournee);
+    }
 }
