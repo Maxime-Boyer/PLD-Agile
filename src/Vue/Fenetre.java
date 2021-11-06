@@ -114,7 +114,7 @@ public class Fenetre extends JFrame {
                 ecranAccueil = new EcranAccueil(this.getWidth(), this.getHeight(), policeSousTitre, policeTexte, this.ecouteurBoutons);
                 this.add(ecranAccueil);
                 break;
-            case ETAT_PLAN_AFFICHE:
+            /*case ETAT_PLAN_AFFICHE:
                 System.out.println("Frentre.afficherEtat() : ETAT_PLAN_AFFICHE");
                 //E1: Carte chargée
                 cartePanel = new CartePanel(this.getWidth(), this.getHeight() - 20, policeTexte, ecouteurSurvol);
@@ -130,7 +130,7 @@ public class Fenetre extends JFrame {
                 menuLateral.afficherMenuRequete(cartePanel.getTournee());
                 menuLateral.setMessageUtilisateur("Veuillez préparer la tournée pour visualiser l'itinéraire sur la carte.");
                 legende = new Legende();
-                break;
+                break;*/
             case ETAT_TOURNEE_PREPAREE:
                 System.out.println("Frentre.afficherEtat() : ETAT_TOURNEE_PREPAREE ");
                 cartePanel.tracerItineraire();
