@@ -46,6 +46,7 @@ public class CartePanel extends JPanel {
     private CalculateurTournee calculTournee;
     private Tournee itineraire;
     private PopUpSaisieDuree popUpSaisieDuree;
+    private Graphics g;
 
     /**
      * Panel où est tracée la carte importée par l'utilisateur
@@ -54,9 +55,10 @@ public class CartePanel extends JPanel {
      * @param hauteurEcran: hauteur de la fenetre
      * @param policeTexte: police a appliquer dans ce panel
      * @param ecouteurBoutons: ecouteur permettant de saisir des evenements liés aux boutons
-     * @param ecouteurSurvol: ecouteur permettant de saisir des evenements liés au survol de la souris
+     * @param ecouteurSouris: ecouteur permettant de saisir des evenements liés au survol de la souris
      */
-    public CartePanel(Carte carte, int largeurEcran, int hauteurEcran, Font policeTexte, EcouteurBoutons ecouteurBoutons, EcouteurSurvol ecouteurSurvol) {
+    public CartePanel(Carte carte, int largeurEcran, int hauteurEcran, Font policeTexte, EcouteurBoutons ecouteurBoutons, EcouteurSouris ecouteurSouris) {
+        super();
         this.carte = carte;
         maxLongitudeLatitudeCarte();
         this.largeur = (int) 3 * largeurEcran / 4;
@@ -66,7 +68,7 @@ public class CartePanel extends JPanel {
         this.setBounds(0, 0, largeur, hauteur);
         this.setBackground(Color.WHITE);
         this.setLayout(null);
-        this.addMouseListener(ecouteurSurvol);
+        this.addMouseListener(ecouteurSouris);
 
         //initialisation image
         iconPosition = new ImageIcon("src/images/Localisation.png");
@@ -164,9 +166,9 @@ public class CartePanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        this.g = g;
 
-        Graphics2D g2 = (Graphics2D) g;
-        dessinerCarte(g2);
+        dessinerCarte();
         if (tourneeAppelee && itinerairePrepare)
             dessinerItineraire();
 
@@ -178,6 +180,9 @@ public class CartePanel extends JPanel {
 
             }
         }
+
+
+
     }
 
     /**
@@ -226,15 +231,15 @@ public class CartePanel extends JPanel {
     /**
      * Dessine la carte dans le panel
      */
-    public void dessinerCarte(Graphics g2) {
-        g2.setColor(Color.BLACK);
+    public void dessinerCarte() {
+        g.setColor(Color.BLACK);
         // BackGround
 
-        g2.setColor(Color.WHITE);
+        g.setColor(Color.WHITE);
 
-        g2.fillRect(0, 0, getSize().width, getSize().height);
+        g.fillRect(0, 0, getSize().width, getSize().height);
 
-        g2.setColor(Color.BLACK);
+        g.setColor(Color.BLACK);
 
         if(!carte.getListeSegments().isEmpty()) {
 
@@ -246,7 +251,7 @@ public class CartePanel extends JPanel {
                 int destinationX = valeurX(destination.getLongitude());
                 int destinationY = valeurY(destination.getLatitude());
 
-                g2.drawLine(origineX, origineY, destinationX, destinationY);
+                g.drawLine(origineX, origineY, destinationX, destinationY);
             }
         }
     }
@@ -255,13 +260,13 @@ public class CartePanel extends JPanel {
      * Dessine les carres, ronds et triangles indiquant les différentes Etapes de la requete
      * @throws IncompatibleAdresseException: //TODO
      */
-    public void dessinerTournee(Graphics g2) throws IncompatibleAdresseException {
+    public void dessinerTournee() throws IncompatibleAdresseException {
         Adresse depart = tournee.getAdresseDepart();
         double lonDepart = depart.getLongitude();
         double latDepart = depart.getLatitude();
         int valeurXDepart = valeurX(lonDepart);
         int valeurYDepart = valeurY(latDepart);
-        g2.setColor(Color.RED);
+        g.setColor(Color.RED);
         int valeurXBasGauche = valeurXDepart - 11;
         int valeurYBasGauche = valeurYDepart + 5;
 
@@ -274,7 +279,7 @@ public class CartePanel extends JPanel {
         int []XPoints = {valeurXBasGauche,valeurXBasDroite,valeurXHaute};
         int []YPoints = {valeurYBasGauche,valeurYBasDroite,valeurYHaute};
 
-        g2.fillPolygon(XPoints,YPoints,3);
+        g.fillPolygon(XPoints,YPoints,3);
 
 
 
@@ -299,10 +304,10 @@ public class CartePanel extends JPanel {
             //g2.setColor(tournee.getListeRequetes().get(i).getCouleur());
 
 
-                    g2.setColor(tournee.getListeRequetes().get(i).getCouleurRequete());
+                    g.setColor(tournee.getListeRequetes().get(i).getCouleurRequete());
 
-                    g2.fillRoundRect(valeurXCollecte - 7, valeurYCollecte - 7, 14, 14, 14, 14);
-                    g2.fillRect(valeurXDepot - 7, valeurYDepot - 7, 14, 14);
+                    g.fillRoundRect(valeurXCollecte - 7, valeurYCollecte - 7, 14, 14, 14, 14);
+                    g.fillRect(valeurXDepot - 7, valeurYDepot - 7, 14, 14);
                 }
             }
         /*else {
@@ -314,7 +319,7 @@ public class CartePanel extends JPanel {
     /**
      * trace l'itineraire sur la carte
      */
-    public void dessinerItineraire(Graphics g2) {
+    public void dessinerItineraire() {
 
         for (int i = 0; i < itineraire.getListeChemins().size(); i++) {
             for (int j = 0; j < itineraire.getListeChemins().get(i).getListeSegment().size(); j++) {
@@ -324,11 +329,22 @@ public class CartePanel extends JPanel {
                 int origineY = valeurY(origine.getLatitude());
                 int destinationX = valeurX(destination.getLongitude());
                 int destinationY = valeurY(destination.getLatitude());
-                g2.setColor(Color.RED);
-                g2.drawLine(origineX, origineY, destinationX, destinationY);
+                g.setColor(Color.RED);
+                g.drawLine(origineX, origineY, destinationX, destinationY);
             }
         }
     }
+
+    public void afficherEtape (Adresse collecte){
+        double lonCollecte = collecte.getLongitude();
+        double latCollecte = collecte.getLatitude();
+        int valeurXCollecte = valeurX(lonCollecte);
+        int valeurYCollecte = valeurY(latCollecte);
+        g.setColor(Color.RED);
+        g.fillRoundRect(valeurXCollecte - 7, valeurYCollecte - 7, 14, 14, 14, 14);
+        g.fillRect(valeurXCollecte - 7, valeurYCollecte - 7, 14, 14);
+    }
+
 
     /**
      * Definit les coordonnées en px des extremites du panel

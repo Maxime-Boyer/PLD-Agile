@@ -31,7 +31,7 @@ public class EcouteurSouris extends MouseAdapter {
                 if (a != null)
                     controleur.cliqueGauche(a);
                 break;
-           /* case MouseEvent.BUTTON3:
+            /* case MouseEvent.BUTTON3:
                 controller.rightClick();
                 break;
             default:
@@ -41,10 +41,14 @@ public class EcouteurSouris extends MouseAdapter {
     }
 
     private Adresse coordonnees(MouseEvent evt){
-        MouseEvent e = SwingUtilities.convertMouseEvent(fenetre, evt, vueGraphique);
-        double longitude = vueGraphique.valeurLongitude(e.getX());
-        double latitude = vueGraphique.valeurLatitude(e.getY());
+
+        double longitude = vueGraphique.valeurLongitude(evt.getX());
+        double latitude = vueGraphique.valeurLatitude(evt.getY());
         Adresse positionClique = new Adresse (latitude,longitude);
         return positionClique;
+    }
+
+    public void setVueGraphique(CartePanel vueGraphique) {
+        this.vueGraphique = vueGraphique;
     }
 }

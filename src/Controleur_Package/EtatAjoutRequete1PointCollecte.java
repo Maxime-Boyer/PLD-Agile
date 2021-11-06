@@ -8,8 +8,10 @@ import Vue.Fenetre;
 public class EtatAjoutRequete1PointCollecte implements Etat {
 
     @Override
-    public void cliqueGauche (Controleur c, Fenetre fenetre, Carte carte, ListeDeCommandes l, Tournee tournee, Adresse a){
-        fenetre.getMenuLateral().setMessageUtilisateur("ZEBI");
+    public void cliqueGauche (Controleur controleur, Fenetre fenetre, Carte carte, ListeDeCommandes l, Tournee tournee, Adresse collecte){
+        Adresse collecteAPlacer = carte.recherche(collecte);
+        fenetre.getCartePanel().afficherEtape(collecteAPlacer);
+        controleur.setEtatActuel(controleur.etatAjoutRequete2PositionCollecte);
     }
 
 }

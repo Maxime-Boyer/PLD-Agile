@@ -23,6 +23,7 @@ public class Fenetre extends JFrame {
 
     private EcouteurBoutons ecouteurBoutons;
     private EcouteurSurvol ecouteurSurvol;
+    private EcouteurSouris ecouteurSouris;
 
     // definition des polices
     private Font policeTitre = new Font("SansSerif", Font.BOLD, 28);
@@ -50,10 +51,11 @@ public class Fenetre extends JFrame {
         // Récupération des dimensions de l'écran
         Dimension dimensionsEcran = Toolkit.getDefaultToolkit().getScreenSize();
         this.setSize(dimensionsEcran.width, dimensionsEcran.height);
-
         this.ecouteurBoutons = new EcouteurBoutons(controleur);
+        this.ecouteurSouris = new EcouteurSouris(controleur,cartePanel,this);
         this.ecouteurSurvol = new EcouteurSurvol(this);
 
+        //this.addMouseListener(ecouteurSouris);
         afficherEtat(ETAT_INITIAL);
         this.setResizable(true); //TODO: passer à false
         this.setVisible(true);
@@ -104,7 +106,11 @@ public class Fenetre extends JFrame {
     public void afficherEtatAjoutRequete(){
         menuLateral.retirerBoutonsMenu();
         menuLateral.setMessageUtilisateur("Ajouter une Etape de collecte: [Clique Gauche] sur une Adresse de la Carte " + "[Clique Droit] pour annuler");
+        this.ecouteurSouris.setVueGraphique(cartePanel);
+        this.revalidate();
+        this.repaint();
     }
+
 
     /**
      * Affiche les etas détermines par le controleur
@@ -141,12 +147,6 @@ public class Fenetre extends JFrame {
                 cartePanel.tracerItineraire();
                 menuLateral.afficherMenuEtapes(cartePanel.getTournee());
                 menuLateral.setMessageUtilisateur("Maintenant vous pouvez éditer votre tournée ou exporter la feuille de route.");
-                break;
-            case ETAT_AJOUT_REQUETE:
-                System.out.println("Frentre.afficherEtat() : ETAT_AJOUT_REQUETE ");
-                menuLateral.afficherMenuEtapes(cartePanel.getTournee());
-                menuLateral.retirerBoutonsMenu();
-                menuLateral.setMessageUtilisateur("Ajouter une Etape de collecte: [Clique Gauche] sur une Adresse de la Carte " + "[Clique Droit] pour annuler");
                 break;
         }
 

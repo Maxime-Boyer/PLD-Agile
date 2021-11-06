@@ -212,6 +212,7 @@ public class MenuLateral extends JPanel {
      */
     public void retirerBoutonsMenu() {
         this.remove(panelBoutonsE4);
+        this.remove(panelImport);
         this.remove(boutonAjouterEtape);
         this.remove(scrollPanel);
         this.remove(boutonExporterFeuilleRoute);
