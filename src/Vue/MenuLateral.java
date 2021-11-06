@@ -134,7 +134,7 @@ public class MenuLateral extends JPanel {
         boutonRedo.setBounds(boutonUndo.getX() + boutonUndo.getWidth() + Fenetre.valMarginBase,0, panelBoutonsE4.getWidth()/4 - Fenetre.valMarginBase*3/4 -1, Fenetre.hauteurBouton);
         panelBoutonsE4.add(boutonRedo);
 
-        boutonAjouterEtape = new Bouton("Ajouter étape", policeTexte, ecouteurBoutons);
+        boutonAjouterEtape = new Bouton(Fenetre.AJOUT_REQUETE, policeTexte, ecouteurBoutons);
         boutonAjouterEtape.setBounds(boutonRedo.getX() + boutonRedo.getWidth() + Fenetre.valMarginBase,0, panelBoutonsE4.getWidth()/2 - Fenetre.valMarginBase/2, Fenetre.hauteurBouton);
         panelBoutonsE4.add(boutonAjouterEtape);
 

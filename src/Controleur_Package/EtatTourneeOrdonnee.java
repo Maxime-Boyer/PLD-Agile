@@ -9,7 +9,6 @@ import javax.swing.*;
 
 public class EtatTourneeOrdonnee implements Etat {
 
-
     @Override
     public void chargerListeRequete (Controleur controleur, Fenetre fenetre, Carte carte) {
         System.out.println("EtatTourneeOrdonnee : chargerListeRequete");
