@@ -61,4 +61,32 @@ public class Tournee extends Observable {
                 ", listeChemins=" + listeChemins +
                 '}';
     }
+
+    public double distanceEntreAdresse(Adresse a, Adresse b){
+        double distance = Math.pow(a.getLongitude() - b.getLongitude(), 2) + Math.pow(a.getLatitude() - b.getLatitude(), 2);
+        return distance;
+    }
+
+    public Adresse rechercheEtape (Adresse a){
+        double distanceMin = Double.MAX_VALUE;
+        double distanceCollecte;
+        double distanceDepot;
+        Adresse plusProche = new Adresse();
+        for(Requete r : listeRequetes){
+            Adresse collecte = new Adresse (r.getEtapeCollecte().getLatitude(),r.getEtapeCollecte().getLongitude());
+            Adresse depot = new Adresse (r.getEtapeDepot().getLatitude(),r.getEtapeDepot().getLongitude());
+            distanceCollecte = distanceEntreAdresse(a, collecte);
+            distanceDepot = distanceEntreAdresse(a, depot);
+            if( distanceCollecte < distanceMin){
+                distanceMin = distanceCollecte;
+                plusProche = collecte;
+            }
+            else if( distanceDepot < distanceMin){
+                distanceMin = distanceDepot;
+                plusProche = depot;
+            }
+        }
+
+        return plusProche;
+    }
 }

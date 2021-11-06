@@ -100,6 +100,7 @@ public class CalculateurTournee {
         return grapheCompletDesEtapes;
     }
 
+
     public Tournee getTournee(){
         return tournee;
     }
