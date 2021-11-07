@@ -46,6 +46,7 @@ public class CartePanel extends JPanel implements Observer {
         carte.addObserver(this); // this observe la carte
         this.carte = carte;
         tournee.addObserver(this); // this observe la tournee
+        this.tournee = tournee;
 
         maxLongitudeLatitudeCarte();
         this.largeur = (int) 3 * largeurEcran / 4;
@@ -137,9 +138,9 @@ public class CartePanel extends JPanel implements Observer {
             dessinerItineraire(g2);
 
         //Affichage de la tournee
-        if (tournee != null) {
+        if (tournee.getTourneeEstChargee()) {
             //Si la tournee est ordonnee trace l'itineraire
-            if (tournee.tourneeEstOrdonee())
+            if (tournee.getTourneeEstOrdonee())
                 dessinerItineraire(g2);
 
             //Affiche la liste des requêtes

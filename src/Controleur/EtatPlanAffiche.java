@@ -36,7 +36,7 @@ public class EtatPlanAffiche implements Etat {
     }
 
     @Override
-    public void chargerPlan (Controleur controleur, Fenetre fenetre, Carte carte) {
+    public void chargerPlan (Controleur controleur, Fenetre fenetre, Carte carte, Tournee tournee) {
         System.out.println("EtatPlanAffiche : chargerPlan");
 
         //Récupère le nom du fichier choisi

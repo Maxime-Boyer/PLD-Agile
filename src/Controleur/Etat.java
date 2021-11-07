@@ -11,7 +11,7 @@ public interface Etat {
      * @param c : le controlleur
      * @param fenetre : la fenêtre
      */
-    public default void chargerPlan(Controleur c, Fenetre fenetre, Carte carte) {}
+    public default void chargerPlan(Controleur c, Fenetre fenetre, Carte carte, Tournee tournee) {}
 
     public default void chargerListeRequete(Controleur c, Fenetre fenetre, Carte carte, Tournee tournee) {}
 

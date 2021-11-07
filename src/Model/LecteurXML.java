@@ -364,6 +364,7 @@ public class LecteurXML {
 
         System.out.println("LecteurXML nouvelleTournee = " + nouvelleTournee);
         tournee.clone(nouvelleTournee);
+        tournee.setTourneeEstChargee(true);
         //Notifie les observateurs que la tournee a été mofifié
         tournee.notifyObservers(tournee);
         return tournee;

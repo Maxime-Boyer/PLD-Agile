@@ -39,7 +39,7 @@ public class EtatTourneeOrdonnee implements Etat {
     }
 
     @Override
-    public void chargerPlan (Controleur controleur, Fenetre fenetre, Carte carte) {
+    public void chargerPlan (Controleur controleur, Fenetre fenetre, Carte carte, Tournee tournee) {
         System.out.println("Ouvrir explorateur de fichier");
         /*fenetre.retirerCartePanel();
         fenetre.retirerMenuLateral();
@@ -55,6 +55,7 @@ public class EtatTourneeOrdonnee implements Etat {
             carte = lecteur.lectureCarte(nomFichier, carte);
             //Change vers l'état PlanAffiche avec la nouvelle carte
             //retirerCartePanel();
+            tournee.reset();
             fenetre.retirerMenuLateral();
             fenetre.afficherEtatPlanAffiche(carte);
             controleur.setEtatActuel(controleur.etatPlanAffiche);

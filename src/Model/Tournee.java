@@ -14,6 +14,7 @@ public class Tournee extends Observable {
     private LocalTime heureDepart;
     private List<Requete> listeRequetes;
     private List<CheminEntreEtape> listeChemins;
+    private boolean tourneeEstChargee;
     private boolean tourneeEstOrdonee;
 
     public Tournee(){
@@ -21,6 +22,7 @@ public class Tournee extends Observable {
         listeChemins = new ArrayList<>();
         adresseDepart = null;
         heureDepart = null;
+        tourneeEstChargee = false;
         tourneeEstOrdonee = false;
     }
 
@@ -40,7 +42,11 @@ public class Tournee extends Observable {
         return listeChemins;
     }
 
-    public boolean tourneeEstOrdonee() {
+    public boolean getTourneeEstChargee() {
+        return tourneeEstChargee;
+    }
+
+    public boolean getTourneeEstOrdonee() {
         return tourneeEstOrdonee;
     }
 
@@ -58,6 +64,10 @@ public class Tournee extends Observable {
 
     public void setListeChemins(List<CheminEntreEtape> listeChemins) {
         this.listeChemins = listeChemins;
+    }
+
+    public void setTourneeEstChargee(boolean tourneeEstChargee) {
+        this.tourneeEstChargee = tourneeEstChargee;
     }
 
     public void setTourneeEstOrdonee(boolean tourneeEstOrdonee) {
@@ -141,7 +151,23 @@ public class Tournee extends Observable {
         this.heureDepart = touneeACloner.heureDepart;
         this.listeRequetes = touneeACloner.listeRequetes;
         this.listeChemins = touneeACloner.listeChemins;
+        this.tourneeEstChargee = touneeACloner.tourneeEstChargee;
         this.tourneeEstOrdonee = touneeACloner.tourneeEstOrdonee;
+    }
+
+    /**
+     * Vide la tournee
+     */
+    public void reset() {
+        listeRequetes = new ArrayList<>();
+        listeChemins = new ArrayList<>();
+        adresseDepart = null;
+        heureDepart = null;
+        tourneeEstChargee = false;
+        tourneeEstOrdonee = false;
+
+        //Notifie les observateurs que la tournee a été mofifié
+        notifyObservers(this);
     }
 
     @Override
@@ -153,4 +179,5 @@ public class Tournee extends Observable {
                 ", listeChemins=" + listeChemins +
                 '}';
     }
+
 }
