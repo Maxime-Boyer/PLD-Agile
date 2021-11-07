@@ -7,19 +7,21 @@ import Exceptions.CommandeImpossibleException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
+import Observer.Observable;
 
 public class Tournee extends Observable {
     private Adresse adresseDepart;
     private LocalTime heureDepart;
     private List<Requete> listeRequetes;
     private List<CheminEntreEtape> listeChemins;
+    private boolean tourneeEstOrdonee;
 
     public Tournee(){
         listeRequetes = new ArrayList<>();
         listeChemins = new ArrayList<>();
         adresseDepart = null;
         heureDepart = null;
+        tourneeEstOrdonee = false;
     }
 
     public Adresse getAdresseDepart() {
@@ -38,6 +40,10 @@ public class Tournee extends Observable {
         return listeChemins;
     }
 
+    public boolean tourneeEstOrdonee() {
+        return tourneeEstOrdonee;
+    }
+
     public void setAdresseDepart(Adresse adresseDepart) {
         this.adresseDepart = adresseDepart;
     }
@@ -52,6 +58,10 @@ public class Tournee extends Observable {
 
     public void setListeChemins(List<CheminEntreEtape> listeChemins) {
         this.listeChemins = listeChemins;
+    }
+
+    public void setTourneeEstOrdonee(boolean tourneeEstOrdonee) {
+        this.tourneeEstOrdonee = tourneeEstOrdonee;
     }
 
     /**
@@ -130,6 +140,7 @@ public class Tournee extends Observable {
         this.heureDepart = touneeACloner.heureDepart;
         this.listeRequetes = touneeACloner.listeRequetes;
         this.listeChemins = touneeACloner.listeChemins;
+        this.tourneeEstOrdonee = touneeACloner.tourneeEstOrdonee;
     }
 
     @Override

@@ -54,7 +54,7 @@ public class EtatTourneeOrdonnee implements Etat {
 
             carte = lecteur.lectureCarte(nomFichier, carte);
             //Change vers l'état PlanAffiche avec la nouvelle carte
-            fenetre.retirerCartePanel();
+            //retirerCartePanel();
             fenetre.retirerMenuLateral();
             fenetre.afficherEtatPlanAffiche(carte);
             controleur.setEtatActuel(controleur.etatPlanAffiche);

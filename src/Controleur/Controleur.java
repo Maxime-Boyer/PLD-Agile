@@ -36,7 +36,8 @@ public class Controleur {
         tournee = new Tournee();
         listeDeCommandes = new ListeDeCommandes();
         this.etatActuel = etatInitial;
-        fenetre = new Fenetre(carte, this);
+        //Crée la fenêtre d'affichage
+        fenetre = new Fenetre(carte, tournee, this);
     }
 
     /**

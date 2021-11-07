@@ -72,7 +72,7 @@ public class EtatTourneeChargee implements Etat {
         try {
             carte = lecteur.lectureCarte(nomFichier, carte);
             //Change vers l'état PlanAffiche avec la nouvelle carte
-            fenetre.retirerCartePanel();
+            //fenetre.retirerCartePanel();
             fenetre.retirerMenuLateral();
             fenetre.afficherEtatPlanAffiche(carte);
             controleur.setEtatActuel(controleur.etatPlanAffiche);

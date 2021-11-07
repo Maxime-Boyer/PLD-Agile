@@ -1,14 +1,16 @@
 package Model;
 
+import Observer.Observable;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Carte {
+public class Carte extends Observable {
 
     private Map<Long,Adresse> listeAdresses;
-    private List<Segment>listeSegments;
+    private List<Segment> listeSegments;
     private String nomCarte;
 
     /**
