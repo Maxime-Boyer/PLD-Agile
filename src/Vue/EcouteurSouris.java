@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 import Model.Adresse;
 import Model.Etape;
 
-import Controleur_Package.Controleur;
+import Controleur.Controleur;
 
 import javax.swing.*;
 
