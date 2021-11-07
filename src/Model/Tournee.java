@@ -127,6 +127,7 @@ public class Tournee extends Observable {
         //Ajoute le chemin entre l'étape précente et l'étape suivante du point de depot
         listeChemins.add(indexEtapePrecedentDepot, nouveauCheminEntrePrecedentEtSuivantDepot);
 
+        //Notifie les observateurs que la tournee a été mofifié
         notifyObservers(this);
 
     }

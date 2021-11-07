@@ -105,18 +105,6 @@ public class CartePanel extends JPanel implements Observer {
     }
 
     /**
-     * Lance le calcule de l'itineraire et indique à la méthode paint que l'itinéraire est pret a etre trace
-     * @param tournee la tournee ordonnee à afficher
-     */
-    /*public void tracerItineraire(Tournee tournee) {
-        System.out.println("tracerItineraire");
-        System.out.println("    tracerItineraire : carte = "+carte + ", tournee = "+tournee);
-
-        itineraire = tournee;
-        itinerairePrepare = true;
-    }*/
-
-    /**
      * Methode appelée par les objets qui sont observés par cette fenêtre à chaque fois qu'ils sont mofifiés.
      */
     @Override
