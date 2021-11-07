@@ -83,6 +83,7 @@ public class MenuLateral extends JPanel {
 
         //affichage du détaillé des requêtes
         this.panelInsideScrollPanel = new JPanel(null);
+        //panelInsideScrollPanel.setOpaque(true);
         BoxLayout boxlayout = new BoxLayout(panelInsideScrollPanel, BoxLayout.Y_AXIS);
         panelInsideScrollPanel.setLayout(boxlayout);
 
