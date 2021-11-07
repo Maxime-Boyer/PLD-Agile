@@ -20,6 +20,7 @@ public class Fenetre extends JFrame {
 
     private EcouteurBoutons ecouteurBoutons;
     private EcouteurSurvol ecouteurSurvol;
+    private EcouteurSouris ecouteurSouris;
 
     // definition des polices
     private Font policeTitre = new Font("SansSerif", Font.BOLD, 28);
@@ -30,7 +31,6 @@ public class Fenetre extends JFrame {
     private EcranAccueil ecranAccueil;
     private MenuLateral menuLateral;
     private CartePanel cartePanel;
-    private Legende legende;
 
     private Carte carte;
     private Tournee tournee;
@@ -60,6 +60,7 @@ public class Fenetre extends JFrame {
         //Cré les écouteurs
         this.ecouteurBoutons = new EcouteurBoutons(controleur);
         this.ecouteurSurvol = new EcouteurSurvol(this);
+        this.ecouteurSouris = new EcouteurSouris();
 
         this.setResizable(true); //TODO: passer à false
 
@@ -88,7 +89,7 @@ public class Fenetre extends JFrame {
         System.out.println("Frentre.afficherEtatPlanAffiche(carte) : ETAT_PLAN_AFFICHE");
         //E1: Carte chargée
         if (cartePanel == null) {
-            cartePanel = new CartePanel(carte, tournee, this.getContentPane().getWidth(), this.getContentPane().getHeight(), policeTexte, ecouteurBoutons, ecouteurSurvol);
+            cartePanel = new CartePanel(carte, tournee, this.getContentPane().getWidth(), this.getContentPane().getHeight(), policeTexte, ecouteurBoutons, ecouteurSurvol, ecouteurSouris);
             this.add(cartePanel);
         }
         if (menuLateral == null) {
@@ -109,7 +110,6 @@ public class Fenetre extends JFrame {
         System.out.println("Frentre.afficherEtatTourneChargee(tounee) : ETAT_TOURNEE_CHARGEE");
         //cartePanel.tracerRequetes(tournee);
         //menuLateral.afficherMenuRequete(tournee);
-        legende = new Legende();
 
         // repaint la fenetre
         this.revalidate();
@@ -124,7 +124,6 @@ public class Fenetre extends JFrame {
         System.out.println("Fenetre.afficherEtatTourneePreparee(tournee) : ETAT_TOURNEE_PREPAREE ");
         //cartePanel.tracerItineraire(tournee);
         //menuLateral.afficherMenuEtapes(tournee);
-        menuLateral.setMessageUtilisateur("Maintenant vous pouvez éditer votre tournée ou exporter la feuille de route.");
     }
 
     /**

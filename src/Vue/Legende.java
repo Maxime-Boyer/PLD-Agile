@@ -3,7 +3,7 @@ package Vue;
 import javax.swing.*;
 import java.awt.*;
 
-public class Legende extends JFrame{
+public class Legende extends JPanel{
 
     private LegendeFormes legendeFormes;
     private JLabel legendeTriangle;
@@ -13,18 +13,23 @@ public class Legende extends JFrame{
     private int ecartLabels;
     private int hauteurLigne;
 
+    private int largeurParent;
+    private int hauteurParent;
+
     /**
      * Affichage d'une legende pour expliquer à l'utilisateur la signification
      * du rond, du carre et du triangle
      */
-    public Legende(){
+    public Legende(int largeurParent, int hauteurParent, EcouteurSouris ecouteurSouris){
+
+        this.largeurParent = largeurParent;
+        this.hauteurParent = hauteurParent;
 
         //parametres de la fenetre
-        this.setTitle("Légende");
-        this.setBounds(20, 60, 260, 135);
-        this.setVisible(true);
-        this.setResizable(false);
+        this.setBounds(20, 20, 260, 120);
         this.setLayout(null);
+
+        this.addMouseMotionListener(ecouteurSouris);
 
         ecartLabels = 50;
         hauteurLigne = 25;
@@ -45,5 +50,22 @@ public class Legende extends JFrame{
         this.add(legendeTriangle);
         this.add(legendeRond);
         this.add(legendeCarre);
+    }
+
+    public void setPosition(int x, int y){
+
+        x = x - this.getWidth()/2;
+        y = y - 50;
+
+        if(x < (- this.getWidth() /2))
+            x = (- this.getWidth() /2);
+        if(y < (- this.getHeight() /2))
+            y = (- this.getHeight() /2);
+        if(x > largeurParent - this.getWidth() /2)
+            x = largeurParent - this.getWidth() /2;
+        if(y > hauteurParent - this.getHeight() /2)
+            y = hauteurParent - this.getHeight() /2;
+
+        this.setBounds(x, y, this.getWidth(), this.getHeight());
     }
 }

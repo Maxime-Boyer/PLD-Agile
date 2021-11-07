@@ -38,6 +38,7 @@ public class CartePanel extends JPanel implements Observer {
     private CalculateurTournee calculTournee;
     private Carte carte;
     private PopUpSaisieDuree popUpSaisieDuree;
+    private Legende legende;
 
 
     /**
@@ -50,7 +51,7 @@ public class CartePanel extends JPanel implements Observer {
      * @param ecouteurBoutons: ecouteur permettant de saisir des evenements liés aux boutons
      * @param ecouteurSurvol: ecouteur permettant de saisir des evenements liés au survol de la souris
      */
-    public CartePanel(Carte carte, Tournee tournee, int largeurEcran, int hauteurEcran, Font policeTexte, EcouteurBoutons ecouteurBoutons, EcouteurSurvol ecouteurSurvol) {
+    public CartePanel(Carte carte, Tournee tournee, int largeurEcran, int hauteurEcran, Font policeTexte, EcouteurBoutons ecouteurBoutons, EcouteurSurvol ecouteurSurvol, EcouteurSouris ecouteurSouris) {
 
         carte.addObserver(this); // this observe la carte
         this.carte = carte;
@@ -81,6 +82,8 @@ public class CartePanel extends JPanel implements Observer {
 
         //ininitialisation du popup de saisie des durees lors de l'ajout d'une etape
         popUpSaisieDuree = new PopUpSaisieDuree(policeTexte, ecouteurBoutons);
+
+        legende = new Legende(this.getWidth(), this.getHeight(), ecouteurSouris);
 
         this.setVisible(true);
 
@@ -333,6 +336,7 @@ public class CartePanel extends JPanel implements Observer {
             throw new IncompatibleAdresseException("Erreur d'adresse de départ, cette adresse n'appartient pas à la carte chargée ");
         }*/
 
+        this.add(legende);
     }
 
     /**
