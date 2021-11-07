@@ -74,7 +74,7 @@ public class EtatTourneeChargee implements Etat {
             //Change vers l'état PlanAffiche avec la nouvelle carte
             //fenetre.retirerCartePanel();
             tournee.reset();
-            fenetre.retirerMenuLateral();
+            //fenetre.retirerMenuLateral();
             fenetre.afficherEtatPlanAffiche(carte);
             controleur.setEtatActuel(controleur.etatPlanAffiche);
         } catch (Exception e) {

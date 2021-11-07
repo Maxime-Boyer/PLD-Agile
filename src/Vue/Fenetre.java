@@ -91,8 +91,10 @@ public class Fenetre extends JFrame {
             cartePanel = new CartePanel(carte, tournee, this.getContentPane().getWidth(), this.getContentPane().getHeight(), policeTexte, ecouteurBoutons, ecouteurSurvol);
             this.add(cartePanel);
         }
-        menuLateral = new MenuLateral(this.getContentPane().getWidth(), this.getContentPane().getHeight(), policeTexte, policeTexteImportant, ecouteurBoutons, ecouteurSurvol);
-        this.add(menuLateral);
+        if (menuLateral == null) {
+            menuLateral = new MenuLateral(tournee, this.getContentPane().getWidth(), this.getContentPane().getHeight(), policeTexte, policeTexteImportant, ecouteurBoutons, ecouteurSurvol);
+            this.add(menuLateral);
+        }
 
         // repaint la fenetre
         this.revalidate();
@@ -106,7 +108,7 @@ public class Fenetre extends JFrame {
     public void afficherEtatTourneChargee (Tournee tournee) {
         System.out.println("Frentre.afficherEtatTourneChargee(tounee) : ETAT_TOURNEE_CHARGEE");
         //cartePanel.tracerRequetes(tournee);
-        menuLateral.afficherMenuRequete(tournee);
+        //menuLateral.afficherMenuRequete(tournee);
         legende = new Legende();
 
         // repaint la fenetre
@@ -121,7 +123,7 @@ public class Fenetre extends JFrame {
     public void afficherEtatTourneePreparee (Tournee tournee) {
         System.out.println("Fenetre.afficherEtatTourneePreparee(tournee) : ETAT_TOURNEE_PREPAREE ");
         //cartePanel.tracerItineraire(tournee);
-        menuLateral.afficherMenuEtapes(tournee);
+        //menuLateral.afficherMenuEtapes(tournee);
         menuLateral.setMessageUtilisateur("Maintenant vous pouvez éditer votre tournée ou exporter la feuille de route.");
     }
 
@@ -187,7 +189,7 @@ public class Fenetre extends JFrame {
         cartePanel.setVisible(false);
         //this.remove(cartePanel);
     }*/
-
+    /*
     public void retirerMenuLateral() {
         this.remove(menuLateral);
     }
@@ -198,5 +200,5 @@ public class Fenetre extends JFrame {
 
     public void retirerMenuEtape() {
         menuLateral.retirerMenuEtape();
-    }
+    }*/
 }

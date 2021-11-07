@@ -24,7 +24,7 @@ public class EtatTourneeOrdonnee implements Etat {
         try {
             System.out.println("    avant");
             tournee = lecteur.lectureRequete(nomFichier, carte, tournee);
-            fenetre.retirerMenuEtape();
+            //fenetre.retirerMenuEtape();
             System.out.println("    après tournee = " + tournee);
             //Change vers l'état PlanAffiche avec la nouvelle carte
             fenetre.afficherEtatTourneChargee(tournee);
@@ -56,7 +56,7 @@ public class EtatTourneeOrdonnee implements Etat {
             //Change vers l'état PlanAffiche avec la nouvelle carte
             //retirerCartePanel();
             tournee.reset();
-            fenetre.retirerMenuLateral();
+            //fenetre.retirerMenuLateral();
             fenetre.afficherEtatPlanAffiche(carte);
             controleur.setEtatActuel(controleur.etatPlanAffiche);
         } catch (Exception e) {

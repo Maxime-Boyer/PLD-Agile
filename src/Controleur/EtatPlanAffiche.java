@@ -49,7 +49,7 @@ public class EtatPlanAffiche implements Etat {
             System.out.println("EtatPlanAffiche : carte succes = " + carte);
             //Change vers l'état PlanAffiche avec la nouvelle carte
             //fenetre.retirerCartePanel();
-            fenetre.retirerMenuLateral();
+            //fenetre.retirerMenuLateral();
             fenetre.afficherEtatPlanAffiche(carte);
             controleur.setEtatActuel(controleur.etatPlanAffiche);
         } catch (Exception e) {
