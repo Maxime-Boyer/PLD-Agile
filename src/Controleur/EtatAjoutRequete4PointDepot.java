@@ -12,6 +12,7 @@ public class EtatAjoutRequete4PointDepot implements Etat{
         Adresse depotAPlacer = carte.recherche(depot);
         fenetre.getCartePanel().ajouterAdresseNouvelleRequete(depotAPlacer);
         controleur.setEtatActuel(controleur.etatAjoutRequete5DureeDepot);
+        fenetre.afficherEtatAjoutRequete5();
     }
 
 }

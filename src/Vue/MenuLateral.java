@@ -60,7 +60,11 @@ public class MenuLateral extends JPanel {
         /************************************************************************************/
         /*                          Panel boutons d'import                                  */
         /************************************************************************************/
+        afficherMenuImportation();
 
+    }
+
+    public void afficherMenuImportation(){
         panelImport = new JPanel();
         panelImport.setBounds(Fenetre.valMarginBase, messageUtilisateur.getY()+messageUtilisateur.getHeight()+Fenetre.valMarginBase, this.getWidth()-2*Fenetre.valMarginBase, Fenetre.hauteurBouton );
         panelImport.setLayout(null);
@@ -218,13 +222,22 @@ public class MenuLateral extends JPanel {
      * Permet de retirer l'affichage textuel de tous les boutons
      */
     public void retirerBoutonsMenu() {
+        this.remove(boutonImporterTournee);
+        //boutonPreparerTournee.setVisible(false);
+        this.remove(boutonPreparerTournee);
         this.remove(panelBoutonsE4);
+        //panelBoutonsE4.setVisible(false);
+        //panelImport.setVisible(false);
         this.remove(panelImport);
         this.remove(boutonAjouterEtape);
+        //boutonAjouterEtape.setVisible(false);
         this.remove(scrollPanel);
+        //scrollPanel.setVisible(false);
         this.remove(boutonExporterFeuilleRoute);
+        //boutonExporterFeuilleRoute.setVisible(false);
         this.remove(boutonImporterPlan);
-        this.remove(boutonImporterTournee);
-        this.remove(boutonPreparerTournee);
+        //boutonImporterPlan.setVisible(false);
+        //boutonImporterTournee.setVisible(false);
+
     }
 }

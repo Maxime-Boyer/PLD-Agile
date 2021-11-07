@@ -20,18 +20,12 @@ public class EtatAjoutRequete3PointPrecedentCollecte implements Etat{
             Etape collecte = new Etape(nouvelleAdresseCollecte.getLatitude(), nouvelleAdresseCollecte.getLongitude(), nouvelleAdresseCollecte.getIdAdresse(),dureeEtape);
             l.ajouter(new CommandeAjouteRequete(tournee, carte, collecte, etapePrecColl));
             fenetre.getCartePanel().repaint();
+            controleur.setEtatActuel(controleur.etatAjoutRequete4PointDepot);
+            fenetre.afficherEtatAjoutRequete4();
         }
         catch (CommandeImpossibleException e) {
             e.printStackTrace();
         }
-
-
-        /*TODO : add Astar pour trouver plus court chemin entre etape précédent et point collecte
-        Ajouter le tracage de ce chemin sur la carte
-        */
-
-
-        controleur.setEtatActuel(controleur.etatAjoutRequete3PointPrecedentCollecte);
     }
 
     public void mettreAjourDuree(Integer dureeEtape){

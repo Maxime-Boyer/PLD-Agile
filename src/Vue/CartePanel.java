@@ -51,7 +51,6 @@ public class CartePanel extends JPanel {
     private PopUpSaisieDuree popUpSaisieDuree;
     private Graphics2D g;
 
-
     /**
      * Panel où est tracée la carte importée par l'utilisateur
      * @param carte: l'objet carte du Modele

@@ -215,4 +215,37 @@ public class Tournee extends Observable {
         }
     }
 
+    public boolean collectePrecedeDepot(Etape collecte, Etape precedentDepot) {
+        boolean depotTrouvee = false;
+        for (CheminEntreEtape chemin : listeChemins){
+            double departLongitude = chemin.getEtapeDepart().getLongitude();
+            double departLatitude = chemin.getEtapeDepart().getLatitude();
+            double arriveeLongitude = chemin.getEtapeDepart().getLongitude();
+            double arriveeLatitude = chemin.getEtapeDepart().getLatitude();
+            if(collecte.getLongitude() == precedentDepot.getLongitude() && collecte.getLatitude() == precedentDepot.getLatitude()){
+                return true;
+            }
+            if(collecte.getLongitude() == departLongitude && collecte.getLatitude() == departLatitude && precedentDepot.getLongitude() == arriveeLongitude && precedentDepot.getLatitude() == arriveeLatitude){
+                return true;
+            }
+            if(departLongitude == precedentDepot.getLongitude() && departLatitude == precedentDepot.getLatitude()){
+                depotTrouvee = true;
+            }
+            if(arriveeLongitude == precedentDepot.getLongitude() && arriveeLatitude == precedentDepot.getLatitude()){
+                depotTrouvee = true;
+            }
+            if(!depotTrouvee && (departLongitude == collecte.getLongitude() || departLatitude == collecte.getLatitude())){
+                return true;
+            }
+            else if(!depotTrouvee && (arriveeLongitude == collecte.getLongitude() || arriveeLatitude == collecte.getLatitude())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void ajoutRequete(Requete requete){
+        listeRequetes.add(requete);
+    }
+
 }
