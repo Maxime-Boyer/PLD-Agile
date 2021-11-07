@@ -94,6 +94,7 @@ public class Fenetre extends JFrame {
         this.add(cartePanel);
         menuLateral = new MenuLateral(this.getContentPane().getWidth(), this.getContentPane().getHeight(), policeTexte, policeTexteImportant, ecouteurBoutons, ecouteurSurvol);
         this.add(menuLateral);
+        menuLateral.afficherMenuImportation();
 
         // repaint la fenetre
         this.revalidate();
@@ -121,9 +122,13 @@ public class Fenetre extends JFrame {
      */
     public void afficherEtatTourneePreparee (Tournee tournee) {
         System.out.println("Fenetre.afficherEtatTourneePreparee(tournee) : ETAT_TOURNEE_PREPAREE ");
+        cartePanel.tracerRequetes(tournee);
         cartePanel.tracerItineraire(tournee);
         menuLateral.afficherMenuEtapes(tournee);
+        menuLateral.afficherMenuImportation();
         menuLateral.setMessageUtilisateur("Maintenant vous pouvez éditer votre tournée ou exporter la feuille de route.");
+        this.revalidate();
+        this.repaint();
     }
 
     public void afficherEtatAjoutRequete(){
@@ -135,16 +140,36 @@ public class Fenetre extends JFrame {
     }
     public void afficherEtatAjoutRequete2(){
         popUpSaisieDuree = new PopUpSaisieDuree(policeTexte,ecouteurBoutons);
-        menuLateral.setMessageUtilisateur("Entrer la durée de l'étape et Valider");
-        this.add(popUpSaisieDuree);
+        menuLateral.setMessageUtilisateur("Entrer la durée de l'étape collecte et Valider");
+        cartePanel.add(popUpSaisieDuree);
         this.revalidate();
         this.repaint();
-
 
     }
     public void afficherEtatAjoutRequete3(){
         menuLateral.setMessageUtilisateur("Selectionner l'étape qui précéde votre collecte: [Clique Gauche] sur une Etape de la Carte " + "[Clique Droit] pour annuler");
         //this.ecouteurSouris.setVueGraphique(cartePanel);
+        cartePanel.remove(popUpSaisieDuree);
+        this.revalidate();
+        this.repaint();
+    }
+
+    public void afficherEtatAjoutRequete4(){
+        menuLateral.setMessageUtilisateur("Ajouter une Etape de depot: [Clique Gauche] sur une Adresse de la Carte " + "[Clique Droit] pour annuler");
+        this.revalidate();
+        this.repaint();
+    }
+
+    public void afficherEtatAjoutRequete5(){
+        menuLateral.setMessageUtilisateur("Entrer la durée de l'étape depot et Valider");
+        cartePanel.add(popUpSaisieDuree);
+        this.revalidate();
+        this.repaint();
+    }
+
+    public void afficherEtatAjoutRequete6(){
+        menuLateral.setMessageUtilisateur("Selectionner l'étape qui précéde votre depot: [Clique Gauche] sur une Etape de la Carte " + "[Clique Droit] pour annuler");
+        cartePanel.remove(popUpSaisieDuree);
         this.revalidate();
         this.repaint();
     }

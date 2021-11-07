@@ -11,7 +11,10 @@ public class EtatAjoutRequete2DureeCollecte implements Etat{
 
     @Override
     public void validerAjoutDureeEtape(Controleur controleur, Fenetre fenetre){
-          duree = fenetre.getPopUpSaisieDuree().getDureePopUp();
+          Integer duree = fenetre.getPopUpSaisieDuree().getDureePopUp();
+          controleur.etatAjoutRequete3PointPrecedentCollecte.mettreAjourDuree(duree);
+          controleur.setEtatActuel(controleur.etatAjoutRequete3PointPrecedentCollecte);
+          fenetre.afficherEtatAjoutRequete3();
     }
 
 

@@ -520,10 +520,14 @@ public class CartePanel extends JPanel {
             int valeurXEtape = valeurX(lonEtape);
             int valeurYEtape = valeurY(latEtape);
             g.setColor(Color.RED);
+            int taille = 10;
             if(i == 0){
+
+                g.fillOval(valeurXEtape - taille/2, valeurYEtape - taille/2, taille+1, taille+1);
                 g.fillRoundRect(valeurXEtape - 7, valeurYEtape - 7, 14, 14, 14, 14);
             }else if(i == 1){
-                g.fillRect(valeurXEtape - 7, valeurYEtape - 7, 14, 14);
+                g.fillRoundRect(valeurXEtape - taille/2, valeurYEtape - taille/2, taille+1, taille+1, taille/2, taille/2);
+
             }
         }
     }

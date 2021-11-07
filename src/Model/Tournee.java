@@ -55,6 +55,7 @@ public class Tournee extends Observable {
         this.listeChemins = listeChemins;
     }
 
+
     /**
      * Supprime une requete de la liste des requetes et de la liste de chemins entre etape.
      *  Pour cela recalcul le plus court chemin entre l'étape précédente et l'étape suivante du point de collecte et de depot de la requete
