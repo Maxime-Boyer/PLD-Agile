@@ -22,6 +22,8 @@ public class PopUpSaisieDuree extends JPanel {
     public PopUpSaisieDuree(Font policeTexte, EcouteurBoutons ecouteurBoutons){
 
         this.setLayout(null);
+        this.setOpaque(true);
+        this.setVisible(true);
 
         largeur = 200;
         hauteur = 115;

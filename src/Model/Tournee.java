@@ -169,8 +169,8 @@ public class Tournee extends Observable {
         double distanceDepot;
         Adresse plusProche = null;
         for(Requete r : listeRequetes){
-            Adresse collecte = new Adresse (r.getEtapeCollecte().getLatitude(),r.getEtapeCollecte().getLongitude());
-            Adresse depot = new Adresse (r.getEtapeDepot().getLatitude(),r.getEtapeDepot().getLongitude());
+            Adresse collecte = new Adresse (r.getEtapeCollecte().getLatitude(),r.getEtapeCollecte().getLongitude(),r.getEtapeCollecte().getIdAdresse());
+            Adresse depot = new Adresse (r.getEtapeDepot().getLatitude(),r.getEtapeDepot().getLongitude(),r.getEtapeDepot().getIdAdresse());
             distanceCollecte = distanceEntreAdresse(a, collecte);
             distanceDepot = distanceEntreAdresse(a, depot);
             if( distanceCollecte < distanceMin){
@@ -187,11 +187,11 @@ public class Tournee extends Observable {
     }
 
     public void ajoutChemin(Etape adresse, Etape precedent, Carte carte){
-        Etape suivant = null;
         int index = 0;
+        Etape suivant = null;
         for (CheminEntreEtape chemin : listeChemins){
             if(chemin.getEtapeDepart().getIdAdresse() == precedent.getIdAdresse()){
-                suivant = chemin.getEtapeArrivee();
+                suivant = new Etape(chemin.getEtapeArrivee().getLatitude(),chemin.getEtapeArrivee().getLongitude(),chemin.getEtapeArrivee().getIdAdresse(),chemin.getEtapeArrivee().getDureeEtape(),chemin.getEtapeArrivee().getHeureDePassage());
                 listeChemins.remove(chemin);
                 break;
             }

@@ -11,7 +11,8 @@ public class EtatAjoutRequete1PointCollecte implements Etat {
     public void cliqueGauche (Controleur controleur, Fenetre fenetre, Carte carte, ListeDeCommandes l, Tournee tournee, Adresse collecte){
         Adresse collecteAPlacer = carte.recherche(collecte);
         fenetre.getCartePanel().ajouterAdresseNouvelleRequete(collecteAPlacer);
-        controleur.setEtatActuel(controleur.etatAjoutRequete2PointPrecedentCollecte);
+        controleur.setEtatActuel(controleur.etatAjoutRequete2DureeCollecte);
+        fenetre.afficherEtatAjoutRequete2();
     }
 
 }

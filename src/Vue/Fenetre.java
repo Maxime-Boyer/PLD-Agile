@@ -36,6 +36,7 @@ public class Fenetre extends JFrame {
     private MenuLateral menuLateral;
     private CartePanel cartePanel;
     private Legende legende;
+    private PopUpSaisieDuree popUpSaisieDuree;
 
     /**
      * Cree la fenetre dans laquelle s'ouvre l'application
@@ -129,6 +130,19 @@ public class Fenetre extends JFrame {
         menuLateral.retirerBoutonsMenu();
         menuLateral.setMessageUtilisateur("Ajouter une Etape de collecte: [Clique Gauche] sur une Adresse de la Carte " + "[Clique Droit] pour annuler");
         this.ecouteurSouris.setVueGraphique(cartePanel);
+        this.revalidate();
+        this.repaint();
+    }
+    public void afficherEtatAjoutRequete2(){
+        popUpSaisieDuree = new PopUpSaisieDuree(policeTexte,ecouteurBoutons);
+        menuLateral.setMessageUtilisateur("Entrer la durée de l'étape et Valider");
+        this.add(popUpSaisieDuree);
+
+
+    }
+    public void afficherEtatAjoutRequete3(){
+        menuLateral.setMessageUtilisateur("Selectionner l'étape qui précéde votre collecte: [Clique Gauche] sur une Etape de la Carte " + "[Clique Droit] pour annuler");
+        //this.ecouteurSouris.setVueGraphique(cartePanel);
         this.revalidate();
         this.repaint();
     }
