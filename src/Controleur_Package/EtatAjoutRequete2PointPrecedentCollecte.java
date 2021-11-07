@@ -15,6 +15,7 @@ public class EtatAjoutRequete2PointPrecedentCollecte implements Etat{
         Ajouter le tracage de ce chemin sur la carte
         */
 
-        controleur.setEtatActuel(controleur.etatAjoutRequete3PointSuivantCollecte);
+
+        controleur.setEtatActuel(controleur.etatAjoutRequete3DureeCollecte);
     }
 }

@@ -352,6 +352,10 @@ public class CartePanel extends JPanel {
         }
     }
 
+    public ArrayList<Adresse> getNouvelleAdresse() {
+        return nouvelleAdresse;
+    }
+
     public void ajouterAdresseNouvelleRequete(Adresse a){
         nouvelleAdresse.add(a);
         repaint();

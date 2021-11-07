@@ -1,5 +1,7 @@
 package Model;
 
+import Algorithmie.Astar2;
+
 import java.sql.Array;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -60,6 +62,21 @@ public class Tournee extends Observable {
                 ", listeRequetes=" + listeRequetes +
                 ", listeChemins=" + listeChemins +
                 '}';
+    }
+
+    public Etape obtenirEtapeParId(Long id){
+        Etape etapeCherchee = null;
+        for(CheminEntreEtape chemin : listeChemins){
+            if(chemin.getEtapeDepart().getIdAdresse() == id){
+                etapeCherchee = chemin.getEtapeDepart();
+                return etapeCherchee;
+            }
+            if(chemin.getEtapeArrivee().getIdAdresse() == id){
+                etapeCherchee = chemin.getEtapeArrivee();
+                return etapeCherchee;
+            }
+        }
+        return etapeCherchee;
     }
 
     public double distanceEntreAdresse(Adresse a, Adresse b){
