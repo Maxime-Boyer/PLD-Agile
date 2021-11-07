@@ -66,7 +66,7 @@ public class CartePanel extends JPanel implements Observer {
         this.setBackground(Color.WHITE);
         this.setLayout(null);
         this.addMouseListener(ecouteurSurvol);
-        this.addMouseWheelListener(new EcouteurZoom(this,.001));
+        this.addMouseWheelListener(new EcouteurZoom(this,.002));
 
         //initialisation image
         iconPosition = new ImageIcon("src/images/Localisation.png");
@@ -122,10 +122,12 @@ public class CartePanel extends JPanel implements Observer {
     public void update(Observable observed, Object arg) {
         if (arg != null){ // arg est soit une carte, soit une tournée qui a été mise à jour
             //Met à jour tournee ou carte
-            if (arg instanceof Carte)
+            if (arg instanceof Carte) {
                 carte = (Carte) arg;
-            else if (arg instanceof Tournee)
+                maxLongitudeLatitudeCarte();
+            } else if (arg instanceof Tournee) {
                 tournee = (Tournee) arg;
+            }
         }
         System.out.println("CartePanel.update : carte = " + carte);
         repaint();
@@ -138,7 +140,7 @@ public class CartePanel extends JPanel implements Observer {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        System.out.println("CartePanel.paintComponent : carte = " + carte);
+        //System.out.println("CartePanel.paintComponent : carte = " + carte);
         //System.out.println("hauteur ecran : " + hauteurEcran + " largeur ecran : " + largeurEcran);
         Graphics2D g2 = (Graphics2D) g;
         //Affiche la carte uniquement si la carte est non vide

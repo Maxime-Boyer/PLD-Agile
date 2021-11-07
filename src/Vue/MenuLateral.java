@@ -135,6 +135,8 @@ public class MenuLateral extends JPanel implements Observer {
      */
     public void afficherMenuEtapes(Tournee tournee){
 
+        System.out.println("afficherMenuEtapes");
+
         // Undo, Redo, Ajouter Etape
         panelBoutonsE4 = new JPanel();
         panelBoutonsE4.setBounds(Fenetre.valMarginBase, panelImport.getY() + panelImport.getHeight() + Fenetre.valMarginBase, this.getWidth()-2*Fenetre.valMarginBase, Fenetre.hauteurBouton );
@@ -186,12 +188,14 @@ public class MenuLateral extends JPanel implements Observer {
             panelInsideScrollPanel.add(listeEtapes[i]);
             panelInsideScrollPanel.add(Box.createRigidArea(new Dimension(0, 2*Fenetre.valMarginBase)));
         }
+        this.add(scrollPanel);
 
         // bouton Exporter feuille de route
         this.remove(boutonPreparerTournee);
         boutonExporterFeuilleRoute = new Bouton("Exporter feuille de route", policeTexte, ecouteurBoutons);
         boutonExporterFeuilleRoute.setBounds( Fenetre.valMarginBase, this.getHeight() - Fenetre.hauteurBouton - Fenetre.valMarginBase, this.getWidth() - 2*Fenetre.valMarginBase, Fenetre.hauteurBouton);
         this.add(boutonExporterFeuilleRoute);
+
     }
 
     /**
@@ -232,6 +236,7 @@ public class MenuLateral extends JPanel implements Observer {
      */
     @Override
     public void update(Observable observed, Object arg) {
+        System.out.println("..... update MenuLateral");
         if (arg != null){ // arg est soit une carte, soit une tournée qui a été mise à jour
             retirerMenuRequete();
             retirerMenuEtape();
@@ -250,7 +255,7 @@ public class MenuLateral extends JPanel implements Observer {
                 }
             }
         }
-        System.out.println("MenuLateral.update : tournee = " + tournee);
+        revalidate();
         repaint();
     }
 
