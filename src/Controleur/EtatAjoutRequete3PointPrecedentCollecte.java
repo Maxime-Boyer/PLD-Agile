@@ -2,8 +2,8 @@ package Controleur;
 
 import Vue.Fenetre;
 
-public class EtatAjoutRequete3DureeCollecte implements Etat{
-
+public class EtatAjoutRequete3PointPrecedentCollecte implements Etat{
+    private Integer dureeEtape;
     @Override
     public void validerAjoutRequetePointCollecte(Controleur controleur, Fenetre fenetre) {
 

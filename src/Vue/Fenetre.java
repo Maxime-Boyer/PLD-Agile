@@ -17,6 +17,7 @@ public class Fenetre extends JFrame {
     protected final static String IMPORT_TOURNEE = "Importer tournée";
     protected final static String PREPARER_TOURNEE = "Préparer tournée";
     protected final static String AJOUT_REQUETE = "Ajouter requête";
+    protected final static String VALIDER_AJOUT_DUREE_COLLECTE_REQUETE = "Valider";
 
     protected final static int valMarginBase = 5;
     protected final static int hauteurBouton = 50;
@@ -64,6 +65,10 @@ public class Fenetre extends JFrame {
         this.setVisible(true);
 
         afficherEtat(NomEtat.ETAT_INITIAL);
+    }
+
+    public PopUpSaisieDuree getPopUpSaisieDuree() {
+        return popUpSaisieDuree;
     }
 
     /**

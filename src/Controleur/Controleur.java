@@ -16,11 +16,11 @@ public class Controleur {
 
     // Instances associés à chaque état possible du controleur
     protected final EtatAjoutRequete1PointCollecte etatAjoutRequete1PointCollecte = new EtatAjoutRequete1PointCollecte();
-    protected final EtatAjoutRequete2PointPrecedentCollecte etatAjoutRequete2PointPrecedentCollecte = new EtatAjoutRequete2PointPrecedentCollecte();
-    protected final EtatAjoutRequete3DureeCollecte etatAjoutRequete3DureeCollecte = new EtatAjoutRequete3DureeCollecte();
+    protected final EtatAjoutRequete2DureeCollecte etatAjoutRequete2DureeCollecte = new EtatAjoutRequete2DureeCollecte();
+    protected final EtatAjoutRequete3PointPrecedentCollecte etatAjoutRequete3PointPrecedentCollecte = new EtatAjoutRequete3PointPrecedentCollecte();
     protected final EtatAjoutRequete4PointDepot etatAjoutRequete4PointDepot = new EtatAjoutRequete4PointDepot();
-    protected final EtatAjoutRequete5PointPrecedentDepot etatAjoutRequete5PointPrecedentDepot = new EtatAjoutRequete5PointPrecedentDepot();
-    protected final EtatAjoutRequete6DureeDepot etatAjoutRequete6DureeDepot = new EtatAjoutRequete6DureeDepot();
+    protected final EtatAjoutRequete5DureeDepot etatAjoutRequete5DureeDepot = new EtatAjoutRequete5DureeDepot();
+    protected final EtatAjoutRequete6PointPrecedentDepot etatAjoutRequete6PointPrecedentDepot = new EtatAjoutRequete6PointPrecedentDepot();
     protected final EtatInitial etatInitial = new EtatInitial();
     protected final EtatTourneeChargee etatTourneeChargee = new EtatTourneeChargee();
     protected final EtatTourneeOrdonnee etatTourneeOrdonnee = new EtatTourneeOrdonnee();
@@ -200,4 +200,12 @@ public class Controleur {
     public void refaire() throws CommandeImpossibleException {
         listeDeCommandes.refaire();
     }
+
+    /**
+     * Méthode appelé par fenetre après avoir cliqué sur le bouton "Valider" lors de l'ajout de la durée d'un point de collecte/depot
+     */
+    public void validerAjoutDureeEtape() {
+        etatActuel.validerAjoutDureeEtape(this, fenetre);
+    }
+
 }

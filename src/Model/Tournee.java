@@ -167,7 +167,7 @@ public class Tournee extends Observable {
         double distanceMin = Double.MAX_VALUE;
         double distanceCollecte;
         double distanceDepot;
-        Adresse plusProche = new Adresse();
+        Adresse plusProche = null;
         for(Requete r : listeRequetes){
             Adresse collecte = new Adresse (r.getEtapeCollecte().getLatitude(),r.getEtapeCollecte().getLongitude());
             Adresse depot = new Adresse (r.getEtapeDepot().getLatitude(),r.getEtapeDepot().getLongitude());
@@ -177,7 +177,7 @@ public class Tournee extends Observable {
                 distanceMin = distanceCollecte;
                 plusProche = collecte;
             }
-            else if( distanceDepot < distanceMin){
+            if( distanceDepot < distanceMin){
                 distanceMin = distanceDepot;
                 plusProche = depot;
             }
@@ -202,7 +202,17 @@ public class Tournee extends Observable {
         CheminEntreEtape actuelSuivant = astar.chercherCheminEntreEtape(adresse, suivant);
         listeChemins.add(index, precedentActuel);
         listeChemins.add(index+1, actuelSuivant);
+        ajouteHeureDePassage();
     }
 
+    private void ajouteHeureDePassage(){
+        int vitesse = 15; //15 km.h-1
+        LocalTime heureActuelle = heureDepart;
+        for(CheminEntreEtape cee : listeChemins){
+            cee.getEtapeDepart().setHeureDePassage(heureActuelle);
+            heureActuelle = heureActuelle.plusSeconds(cee.getEtapeDepart().getDureeEtape() + ((cee.distance/(vitesse*1000))*60));
+            cee.getEtapeArrivee().setHeureDePassage(heureActuelle);
+        }
+    }
 
 }

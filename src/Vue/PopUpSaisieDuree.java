@@ -45,7 +45,7 @@ public class PopUpSaisieDuree extends JPanel {
         champValDuree.setBounds(2*Fenetre.valMarginBase, titrePopUp.getHeight() + titrePopUp.getY() + Fenetre.valMarginBase, largeur - 4 * Fenetre.valMarginBase, 30);
         this.add(champValDuree);
 
-        boutonValider = new Bouton("Valider", policeTexte, ecouteurBoutons);
+        boutonValider = new Bouton(Fenetre.VALIDER_AJOUT_DUREE_COLLECTE_REQUETE, policeTexte, ecouteurBoutons);
         boutonValider.setBounds((largeur - 100)/2, hauteur-2*Fenetre.valMarginBase-30, 100, 30 );
         this.add(boutonValider);
     }
@@ -65,6 +65,7 @@ public class PopUpSaisieDuree extends JPanel {
      * Extrait la duree du champ de saisie
      * @return: la duree entree par l'utilisateur
      */
+    //TODO : Rajouter exception sur ça verifier bien un nombre (parseInt contient déjà exception normalement)
     public int getDureePopUp(){
         return Integer.parseInt(champValDuree.getText());
     }

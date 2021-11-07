@@ -5,7 +5,7 @@ import Model.Carte;
 import Model.Tournee;
 import Vue.Fenetre;
 
-public class EtatAjoutRequete5PointPrecedentDepot implements Etat{
+public class EtatAjoutRequete5DureeDepot implements Etat{
 
     @Override
     public void cliqueGauche (Controleur controleur, Fenetre fenetre, Carte carte, ListeDeCommandes l, Tournee tournee, Adresse precedent){
@@ -15,7 +15,7 @@ public class EtatAjoutRequete5PointPrecedentDepot implements Etat{
         Ajouter le tracage de ce chemin sur la carte
         */
 
-        controleur.setEtatActuel(controleur.etatAjoutRequete6DureeDepot);
+        controleur.setEtatActuel(controleur.etatAjoutRequete6PointPrecedentDepot);
     }
 
 }

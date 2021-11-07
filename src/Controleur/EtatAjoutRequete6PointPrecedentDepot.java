@@ -2,7 +2,7 @@ package Controleur;
 
 import Vue.Fenetre;
 
-public class EtatAjoutRequete6DureeDepot implements Etat{
+public class EtatAjoutRequete6PointPrecedentDepot implements Etat{
 
     @Override
     public void validerAjoutRequetePointDepot(Controleur controleur, Fenetre fenetre) {
