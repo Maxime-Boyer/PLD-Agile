@@ -85,4 +85,5 @@ public class EtatTourneeChargee implements Etat {
             //Reste dans l'état actuel
         }
     }
+
 }

@@ -85,4 +85,24 @@ public class Carte extends Observable {
                 ", nomCarte='" + nomCarte + '\'' +
                 '}';
     }
+
+    public double distanceEntreAdresse(Adresse a, Adresse b){
+        double distance = Math.pow(a.getLongitude() - b.getLongitude(), 2) + Math.pow(a.getLatitude() - b.getLatitude(), 2);
+        return distance;
+    }
+
+    public Adresse recherche(Adresse a){
+        double distanceMin = Double.MAX_VALUE;
+        double distance;
+        Adresse plusProche = new Adresse();
+        for(Map.Entry<Long, Adresse> entre : listeAdresses.entrySet()){
+            distance = distanceEntreAdresse(a, entre.getValue());
+            if( distance < distanceMin){
+                distanceMin = distance;
+                plusProche = entre.getValue();
+            }
+        }
+
+        return plusProche;
+    }
 }

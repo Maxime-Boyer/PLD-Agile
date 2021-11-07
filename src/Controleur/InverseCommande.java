@@ -14,12 +14,12 @@ public class InverseCommande implements Commande {
     }
 
     @Override
-    public void doCommand() throws CommandeImpossibleException {
-        cmd.undoCommand();
+    public void faireCommande() throws CommandeImpossibleException {
+        cmd.faireCommande();
     }
 
     @Override
-    public void undoCommand() throws CommandeImpossibleException {
-        cmd.doCommand();
+    public void defaireCommande() throws CommandeImpossibleException {
+        cmd.defaireCommande();
     }
 }

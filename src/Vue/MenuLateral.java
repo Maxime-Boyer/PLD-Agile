@@ -68,7 +68,11 @@ public class MenuLateral extends JPanel implements Observer {
         /************************************************************************************/
         /*                          Panel boutons d'import                                  */
         /************************************************************************************/
+        afficherMenuImportation();
 
+    }
+
+    public void afficherMenuImportation(){
         panelImport = new JPanel();
         panelImport.setBounds(Fenetre.valMarginBase, messageUtilisateur.getY()+messageUtilisateur.getHeight()+Fenetre.valMarginBase, this.getWidth()-2*Fenetre.valMarginBase, Fenetre.hauteurBouton );
         panelImport.setLayout(null);
@@ -151,7 +155,7 @@ public class MenuLateral extends JPanel implements Observer {
         boutonRedo.setBounds(boutonUndo.getX() + boutonUndo.getWidth() + Fenetre.valMarginBase,0, panelBoutonsE4.getWidth()/4 - Fenetre.valMarginBase*3/4 -1, Fenetre.hauteurBouton);
         panelBoutonsE4.add(boutonRedo);
 
-        boutonAjouterEtape = new Bouton("Ajouter étape", policeTexte, ecouteurBoutons);
+        boutonAjouterEtape = new Bouton(Fenetre.AJOUT_REQUETE, policeTexte, ecouteurBoutons);
         boutonAjouterEtape.setBounds(boutonRedo.getX() + boutonRedo.getWidth() + Fenetre.valMarginBase,0, panelBoutonsE4.getWidth()/2 - Fenetre.valMarginBase/2, Fenetre.hauteurBouton);
         panelBoutonsE4.add(boutonAjouterEtape);
 
@@ -259,4 +263,26 @@ public class MenuLateral extends JPanel implements Observer {
         repaint();
     }
 
+    /**
+     * Permet de retirer l'affichage textuel de tous les boutons
+     */
+    public void retirerBoutonsMenu() {
+        this.remove(boutonImporterTournee);
+        //boutonPreparerTournee.setVisible(false);
+        this.remove(boutonPreparerTournee);
+        this.remove(panelBoutonsE4);
+        //panelBoutonsE4.setVisible(false);
+        //panelImport.setVisible(false);
+        this.remove(panelImport);
+        this.remove(boutonAjouterEtape);
+        //boutonAjouterEtape.setVisible(false);
+        this.remove(scrollPanel);
+        //scrollPanel.setVisible(false);
+        this.remove(boutonExporterFeuilleRoute);
+        //boutonExporterFeuilleRoute.setVisible(false);
+        this.remove(boutonImporterPlan);
+        //boutonImporterPlan.setVisible(false);
+        //boutonImporterTournee.setVisible(false);
+
+    }
 }

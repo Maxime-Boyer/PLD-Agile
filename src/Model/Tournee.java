@@ -7,6 +7,7 @@ import Exceptions.CommandeImpossibleException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+
 import Observer.Observable;
 
 public class Tournee extends Observable {
@@ -178,6 +179,111 @@ public class Tournee extends Observable {
                 ", listeRequetes=" + listeRequetes +
                 ", listeChemins=" + listeChemins +
                 '}';
+    }
+
+    public Etape obtenirEtapeParId(Long id){
+        Etape etapeCherchee = null;
+        for(CheminEntreEtape chemin : listeChemins){
+            if(chemin.getEtapeDepart().getIdAdresse() == id){
+                etapeCherchee = chemin.getEtapeDepart();
+                return etapeCherchee;
+            }
+            if(chemin.getEtapeArrivee().getIdAdresse() == id){
+                etapeCherchee = chemin.getEtapeArrivee();
+                return etapeCherchee;
+            }
+        }
+        return etapeCherchee;
+    }
+
+    public double distanceEntreAdresse(Adresse a, Adresse b){
+        double distance = Math.pow(a.getLongitude() - b.getLongitude(), 2) + Math.pow(a.getLatitude() - b.getLatitude(), 2);
+        return distance;
+    }
+
+    public Adresse rechercheEtape (Adresse a){
+        double distanceMin = Double.MAX_VALUE;
+        double distanceCollecte;
+        double distanceDepot;
+        Adresse plusProche = null;
+        for(Requete r : listeRequetes){
+            Adresse collecte = new Adresse (r.getEtapeCollecte().getLatitude(),r.getEtapeCollecte().getLongitude(),r.getEtapeCollecte().getIdAdresse());
+            Adresse depot = new Adresse (r.getEtapeDepot().getLatitude(),r.getEtapeDepot().getLongitude(),r.getEtapeDepot().getIdAdresse());
+            distanceCollecte = distanceEntreAdresse(a, collecte);
+            distanceDepot = distanceEntreAdresse(a, depot);
+            if( distanceCollecte < distanceMin){
+                distanceMin = distanceCollecte;
+                plusProche = collecte;
+            }
+            if( distanceDepot < distanceMin){
+                distanceMin = distanceDepot;
+                plusProche = depot;
+            }
+        }
+
+        return plusProche;
+    }
+
+    public void ajoutChemin(Etape adresse, Etape precedent, Carte carte){
+        int index = 0;
+        Etape suivant = null;
+        for (CheminEntreEtape chemin : listeChemins){
+            if(chemin.getEtapeDepart().getIdAdresse() == precedent.getIdAdresse()){
+                suivant = new Etape(chemin.getEtapeArrivee().getLatitude(),chemin.getEtapeArrivee().getLongitude(),chemin.getEtapeArrivee().getIdAdresse(),chemin.getEtapeArrivee().getDureeEtape(),chemin.getEtapeArrivee().getHeureDePassage());
+                listeChemins.remove(chemin);
+                break;
+            }
+            index++;
+        }
+        Astar2 astar = new Astar2(carte);
+        CheminEntreEtape precedentActuel = astar.chercherCheminEntreEtape(precedent,adresse);
+        CheminEntreEtape actuelSuivant = astar.chercherCheminEntreEtape(adresse, suivant);
+        listeChemins.add(index, precedentActuel);
+        listeChemins.add(index+1, actuelSuivant);
+        ajouteHeureDePassage();
+    }
+
+    private void ajouteHeureDePassage(){
+        int vitesse = 15; //15 km.h-1
+        LocalTime heureActuelle = heureDepart;
+        for(CheminEntreEtape cee : listeChemins){
+            cee.getEtapeDepart().setHeureDePassage(heureActuelle);
+            heureActuelle = heureActuelle.plusSeconds(cee.getEtapeDepart().getDureeEtape() + ((cee.distance/(vitesse*1000))*60));
+            cee.getEtapeArrivee().setHeureDePassage(heureActuelle);
+        }
+    }
+
+    public boolean collectePrecedeDepot(Etape collecte, Etape precedentDepot) {
+        boolean depotTrouvee = false;
+        for (CheminEntreEtape chemin : listeChemins){
+            double departLongitude = chemin.getEtapeDepart().getLongitude();
+            double departLatitude = chemin.getEtapeDepart().getLatitude();
+            double arriveeLongitude = chemin.getEtapeDepart().getLongitude();
+            double arriveeLatitude = chemin.getEtapeDepart().getLatitude();
+            if(collecte.getLongitude() == precedentDepot.getLongitude() && collecte.getLatitude() == precedentDepot.getLatitude()){
+                return true;
+            }
+            if(collecte.getLongitude() == departLongitude && collecte.getLatitude() == departLatitude && precedentDepot.getLongitude() == arriveeLongitude && precedentDepot.getLatitude() == arriveeLatitude){
+                return true;
+            }
+            if(departLongitude == precedentDepot.getLongitude() && departLatitude == precedentDepot.getLatitude()){
+                depotTrouvee = true;
+            }
+            if(arriveeLongitude == precedentDepot.getLongitude() && arriveeLatitude == precedentDepot.getLatitude()){
+                depotTrouvee = true;
+            }
+            if(!depotTrouvee && (departLongitude == collecte.getLongitude() || departLatitude == collecte.getLatitude())){
+                return true;
+            }
+            else if(!depotTrouvee && (arriveeLongitude == collecte.getLongitude() || arriveeLatitude == collecte.getLatitude())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void ajoutRequete(Requete requete){
+        listeRequetes.add(requete);
     }
 
 }

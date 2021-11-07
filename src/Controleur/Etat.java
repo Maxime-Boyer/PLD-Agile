@@ -1,5 +1,6 @@
 package Controleur;
 
+import Model.Adresse;
 import Model.Carte;
 import Model.Tournee;
 import Vue.Fenetre;
@@ -27,6 +28,8 @@ public interface Etat {
     public default void selectionPointCarte(Controleur c, Fenetre fenetre){}
     public default void validerSupressionRequete(Controleur c, Fenetre fenetre){}
     public default void exporterFeuilleDeRoute(Controleur c, Fenetre fenetre){}
+    public default void chargerNouveauPlan(Controleur c, Fenetre fenetre){}
+    public default void chargerNouvelleListeRequete(Controleur c, Fenetre fenetre){}
     public default void ajoutRequete(Controleur c, Fenetre fenetre){}
     public default void ajoutRequetePointCollecte(Controleur c, Fenetre fenetre){}
     public default void validerAjoutRequetePointCollecte(Controleur c, Fenetre fenetre){}
@@ -37,4 +40,6 @@ public interface Etat {
     public default void ajoutRequeteOrdreDepot(Controleur c, Fenetre fenetre){}
     public default void ajoutRequeteDureeDepot(Controleur c, Fenetre fenetre){}
     public default void ajouterRequete(Controleur c, Fenetre fenetre){}
+    public default void validerAjoutDureeEtape(Controleur c, Fenetre fenetre){}
+    public default void cliqueGauche (Controleur c, Fenetre fenetre, Carte carte, ListeDeCommandes l, Tournee tournee, Adresse a){}
 }

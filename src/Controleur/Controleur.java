@@ -1,6 +1,7 @@
 package Controleur;
 
 import Exceptions.CommandeImpossibleException;
+import Model.Adresse;
 import Model.Carte;
 import Model.Tournee;
 import Vue.Fenetre;
@@ -15,11 +16,11 @@ public class Controleur {
 
     // Instances associés à chaque état possible du controleur
     protected final EtatAjoutRequete1PointCollecte etatAjoutRequete1PointCollecte = new EtatAjoutRequete1PointCollecte();
-    protected final EtatAjoutRequete2PositionCollecte etatAjoutRequete2PositionCollecte = new EtatAjoutRequete2PositionCollecte();
-    protected final EtatAjoutRequete3DureeCollecte etatAjoutRequete3DureeCollecte = new EtatAjoutRequete3DureeCollecte();
+    protected final EtatAjoutRequete2DureeCollecte etatAjoutRequete2DureeCollecte = new EtatAjoutRequete2DureeCollecte();
+    protected final EtatAjoutRequete3PointPrecedentCollecte etatAjoutRequete3PointPrecedentCollecte = new EtatAjoutRequete3PointPrecedentCollecte();
     protected final EtatAjoutRequete4PointDepot etatAjoutRequete4PointDepot = new EtatAjoutRequete4PointDepot();
-    protected final EtatAjoutRequete5PositionDepot etatAjoutRequete5PositionDepot = new EtatAjoutRequete5PositionDepot();
-    protected final EtatAjoutRequete6DureeDepot etatAjoutRequete6DureeDepot = new EtatAjoutRequete6DureeDepot();
+    protected final EtatAjoutRequete5DureeDepot etatAjoutRequete5DureeDepot = new EtatAjoutRequete5DureeDepot();
+    protected final EtatAjoutRequete6PointPrecedentDepot etatAjoutRequete6PointPrecedentDepot = new EtatAjoutRequete6PointPrecedentDepot();
     protected final EtatInitial etatInitial = new EtatInitial();
     protected final EtatTourneeChargee etatTourneeChargee = new EtatTourneeChargee();
     protected final EtatTourneeOrdonnee etatTourneeOrdonnee = new EtatTourneeOrdonnee();
@@ -58,10 +59,25 @@ public class Controleur {
     }
 
     /**
+     * Méthode appelé par fenetre après  sur le bouton "Importer un plan"
+     */
+    public void chargerNouveauPlan() {
+        etatActuel.chargerNouveauPlan(this, fenetre);
+    }
+
+    /**
      * Méthode appelé par fenetre après avoir cliqué sur le bouton "Importer tournée"
      */
-    public void chargerListeRequete() {
+    public void chargerListeRequete(){
         etatActuel.chargerListeRequete(this, fenetre, carte, tournee);
+
+    }
+    /**
+     * FIXME: pour moi c'est le même qu'au dessus
+     */
+
+    public void chargerNouvelleListeRequete() {
+        etatActuel.chargerNouvelleListeRequete(this, fenetre);
     }
 
     /**
@@ -167,25 +183,30 @@ public class Controleur {
         etatActuel.ajoutRequeteDureeDepot(this, fenetre);
     }
 
-    /**
-     * Méthode appelé par fenetre après avoir cliqué sur le bouton "Valider l'ajout de la requête"
-     * TODO : préciser
-     */
-    public void ajouterRequete() {
-        etatActuel.ajouterRequete(this, fenetre);
+
+    public void cliqueGauche(Adresse a){
+        etatActuel.cliqueGauche(this, fenetre,carte,listeDeCommandes, tournee, a);
     }
 
     /**
      * Méthode appelé par fenetre après avoir cliqué sur le bouton "undo"
      */
-    public void undo() throws CommandeImpossibleException {
-        listeDeCommandes.redo();
+    public void defaire() throws CommandeImpossibleException {
+        listeDeCommandes.defaire();
     }
 
     /**
      * Méthode appelé par fenetre après avoir cliqué sur le bouton "redo"
      */
-    public void redo() throws CommandeImpossibleException {
-        listeDeCommandes.redo();
+    public void refaire() throws CommandeImpossibleException {
+        listeDeCommandes.refaire();
     }
+
+    /**
+     * Méthode appelé par fenetre après avoir cliqué sur le bouton "Valider" lors de l'ajout de la durée d'un point de collecte/depot
+     */
+    public void validerAjoutDureeEtape() {
+        etatActuel.validerAjoutDureeEtape(this, fenetre);
+    }
+
 }

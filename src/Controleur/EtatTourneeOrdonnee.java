@@ -9,7 +9,6 @@ import javax.swing.*;
 
 public class EtatTourneeOrdonnee implements Etat {
 
-
     @Override
     public void chargerListeRequete (Controleur controleur, Fenetre fenetre, Carte carte, Tournee tournee) {
         System.out.println("EtatTourneeOrdonnee : chargerListeRequete");
@@ -66,5 +65,11 @@ public class EtatTourneeOrdonnee implements Etat {
             JOptionPane.showMessageDialog(null, messageErreur);
             //Reste dans l'état actuel
         }
+    }
+
+    @Override
+    public void ajoutRequete (Controleur controleur, Fenetre fenetre){
+        fenetre.afficherEtatAjoutRequete();
+        controleur.setEtatActuel(controleur.etatAjoutRequete1PointCollecte);
     }
 }

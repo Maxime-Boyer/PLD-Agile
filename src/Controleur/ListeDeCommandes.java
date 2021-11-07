@@ -8,66 +8,66 @@ import java.util.LinkedList;
 
 public class ListeDeCommandes {
     private LinkedList<Commande> list;
-    private int currentIndex;
+    private int indexCourant;
 
     public ListeDeCommandes(){
-        currentIndex = -1;
-        list = new LinkedList<>();
+        indexCourant = -1;
+        list = new LinkedList<Commande>();
     }
 
     /**
-     * Add command c to this, remove all the following commands if the current command is not the most recent one
+     * Add command c to this
      * @param c the command to add
      */
-    public void add(Commande c) throws CommandeImpossibleException {
-        int i = currentIndex+1;
+    public void ajouter(Commande c) throws CommandeImpossibleException{
+        int i = indexCourant+1;
         while(i<list.size()){
             list.remove(i);
         }
-        currentIndex++;
-        list.add(currentIndex, c);
-        c.doCommand();
+        indexCourant++;
+        list.add(indexCourant, c);
+        c.faireCommande();
     }
 
     /**
      * Temporary remove the last added command (this command may be reinserted again with redo)
      */
-    public void undo() throws CommandeImpossibleException {
-        if (currentIndex >= 0){
-            Commande cde = list.get(currentIndex);
-            currentIndex--;
-            cde.undoCommand();
+    public void defaire() throws CommandeImpossibleException{
+        if (indexCourant >= 0){
+            Commande cde = list.get(indexCourant);
+            indexCourant--;
+            cde.defaireCommande();
         }
     }
 
     /**
      * Permanently remove the last added command (this command cannot be reinserted again with redo)
      */
-    public void cancel() throws CommandeImpossibleException {
-        if (currentIndex >= 0){
-            Commande cde = list.get(currentIndex);
-            list.remove(currentIndex);
-            currentIndex--;
-            cde.undoCommand();
+    public void annuler() throws CommandeImpossibleException{
+        if (indexCourant >= 0){
+            Commande cde = list.get(indexCourant);
+            list.remove(indexCourant);
+            indexCourant--;
+            cde.defaireCommande();
         }
     }
 
     /**
      * Reinsert the last command removed by undo
      */
-    public void redo() throws CommandeImpossibleException {
-        if (currentIndex < list.size()-1){
-            currentIndex++;
-            Commande cde = list.get(currentIndex);
-            cde.doCommand();
+    public void refaire() throws CommandeImpossibleException{
+        if (indexCourant < list.size()-1){
+            indexCourant++;
+            Commande cde = list.get(indexCourant);
+            cde.faireCommande();
         }
     }
 
     /**
      * Permanently remove all commands from the list
      */
-    public void reset(){
-        currentIndex = -1;
+    public void reinitialiser(){
+        indexCourant = -1;
         list.clear();
     }
 }

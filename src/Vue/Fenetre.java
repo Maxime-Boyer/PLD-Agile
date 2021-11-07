@@ -14,12 +14,15 @@ public class Fenetre extends JFrame {
     protected final static String IMPORT_CARTE = "Importer carte";
     protected final static String IMPORT_TOURNEE = "Importer tournée";
     protected final static String PREPARER_TOURNEE = "Préparer tournée";
+    protected final static String AJOUT_REQUETE = "Ajouter requête";
+    protected final static String VALIDER_AJOUT_DUREE_COLLECTE_REQUETE = "Valider";
 
     protected final static int valMarginBase = 5;
     protected final static int hauteurBouton = 50;
 
     private EcouteurBoutons ecouteurBoutons;
     private EcouteurSurvol ecouteurSurvol;
+    private EcouteurSouris ecouteurSouris;
 
     // definition des polices
     private Font policeTitre = new Font("SansSerif", Font.BOLD, 28);
@@ -31,6 +34,7 @@ public class Fenetre extends JFrame {
     private MenuLateral menuLateral;
     private CartePanel cartePanel;
     private Legende legende;
+    private PopUpSaisieDuree popUpSaisieDuree;
 
     private Carte carte;
     private Tournee tournee;
@@ -59,6 +63,7 @@ public class Fenetre extends JFrame {
 
         //Cré les écouteurs
         this.ecouteurBoutons = new EcouteurBoutons(controleur);
+        this.ecouteurSouris = new EcouteurSouris(controleur,cartePanel,this);
         this.ecouteurSurvol = new EcouteurSurvol(this);
 
         this.setResizable(true); //TODO: passer à false
@@ -67,6 +72,10 @@ public class Fenetre extends JFrame {
 
         //Après avoir tout initialisé, affiche l'état initial
         afficherEtat(NomEtat.ETAT_INITIAL);
+    }
+
+    public PopUpSaisieDuree getPopUpSaisieDuree() {
+        return popUpSaisieDuree;
     }
 
     /**
@@ -87,14 +96,18 @@ public class Fenetre extends JFrame {
     public void afficherEtatPlanAffiche(Carte carte) {
         System.out.println("Frentre.afficherEtatPlanAffiche(carte) : ETAT_PLAN_AFFICHE");
         //E1: Carte chargée
+
         if (cartePanel == null) {
-            cartePanel = new CartePanel(carte, tournee, this.getContentPane().getWidth(), this.getContentPane().getHeight(), policeTexte, ecouteurBoutons, ecouteurSurvol);
+            cartePanel = new CartePanel(carte, tournee, this.getContentPane().getWidth(), this.getContentPane().getHeight(), policeTexte, ecouteurBoutons, ecouteurSouris, ecouteurSurvol);
             this.add(cartePanel);
         }
         if (menuLateral == null) {
             menuLateral = new MenuLateral(tournee, this.getContentPane().getWidth(), this.getContentPane().getHeight(), policeTexte, policeTexteImportant, ecouteurBoutons, ecouteurSurvol);
             this.add(menuLateral);
         }
+
+        menuLateral.afficherMenuImportation();
+
 
         // repaint la fenetre
         this.revalidate();
@@ -122,9 +135,61 @@ public class Fenetre extends JFrame {
      */
     public void afficherEtatTourneePreparee (Tournee tournee) {
         System.out.println("Fenetre.afficherEtatTourneePreparee(tournee) : ETAT_TOURNEE_PREPAREE ");
+
         //cartePanel.tracerItineraire(tournee);
         //menuLateral.afficherMenuEtapes(tournee);
+
+        //cartePanel.tracerRequetes(tournee);
+        //cartePanel.tracerItineraire(tournee);
+        menuLateral.afficherMenuEtapes(tournee);
+        menuLateral.afficherMenuImportation();
+
         menuLateral.setMessageUtilisateur("Maintenant vous pouvez éditer votre tournée ou exporter la feuille de route.");
+        this.revalidate();
+        this.repaint();
+    }
+
+    public void afficherEtatAjoutRequete(){
+        menuLateral.retirerBoutonsMenu();
+        menuLateral.setMessageUtilisateur("Ajouter une Etape de collecte: [Clique Gauche] sur une Adresse de la Carte " + "[Clique Droit] pour annuler");
+        this.ecouteurSouris.setVueGraphique(cartePanel);
+        this.revalidate();
+        this.repaint();
+    }
+    public void afficherEtatAjoutRequete2(){
+        popUpSaisieDuree = new PopUpSaisieDuree(policeTexte,ecouteurBoutons);
+        menuLateral.setMessageUtilisateur("Entrer la durée de l'étape collecte et Valider");
+        cartePanel.add(popUpSaisieDuree);
+        this.revalidate();
+        this.repaint();
+
+    }
+    public void afficherEtatAjoutRequete3(){
+        menuLateral.setMessageUtilisateur("Selectionner l'étape qui précéde votre collecte: [Clique Gauche] sur une Etape de la Carte " + "[Clique Droit] pour annuler");
+        //this.ecouteurSouris.setVueGraphique(cartePanel);
+        cartePanel.remove(popUpSaisieDuree);
+        this.revalidate();
+        this.repaint();
+    }
+
+    public void afficherEtatAjoutRequete4(){
+        menuLateral.setMessageUtilisateur("Ajouter une Etape de depot: [Clique Gauche] sur une Adresse de la Carte " + "[Clique Droit] pour annuler");
+        this.revalidate();
+        this.repaint();
+    }
+
+    public void afficherEtatAjoutRequete5(){
+        menuLateral.setMessageUtilisateur("Entrer la durée de l'étape depot et Valider");
+        cartePanel.add(popUpSaisieDuree);
+        this.revalidate();
+        this.repaint();
+    }
+
+    public void afficherEtatAjoutRequete6(){
+        menuLateral.setMessageUtilisateur("Selectionner l'étape qui précéde votre depot: [Clique Gauche] sur une Etape de la Carte " + "[Clique Droit] pour annuler");
+        cartePanel.remove(popUpSaisieDuree);
+        this.revalidate();
+        this.repaint();
     }
 
     /**
@@ -201,4 +266,9 @@ public class Fenetre extends JFrame {
     public void retirerMenuEtape() {
         menuLateral.retirerMenuEtape();
     }*/
+
+
+    public MenuLateral getMenuLateral() {
+        return menuLateral;
+    }
 }

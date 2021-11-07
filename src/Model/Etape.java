@@ -25,6 +25,12 @@ public class Etape extends Adresse{
         this.nomAdresse = "";
     }
 
+    public Etape(double latitude, double longitude, Long idAdresse, Integer dureeEtape) {
+        super(latitude, longitude, idAdresse);
+        this.nomAdresse = "";
+        this.dureeEtape = dureeEtape;
+    }
+
     public LocalTime getHeureDePassage() {
         return heureDePassage;
     }
@@ -41,6 +47,10 @@ public class Etape extends Adresse{
 
     public void setNomAdresse(String  nomAdresse){
         this.nomAdresse = nomAdresse;
+    }
+
+    public void setDureeEtape(Integer dureeEtape) {
+        this.dureeEtape = dureeEtape;
     }
 
     @Override
