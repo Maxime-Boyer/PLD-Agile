@@ -1,7 +1,6 @@
 package Controleur;
 
-import Algorithmie.CalculateurTournee;
-import Exceptions.AStarImpossibleException;
+import Algorithmie.RunnableAlgorithmie;
 import Model.Carte;
 import Model.LecteurXML;
 import Model.Tournee;
@@ -15,23 +14,55 @@ public class EtatTourneeChargee implements Etat {
     public void preparerTournee (Controleur controleur, Fenetre fenetre, Carte carte, Tournee tournee) {
         System.out.println("EtatTourneeChargee : preparerTournee");
 
-        CalculateurTournee calculTournee = new CalculateurTournee(carte, tournee);
-        try {
+        //On demarre le minuteur
+        controleur.getBooleanThread().setBoolMinuteurDemarre(true);
+
+        //On attend le resultat
+        while(!controleur.getBooleanThread().isResultatTrouve()){
+            try {
+                //System.out.println("Main : Waiting...");
+                Thread.sleep(1000);
+            } catch(InterruptedException e){
+                e.printStackTrace();
+            }
+        }
+
+
+
+
             //Calcul la tounee
-            calculTournee.calculerTournee();
             //Change vers l'état etatTourneeOrdonnee avec la nouvelle carte
             fenetre.afficherEtatTourneePreparee(tournee);
             controleur.setEtatActuel(controleur.etatTourneeOrdonnee);
-        } catch (AStarImpossibleException e) {
+
+        //Passe la tournee à ordonne et notifie l'observer que l'objet tournée a été modifié
+        tournee.setTourneeEstOrdonee(true);
+        tournee.notifyObservers(tournee);
+
+        /*} catch (AStarImpossibleException e) {
             String messageErreur = e.getMessage();
             System.out.println("ERREUR "+e);
             JOptionPane.showMessageDialog(null, messageErreur);
             //Reste dans l'état actuel
-        }
+        }*/
     }
 
     @Override
     public void chargerListeRequete (Controleur controleur, Fenetre fenetre, Carte carte, Tournee tournee) {
+        //On arrete le precedent Thread si il existe
+        BooleanThread ancienBooleanThread = controleur.getBooleanThread();
+        if(ancienBooleanThread != null){
+            ancienBooleanThread.setStopThread(true);
+            while(!ancienBooleanThread.isResultatTrouve()){
+                try {
+                    Thread.sleep(200);
+                } catch(InterruptedException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+
+
         System.out.println("EtatTourneeChargee : preparerTournee");
         /*fenetre.retirerMenuRequete();
         fenetre.afficherEtat(NomEtat.ETAT_TOURNEE_CHARGEE);
@@ -53,6 +84,15 @@ public class EtatTourneeChargee implements Etat {
             JOptionPane.showMessageDialog(null, messageErreur);
             //Reste dans l'état actuel
         }
+
+        //On cree le nouveau thread
+        BooleanThread booleanThread = new BooleanThread(false,false,false);
+        controleur.setBooleanThread(booleanThread);
+        RunnableAlgorithmie runnableAlgorithmie = new RunnableAlgorithmie(carte,tournee,booleanThread);
+        controleur.setRunnableAlgorithmie(runnableAlgorithmie);
+        Thread thread = new Thread(runnableAlgorithmie);
+        controleur.setThreadAlgorithmie(thread);
+        thread.start();
     }
 
     @Override

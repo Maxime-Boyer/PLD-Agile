@@ -1,5 +1,6 @@
 package Algorithmie;
 
+import Controleur.BooleanThread;
 import Model.Adresse;
 import Model.Carte;
 import Model.CheminEntreEtape;
@@ -11,8 +12,8 @@ import java.util.List;
 
 public class TSP1 extends TemplateTSP {
 
-    TSP1(Carte carte, Tournee tournee, HashMap<Long, HashMap<Long, CheminEntreEtape>> grapheCompletDesEtapes,int tempsLimite) {
-        super(carte,tournee,grapheCompletDesEtapes,tempsLimite);
+    TSP1(Carte carte, Tournee tournee, HashMap<Long, HashMap<Long, CheminEntreEtape>> grapheCompletDesEtapes,int tempsLimite, BooleanThread booleanThread) {
+        super(carte,tournee,grapheCompletDesEtapes,tempsLimite,booleanThread);
     }
 
     @Override

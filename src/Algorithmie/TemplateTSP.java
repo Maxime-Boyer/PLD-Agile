@@ -1,5 +1,6 @@
 package Algorithmie;
 
+import Controleur.BooleanThread;
 import Model.*;
 
 import java.util.*;
@@ -15,11 +16,16 @@ public abstract class TemplateTSP implements TSP{
     private int tempsLimite;
     private int coutMeilleureSolution;
 
-    TemplateTSP(Carte carte, Tournee tournee, HashMap<Long, HashMap<Long, CheminEntreEtape>> grapheCompletDesEtapes, int tempsLimite){
+    private BooleanThread booleanThread;
+
+
+
+    TemplateTSP(Carte carte, Tournee tournee, HashMap<Long, HashMap<Long, CheminEntreEtape>> grapheCompletDesEtapes, int tempsLimite, BooleanThread booleanThread){
         this.carte = carte;
         this.tournee = tournee;
         this.grapheCompletDesEtapes = grapheCompletDesEtapes;
         this.tempsLimite = tempsLimite;
+        this.booleanThread = booleanThread;
 
         mapRequete = new HashMap<>();
         for(Requete req : tournee.getListeRequetes()){
@@ -51,15 +57,24 @@ public abstract class TemplateTSP implements TSP{
 
         //On execute l'algorithme
         separationEtEvaluation(tournee.getAdresseDepart(), nonVisite, visite, 0);
+        booleanThread.setResultatTrouve(true);
     }
 
     private void separationEtEvaluation(Adresse adresseActuelle, List<Adresse> nonVisite, List<Adresse> visite, int coutActuel){
 
+        //On reset le temps de depart si le minuteur n'est pas demarre
+        if(!booleanThread.isBoolMinuteurDemarre()){
+            //System.out.println("Algo : reset timer");
+            tempsDepart = System.currentTimeMillis();
+        }
+
         //On s'arrete au temps limite
-        if (System.currentTimeMillis() - tempsDepart > tempsLimite){
-            //System.out.println(coutMeilleureSolution);
+        if (System.currentTimeMillis() - tempsDepart > tempsLimite || booleanThread.isStopThread()){
+            //System.out.println("Algo : return");
             return;
         }
+
+        //System.out.println(System.currentTimeMillis() - tempsDepart);
 
         if (nonVisite.size() == 0){
             //On retourne au point de depart
@@ -78,7 +93,7 @@ public abstract class TemplateTSP implements TSP{
                     //On change le meilleur cout
                     coutMeilleureSolution = coutActuel+grapheCompletDesEtapes.get(adresseActuelle.getIdAdresse()).get(tournee.getAdresseDepart().getIdAdresse()).distance;
 
-                    //System.out.println("coutMeilleureSolution : "+ coutMeilleureSolution+ " ; in : "+(System.currentTimeMillis() - tempsDepart));
+                    System.out.println("Algo : coutMeilleureSolution : "+ coutMeilleureSolution+ " ; in : "+(System.currentTimeMillis() - tempsDepart));
                 }
             }
         } else if (coutActuel+evaluation(adresseActuelle,nonVisite) < coutMeilleureSolution){
@@ -98,7 +113,6 @@ public abstract class TemplateTSP implements TSP{
                 }
             }
         }
-
     }
 
     private boolean contrainteCollecteDepot(Adresse prochaineAdresse, List<Adresse> visite){

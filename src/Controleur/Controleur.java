@@ -1,5 +1,6 @@
 package Controleur;
 
+import Algorithmie.RunnableAlgorithmie;
 import Exceptions.CommandeImpossibleException;
 import Model.Adresse;
 import Model.Carte;
@@ -13,6 +14,10 @@ public class Controleur {
     private Fenetre fenetre;
     private ListeDeCommandes listeDeCommandes;
     private Etat etatActuel;
+
+    private BooleanThread booleanThread;
+    private RunnableAlgorithmie runnableAlgorithmie;
+    private Thread threadAlgorithmie;
 
     // Instances associés à chaque état possible du controleur
     protected final EtatAjoutRequete1PointCollecte etatAjoutRequete1PointCollecte = new EtatAjoutRequete1PointCollecte();
@@ -209,4 +214,39 @@ public class Controleur {
         etatActuel.validerAjoutDureeEtape(this, fenetre);
     }
 
+    /**
+     * Getter RunnableAlgorithmie
+     */
+    public RunnableAlgorithmie getRunnableAlgorithmie() {
+        return runnableAlgorithmie;
+    }
+
+    /**
+     * Setter RunnableAlgorithmie
+     */
+    public void setRunnableAlgorithmie(RunnableAlgorithmie runnableAlgorithmie) {
+        this.runnableAlgorithmie = runnableAlgorithmie;
+    }
+
+    /**
+     * Getter ThreadAlgorithmie
+     */
+    public Thread getThreadAlgorithmie() {
+        return threadAlgorithmie;
+    }
+
+    /**
+     * Setter ThreadAlgorithmie
+     */
+    public void setThreadAlgorithmie(Thread threadAlgorithmie) {
+        this.threadAlgorithmie = threadAlgorithmie;
+    }
+
+    public BooleanThread getBooleanThread() {
+        return booleanThread;
+    }
+
+    public void setBooleanThread(BooleanThread booleanThread) {
+        this.booleanThread = booleanThread;
+    }
 }

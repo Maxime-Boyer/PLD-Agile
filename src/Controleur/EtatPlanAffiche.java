@@ -1,5 +1,6 @@
 package Controleur;
 
+import Algorithmie.RunnableAlgorithmie;
 import Model.Carte;
 import Model.LecteurXML;
 import Model.Tournee;
@@ -10,6 +11,21 @@ import javax.swing.*;
 public class EtatPlanAffiche implements Etat {
     @Override
     public void chargerListeRequete (Controleur controleur, Fenetre fenetre, Carte carte, Tournee tournee) {
+
+        //On arrete le precedent Thread si il existe
+        BooleanThread ancienBooleanThread = controleur.getBooleanThread();
+        if(ancienBooleanThread != null){
+            ancienBooleanThread.setStopThread(true);
+            while(!ancienBooleanThread.isResultatTrouve()){
+                try {
+                    Thread.sleep(200);
+                } catch(InterruptedException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+
+
         System.out.println("EtatPlanAffiche : chargerListeRequete");
         /*fenetre.afficherEtat(NomEtat.ETAT_TOURNEE_CHARGEE);
         controleur.setEtatActuel(controleur.etatTourneeChargee);*/
@@ -32,6 +48,18 @@ public class EtatPlanAffiche implements Etat {
             JOptionPane.showMessageDialog(null, messageErreur);
             //Reste dans l'état actuel
         }
+
+
+        //On cree le nouveau thread
+        BooleanThread booleanThread = new BooleanThread(false,false,false);
+        controleur.setBooleanThread(booleanThread);
+        RunnableAlgorithmie runnableAlgorithmie = new RunnableAlgorithmie(carte,tournee,booleanThread);
+        controleur.setRunnableAlgorithmie(runnableAlgorithmie);
+        Thread thread = new Thread(runnableAlgorithmie);
+        controleur.setThreadAlgorithmie(thread);
+        thread.start();
+
+
 
     }
 

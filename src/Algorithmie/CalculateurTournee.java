@@ -1,5 +1,6 @@
 package Algorithmie;
 
+import Controleur.BooleanThread;
 import Exceptions.AStarImpossibleException;
 import Model.*;
 
@@ -29,7 +30,7 @@ public class CalculateurTournee {
      * @return
      * @throws AStarImpossibleException
      */
-    public HashMap<Long, HashMap<Long, CheminEntreEtape>> calculerTournee () throws AStarImpossibleException{
+    public HashMap<Long, HashMap<Long, CheminEntreEtape>> calculerTournee (BooleanThread booleanThread) throws AStarImpossibleException{
 
         //long msBefore = System.currentTimeMillis();
         //HashMap<Long, HashMap<Long, CheminEntreEtape>> grapheCompletDesEtapes = calculerGrapheCompletDesEtapes(new Astar1(carte));
@@ -38,7 +39,7 @@ public class CalculateurTournee {
         HashMap<Long, HashMap<Long, CheminEntreEtape>> grapheCompletDesEtapes = calculerGrapheCompletDesEtapes(new Astar2(carte));
         //System.out.println("Temps execution Astar2 : " + (System.currentTimeMillis()-msBefore));
 
-        TSP2 tsp = new TSP2(carte,tournee,grapheCompletDesEtapes,20000);
+        TSP2 tsp = new TSP2(carte,tournee,grapheCompletDesEtapes,20000,booleanThread);
         tsp.chercherSolution();
         //System.out.println("switch tsp");
         //TSP1 tspBis = new TSP1(carte,tournee,grapheCompletDesEtapes,20000);
@@ -46,10 +47,6 @@ public class CalculateurTournee {
         //tsp.calculerOrdreEtapes();
 
         ajouteHeureDePassage(tournee);
-
-        //Passe la tournee à ordonne et notifie l'observer que l'objet tournée a été modifié
-        tournee.setTourneeEstOrdonee(true);
-        tournee.notifyObservers(tournee);
 
         return grapheCompletDesEtapes;
     }

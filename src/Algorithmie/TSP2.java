@@ -1,5 +1,6 @@
 package Algorithmie;
 
+import Controleur.BooleanThread;
 import Model.Adresse;
 import Model.Carte;
 import Model.CheminEntreEtape;
@@ -14,8 +15,8 @@ public class TSP2 extends TemplateTSP {
 
     protected int cheminLePlusPetit;
 
-    TSP2(Carte carte, Tournee tournee, HashMap<Long, HashMap<Long, CheminEntreEtape>> grapheCompletDesEtapes,int tempsLimite) {
-        super(carte,tournee,grapheCompletDesEtapes,tempsLimite);
+    TSP2(Carte carte, Tournee tournee, HashMap<Long, HashMap<Long, CheminEntreEtape>> grapheCompletDesEtapes,int tempsLimite, BooleanThread booleanThread) {
+        super(carte,tournee,grapheCompletDesEtapes,tempsLimite,booleanThread);
 
         cheminLePlusPetit = Integer.MAX_VALUE;
         for(Map.Entry<Long,HashMap<Long, CheminEntreEtape>> entry : grapheCompletDesEtapes.entrySet()){
