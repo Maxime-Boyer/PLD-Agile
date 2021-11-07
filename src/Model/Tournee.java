@@ -106,4 +106,24 @@ public class Tournee extends Observable {
 
         return plusProche;
     }
+
+    public void ajoutChemin(Etape adresse, Etape precedent, Carte carte){
+        Etape suivant = null;
+        int index = 0;
+        for (CheminEntreEtape chemin : listeChemins){
+            if(chemin.getEtapeDepart().getIdAdresse() == precedent.getIdAdresse()){
+                suivant = chemin.getEtapeArrivee();
+                listeChemins.remove(chemin);
+                break;
+            }
+            index++;
+        }
+        Astar2 astar = new Astar2(carte);
+        CheminEntreEtape precedentActuel = astar.chercherCheminEntreEtape(precedent,adresse);
+        CheminEntreEtape actuelSuivant = astar.chercherCheminEntreEtape(adresse, suivant);
+        listeChemins.add(index, precedentActuel);
+        listeChemins.add(index+1, actuelSuivant);
+    }
+
+
 }
