@@ -18,7 +18,6 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.HashMap;
@@ -42,14 +41,15 @@ public class CartePanel extends JPanel {
 
     private Tournee tournee = new Tournee();
     private LecteurXML lecteur = new LecteurXML();
-    private Carte carte;
     private JLabel labelPosition1;
     private JLabel labelPosition2;
     private ImageIcon iconPosition;
     private CalculateurTournee calculTournee;
     private Tournee itineraire;
+    private Carte carte;
     private PopUpSaisieDuree popUpSaisieDuree;
     private Graphics g;
+
 
     /**
      * Panel où est tracée la carte importée par l'utilisateur
@@ -99,6 +99,9 @@ public class CartePanel extends JPanel {
         return tournee;
     }
 
+    //INUTILE
+    public void tracerCarte() {}
+
     /**
      * Place les images permettant de pointer une requete sur la carte a l'utilisateur
      * @param collecte: Etape de collecte de la requete à identifier
@@ -131,6 +134,7 @@ public class CartePanel extends JPanel {
      */
     public void tracerRequetes(Tournee tournee) {
         this.tournee = tournee;
+            System.out.println("        Tournee = " + tournee);
         itinerairePrepare = false;
         tourneeAppelee = true;
     }
@@ -139,6 +143,8 @@ public class CartePanel extends JPanel {
      * Lance le calcule de l'itineraire et indique à la méthode paint que l'itinéraire est pret a etre trace
      */
     public void tracerItineraire() {
+        System.out.println("tracerItineraire");
+        System.out.println("    tracerItineraire : carte = "+carte + ", tournee = "+tournee);
 
         calculTournee = new CalculateurTournee(carte, tournee);
 
@@ -316,6 +322,39 @@ public class CartePanel extends JPanel {
             throw new IncompatibleAdresseException("Erreur d'adresse de départ, cette adresse n'appartient pas à la carte chargée ");
         }*/
 
+    }
+
+    public void afficherTournee() {
+
+        tourneeAppelee = true;
+
+             /*System.out.println("valeurXCollecte " + valeurXCollecte);
+            System.out.println("valeurYCollecte " + valeurYCollecte);
+            System.out.println("valeurXDepot " + valeurXDepot);
+            System.out.println("valeurYDepot " + valeurYDepot);*/
+
+            /*BoutonRond boutonCollecte = new BoutonRond();
+            JButton boutonDepot = new JButton();
+
+            boutonCollecte.setBounds(valeurXCollecte-7,valeurYCollecte-7, 15, 15);
+            boutonDepot.setBounds(valeurXDepot-7,valeurYDepot-7, 15, 15);
+            boutonCollecte.setBorderPainted(false);
+            boutonDepot.setBorderPainted(false);
+            boutonCollecte.setOpaque(true);
+            boutonDepot.setOpaque(true);
+            Random rand = new Random();
+            int maximumCouleur = 255;
+            int r = rand.nextInt(maximumCouleur);
+            int g = rand.nextInt(maximumCouleur);
+            int b = rand.nextInt(maximumCouleur);
+
+            //boutonCollecte.setBackground(new Color( r,g,b));
+            boutonDepot.setBackground(new Color( r,g,b));
+
+            this.add(boutonCollecte);
+            this.add(boutonDepot);*/
+
+        //}
     }
 
     /**

@@ -1,4 +1,4 @@
-package Controleur_Package;
+package Controleur;
 
 import Vue.Fenetre;
 

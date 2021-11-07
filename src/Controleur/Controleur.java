@@ -1,4 +1,4 @@
-package Controleur_Package;
+package Controleur;
 
 import Model.Adresse;
 import Model.Carte;
@@ -51,8 +51,8 @@ public class Controleur {
      */
     public void chargerPlan() {
         etatActuel.chargerPlan(this, fenetre, carte);
-        System.out.println("Controlleur carte = ");
-        System.out.println( "       aaaaaaaaaaaaaaaaaaaaaaaa" + carte.getListeAdresses().get(0));
+        System.out.println("Controlleur : carte = ");
+        System.out.println( "       aaaaaaaaaaaaaaaaaaaaaaaa" + carte);
     }
 
     /**

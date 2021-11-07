@@ -1,4 +1,4 @@
-package Controleur_Package;
+package Controleur;
 
 import Model.Carte;
 import Model.LecteurXML;
@@ -7,22 +7,35 @@ import Vue.Fenetre;
 
 import javax.swing.*;
 
-public class EtatPlanAffiche implements Etat {
+public class EtatTourneeChargee implements Etat {
+
+    @Override
+    public void preparerTournee (Controleur controleur, Fenetre fenetre) {
+        System.out.println("EtatTourneeChargee : preparerTournee");
+        fenetre.afficherEtat(NomEtat.ETAT_TOURNEE_PREPAREE);
+
+        //Algo
+        //CalculateurTournee calculateurTournee = new CalculateurTournee(carte, tournee);
+        //= calculateurTournee.calculerTournee();
+        //Fin Algo
+
+        controleur.setEtatActuel(controleur.etatTourneeOrdonnee);
+    }
+
     @Override
     public void chargerListeRequete (Controleur controleur, Fenetre fenetre, Carte carte) {
-        System.out.println("EtatPlanAffiche : chargerListeRequete");
-        /*fenetre.afficherEtat(NomEtat.ETAT_TOURNEE_CHARGEE);
+        System.out.println("EtatTourneeChargee : preparerTournee");
+        /*fenetre.retirerMenuRequete();
+        fenetre.afficherEtat(NomEtat.ETAT_TOURNEE_CHARGEE);
         controleur.setEtatActuel(controleur.etatTourneeChargee);*/
-
         //Récupère le nom du fichier choisi
+
         String nomFichier = fenetre.afficherChoixFichier();
         //Appel la méthode qui vérifie si le fichier est valide et récupère la tournee
         Tournee tournee;
         LecteurXML lecteur = new LecteurXML();
         try {
-            System.out.println("    avant");
             tournee = lecteur.lectureRequete(nomFichier, carte);
-            System.out.println("    après tournee = " + tournee);
             //Change vers l'état PlanAffiche avec la nouvelle carte
             fenetre.afficherEtatTourneChargee(tournee);
             controleur.setEtatActuel(controleur.etatTourneeChargee);
@@ -33,19 +46,23 @@ public class EtatPlanAffiche implements Etat {
             JOptionPane.showMessageDialog(null, messageErreur);
             //Reste dans l'état actuel
         }
-
     }
 
     @Override
     public void chargerPlan (Controleur controleur, Fenetre fenetre, Carte carte) {
-        System.out.println("EtatPlanAffiche : chargerPlan");
+        System.out.println("EtatTourneeChargee : chargerPlan");
+        /*
+        fenetre.retirerCartePanel();
+        fenetre.retirerMenuLateral();
+        fenetre.afficherEtat(NomEtat.ETAT_PLAN_AFFICHE);
+        controleur.setEtatActuel(controleur.etatPlanAffiche);*/
+
 
         //Récupère le nom du fichier choisi
         String nomFichier = fenetre.afficherChoixFichier();
         //Appel la méthode qui vérifie si le fichier est valide et récupère la carte
         LecteurXML lecteur = new LecteurXML();
         try {
-
             carte = lecteur.lectureCarte(nomFichier, carte);
             //Change vers l'état PlanAffiche avec la nouvelle carte
             fenetre.retirerCartePanel();
@@ -57,19 +74,8 @@ public class EtatPlanAffiche implements Etat {
             String messageErreur = e.getMessage();
             System.out.println("ERREUR "+e);
             JOptionPane.showMessageDialog(null, messageErreur);
-            //Change vers l'état Initial
-            /*fenetre.retirerCartePanel();
-            fenetre.retirerMenuLateral();
-            fenetre.afficherEtat(NomEtat.ETAT_INITIAL);
-            controleur.setEtatActuel(controleur.etatInitial);*/
+            //Reste dans l'état actuel
         }
-    }
-
-    @Override
-    public void ajoutRequete (Controleur controleur, Fenetre fenetre){
-        fenetre.getMenuLateral().retirerBoutonsMenu();
-        fenetre.getMenuLateral().setMessageUtilisateur("Ajouter une Etape de collecte: [Clique Gauche] sur une Adresse de la Carte " + "[Clique Droit] pour annuler");
-        controleur.setEtatActuel(controleur.etatAjoutRequete1PointCollecte);
     }
 
 }

@@ -1,4 +1,4 @@
-package Controleur_Package;
+package Controleur;
 
 public class EtatSupprimerRequetePointSelectionne implements Etat {
 }

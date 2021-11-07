@@ -1,6 +1,5 @@
 package Model;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -30,8 +29,10 @@ public class LecteurXML {
      */
     public Carte lectureCarte(String nomFichier, Carte carte) throws ParserConfigurationException, SAXException, PresenceEncodingEtVersionException, IOException, TagNameMapException, AttributsIntersectionsException, NegatifLatitudeException, NegatifLongitudeException, AttributsSegmentsException {
 
-            carte.reset();
-            carte.setNomCarte(nomFichier);
+            //carte.reset();
+            //carte.setNomCarte(nomFichier);
+
+            Carte newCarte = new Carte(nomFichier);
 
             File file = new File(nomFichier);
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -104,7 +105,7 @@ public class LecteurXML {
                     Long id = Long.parseLong(stringId);
 
                     Adresse adresse = new Adresse(latitude, longitude, id);
-                    carte.getListeAdresses().put(id, adresse);
+                    newCarte.getListeAdresses().put(id, adresse);
                     //System.out.println(carte.getListeAdresses().get(id));
                 }
             }
@@ -148,12 +149,14 @@ public class LecteurXML {
                     Double longueur = Double.parseDouble(eElement.getAttribute("length"));
                     Long idOrigine = Long.parseLong(eElement.getAttribute("origin"));
                     Long idDestination = Long.parseLong(eElement.getAttribute("destination"));
+                    Segment segment = new Segment(newCarte.obtenirAdresseParId(idOrigine), newCarte.obtenirAdresseParId(idDestination), nom, longueur);
+                    newCarte.obtenirAdresseParId(idOrigine).ajouterSegmentSortant(segment);
+                    newCarte.getListeSegments().add(segment);
 
-                    Segment segment = new Segment(carte.obtenirAdresseParId(idOrigine),carte.obtenirAdresseParId(idDestination),nom,longueur);
-                    carte.obtenirAdresseParId(idOrigine).ajouterSegmentSortant(segment);
-                    carte.getListeSegments().add(segment);
                 }
             }
+        System.out.println("LecteurXML : modification de carte" + newCarte);
+        carte.clone(newCarte);
         return carte;
     }
 
@@ -350,9 +353,9 @@ public class LecteurXML {
                         Requete requete = new Requete(etapeRetrait, etapeLivraison);
                         listeRequetes.add(requete);
                     }
+                    tournee.setListeRequetes(listeRequetes);
+                    determinerNomAdresseEtapes(tournee, carte);
                 }
-                tournee.setListeRequetes(listeRequetes);
-                determinerNomAdresseEtapes(tournee,carte);
             }
         }
 
