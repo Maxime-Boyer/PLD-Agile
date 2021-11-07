@@ -1,5 +1,6 @@
 package Controleur;
 
+import Exceptions.CommandeImpossibleException;
 import Model.Carte;
 import Vue.Fenetre;
 
@@ -7,7 +8,7 @@ public class Controleur {
 
     private Carte carte;
     private Fenetre fenetre;
-    //listofcommands
+    private ListeDeCommandes listeDeCommandes;
     private Etat etatActuel;
 
     // Instances associés à chaque état possible du controleur
@@ -30,7 +31,7 @@ public class Controleur {
      */
     public Controleur(Carte carte) {
         this.carte = carte;
-        //listofcommands
+        listeDeCommandes = new ListeDeCommandes();
         this.etatActuel = etatInitial;
         fenetre = new Fenetre(carte, this);
     }
@@ -44,7 +45,7 @@ public class Controleur {
     }
 
     /**
-     * Méthode appelé par fenetre après avoir cliqué sur le bouton "Importer un plan"
+     * Méthode appelé par fenêtre après avoir cliqué sur le bouton "Importer un plan"
      */
     public void chargerPlan() {
         etatActuel.chargerPlan(this, fenetre, carte);
@@ -53,24 +54,10 @@ public class Controleur {
     }
 
     /**
-     * Méthode appelé par fenetre après  sur le bouton "Importer un plan"
-     */
-    public void chargerNouveauPlan() {
-        etatActuel.chargerNouveauPlan(this, fenetre);
-    }
-
-    /**
      * Méthode appelé par fenetre après avoir cliqué sur le bouton "Importer tournée"
      */
     public void chargerListeRequete() {
         etatActuel.chargerListeRequete(this, fenetre, carte);
-    }
-
-    /**
-     * FIXME: pour moi c'est le même qu'au dessus
-     */
-    public void chargerNouvelleListeRequete() {
-        etatActuel.chargerNouvelleListeRequete(this, fenetre);
     }
 
     /**
@@ -184,5 +171,17 @@ public class Controleur {
         etatActuel.ajouterRequete(this, fenetre);
     }
 
-    public Carte getCarte () {return carte;}
+    /**
+     * Méthode appelé par fenetre après avoir cliqué sur le bouton "undo"
+     */
+    public void undo() throws CommandeImpossibleException {
+        listeDeCommandes.redo();
+    }
+
+    /**
+     * Méthode appelé par fenetre après avoir cliqué sur le bouton "redo"
+     */
+    public void redo() throws CommandeImpossibleException {
+        listeDeCommandes.redo();
+    }
 }
