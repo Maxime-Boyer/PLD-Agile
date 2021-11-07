@@ -35,12 +35,15 @@ public class EtapePanel extends JPanel {
         this.requeteEtape = requeteEtape;
 
         Color couleurBordure = requeteEtape.getCouleur();
-        float teinteRouge = (float) couleurBordure.getRed() / (float) 255;
-        float teinteVert = (float) couleurBordure.getGreen() / (float) 255;
-        float teinteBleue = (float) couleurBordure.getBlue() / (float) 255;
-        Color couleurFond = new Color(teinteRouge, teinteVert, teinteBleue, (float) 0.1);
+        double mult = 0.1;
+        double plus = 255*0.9;
+        float teinteRouge = ((float) ((couleurBordure.getRed()) * mult+plus) / (float) 255) > 1 ? 1 : ((float) ((couleurBordure.getRed()) * mult+plus) / (float) 255);
+        float teinteVert = ((float) ((couleurBordure.getGreen()) * mult+plus) / (float) 255) > 1 ? 1 : ((float) ((couleurBordure.getGreen()) * mult+plus) / (float) 255) ;
+        float teinteBleue = ((float) ((couleurBordure.getBlue()) * mult+plus) / (float) 255) > 1 ? 1 : ((float) ((couleurBordure.getBlue()) * mult+plus) / (float) 255);
+        Color couleurFond = new Color(teinteRouge, teinteVert, teinteBleue);
         this.setBackground(couleurFond);
         this.setBorder(new LineBorder(couleurBordure, 2, true));
+        this.setOpaque(true);
 
         JPanel panelInside = new JPanel();
         BoxLayout boxlayoutInside = new BoxLayout(panelInside, BoxLayout.Y_AXIS);
@@ -82,6 +85,7 @@ public class EtapePanel extends JPanel {
         JTextArea labelHeurePassage = new JTextArea("Heure de passage: "+heurePassage);
         labelHeurePassage.setSize(this.getWidth() - 4 * valMarginBase, 45);
         labelHeurePassage.setFont(policeTexte);
+        labelHeurePassage.setEditable(false);
         labelHeurePassage.setLineWrap(true);
         labelHeurePassage.setWrapStyleWord(true);
         labelHeurePassage.setOpaque(false);
@@ -94,6 +98,7 @@ public class EtapePanel extends JPanel {
         JTextArea labelAdresseCollecte = new JTextArea(etape.getNomAdresse());
         labelAdresseCollecte.setSize(this.getWidth() - 4 * valMarginBase, 45);
         labelAdresseCollecte.setFont(policeTexte);
+        labelAdresseCollecte.setEditable(false);
         labelAdresseCollecte.setLineWrap(true);
         labelAdresseCollecte.setWrapStyleWord(true);
         labelAdresseCollecte.setOpaque(false);

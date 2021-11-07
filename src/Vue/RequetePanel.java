@@ -12,6 +12,7 @@ public class RequetePanel extends JPanel {
 
     private Etape collecte;
     private Etape depot;
+    private Color couleurFond;
 
     /**
      * Panel permettant d'afficher la vue textuelle d'une requete
@@ -37,17 +38,22 @@ public class RequetePanel extends JPanel {
         this.setPreferredSize(new Dimension(parentWidth - 24, 170));
         this.addMouseListener(ecouteurSurvol);
 
-        float teinteRouge = (float) couleurBordure.getRed() / (float) 255;
-        float teinteVert = (float) couleurBordure.getGreen() / (float) 255;
-        float teinteBleue = (float) couleurBordure.getBlue() / (float) 255;
-        Color couleurFond = new Color(teinteRouge, teinteVert, teinteBleue, (float) 0.1);
+        double mult = 0.1;
+        double plus = 255*0.9;
+        float teinteRouge = ((float) ((couleurBordure.getRed()) * mult+plus) / (float) 255) > 1 ? 1 : ((float) ((couleurBordure.getRed()) * mult+plus) / (float) 255);
+        float teinteVert = ((float) ((couleurBordure.getGreen()) * mult+plus) / (float) 255) > 1 ? 1 : ((float) ((couleurBordure.getGreen()) * mult+plus) / (float) 255) ;
+        float teinteBleue = ((float) ((couleurBordure.getBlue()) * mult+plus) / (float) 255) > 1 ? 1 : ((float) ((couleurBordure.getBlue()) * mult+plus) / (float) 255);
+        Color couleurFond = new Color(teinteRouge, teinteVert, teinteBleue);
+        this.couleurFond = couleurFond;
         this.setBackground(couleurFond);
+        this.setOpaque(true);
         this.setBorder(new LineBorder(couleurBordure, 2, true));
 
         JPanel panelInside = new JPanel();
         BoxLayout boxlayoutInside = new BoxLayout(panelInside, BoxLayout.Y_AXIS);
         panelInside.setLayout(boxlayoutInside);
         panelInside.setOpaque(false);
+        panelInside.setBackground(couleurFond);
         panelInside.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         /************************************************************************************/
@@ -103,6 +109,15 @@ public class RequetePanel extends JPanel {
         panelInside.add(labelAdresseDepot);
 
         this.add(panelInside);
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        g.setColor(couleurFond);
+
+        //g.fillRect(0,0,Integer.MAX_VALUE,Integer.MAX_VALUE);
     }
 
     /**
