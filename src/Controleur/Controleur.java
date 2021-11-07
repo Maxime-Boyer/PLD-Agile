@@ -11,7 +11,6 @@ public class Controleur {
     private Carte carte;
     private Tournee tournee;
     private Fenetre fenetre;
-    private Tournee tournee;
     private ListeDeCommandes listeDeCommandes;
     private Etat etatActuel;
 
@@ -68,13 +67,14 @@ public class Controleur {
     /**
      * Méthode appelé par fenetre après avoir cliqué sur le bouton "Importer tournée"
      */
-    public void chargerListeRequete() {
-        etatActuel.chargerListeRequete(this, fenetre, carte);
-    }
+    public void chargerListeRequete(){
+        etatActuel.chargerListeRequete(this, fenetre, carte, tournee);
 
+    }
     /**
      * FIXME: pour moi c'est le même qu'au dessus
      */
+
     public void chargerNouvelleListeRequete() {
         etatActuel.chargerNouvelleListeRequete(this, fenetre);
     }
@@ -190,14 +190,14 @@ public class Controleur {
     /**
      * Méthode appelé par fenetre après avoir cliqué sur le bouton "undo"
      */
-    public void undo() throws CommandeImpossibleException {
-        listeDeCommandes.redo();
+    public void defaire() throws CommandeImpossibleException {
+        listeDeCommandes.defaire();
     }
 
     /**
      * Méthode appelé par fenetre après avoir cliqué sur le bouton "redo"
      */
-    public void redo() throws CommandeImpossibleException {
-        listeDeCommandes.redo();
+    public void refaire() throws CommandeImpossibleException {
+        listeDeCommandes.refaire();
     }
 }

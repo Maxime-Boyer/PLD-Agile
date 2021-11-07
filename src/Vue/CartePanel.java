@@ -177,7 +177,7 @@ public class CartePanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        this.g = g;
+        this.g = (Graphics2D) g;
 
         dessinerCarte();
         if (tourneeAppelee && itinerairePrepare)
