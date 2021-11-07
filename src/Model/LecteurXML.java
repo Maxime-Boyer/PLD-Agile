@@ -157,6 +157,8 @@ public class LecteurXML {
             }
         System.out.println("LecteurXML : modification de carte" + newCarte);
         carte.clone(newCarte);
+        //Notifie les observateurs que la carte a été mofifié
+        carte.notifyObservers(carte);
         return carte;
     }
 
@@ -362,7 +364,9 @@ public class LecteurXML {
 
         System.out.println("LecteurXML nouvelleTournee = " + nouvelleTournee);
         tournee.clone(nouvelleTournee);
-        System.out.println("LecteurXML tournee = " + tournee);
+        tournee.setTourneeEstChargee(true);
+        //Notifie les observateurs que la tournee a été mofifié
+        tournee.notifyObservers(tournee);
         return tournee;
     }
 

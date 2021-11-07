@@ -2,6 +2,7 @@ package Controleur;
 
 import Model.Carte;
 import Model.LecteurXML;
+import Model.Tournee;
 import Vue.Fenetre;
 
 import javax.swing.*;
@@ -9,7 +10,7 @@ import javax.swing.*;
 public class EtatInitial implements Etat {
 
     @Override
-    public void chargerPlan (Controleur controleur, Fenetre fenetre, Carte carte) {
+    public void chargerPlan (Controleur controleur, Fenetre fenetre, Carte carte, Tournee tournee) {
         System.out.println("EtatInitial : chargerPlan");
 
         //Récupère le nom du fichier choisi
