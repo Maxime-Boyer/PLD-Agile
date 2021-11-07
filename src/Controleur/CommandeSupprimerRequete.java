@@ -23,12 +23,12 @@ public class CommandeSupprimerRequete implements Commande{
     }
 
     @Override
-    public void doCommand() throws CommandeImpossibleException {
+    public void faireCommande() throws CommandeImpossibleException {
         tournee.supprimerRequete(requeteASupprimer, carte);
     }
 
     @Override
-    public void undoCommand() throws CommandeImpossibleException {
+    public void defaireCommande() throws CommandeImpossibleException {
         //tournee.ajouterRequete();
     }
 }

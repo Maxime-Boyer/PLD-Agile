@@ -9,11 +9,11 @@ public interface Commande {
     /**
      * Execute the command this
      */
-    void doCommand() throws CommandeImpossibleException;
+    void faireCommande() throws CommandeImpossibleException;
 
     /**
      * Execute the reverse command of this
      */
-    void undoCommand() throws CommandeImpossibleException;
+    void defaireCommande() throws CommandeImpossibleException;
 
 }

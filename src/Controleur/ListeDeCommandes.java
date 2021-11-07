@@ -19,7 +19,7 @@ public class ListeDeCommandes {
      * Add command c to this
      * @param c the command to add
      */
-    public void ajouter(Commande c){
+    public void ajouter(Commande c) throws CommandeImpossibleException{
         int i = indexCourant+1;
         while(i<list.size()){
             list.remove(i);
@@ -32,7 +32,7 @@ public class ListeDeCommandes {
     /**
      * Temporary remove the last added command (this command may be reinserted again with redo)
      */
-    public void defaire(){
+    public void defaire() throws CommandeImpossibleException{
         if (indexCourant >= 0){
             Commande cde = list.get(indexCourant);
             indexCourant--;
@@ -43,7 +43,7 @@ public class ListeDeCommandes {
     /**
      * Permanently remove the last added command (this command cannot be reinserted again with redo)
      */
-    public void annuler(){
+    public void annuler() throws CommandeImpossibleException{
         if (indexCourant >= 0){
             Commande cde = list.get(indexCourant);
             list.remove(indexCourant);
@@ -55,7 +55,7 @@ public class ListeDeCommandes {
     /**
      * Reinsert the last command removed by undo
      */
-    public void refaire(){
+    public void refaire() throws CommandeImpossibleException{
         if (indexCourant < list.size()-1){
             indexCourant++;
             Commande cde = list.get(indexCourant);

@@ -84,7 +84,7 @@ public class Fenetre extends JFrame {
     public void afficherEtatPlanAffiche(Carte carte) {
         System.out.println("Frentre.afficherEtatPlanAffiche(carte) : ETAT_PLAN_AFFICHE");
         //E1: Carte chargée
-        cartePanel = new CartePanel(carte, this.getContentPane().getWidth(), this.getContentPane().getHeight(), policeTexte, ecouteurBoutons, ecouteurSurvol);
+        cartePanel = new CartePanel(carte, this.getContentPane().getWidth(), this.getContentPane().getHeight(), policeTexte, ecouteurBoutons, ecouteurSouris, ecouteurSurvol);
         this.add(cartePanel);
         menuLateral = new MenuLateral(this.getContentPane().getWidth(), this.getContentPane().getHeight(), policeTexte, policeTexteImportant, ecouteurBoutons, ecouteurSurvol);
         this.add(menuLateral);
@@ -118,6 +118,14 @@ public class Fenetre extends JFrame {
         cartePanel.tracerItineraire(tournee);
         menuLateral.afficherMenuEtapes(tournee);
         menuLateral.setMessageUtilisateur("Maintenant vous pouvez éditer votre tournée ou exporter la feuille de route.");
+    }
+
+    public void afficherEtatAjoutRequete(){
+        menuLateral.retirerBoutonsMenu();
+        menuLateral.setMessageUtilisateur("Ajouter une Etape de collecte: [Clique Gauche] sur une Adresse de la Carte " + "[Clique Droit] pour annuler");
+        this.ecouteurSouris.setVueGraphique(cartePanel);
+        this.revalidate();
+        this.repaint();
     }
 
     /**

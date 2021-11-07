@@ -52,10 +52,6 @@ public class Etape extends Adresse{
         this.dureeEtape = dureeEtape;
     }
 
-    public void setHeureDePassage(Timestamp heureDePassage) {
-        this.heureDePassage = heureDePassage;
-    }
-
     @Override
     public String toString() {
         return super.toString()+"Etape{" +

@@ -1,5 +1,6 @@
 package Controleur;
 
+import Exceptions.CommandeImpossibleException;
 import Model.Adresse;
 import Model.Carte;
 import Model.Etape;
