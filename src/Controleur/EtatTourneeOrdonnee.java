@@ -11,7 +11,7 @@ public class EtatTourneeOrdonnee implements Etat {
 
 
     @Override
-    public void chargerListeRequete (Controleur controleur, Fenetre fenetre, Carte carte) {
+    public void chargerListeRequete (Controleur controleur, Fenetre fenetre, Carte carte, Tournee tournee) {
         System.out.println("EtatTourneeOrdonnee : chargerListeRequete");
         /*fenetre.retirerMenuEtape();
         fenetre.afficherEtat(NomEtat.ETAT_TOURNEE_CHARGEE);
@@ -20,11 +20,10 @@ public class EtatTourneeOrdonnee implements Etat {
         //Récupère le nom du fichier choisi
         String nomFichier = fenetre.afficherChoixFichier();
         //Appel la méthode qui vérifie si le fichier est valide et récupère la tournee
-        Tournee tournee;
         LecteurXML lecteur = new LecteurXML();
         try {
             System.out.println("    avant");
-            tournee = lecteur.lectureRequete(nomFichier, carte);
+            tournee = lecteur.lectureRequete(nomFichier, carte, tournee);
             fenetre.retirerMenuEtape();
             System.out.println("    après tournee = " + tournee);
             //Change vers l'état PlanAffiche avec la nouvelle carte

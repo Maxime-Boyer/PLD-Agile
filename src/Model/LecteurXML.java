@@ -166,12 +166,13 @@ public class LecteurXML {
      * @throws ParserConfigurationException
      * @throws SAXException
      */
-    public Tournee lectureRequete(String nomFichier, Carte carte) throws ParserConfigurationException, SAXException, PresenceEncodingEtVersionException, TagNameMapException, AbsenceBaliseDepotException, AttributsDepotException, IncompatibleAdresseException, NegatifLatitudeException, NegatifLongitudeException, IOException, IncompatibleLatitudeException, IncompatibleLongitudeException, AbsenceBaliseRequestException, AttributsRequestsException {
+    public Tournee lectureRequete(String nomFichier, Carte carte, Tournee tournee) throws ParserConfigurationException, SAXException, PresenceEncodingEtVersionException, TagNameMapException, AbsenceBaliseDepotException, AttributsDepotException, IncompatibleAdresseException, NegatifLatitudeException, NegatifLongitudeException, IOException, IncompatibleLatitudeException, IncompatibleLongitudeException, AbsenceBaliseRequestException, AttributsRequestsException {
 
         System.out.println("        nomFichier = " + nomFichier);
 
+        Tournee nouvelleTournee = new Tournee();
+
         List<Requete> listeRequetes = new  ArrayList<Requete>();
-        Tournee tournee = new Tournee();
         File file = new File(nomFichier);
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();
@@ -261,12 +262,12 @@ public class LecteurXML {
             }
 
             //String depart = eElement.getAttribute("departureTime");
-            tournee.setAdresseDepart(adresseDepot);
+            nouvelleTournee.setAdresseDepart(adresseDepot);
         }
 
         if(verificationFormatDate(stringHeureDepart)) {
             LocalTime heureDepart = LocalTime.parse(stringHeureDepart, DateTimeFormatter.ofPattern("H:m:s"));
-            tournee.setHeureDepart(heureDepart);
+            nouvelleTournee.setHeureDepart(heureDepart);
         }else {
             throw new AttributsDepotException("Erreur, l'attribut departureTime de la balise depot n'est pas au bon format");
         }
@@ -353,14 +354,15 @@ public class LecteurXML {
                         Requete requete = new Requete(etapeRetrait, etapeLivraison);
                         listeRequetes.add(requete);
                     }
-                    tournee.setListeRequetes(listeRequetes);
-                    determinerNomAdresseEtapes(tournee, carte);
+                    nouvelleTournee.setListeRequetes(listeRequetes);
+                    determinerNomAdresseEtapes(nouvelleTournee, carte);
                 }
             }
         }
 
+        System.out.println("LecteurXML nouvelleTournee = " + nouvelleTournee);
+        tournee.clone(nouvelleTournee);
         System.out.println("LecteurXML tournee = " + tournee);
-
         return tournee;
     }
 

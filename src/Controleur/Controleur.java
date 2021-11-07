@@ -2,11 +2,13 @@ package Controleur;
 
 import Exceptions.CommandeImpossibleException;
 import Model.Carte;
+import Model.Tournee;
 import Vue.Fenetre;
 
 public class Controleur {
 
     private Carte carte;
+    private Tournee tournee;
     private Fenetre fenetre;
     private ListeDeCommandes listeDeCommandes;
     private Etat etatActuel;
@@ -31,6 +33,7 @@ public class Controleur {
      */
     public Controleur(Carte carte) {
         this.carte = carte;
+        tournee = new Tournee();
         listeDeCommandes = new ListeDeCommandes();
         this.etatActuel = etatInitial;
         fenetre = new Fenetre(carte, this);
@@ -57,7 +60,7 @@ public class Controleur {
      * Méthode appelé par fenetre après avoir cliqué sur le bouton "Importer tournée"
      */
     public void chargerListeRequete() {
-        etatActuel.chargerListeRequete(this, fenetre, carte);
+        etatActuel.chargerListeRequete(this, fenetre, carte, tournee);
     }
 
     /**
@@ -65,7 +68,7 @@ public class Controleur {
      * FIXME : cohérence du vocabulaire
      */
     public void preparerTournee() {
-        etatActuel.preparerTournee(this, fenetre);
+        etatActuel.preparerTournee(this, fenetre, carte, tournee);
     }
 
     /**

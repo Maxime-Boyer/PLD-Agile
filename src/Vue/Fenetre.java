@@ -92,10 +92,11 @@ public class Fenetre extends JFrame {
     }
 
     /**
-     * TODO
-     * @param tournee
+     * Affichage déclenchée lorsque la tournée a été chargée : permet d'afficher les requêtes sur la vue graphique et la vue textuelle
+     * @param tournee la liste de requêtes qui doit être affichée
      */
     public void afficherEtatTourneChargee (Tournee tournee) {
+        System.out.println("Frentre.afficherEtatTourneChargee(tounee) : ETAT_TOURNEE_CHARGEE");
         cartePanel.tracerRequetes(tournee);
         menuLateral.afficherMenuRequete(tournee);
         legende = new Legende();
@@ -103,6 +104,17 @@ public class Fenetre extends JFrame {
         // repaint la fenetre
         this.revalidate();
         this.repaint();
+    }
+
+    /**
+     * Affichage déclenchée lorsque la tournée a été calculé : permet d'afficher la tournee calculée sur la vue graphique et la vue textuelle
+     * @param tournee la tournee calculée qui doit être affichée
+     */
+    public void afficherEtatTourneePreparee (Tournee tournee) {
+        System.out.println("Fenetre.afficherEtatTourneePreparee(tournee) : ETAT_TOURNEE_PREPAREE ");
+        cartePanel.tracerItineraire(tournee);
+        menuLateral.afficherMenuEtapes(tournee);
+        menuLateral.setMessageUtilisateur("Maintenant vous pouvez éditer votre tournée ou exporter la feuille de route.");
     }
 
     /**
@@ -135,13 +147,13 @@ public class Fenetre extends JFrame {
                 menuLateral.afficherMenuRequete(cartePanel.getTournee());
                 menuLateral.setMessageUtilisateur("Veuillez préparer la tournée pour visualiser l'itinéraire sur la carte.");
                 legende = new Legende();
-                break;*/
+                break;
             case ETAT_TOURNEE_PREPAREE:
                 System.out.println("Fenetre.afficherEtat() : ETAT_TOURNEE_PREPAREE ");
                 cartePanel.tracerItineraire();
                 menuLateral.afficherMenuEtapes(cartePanel.getTournee());
                 menuLateral.setMessageUtilisateur("Maintenant vous pouvez éditer votre tournée ou exporter la feuille de route.");
-                break;
+                break;*/
         }
 
         // repaint la fenetre

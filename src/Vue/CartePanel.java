@@ -135,10 +135,10 @@ public class CartePanel extends JPanel {
     /**
      * Lance le calcule de l'itineraire et indique à la méthode paint que l'itinéraire est pret a etre trace
      */
-    public void tracerItineraire() {
+    public void tracerItineraire(Tournee tournee) {
         System.out.println("tracerItineraire");
         System.out.println("    tracerItineraire : carte = "+carte + ", tournee = "+tournee);
-
+        /*
         calculTournee = new CalculateurTournee(carte, tournee);
 
         try {
@@ -149,7 +149,8 @@ public class CartePanel extends JPanel {
 
         itineraire = new Tournee();
         itineraire = calculTournee.getTournee();
-
+        */
+        itineraire = tournee;
         itinerairePrepare = true;
     }
 

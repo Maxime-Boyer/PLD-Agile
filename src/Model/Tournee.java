@@ -117,6 +117,19 @@ public class Tournee extends Observable {
         //Ajoute le chemin entre l'étape précente et l'étape suivante du point de depot
         listeChemins.add(indexEtapePrecedentDepot, nouveauCheminEntrePrecedentEtSuivantDepot);
 
+        notifyObservers(this);
+
+    }
+
+    /**
+     * Remplaces tous les attibuts de la tournee par celle d'une autre tournee
+     * @param touneeACloner la tournee de laquelle les attributs sont récupérés
+     */
+    public void clone(Tournee touneeACloner) {
+        this.adresseDepart = touneeACloner.adresseDepart;
+        this.heureDepart = touneeACloner.heureDepart;
+        this.listeRequetes = touneeACloner.listeRequetes;
+        this.listeChemins = touneeACloner.listeChemins;
     }
 
     @Override
