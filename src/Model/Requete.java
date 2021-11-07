@@ -1,6 +1,7 @@
 package Model;
 
 import java.awt.*;
+import java.util.Objects;
 import java.util.Random;
 
 public class Requete {
@@ -28,6 +29,19 @@ public class Requete {
     }
 
     public Color getCouleur() { return couleurRequete; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Requete requete = (Requete) o;
+        return etapeCollecte.getIdAdresse().equals(requete.etapeCollecte) && etapeDepot.getIdAdresse().equals(requete.etapeDepot);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(etapeCollecte, etapeDepot, couleurRequete);
+    }
 
     @Override
     public String toString() {
