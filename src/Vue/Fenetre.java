@@ -137,6 +137,8 @@ public class Fenetre extends JFrame {
         popUpSaisieDuree = new PopUpSaisieDuree(policeTexte,ecouteurBoutons);
         menuLateral.setMessageUtilisateur("Entrer la durée de l'étape et Valider");
         this.add(popUpSaisieDuree);
+        this.revalidate();
+        this.repaint();
 
 
     }
