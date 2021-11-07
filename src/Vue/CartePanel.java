@@ -28,10 +28,19 @@ import java.util.Map;
 public class CartePanel extends JPanel {
     private int largeur;
     private int hauteur;
+
+    //Utilise pour l'affichage
     private double maxLongitudeCarte;
     private double maxLatitudeCarte;
     private double minLatitudeCarte;
     private double minLongitudeCarte;
+
+    //Utilise pour limiter le zoom
+    private double maxLongitudeInitialeCarte;
+    private double maxLatitudeInitialeCarte;
+    private double minLatitudeInitialeCarte;
+    private double minLongitudeInitialeCarte;
+
     private boolean tourneeAppelee;
     private boolean itinerairePrepare;
     private Tournee tournee = new Tournee();
@@ -57,7 +66,7 @@ public class CartePanel extends JPanel {
     public CartePanel(Carte carte, int largeurEcran, int hauteurEcran, Font policeTexte, EcouteurBoutons ecouteurBoutons, EcouteurSurvol ecouteurSurvol) {
         this.carte = carte;
         maxLongitudeLatitudeCarte();
-        this.largeur = (int) 3 * largeurEcran / 4;
+        this.largeur = (int) (3 * largeurEcran / 4.);
         this.hauteur = (int) hauteurEcran;
         this.tourneeAppelee = false;
         this.itinerairePrepare = false;
@@ -65,6 +74,7 @@ public class CartePanel extends JPanel {
         this.setBackground(Color.WHITE);
         this.setLayout(null);
         this.addMouseListener(ecouteurSurvol);
+        this.addMouseWheelListener(new EcouteurZoom(this,.001));
 
         //initialisation image
         iconPosition = new ImageIcon("src/images/Localisation.png");
@@ -515,9 +525,70 @@ public class CartePanel extends JPanel {
         minLatitudeCarte = minLatitude;
         minLongitudeCarte = minLongitude;
 
+        maxLongitudeInitialeCarte = maxLongitude;
+        maxLatitudeInitialeCarte = maxLatitude;
+        minLatitudeInitialeCarte = minLatitude;
+        minLongitudeInitialeCarte = minLongitude;
+
         System.out.println("maxLongitude : " + maxLongitude
                 + " | maxLatitude: " + maxLatitude
                 + " | minLatitude: " + minLatitude
                 + " | minLongitude: " + minLongitude);
+    }
+
+    public double getMaxLongitudeCarte() {
+        return maxLongitudeCarte;
+    }
+
+    public void setMaxLongitudeCarte(double maxLongitudeCarte) {
+        this.maxLongitudeCarte = maxLongitudeCarte;
+    }
+
+    public double getMaxLatitudeCarte() {
+        return maxLatitudeCarte;
+    }
+
+    public void setMaxLatitudeCarte(double maxLatitudeCarte) {
+        this.maxLatitudeCarte = maxLatitudeCarte;
+    }
+
+    public double getMinLatitudeCarte() {
+        return minLatitudeCarte;
+    }
+
+    public void setMinLatitudeCarte(double minLatitudeCarte) {
+        this.minLatitudeCarte = minLatitudeCarte;
+    }
+
+    public double getMinLongitudeCarte() {
+        return minLongitudeCarte;
+    }
+
+    public void setMinLongitudeCarte(double minLongitudeCarte) {
+        this.minLongitudeCarte = minLongitudeCarte;
+    }
+
+    public int getLargeur() {
+        return largeur;
+    }
+
+    public int getHauteur() {
+        return hauteur;
+    }
+
+    public double getMaxLongitudeInitialeCarte() {
+        return maxLongitudeInitialeCarte;
+    }
+
+    public double getMaxLatitudeInitialeCarte() {
+        return maxLatitudeInitialeCarte;
+    }
+
+    public double getMinLatitudeInitialeCarte() {
+        return minLatitudeInitialeCarte;
+    }
+
+    public double getMinLongitudeInitialeCarte() {
+        return minLongitudeInitialeCarte;
     }
 }
