@@ -15,11 +15,11 @@ public class Controleur {
 
     // Instances associés à chaque état possible du controleur
     protected final EtatAjoutRequete1PointCollecte etatAjoutRequete1PointCollecte = new EtatAjoutRequete1PointCollecte();
-    protected final EtatAjoutRequete2PositionCollecte etatAjoutRequete2PositionCollecte = new EtatAjoutRequete2PositionCollecte();
-    protected final EtatAjoutRequete3DureeCollecte etatAjoutRequete3DureeCollecte = new EtatAjoutRequete3DureeCollecte();
-    protected final EtatAjoutRequete4PointDepot etatAjoutRequete4PointDepot = new EtatAjoutRequete4PointDepot();
-    protected final EtatAjoutRequete5PositionDepot etatAjoutRequete5PositionDepot = new EtatAjoutRequete5PositionDepot();
-    protected final EtatAjoutRequete6DureeDepot etatAjoutRequete6DureeDepot = new EtatAjoutRequete6DureeDepot();
+    protected final EtatAjoutRequete2PointPrecedentCollecte etatAjoutRequete2PointPrecedentCollecte = new EtatAjoutRequete2PointPrecedentCollecte();
+    protected final EtatAjoutRequete3PointSuivantCollecte etatAjoutRequete3DureeCollecte = new EtatAjoutRequete3PointSuivantCollecte();
+    protected final EtatAjoutRequete4DureeCollecte etatAjoutRequete4PointDepot = new EtatAjoutRequete4DureeCollecte();
+    protected final EtatAjoutRequete5PointDepot etatAjoutRequete5PointDepot = new EtatAjoutRequete5PointDepot();
+    protected final EtatAjoutRequete6PointPrecedentDepot etatAjoutRequete6PointPrecedentDepot = new EtatAjoutRequete6PointPrecedentDepot();
     protected final EtatInitial etatInitial = new EtatInitial();
     protected final EtatTourneeChargee etatTourneeChargee = new EtatTourneeChargee();
     protected final EtatTourneeOrdonnee etatTourneeOrdonnee = new EtatTourneeOrdonnee();

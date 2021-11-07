@@ -5,7 +5,7 @@ import Model.Carte;
 import Model.Tournee;
 import Vue.Fenetre;
 
-public class EtatAjoutRequete2PositionCollecte implements Etat{
+public class EtatAjoutRequete2PointPrecedentCollecte implements Etat{
 
     @Override
     public void cliqueGauche (Controleur controleur, Fenetre fenetre, Carte carte, ListeDeCommandes l, Tournee tournee, Adresse precedent){
@@ -13,6 +13,6 @@ public class EtatAjoutRequete2PositionCollecte implements Etat{
 
 
 
-        controleur.setEtatActuel(controleur.etatAjoutRequete2PositionCollecte);
+        controleur.setEtatActuel(controleur.etatAjoutRequete2PointPrecedentCollecte);
     }
 }
