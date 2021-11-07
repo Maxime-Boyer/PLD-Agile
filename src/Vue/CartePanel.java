@@ -15,6 +15,7 @@ import org.xml.sax.SAXException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseListener;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -142,10 +143,10 @@ public class CartePanel extends JPanel {
     /**
      * Lance le calcule de l'itineraire et indique à la méthode paint que l'itinéraire est pret a etre trace
      */
-    public void tracerItineraire() {
+    public void tracerItineraire(Tournee tournee) {
         System.out.println("tracerItineraire");
         System.out.println("    tracerItineraire : carte = "+carte + ", tournee = "+tournee);
-
+        /*
         calculTournee = new CalculateurTournee(carte, tournee);
 
         try {
@@ -156,7 +157,8 @@ public class CartePanel extends JPanel {
 
         itineraire = new Tournee();
         itineraire = calculTournee.getTournee();
-
+        */
+        itineraire = tournee;
         itinerairePrepare = true;
     }
 
@@ -241,14 +243,19 @@ public class CartePanel extends JPanel {
      */
     public void dessinerCarte() {
         g.setColor(Color.BLACK);
+    public void dessinerCarte(Graphics g) {
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
         // BackGround
 
         g.setColor(Color.WHITE);
 
         g.fillRect(0, 0, getSize().width, getSize().height);
+        g2.setColor(Color.GRAY);
+        g2.fillRect(0, 0, getSize().width, getSize().height);
 
-        g.setColor(Color.BLACK);
-
+        //Contour Segments
         if(!carte.getListeSegments().isEmpty()) {
 
             for (int i = 0; i < carte.getListeSegments().size(); i++) {
@@ -259,7 +266,30 @@ public class CartePanel extends JPanel {
                 int destinationX = valeurX(destination.getLongitude());
                 int destinationY = valeurY(destination.getLatitude());
 
-                g.drawLine(origineX, origineY, destinationX, destinationY);
+                Stroke s = g2.getStroke();
+                g2.setStroke(new BasicStroke(7));
+                g2.setColor(Color.DARK_GRAY);
+                g2.drawLine(origineX, origineY, destinationX, destinationY);
+                g2.setStroke(s);
+            }
+        }
+
+        //Interieur Segments
+        if(!carte.getListeSegments().isEmpty()) {
+
+            for (int i = 0; i < carte.getListeSegments().size(); i++) {
+                Adresse origine = carte.getListeSegments().get(i).getOrigine();
+                Adresse destination = carte.getListeSegments().get(i).getDestination();
+                int origineX = valeurX(origine.getLongitude());
+                int origineY = valeurY(origine.getLatitude());
+                int destinationX = valeurX(destination.getLongitude());
+                int destinationY = valeurY(destination.getLatitude());
+
+                Stroke s = g2.getStroke();
+                g2.setStroke(new BasicStroke(3));
+                g2.setColor(Color.WHITE);
+                g2.drawLine(origineX, origineY, destinationX, destinationY);
+                g2.setStroke(s);
             }
         }
     }
@@ -268,56 +298,89 @@ public class CartePanel extends JPanel {
      * Dessine les carres, ronds et triangles indiquant les différentes Etapes de la requete
      * @throws IncompatibleAdresseException: //TODO
      */
-    public void dessinerTournee() throws IncompatibleAdresseException {
+    public void dessinerTournee(Graphics g) throws IncompatibleAdresseException {
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        //triangle depart tournee
         Adresse depart = tournee.getAdresseDepart();
         double lonDepart = depart.getLongitude();
         double latDepart = depart.getLatitude();
         int valeurXDepart = valeurX(lonDepart);
         int valeurYDepart = valeurY(latDepart);
-        g.setColor(Color.RED);
+
         int valeurXBasGauche = valeurXDepart - 11;
         int valeurYBasGauche = valeurYDepart + 5;
-
         int valeurXBasDroite = valeurXDepart + 11;
         int valeurYBasDroite = valeurYDepart + 5;
-
         int valeurXHaute = valeurXDepart;
-        int valeurYHaute = valeurYDepart - 10;
+        int valeurYHaute = valeurYDepart - 14;
+        int []XPointsContour = {valeurXBasGauche,valeurXBasDroite,valeurXHaute};
+        int []YPointsContour = {valeurYBasGauche,valeurYBasDroite,valeurYHaute};
+        int []XPointsInterieur = {valeurXBasGauche+2,valeurXBasDroite-2,valeurXHaute};
+        int []YPointsInterieur = {valeurYBasGauche-2,valeurYBasDroite-2,valeurYHaute+2};
 
-        int []XPoints = {valeurXBasGauche,valeurXBasDroite,valeurXHaute};
-        int []YPoints = {valeurYBasGauche,valeurYBasDroite,valeurYHaute};
+        g2.setColor(new Color(128, 0, 0));
+        g2.fillPolygon(XPointsContour,YPointsContour,3);
+        g2.setColor(Color.RED);
+        g2.fillPolygon(XPointsInterieur,YPointsInterieur,3);
 
-        g.fillPolygon(XPoints,YPoints,3);
+        //Contour des marqueurs depots / collecte
+        if(!tournee.getListeRequetes().isEmpty()){
 
+            for (int i = 0; i < tournee.getListeRequetes().size(); i++) {
 
+                Adresse collecte = tournee.getListeRequetes().get(i).getEtapeCollecte();
+                Adresse depot = tournee.getListeRequetes().get(i).getEtapeDepot();
 
-        //zg2.fillOval(valeurXDepart, valeurYDepart, 25, 12);
+                double lonCollecte = collecte.getLongitude();
+                double latCollecte = collecte.getLatitude();
+                double lonDepot = depot.getLongitude();
+                double latDepot = depot.getLatitude();
 
-            if(!tournee.getListeRequetes().isEmpty()){
+                int valeurXCollecte = valeurX(lonCollecte);
+                int valeurYCollecte = valeurY(latCollecte);
+                int valeurXDepot = valeurX(lonDepot);
+                int valeurYDepot = valeurY(latDepot);
 
-                for (int i = 0; i < tournee.getListeRequetes().size(); i++) {
-                    Adresse collecte = tournee.getListeRequetes().get(i).getEtapeCollecte();
-                    Adresse depot = tournee.getListeRequetes().get(i).getEtapeDepot();
+                Color couleurRequete = tournee.getListeRequetes().get(i).getCouleurRequete();
+                int rouge=(int)(couleurRequete.getRed()*0.6);
+                int vert=(int)(couleurRequete.getGreen()*0.6);
+                int bleu=(int)(couleurRequete.getBlue()*0.6);
+                Color couleurContourRequete = new Color(rouge,vert,bleu);
+                g2.setColor(couleurContourRequete);
 
-                    double lonCollecte = collecte.getLongitude();
-                    double latCollecte = collecte.getLatitude();
-                    double lonDepot = depot.getLongitude();
-                    double latDepot = depot.getLatitude();
-
-                    int valeurXCollecte = valeurX(lonCollecte);
-                    int valeurYCollecte = valeurY(latCollecte);
-                    int valeurXDepot = valeurX(lonDepot);
-                    int valeurYDepot = valeurY(latDepot);
-
-            //g2.setColor(tournee.getListeRequetes().get(i).getCouleur());
-
-
-                    g.setColor(tournee.getListeRequetes().get(i).getCouleurRequete());
-
-                    g.fillRoundRect(valeurXCollecte - 7, valeurYCollecte - 7, 14, 14, 14, 14);
-                    g.fillRect(valeurXDepot - 7, valeurYDepot - 7, 14, 14);
-                }
+                int taille = 14;
+                g2.fillOval(valeurXCollecte - taille/2, valeurYCollecte - taille/2, taille+1, taille+1);
+                g2.fillRoundRect(valeurXDepot - taille/2, valeurYDepot - taille/2, taille+1, taille+1, taille/2, taille/2);
             }
+        }
+
+        //Interieur des marqueurs depots / collecte
+        if(!tournee.getListeRequetes().isEmpty()){
+
+            for (int i = 0; i < tournee.getListeRequetes().size(); i++) {
+
+                Adresse collecte = tournee.getListeRequetes().get(i).getEtapeCollecte();
+                Adresse depot = tournee.getListeRequetes().get(i).getEtapeDepot();
+
+                double lonCollecte = collecte.getLongitude();
+                double latCollecte = collecte.getLatitude();
+                double lonDepot = depot.getLongitude();
+                double latDepot = depot.getLatitude();
+
+                int valeurXCollecte = valeurX(lonCollecte);
+                int valeurYCollecte = valeurY(latCollecte);
+                int valeurXDepot = valeurX(lonDepot);
+                int valeurYDepot = valeurY(latDepot);
+
+                g2.setColor(tournee.getListeRequetes().get(i).getCouleurRequete());
+
+                int taille = 10;
+                g2.fillOval(valeurXCollecte - taille/2, valeurYCollecte - taille/2, taille+1, taille+1);
+                g2.fillRoundRect(valeurXDepot - taille/2, valeurYDepot - taille/2, taille+1, taille+1, taille/2, taille/2);
+            }
+        }
         /*else {
             throw new IncompatibleAdresseException("Erreur d'adresse de départ, cette adresse n'appartient pas à la carte chargée ");
         }*/
@@ -360,8 +423,11 @@ public class CartePanel extends JPanel {
     /**
      * trace l'itineraire sur la carte
      */
-    public void dessinerItineraire() {
+    public void dessinerItineraire(Graphics g) {
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
+        //dessine contour du trajet
         for (int i = 0; i < itineraire.getListeChemins().size(); i++) {
             for (int j = 0; j < itineraire.getListeChemins().get(i).getListeSegment().size(); j++) {
                 Adresse origine = itineraire.getListeChemins().get(i).getListeSegment().get(j).getOrigine();
@@ -370,8 +436,85 @@ public class CartePanel extends JPanel {
                 int origineY = valeurY(origine.getLatitude());
                 int destinationX = valeurX(destination.getLongitude());
                 int destinationY = valeurY(destination.getLatitude());
-                g.setColor(Color.RED);
-                g.drawLine(origineX, origineY, destinationX, destinationY);
+
+                Stroke s = g2.getStroke();
+                g2.setStroke(new BasicStroke(8));
+                g2.setColor(Color.BLUE);
+                g2.drawLine(origineX, origineY, destinationX, destinationY);
+                g2.setStroke(s);
+            }
+        }
+
+        //dessine interieur des lignes du trajet
+        for (int i = 0; i < itineraire.getListeChemins().size(); i++) {
+            for (int j = 0; j < itineraire.getListeChemins().get(i).getListeSegment().size(); j++) {
+                Adresse origine = itineraire.getListeChemins().get(i).getListeSegment().get(j).getOrigine();
+                Adresse destination = itineraire.getListeChemins().get(i).getListeSegment().get(j).getDestination();
+                int origineX = valeurX(origine.getLongitude());
+                int origineY = valeurY(origine.getLatitude());
+                int destinationX = valeurX(destination.getLongitude());
+                int destinationY = valeurY(destination.getLatitude());
+
+                Stroke s = g2.getStroke();
+                g2.setStroke(new BasicStroke(6));
+                g2.setColor(new Color(51, 204, 255));
+                g2.drawLine(origineX, origineY, destinationX, destinationY);
+                g2.setStroke(s);
+            }
+        }
+
+        //dessine les flèches de direction
+        Polygon teteFleche = new Polygon();
+        teteFleche.addPoint(0,9);
+        teteFleche.addPoint(-4,1);
+        teteFleche.addPoint(4,1);
+        for (int i = 0; i < itineraire.getListeChemins().size(); i++) {
+            for (int j = 0; j < itineraire.getListeChemins().get(i).getListeSegment().size(); j++) {
+                Adresse origine = itineraire.getListeChemins().get(i).getListeSegment().get(j).getOrigine();
+                Adresse destination = itineraire.getListeChemins().get(i).getListeSegment().get(j).getDestination();
+                int origineX = valeurX(origine.getLongitude());
+                int origineY = valeurY(origine.getLatitude());
+                int destinationX = valeurX(destination.getLongitude());
+                int destinationY = valeurY(destination.getLatitude());
+
+                //Si le segment est trop petit, on n'affiche pas la fleche
+                //FIXME prend en compte les segments 1 par 1, et non la liste de segment sur la meme rue
+                if((origineX-destinationX)*(origineX-destinationX)+(origineY-destinationY)*(origineY-destinationY) > 20*20){
+                    g2.setColor(Color.white);
+
+                    AffineTransform at1 = g2.getTransform();
+                    AffineTransform at2 = (AffineTransform) at1.clone();
+                    at2.translate((origineX+destinationX)/2.,(origineY+destinationY)/2.);
+                    double angle = Math.atan2(destinationY-origineY,destinationX-origineX);
+                    at2.rotate(angle - Math.PI/2);
+                    g2.setTransform(at2);
+                    g2.fill(teteFleche);
+                    g2.setTransform(at1);
+
+                }
+            }
+        }
+
+
+        //dessine un rond pour chaque changement de rue
+        String nomAdressePrecedente = "";
+        for (int i = 0; i < itineraire.getListeChemins().size(); i++) {
+            for (int j = 0; j < itineraire.getListeChemins().get(i).getListeSegment().size(); j++) {
+                Adresse origine = itineraire.getListeChemins().get(i).getListeSegment().get(j).getOrigine();
+                Adresse destination = itineraire.getListeChemins().get(i).getListeSegment().get(j).getDestination();
+                int origineX = valeurX(origine.getLongitude());
+                int origineY = valeurY(origine.getLatitude());
+                int destinationX = valeurX(destination.getLongitude());
+                int destinationY = valeurY(destination.getLatitude());
+
+                //On n'affiche pas toutes les adresses, mais uniquement les changements de rue
+                if(!nomAdressePrecedente.equals(itineraire.getListeChemins().get(i).getListeSegment().get(j).getNom())){
+                    g2.setColor(Color.DARK_GRAY);
+                    g2.fillOval(origineX-3,origineY-3,7,7);
+                    g2.setColor(Color.WHITE);
+                    g2.fillOval(origineX-2,origineY-2,5,5);
+                }
+                nomAdressePrecedente = itineraire.getListeChemins().get(i).getListeSegment().get(j).getNom();
             }
         }
     }

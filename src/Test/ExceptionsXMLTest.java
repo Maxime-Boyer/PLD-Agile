@@ -252,7 +252,7 @@ class ExceptionsXMLTest {
             LecteurXML lecteurXML = new LecteurXML();
             Tournee tournee = new Tournee();
             Carte carte = new Carte();
-            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/mediumRequestsEncodageVersionTest.xml", carte);
+            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/mediumRequestsEncodageVersionTest.xml", carte, tournee);
         } catch (IncompatibleLatitudeException e) {
             e.printStackTrace();
             fail();
@@ -303,7 +303,7 @@ class ExceptionsXMLTest {
             LecteurXML lecteurXML = new LecteurXML();
             Tournee tournee = new Tournee();
             Carte carte = new Carte();
-            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/mediumRequestsBaliseIncorrectTest.xml", carte);
+            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/mediumRequestsBaliseIncorrectTest.xml", carte, tournee);
         } catch (IncompatibleLatitudeException e) {
             e.printStackTrace();
             fail();
@@ -354,7 +354,7 @@ class ExceptionsXMLTest {
             LecteurXML lecteurXML = new LecteurXML();
             Tournee tournee = new Tournee();
             Carte carte = new Carte();
-            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/mediumRequestsAbsenceBaliseDepotTest.xml", carte);
+            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/mediumRequestsAbsenceBaliseDepotTest.xml", carte, tournee);
         } catch (IncompatibleLatitudeException e) {
             e.printStackTrace();
             fail();
@@ -405,7 +405,7 @@ class ExceptionsXMLTest {
             LecteurXML lecteurXML = new LecteurXML();
             Tournee tournee = new Tournee();
             Carte carte = new Carte();
-            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/mediumRequestsAttributDepotNombreTest.xml", carte);
+            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/mediumRequestsAttributDepotNombreTest.xml", carte, tournee);
         } catch (IncompatibleLatitudeException e) {
             e.printStackTrace();
             fail();
@@ -456,7 +456,7 @@ class ExceptionsXMLTest {
             LecteurXML lecteurXML = new LecteurXML();
             Tournee tournee = new Tournee();
             Carte carte = new Carte();
-            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/mediumRequestsMauvaisAttributDepotTest.xml", carte);
+            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/mediumRequestsMauvaisAttributDepotTest.xml", carte, tournee);
         } catch (IncompatibleLatitudeException e) {
             e.printStackTrace();
             fail();
@@ -507,7 +507,7 @@ class ExceptionsXMLTest {
             LecteurXML lecteurXML = new LecteurXML();
             Tournee tournee = new Tournee();
             Carte carte = new Carte();
-            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/mediumRequestsMauvaiseValeurAttributDepotTest.xml", carte);
+            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/mediumRequestsMauvaiseValeurAttributDepotTest.xml", carte, tournee);
         } catch (IncompatibleLatitudeException e) {
             e.printStackTrace();
             fail();
@@ -558,7 +558,7 @@ class ExceptionsXMLTest {
             LecteurXML lecteurXML = new LecteurXML();
             Tournee tournee = new Tournee();
             carte = lecteurXML.lectureCarte("./src/FichiersXML/mediumMap.xml", carte);
-            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/mediumRequestsMauvaiseValeurAttributDepotTest2.xml", carte);
+            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/mediumRequestsMauvaiseValeurAttributDepotTest2.xml", carte, tournee);
         } catch (IncompatibleLatitudeException e) {
             e.printStackTrace();
             fail();
@@ -615,7 +615,7 @@ class ExceptionsXMLTest {
             LecteurXML lecteurXML = new LecteurXML();
             Tournee tournee = new Tournee();
             carte = lecteurXML.lectureCarte("./src/FichiersXML/mediumMap.xml", carte);
-            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/mediumRequestsBaliseRequestsManquanteTest.xml", carte);
+            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/mediumRequestsBaliseRequestsManquanteTest.xml", carte, tournee);
         } catch (IncompatibleLatitudeException e) {
             e.printStackTrace();
             fail();
@@ -673,7 +673,7 @@ class ExceptionsXMLTest {
             LecteurXML lecteurXML = new LecteurXML();
             Tournee tournee = new Tournee();
             carte = lecteurXML.lectureCarte("./src/FichiersXML/mediumMap.xml", carte);
-            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/mediumRequestsAttributRequestNombreTest.xml", carte);
+            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/mediumRequestsAttributRequestNombreTest.xml", carte, tournee);
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
             fail();
@@ -730,7 +730,7 @@ class ExceptionsXMLTest {
             LecteurXML lecteurXML = new LecteurXML();
             Tournee tournee = new Tournee();
             carte = lecteurXML.lectureCarte("./src/FichiersXML/mediumMap.xml", carte);
-            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/mediumRequestsAttributRequestNombreTest.xml", carte);
+            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/mediumRequestsAttributRequestNombreTest.xml", carte, tournee);
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
             fail();
@@ -786,7 +786,7 @@ class ExceptionsXMLTest {
         try {
             LecteurXML lecteurXML = new LecteurXML();
             Tournee tournee = new Tournee();
-            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/requestsMediumAdresseRetrait.xml", carte);
+            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/requestsMediumAdresseRetrait.xml", carte, tournee);
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
             fail();
@@ -836,7 +836,7 @@ class ExceptionsXMLTest {
         try {
             LecteurXML lecteurXML = new LecteurXML();
             Tournee tournee = new Tournee();
-            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/requestsMediumAdresseDepot.xml", carte);
+            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/requestsMediumAdresseDepot.xml", carte, tournee);
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
             fail();
@@ -886,7 +886,7 @@ class ExceptionsXMLTest {
         try {
             LecteurXML lecteurXML = new LecteurXML();
             Tournee tournee = new Tournee();
-            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/requestsMediumAdresseDepart.xml", carte);
+            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/requestsMediumAdresseDepart.xml", carte, tournee);
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
             fail();

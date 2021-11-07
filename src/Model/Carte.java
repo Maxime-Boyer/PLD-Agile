@@ -65,10 +65,14 @@ public class Carte {
         listeSegments = new ArrayList<Segment>();
     }
 
-    public void clone(Carte carte) {
-        this.listeAdresses = carte.listeAdresses;
-        this.listeSegments = carte.listeSegments;
-        this.nomCarte = carte.nomCarte;
+    /**
+     * Remplaces tous les attibuts de la carte par celle d'une autre carte
+     * @param carteACloner la carte de laquelle les attributs sont récupérés
+     */
+    public void clone(Carte carteACloner) {
+        this.listeAdresses = carteACloner.listeAdresses;
+        this.listeSegments = carteACloner.listeSegments;
+        this.nomCarte = carteACloner.nomCarte;
     }
 
     @Override

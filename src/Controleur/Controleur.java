@@ -1,5 +1,6 @@
 package Controleur;
 
+import Exceptions.CommandeImpossibleException;
 import Model.Adresse;
 import Model.Carte;
 import Model.Tournee;
@@ -8,6 +9,7 @@ import Vue.Fenetre;
 public class Controleur {
 
     private Carte carte;
+    private Tournee tournee;
     private Fenetre fenetre;
     private Tournee tournee;
     private ListeDeCommandes listeDeCommandes;
@@ -33,7 +35,8 @@ public class Controleur {
      */
     public Controleur(Carte carte) {
         this.carte = carte;
-        //listofcommands
+        tournee = new Tournee();
+        listeDeCommandes = new ListeDeCommandes();
         this.etatActuel = etatInitial;
         fenetre = new Fenetre(carte, this);
     }
@@ -47,7 +50,7 @@ public class Controleur {
     }
 
     /**
-     * Méthode appelé par fenetre après avoir cliqué sur le bouton "Importer un plan"
+     * Méthode appelé par fenêtre après avoir cliqué sur le bouton "Importer un plan"
      */
     public void chargerPlan() {
         etatActuel.chargerPlan(this, fenetre, carte);
@@ -81,7 +84,7 @@ public class Controleur {
      * FIXME : cohérence du vocabulaire
      */
     public void preparerTournee() {
-        etatActuel.preparerTournee(this, fenetre);
+        etatActuel.preparerTournee(this, fenetre, carte, tournee);
     }
 
     /**
@@ -184,6 +187,17 @@ public class Controleur {
         etatActuel.cliqueGauche(this, fenetre,carte,listeDeCommandes, tournee, a);
     }
 
+    /**
+     * Méthode appelé par fenetre après avoir cliqué sur le bouton "undo"
+     */
+    public void undo() throws CommandeImpossibleException {
+        listeDeCommandes.redo();
+    }
 
-    //public Carte getCarte () {return carte;}
+    /**
+     * Méthode appelé par fenetre après avoir cliqué sur le bouton "redo"
+     */
+    public void redo() throws CommandeImpossibleException {
+        listeDeCommandes.redo();
+    }
 }

@@ -4,6 +4,7 @@ import Model.*;
 import javafx.util.Pair;
 
 import java.sql.Timestamp;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -167,7 +168,7 @@ public class DijkstraBis {
                     //todo: changer constructeur Etape, ou modifier CheminEntreEtape
                     //todo: changer duree etape
 
-                    listeCheminEntreEtape.add(new CheminEntreEtape(new Etape(carte.obtenirAdresseParId(depart).getLatitude(),carte.obtenirAdresseParId(depart).getLongitude(),carte.obtenirAdresseParId(depart).getIdAdresse(),0,new Timestamp(0)),new Etape(carte.obtenirAdresseParId(arrivee).getLatitude(),carte.obtenirAdresseParId(arrivee).getLongitude(),carte.obtenirAdresseParId(arrivee).getIdAdresse(),0,new Timestamp(0)),listeSegment,distance));
+                    listeCheminEntreEtape.add(new CheminEntreEtape(new Etape(carte.obtenirAdresseParId(depart).getLatitude(),carte.obtenirAdresseParId(depart).getLongitude(),carte.obtenirAdresseParId(depart).getIdAdresse(),0, LocalTime.of(0,0,0,0)),new Etape(carte.obtenirAdresseParId(arrivee).getLatitude(),carte.obtenirAdresseParId(arrivee).getLongitude(),carte.obtenirAdresseParId(arrivee).getIdAdresse(),0,LocalTime.of(0,0,0,0)),listeSegment,distance));
 
                 }
             }

@@ -1,5 +1,9 @@
 package Controleur;
 
+//Credit : PlaCo by Christine Solnon (INSA Lyon)
+
+import Exceptions.CommandeImpossibleException;
+
 import java.util.LinkedList;
 
 public class ListeDeCommandes {

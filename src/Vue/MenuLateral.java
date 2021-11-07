@@ -45,11 +45,12 @@ public class MenuLateral extends JPanel {
         this.ecouteurSurvol = ecouteurSurvol;
 
         // propriétés du panel principal
-        this.setBounds(largeurFenetre - largeurFenetre * 1/4, 0, largeurFenetre * 1/4, hauteurEcran);
+        this.setBounds(largeurFenetre * 3/4, 0, largeurFenetre/4, hauteurEcran);
         this.setLayout(null);
 
         messageUtilisateur = new JTextArea();
         messageUtilisateur.setFont(policeTexte);
+        messageUtilisateur.setEditable(false);
         messageUtilisateur.setLineWrap(true);
         messageUtilisateur.setWrapStyleWord(true);
         messageUtilisateur.setOpaque(false);
@@ -84,7 +85,8 @@ public class MenuLateral extends JPanel {
         this.panelInsideScrollPanel = new JPanel(null);
         BoxLayout boxlayout = new BoxLayout(panelInsideScrollPanel, BoxLayout.Y_AXIS);
         panelInsideScrollPanel.setLayout(boxlayout);
-        RequetePanel[] listeRequetes = new RequetePanel[10];
+
+        RequetePanel[] listeRequetes = new RequetePanel[tournee.getListeRequetes().size()];
         int positionTop = 0;
         Etape collecte, depot;
         for (int i = 0; i < tournee.getListeRequetes().size(); i++) {
@@ -97,6 +99,10 @@ public class MenuLateral extends JPanel {
         }
 
         this.scrollPanel = new JScrollPane(panelInsideScrollPanel);
+
+        //repaint au scroll
+        scrollPanel.getViewport().setScrollMode(JViewport.SIMPLE_SCROLL_MODE);
+
         scrollPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         int yDebutPanelConsultation = (int) (panelImport.getY() + panelImport.getHeight() + 2 * Fenetre.valMarginBase +2);

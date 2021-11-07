@@ -50,15 +50,20 @@ public class Fenetre extends JFrame {
 
         // Récupération des dimensions de l'écran
         Dimension dimensionsEcran = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setSize(dimensionsEcran.width, dimensionsEcran.height);
+        this.setSize(dimensionsEcran.width*2/3, dimensionsEcran.height*2/3);
+        setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
+
+        this.setLocationRelativeTo(null);
+
         this.ecouteurBoutons = new EcouteurBoutons(controleur);
         this.ecouteurSouris = new EcouteurSouris(controleur,cartePanel,this);
         this.ecouteurSurvol = new EcouteurSurvol(this);
 
-        //this.addMouseListener(ecouteurSouris);
-        afficherEtat(ETAT_INITIAL);
         this.setResizable(true); //TODO: passer à false
+
         this.setVisible(true);
+
+        afficherEtat(NomEtat.ETAT_INITIAL);
     }
 
     /**
@@ -79,9 +84,9 @@ public class Fenetre extends JFrame {
     public void afficherEtatPlanAffiche(Carte carte) {
         System.out.println("Frentre.afficherEtatPlanAffiche(carte) : ETAT_PLAN_AFFICHE");
         //E1: Carte chargée
-        cartePanel = new CartePanel(carte, this.getWidth(), this.getHeight() - 20, policeTexte, ecouteurBoutons, ecouteurSouris);
+        cartePanel = new CartePanel(carte, this.getContentPane().getWidth(), this.getContentPane().getHeight(), policeTexte, ecouteurBoutons, ecouteurSurvol);
         this.add(cartePanel);
-        menuLateral = new MenuLateral(this.getWidth(), this.getHeight() - 20, policeTexte, policeTexteImportant, ecouteurBoutons, ecouteurSurvol);
+        menuLateral = new MenuLateral(this.getContentPane().getWidth(), this.getContentPane().getHeight(), policeTexte, policeTexteImportant, ecouteurBoutons, ecouteurSurvol);
         this.add(menuLateral);
 
         // repaint la fenetre
@@ -90,12 +95,13 @@ public class Fenetre extends JFrame {
     }
 
     /**
-     * TODO
-     * @param tournee
+     * Affichage déclenchée lorsque la tournée a été chargée : permet d'afficher les requêtes sur la vue graphique et la vue textuelle
+     * @param tournee la liste de requêtes qui doit être affichée
      */
     public void afficherEtatTourneChargee (Tournee tournee) {
+        System.out.println("Frentre.afficherEtatTourneChargee(tounee) : ETAT_TOURNEE_CHARGEE");
         cartePanel.tracerRequetes(tournee);
-        menuLateral.afficherMenuRequete(cartePanel.getTournee());
+        menuLateral.afficherMenuRequete(tournee);
         legende = new Legende();
 
         // repaint la fenetre
@@ -103,14 +109,16 @@ public class Fenetre extends JFrame {
         this.repaint();
     }
 
-    public void afficherEtatAjoutRequete(){
-        menuLateral.retirerBoutonsMenu();
-        menuLateral.setMessageUtilisateur("Ajouter une Etape de collecte: [Clique Gauche] sur une Adresse de la Carte " + "[Clique Droit] pour annuler");
-        this.ecouteurSouris.setVueGraphique(cartePanel);
-        this.revalidate();
-        this.repaint();
+    /**
+     * Affichage déclenchée lorsque la tournée a été calculé : permet d'afficher la tournee calculée sur la vue graphique et la vue textuelle
+     * @param tournee la tournee calculée qui doit être affichée
+     */
+    public void afficherEtatTourneePreparee (Tournee tournee) {
+        System.out.println("Fenetre.afficherEtatTourneePreparee(tournee) : ETAT_TOURNEE_PREPAREE ");
+        cartePanel.tracerItineraire(tournee);
+        menuLateral.afficherMenuEtapes(tournee);
+        menuLateral.setMessageUtilisateur("Maintenant vous pouvez éditer votre tournée ou exporter la feuille de route.");
     }
-
 
     /**
      * Affiche les etas détermines par le controleur
@@ -120,11 +128,12 @@ public class Fenetre extends JFrame {
 
         switch (etat) {
             case ETAT_INITIAL:
-                System.out.println("Frentre.afficherEtat() : ETAT_INITIAL");
+                System.out.println("Fenetre.afficherEtat() : ETAT_INITIAL");
                 // E0: Vue ecran Accueil
                 ecranAccueil = new EcranAccueil(this.getWidth(), this.getHeight(), policeSousTitre, policeTexte, this.ecouteurBoutons);
                 this.add(ecranAccueil);
                 break;
+
             /*case ETAT_PLAN_AFFICHE:
                 System.out.println("Frentre.afficherEtat() : ETAT_PLAN_AFFICHE");
                 //E1: Carte chargée
@@ -135,19 +144,19 @@ public class Fenetre extends JFrame {
                 menuLateral.setMessageUtilisateur("Veuillez importer une tournée au format xml pour l'afficher sur la carte.");
                 break;
             case ETAT_TOURNEE_CHARGEE:
-                System.out.println("Frentre.afficherEtat() : ETAT_TOURNEE_CHARGEE");
+                System.out.println("Fenetre.afficherEtat() : ETAT_TOURNEE_CHARGEE");
                 // E2: Tournee chargee
                 cartePanel.tracerRequetes();
                 menuLateral.afficherMenuRequete(cartePanel.getTournee());
                 menuLateral.setMessageUtilisateur("Veuillez préparer la tournée pour visualiser l'itinéraire sur la carte.");
                 legende = new Legende();
-                break;*/
+                break;
             case ETAT_TOURNEE_PREPAREE:
-                System.out.println("Frentre.afficherEtat() : ETAT_TOURNEE_PREPAREE ");
+                System.out.println("Fenetre.afficherEtat() : ETAT_TOURNEE_PREPAREE ");
                 cartePanel.tracerItineraire();
                 menuLateral.afficherMenuEtapes(cartePanel.getTournee());
                 menuLateral.setMessageUtilisateur("Maintenant vous pouvez éditer votre tournée ou exporter la feuille de route.");
-                break;
+                break;*/
         }
 
         // repaint la fenetre
