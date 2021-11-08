@@ -63,7 +63,7 @@ public class CartePanel extends JPanel implements Observer {
     public CartePanel(Carte carte, Tournee tournee, int largeurEcran, int hauteurEcran, Font policeTexte, EcouteurBoutons ecouteurBoutons, EcouteurSouris ecouteurSouris, EcouteurSurvol ecouteurSurvol) {
         super();
 
-            carte.addObserver(this); // this observe la carte
+        carte.addObserver(this); // this observe la carte
 
         this.carte = carte;
         tournee.addObserver(this); // this observe la tournee
@@ -80,6 +80,7 @@ public class CartePanel extends JPanel implements Observer {
 
         this.addMouseListener(ecouteurSurvol);
         this.addMouseWheelListener(new EcouteurZoom(this,.002));
+        this.addMouseMotionListener(new EcouteurDrag(this));
         this.addMouseListener(ecouteurSouris);
 
         //initialisation image
