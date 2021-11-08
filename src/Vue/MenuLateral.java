@@ -255,6 +255,7 @@ public class MenuLateral extends JPanel implements Observer {
                     //Si la tournee est chargee et ordonnée, affiche la liste des étapes
                     else {
                         afficherMenuEtapes(tournee);
+                        afficherMenuImportation();
                     }
                 }
             }

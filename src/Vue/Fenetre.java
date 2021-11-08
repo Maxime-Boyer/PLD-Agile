@@ -141,8 +141,8 @@ public class Fenetre extends JFrame {
 
         //cartePanel.tracerRequetes(tournee);
         //cartePanel.tracerItineraire(tournee);
-        menuLateral.afficherMenuEtapes(tournee);
-        menuLateral.afficherMenuImportation();
+        //menuLateral.afficherMenuEtapes(tournee);
+        //menuLateral.afficherMenuImportation();
 
         menuLateral.setMessageUtilisateur("Maintenant vous pouvez éditer votre tournée ou exporter la feuille de route.");
         this.revalidate();
