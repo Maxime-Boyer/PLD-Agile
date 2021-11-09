@@ -50,8 +50,9 @@ public class CartePanel extends JPanel implements Observer {
      * @param policeTexte: police a appliquer dans ce panel
      * @param ecouteurBoutons: ecouteur permettant de saisir des evenements liés aux boutons
      * @param ecouteurSurvol: ecouteur permettant de saisir des evenements liés au survol de la souris
+     * @param ecouteurDragDrop: ecouteur permettant la gestion du drag & drop de la legende
      */
-    public CartePanel(Carte carte, Tournee tournee, int largeurEcran, int hauteurEcran, Font policeTexte, EcouteurBoutons ecouteurBoutons, EcouteurSurvol ecouteurSurvol, EcouteurDragDrop ecouteurSouris) {
+    public CartePanel(Carte carte, Tournee tournee, int largeurEcran, int hauteurEcran, Font policeTexte, EcouteurBoutons ecouteurBoutons, EcouteurSurvol ecouteurSurvol, EcouteurDragDrop ecouteurDragDrop) {
 
         carte.addObserver(this); // this observe la carte
         this.carte = carte;
@@ -83,7 +84,7 @@ public class CartePanel extends JPanel implements Observer {
         //ininitialisation du popup de saisie des durees lors de l'ajout d'une etape
         popUpSaisieDuree = new PopUpSaisieDuree(policeTexte, ecouteurBoutons);
 
-        legende = new Legende(this.getWidth(), this.getHeight(), ecouteurSouris, ecouteurSurvol);
+        legende = new Legende(this.getWidth(), this.getHeight(), ecouteurDragDrop, ecouteurSurvol);
 
         this.setVisible(true);
 
