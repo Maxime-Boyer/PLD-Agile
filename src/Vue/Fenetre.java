@@ -121,12 +121,12 @@ public class Fenetre extends JFrame {
      * @param tournee la tournee calculée qui doit être affichée
      */
     public void afficherEtatTourneePreparee (Tournee tournee) {
+        menuLateral.setMessageUtilisateur("Maintenant vous pouvez éditer votre tournée ou exporter la feuille de route.");
         System.out.println("Fenetre.afficherEtatTourneePreparee(tournee) : ETAT_TOURNEE_PREPAREE ");
         cartePanel.tracerRequetes(tournee);
         cartePanel.tracerItineraire(tournee);
         menuLateral.afficherMenuEtapes(tournee);
         menuLateral.afficherMenuImportation();
-        menuLateral.setMessageUtilisateur("Maintenant vous pouvez éditer votre tournée ou exporter la feuille de route.");
         this.revalidate();
         this.repaint();
     }

@@ -221,8 +221,8 @@ public class Tournee extends Observable {
         for (CheminEntreEtape chemin : listeChemins){
             double departLongitude = chemin.getEtapeDepart().getLongitude();
             double departLatitude = chemin.getEtapeDepart().getLatitude();
-            double arriveeLongitude = chemin.getEtapeDepart().getLongitude();
-            double arriveeLatitude = chemin.getEtapeDepart().getLatitude();
+            double arriveeLongitude = chemin.getEtapeArrivee().getLongitude();
+            double arriveeLatitude = chemin.getEtapeArrivee().getLatitude();
             if(collecte.getLongitude() == precedentDepot.getLongitude() && collecte.getLatitude() == precedentDepot.getLatitude()){
                 return true;
             }
