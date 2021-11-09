@@ -108,8 +108,12 @@ public class Fenetre extends JFrame {
             this.add(menuLateral);
         }
         menuLateral.cacherBoutonPreparerTournee();
+        menuLateral.cacherBoutonExporterFeuilleDeRoute();
+        menuLateral.cacherBoutonsUndo();
+        menuLateral.cacherBoutonsRedo();
+        menuLateral.cacherBoutonAjouterEtape();
+        menuLateral.cacherMenuRequete();
         menuLateral.afficherMenuImportation();
-
 
         // repaint la fenetre
         this.revalidate();
@@ -137,7 +141,12 @@ public class Fenetre extends JFrame {
     public void afficherEtatTourneePreparee (Tournee tournee) {
         menuLateral.setMessageUtilisateur("Maintenant vous pouvez éditer votre tournée ou exporter la feuille de route.");
         System.out.println("Fenetre.afficherEtatTourneePreparee(tournee) : ETAT_TOURNEE_PREPAREE ");
-        menuLateral.setMessageUtilisateur("Maintenant vous pouvez éditer votre tournée ou exporter la feuille de route.");
+
+        menuLateral.afficherBoutonExporterFeuilleDeRoute();
+        menuLateral.afficherBoutonAjouterRequete();
+
+        //TODO gérer undo/redo
+
 
         //cartePanel.tracerItineraire(tournee);
         //menuLateral.afficherMenuEtapes(tournee);
@@ -147,7 +156,6 @@ public class Fenetre extends JFrame {
         //menuLateral.afficherMenuEtapes(tournee);
         //menuLateral.afficherMenuImportation();
 
-        menuLateral.setMessageUtilisateur("Maintenant vous pouvez éditer votre tournée ou exporter la feuille de route.");
         this.revalidate();
         this.repaint();
     }
@@ -155,6 +163,7 @@ public class Fenetre extends JFrame {
     public void afficherEtatAjoutRequete(){
         menuLateral.cacherMenuImportation();
         menuLateral.cacherMenuRequete();
+
         //autre
         menuLateral.setMessageUtilisateur("Ajouter une Etape de collecte: [Clique Gauche] sur une Adresse de la Carte " + "[Clique Droit] pour annuler");
         this.ecouteurSouris.setVueGraphique(cartePanel);
