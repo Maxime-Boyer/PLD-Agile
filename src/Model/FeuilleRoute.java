@@ -12,7 +12,7 @@ import java.util.HashMap;
 
 public class FeuilleRoute {
 
-   public void createFeuilleRoute(){
+   public FeuilleRoute(Tournee tournee){
 
         try
         {
@@ -23,24 +23,10 @@ public class FeuilleRoute {
             bw.write("<head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/></head>");
             bw.write("<body style='width: 1200px; margin: 50px auto;'><h1>Feuille de route</h1>");
 
-            //TODO: temporaire
-            Tournee tournee = new Tournee();
-            try {
-                LecteurXML lecteurXML = new LecteurXML();
-                Carte carte = new Carte();
-                carte = lecteurXML.lectureCarte("./src/FichiersXML/mediumMap.xml");
-                tournee = lecteurXML.lectureRequete("./src/FichiersXML/requestsMedium3.xml");
-                CalculateurTournee calculateurTournee = new CalculateurTournee(carte, tournee);
-                calculateurTournee.calculerTournee();
-            } catch (Exception e){
-                e.printStackTrace();
-            }
-
             HashMap<Long, Requete> mapRequete= new HashMap<>();
             for(Requete requete: tournee.getListeRequetes()){
                 mapRequete.put(requete.getEtapeCollecte().getIdAdresse(),requete) ;
                 mapRequete.put(requete.getEtapeDepot().getIdAdresse(),requete) ;
-
             }
 
             bw.write(" <h2>Départ</h2><p> Depart de l'entrepot situe a l'adresse  :"+tournee.getAdresseDepart()+"</p>");
@@ -88,8 +74,8 @@ public class FeuilleRoute {
                     else
                         bw.write("<br>Récuperer");
 
-                    heurePassage = Integer.toString(etapeArriveeChemin.getHeureDePassage().getHours());
-                    minutesPassageAvantRetouche = etapeArriveeChemin.getHeureDePassage().getMinutes();
+                    heurePassage = Integer.toString(etapeArriveeChemin.getHeureDePassage().getHour());
+                    minutesPassageAvantRetouche = etapeArriveeChemin.getHeureDePassage().getMinute();
 
                     minutesPassage = "";
                     if(minutesPassageAvantRetouche < 10){
@@ -107,6 +93,7 @@ public class FeuilleRoute {
             }
 
             //fermeture du fichier et affichage
+            bw.write("</body></html>");
             bw.close();
             Desktop.getDesktop().browse(f.toURI());
         }

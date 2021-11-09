@@ -12,8 +12,6 @@ public class RaccourcIF {
     public static void main(String[] args) {
         Carte carte = new Carte();
         new Controleur(carte);
-        FeuilleRoute feuilleRoute = new FeuilleRoute();
-        feuilleRoute.createFeuilleRoute();
     }
 
 }

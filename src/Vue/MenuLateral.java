@@ -199,7 +199,7 @@ public class MenuLateral extends JPanel implements Observer {
 
         // bouton Exporter feuille de route
         this.remove(boutonPreparerTournee);
-        boutonExporterFeuilleRoute = new Bouton("Exporter feuille de route", policeTexte, ecouteurBoutons);
+        boutonExporterFeuilleRoute = new Bouton(Fenetre.EXPORTER_FEUILLE_ROUTE, policeTexte, ecouteurBoutons);
         boutonExporterFeuilleRoute.setBounds( Fenetre.valMarginBase, this.getHeight() - Fenetre.hauteurBouton - Fenetre.valMarginBase, this.getWidth() - 2*Fenetre.valMarginBase, Fenetre.hauteurBouton);
         this.add(boutonExporterFeuilleRoute);
 

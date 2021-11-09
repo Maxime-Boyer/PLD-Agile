@@ -1,6 +1,7 @@
 package Controleur;
 
 import Model.Carte;
+import Model.FeuilleRoute;
 import Model.LecteurXML;
 import Model.Tournee;
 import Vue.Fenetre;
@@ -66,5 +67,10 @@ public class EtatTourneeOrdonnee implements Etat {
             JOptionPane.showMessageDialog(null, messageErreur);
             //Reste dans l'état actuel
         }
+    }
+
+    @Override
+    public void exporterFeuilleDeRoute(Tournee tournee){
+        new FeuilleRoute(tournee);
     }
 }
