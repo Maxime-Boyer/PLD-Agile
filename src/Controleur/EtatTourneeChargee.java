@@ -44,7 +44,7 @@ public class EtatTourneeChargee implements Etat {
         try {
             tournee = lecteur.lectureRequete(nomFichier, carte, tournee);
             //Change vers l'état PlanAffiche avec la nouvelle carte
-            fenetre.afficherEtatTourneChargee(tournee);
+            fenetre.afficherEtatTourneChargee();
             controleur.setEtatActuel(controleur.etatTourneeChargee);
         } catch (Exception e) {
             //En cas d'erreur

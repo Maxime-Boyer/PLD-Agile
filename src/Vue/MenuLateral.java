@@ -71,6 +71,7 @@ public class MenuLateral extends JPanel implements Observer {
         creerMenuImportation();
         creerBoutonPreparerTournee();
         creerMenuRequete();
+        cacherMenuRequete();
 
     }
 
@@ -78,31 +79,31 @@ public class MenuLateral extends JPanel implements Observer {
      * Affichage de la vue textuelle de la tournee triee
      * @param tournee: la tournee a afficher
      */
-    public void afficherMenuEtapes(Tournee tournee){
+    public void afficherMenuEtapes(Tournee tournee) {
 
         // Undo, Redo, Ajouter Etape
         panelBoutonsE4 = new JPanel();
-        panelBoutonsE4.setBounds(Fenetre.valMarginBase, panelImport.getY() + panelImport.getHeight() + Fenetre.valMarginBase, this.getWidth()-2*Fenetre.valMarginBase, Fenetre.hauteurBouton );
+        panelBoutonsE4.setBounds(Fenetre.valMarginBase, panelImport.getY() + panelImport.getHeight() + Fenetre.valMarginBase, this.getWidth() - 2 * Fenetre.valMarginBase, Fenetre.hauteurBouton);
         panelBoutonsE4.setLayout(null);
         this.add(panelBoutonsE4);
 
         boutonUndo = new Bouton("<--", policeTexte, ecouteurBoutons);
-        boutonUndo.setBounds( 0,0, panelBoutonsE4.getWidth()/4 - Fenetre.valMarginBase*3/4, 50);
+        boutonUndo.setBounds(0, 0, panelBoutonsE4.getWidth() / 4 - Fenetre.valMarginBase * 3 / 4, 50);
         panelBoutonsE4.add(boutonUndo);
 
         boutonRedo = new Bouton("-->", policeTexte, ecouteurBoutons);
-        boutonRedo.setBounds(boutonUndo.getX() + boutonUndo.getWidth() + Fenetre.valMarginBase,0, panelBoutonsE4.getWidth()/4 - Fenetre.valMarginBase*3/4 -1, Fenetre.hauteurBouton);
+        boutonRedo.setBounds(boutonUndo.getX() + boutonUndo.getWidth() + Fenetre.valMarginBase, 0, panelBoutonsE4.getWidth() / 4 - Fenetre.valMarginBase * 3 / 4 - 1, Fenetre.hauteurBouton);
         panelBoutonsE4.add(boutonRedo);
 
         boutonAjouterEtape = new Bouton(Fenetre.AJOUT_REQUETE, policeTexte, ecouteurBoutons);
-        boutonAjouterEtape.setBounds(boutonRedo.getX() + boutonRedo.getWidth() + Fenetre.valMarginBase,0, panelBoutonsE4.getWidth()/2 - Fenetre.valMarginBase/2, Fenetre.hauteurBouton);
+        boutonAjouterEtape.setBounds(boutonRedo.getX() + boutonRedo.getWidth() + Fenetre.valMarginBase, 0, panelBoutonsE4.getWidth() / 2 - Fenetre.valMarginBase / 2, Fenetre.hauteurBouton);
         panelBoutonsE4.add(boutonAjouterEtape);
 
         // suppr ancien panel consultation et construiction du nouveau
         panelInsideScrollPanel.removeAll();
-        int yDebutPanelConsultation = (int) (panelBoutonsE4.getY() + panelBoutonsE4.getHeight() + 2 * Fenetre.valMarginBase +2);
+        int yDebutPanelConsultation = (int) (panelBoutonsE4.getY() + panelBoutonsE4.getHeight() + 2 * Fenetre.valMarginBase + 2);
         int yFinPanelConsultation = (int) (this.getHeight() - Fenetre.hauteurBouton - 4 * Fenetre.valMarginBase - 4);
-        scrollPanel.setBounds(Fenetre.valMarginBase+2, yDebutPanelConsultation, this.getWidth()-2*Fenetre.valMarginBase - 4, yFinPanelConsultation - yDebutPanelConsultation );
+        scrollPanel.setBounds(Fenetre.valMarginBase + 2, yDebutPanelConsultation, this.getWidth() - 2 * Fenetre.valMarginBase - 4, yFinPanelConsultation - yDebutPanelConsultation);
 
         //affichage du détaille des étapes
         EtapePanel[] listeEtapes = new EtapePanel[tournee.getListeChemins().size()];
@@ -116,11 +117,11 @@ public class MenuLateral extends JPanel implements Observer {
             etapeFinChemin = tournee.getListeChemins().get(i).getEtapeArrivee();
 
             //on determine dans quelle requete se trouve l'étape
-            for(int j = 0; j < tournee.getListeRequetes().size(); j++){
+            for (int j = 0; j < tournee.getListeRequetes().size(); j++) {
                 etapeDepot = tournee.getListeRequetes().get(j).getEtapeDepot();
                 etapeCollecte = tournee.getListeRequetes().get(j).getEtapeCollecte();
 
-                if(etapeDepot.getIdAdresse().equals(etapeFinChemin.getIdAdresse()) || etapeCollecte.getIdAdresse().equals(etapeFinChemin.getIdAdresse())){
+                if (etapeDepot.getIdAdresse().equals(etapeFinChemin.getIdAdresse()) || etapeCollecte.getIdAdresse().equals(etapeFinChemin.getIdAdresse())) {
                     requete = tournee.getListeRequetes().get(j);
                     break;
                 }
@@ -129,15 +130,16 @@ public class MenuLateral extends JPanel implements Observer {
             // affichage de l'etape
             listeEtapes[i] = new EtapePanel(etapeFinChemin, requete, panelInsideScrollPanel.getWidth(), Fenetre.valMarginBase, policeTexte, policeTexteImportant, ecouteurSurvol);
             panelInsideScrollPanel.add(listeEtapes[i]);
-            panelInsideScrollPanel.add(Box.createRigidArea(new Dimension(0, 2*Fenetre.valMarginBase)));
+            panelInsideScrollPanel.add(Box.createRigidArea(new Dimension(0, 2 * Fenetre.valMarginBase)));
         }
         this.add(scrollPanel);
 
         // bouton Exporter feuille de route
         this.remove(boutonPreparerTournee);
         boutonExporterFeuilleRoute = new Bouton("Exporter feuille de route", policeTexte, ecouteurBoutons);
-        boutonExporterFeuilleRoute.setBounds( Fenetre.valMarginBase, this.getHeight() - Fenetre.hauteurBouton - Fenetre.valMarginBase, this.getWidth() - 2*Fenetre.valMarginBase, Fenetre.hauteurBouton);
+        boutonExporterFeuilleRoute.setBounds(Fenetre.valMarginBase, this.getHeight() - Fenetre.hauteurBouton - Fenetre.valMarginBase, this.getWidth() - 2 * Fenetre.valMarginBase, Fenetre.hauteurBouton);
         this.add(boutonExporterFeuilleRoute);
+    }
 
     /**
      * seteur
@@ -179,7 +181,7 @@ public class MenuLateral extends JPanel implements Observer {
     public void update(Observable observed, Object arg) {
         System.out.println("..... update MenuLateral");
         if (arg != null){ // arg est soit une carte, soit une tournée qui a été mise à jour
-            retirerMenuRequete();
+            viderMenuRequete();
             retirerMenuEtape();
             //Met à jour la tournee
             if (arg instanceof Tournee) {
@@ -187,7 +189,7 @@ public class MenuLateral extends JPanel implements Observer {
                 if (tournee.getTourneeEstChargee()){
                     //Si la tournee est chargee mais pas ordonnée, affiche la liste des requêtes
                     if (!tournee.getTourneeEstOrdonee()){
-                        afficherMenuRequete(tournee);
+                        mettreAJourMenuRequete(tournee);
                     }
                     //Si la tournee est chargee et ordonnée, affiche la liste des étapes
                     else {
@@ -243,8 +245,8 @@ public class MenuLateral extends JPanel implements Observer {
     public void afficherMenuImportation() {
         if(boutonImporterTournee != null)
             boutonImporterTournee.setVisible(true);
-        if(boutonPreparerTournee != null)
-            boutonPreparerTournee.setVisible(true);
+        if(boutonImporterPlan != null)
+            boutonImporterPlan.setVisible(true);
         if(panelImport != null)
             panelImport.setVisible(true);
     }
@@ -263,7 +265,6 @@ public class MenuLateral extends JPanel implements Observer {
 
     /**
      * Affichage de la vue textuelle de la tournee non triee
-     * @param tournee: la tournee a afficher
      */
     public void creerMenuRequete(){
 
@@ -271,20 +272,7 @@ public class MenuLateral extends JPanel implements Observer {
         this.panelInsideScrollPanel = new JPanel(null);
         //panelInsideScrollPanel.setOpaque(true);
 
-        this.scrollPanel = new JScrollPane(panelInsideScrollPanel);
 
-        //repaint au scroll
-        scrollPanel.getViewport().setScrollMode(JViewport.SIMPLE_SCROLL_MODE);
-
-        scrollPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        int yDebutPanelConsultation = (int) (panelImport.getY() + panelImport.getHeight() + 2 * Fenetre.valMarginBase +2);
-        int yFinPanelConsultation = (int) (this.getHeight() - Fenetre.hauteurBouton - 4 * Fenetre.valMarginBase - 4);
-        scrollPanel.setBounds(Fenetre.valMarginBase+2, yDebutPanelConsultation, this.getWidth()-2*Fenetre.valMarginBase - 4, yFinPanelConsultation - yDebutPanelConsultation );
-        Border border = BorderFactory.createEmptyBorder( 0, 0, 0, 0 );
-        scrollPanel.setViewportBorder( border );
-        scrollPanel.setBorder(border);
-        this.add(scrollPanel);
     }
 
     public void viderMenuRequete() {
@@ -306,6 +294,21 @@ public class MenuLateral extends JPanel implements Observer {
             panelInsideScrollPanel.add(listeRequetes[i]);
             panelInsideScrollPanel.add(Box.createRigidArea(new Dimension(0, 2*Fenetre.valMarginBase)));
         }
+
+        this.scrollPanel = new JScrollPane(panelInsideScrollPanel);
+
+        //repaint au scroll
+        scrollPanel.getViewport().setScrollMode(JViewport.SIMPLE_SCROLL_MODE);
+
+        scrollPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        int yDebutPanelConsultation = (int) (panelImport.getY() + panelImport.getHeight() + 2 * Fenetre.valMarginBase +2);
+        int yFinPanelConsultation = (int) (this.getHeight() - Fenetre.hauteurBouton - 4 * Fenetre.valMarginBase - 4);
+        scrollPanel.setBounds(Fenetre.valMarginBase+2, yDebutPanelConsultation, this.getWidth()-2*Fenetre.valMarginBase - 4, yFinPanelConsultation - yDebutPanelConsultation );
+        Border border = BorderFactory.createEmptyBorder( 0, 0, 0, 0 );
+        scrollPanel.setViewportBorder( border );
+        scrollPanel.setBorder(border);
+        this.add(scrollPanel);
     }
 
     public void creerBoutonPreparerTournee() {
@@ -344,9 +347,5 @@ public class MenuLateral extends JPanel implements Observer {
         if(boutonPreparerTournee != null){
             boutonPreparerTournee.setVisible(true);
         }
-    }
-
-    public void setMessageUtilisateur(String texte){
-        messageUtilisateur.setText(texte);
     }
 }

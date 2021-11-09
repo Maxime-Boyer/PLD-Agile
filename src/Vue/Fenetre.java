@@ -107,7 +107,7 @@ public class Fenetre extends JFrame {
             menuLateral.setMessageUtilisateur("Veuillez importer une tournée au format xml pour l'afficher sur la carte.");
             this.add(menuLateral);
         }
-
+        menuLateral.cacherBoutonPreparerTournee();
         menuLateral.afficherMenuImportation();
 
 
@@ -118,14 +118,13 @@ public class Fenetre extends JFrame {
 
     /**
      * Affichage déclenchée lorsque la tournée a été chargée : permet d'afficher les requêtes sur la vue graphique et la vue textuelle
-     * @param tournee la liste de requêtes qui doit être affichée
      */
-    public void afficherEtatTourneChargee (Tournee tournee) {
+    public void afficherEtatTourneChargee () {
         System.out.println("Frentre.afficherEtatTourneChargee(tounee) : ETAT_TOURNEE_CHARGEE");
         menuLateral.setMessageUtilisateur("Veuillez préparer la tournée pour visualiser l'itinéraire sur la carte.");
         //cartePanel.tracerRequetes(tournee);
-        //menuLateral.mettreAJourMenuRequete(tournee);
-
+        menuLateral.afficherMenuRequete();
+        menuLateral.afficherBoutonPreparerTournee();
         // repaint la fenetre
         this.revalidate();
         this.repaint();

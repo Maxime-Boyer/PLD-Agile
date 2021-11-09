@@ -1,14 +1,10 @@
 package Vue;
 
+import Controleur.Controleur;
+import Model.Adresse;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
-import Model.Adresse;
-import Model.Etape;
-
-import Controleur.Controleur;
-
-import javax.swing.*;
 
 public class EcouteurSouris extends MouseAdapter {
 
@@ -40,11 +36,13 @@ public class EcouteurSouris extends MouseAdapter {
         }
     }
 
-    private Adresse coordonnees(MouseEvent evt){
-
-        double longitude = vueGraphique.valeurLongitude(evt.getX());
-        double latitude = vueGraphique.valeurLatitude(evt.getY());
-        Adresse positionClique = new Adresse (latitude,longitude);
+    private Adresse coordonnees(MouseEvent evt) {
+        Adresse positionClique = null;
+        if (vueGraphique != null) {
+            double longitude = vueGraphique.valeurLongitude(evt.getX());
+            double latitude = vueGraphique.valeurLatitude(evt.getY());
+            positionClique = new Adresse(latitude, longitude);
+        }
         return positionClique;
     }
 

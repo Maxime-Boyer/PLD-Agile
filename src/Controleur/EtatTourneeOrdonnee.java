@@ -26,7 +26,7 @@ public class EtatTourneeOrdonnee implements Etat {
             //fenetre.retirerMenuEtape();
             System.out.println("    après tournee = " + tournee);
             //Change vers l'état PlanAffiche avec la nouvelle carte
-            fenetre.afficherEtatTourneChargee(tournee);
+            fenetre.afficherEtatTourneChargee();
             controleur.setEtatActuel(controleur.etatTourneeChargee);
         } catch (Exception e) {
             //En cas d'erreur
