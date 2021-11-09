@@ -2,6 +2,7 @@ package Model;
 
 import Observer.Observable;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,14 +14,16 @@ public class Carte extends Observable {
     private List<Segment> listeSegments;
     private String nomCarte;
 
+    private Color[] couleurInterieurChemin;
+    private Color[] couleurExterieurChemin;
+
     /**
      * constructeur de la carte
      * @param nomCarte
      */
     public Carte(String nomCarte) {
+        this();
         this.nomCarte = nomCarte;
-        listeAdresses = new HashMap<Long,Adresse>();
-        listeSegments = new ArrayList<Segment>();
     }
 
     /**
@@ -29,6 +32,25 @@ public class Carte extends Observable {
     public Carte() {
         listeAdresses = new HashMap<Long,Adresse>();
         listeSegments = new ArrayList<Segment>();
+
+        listeAdresses = new HashMap<Long,Adresse>();
+        listeSegments = new ArrayList<Segment>();
+
+        couleurExterieurChemin = new Color[]{
+                new Color(14, 100, 182),
+                new Color(143, 106,0),
+                new Color(151, 58, 37),
+                new Color(99, 0, 6),
+                new Color(0, 0, 0)
+        };
+
+        couleurInterieurChemin = new Color[]{
+                new Color(50,200,255),
+                new Color(228, 221,0),
+                new Color(229, 135, 49),
+                new Color(217, 31, 41),
+                new Color(58, 10, 18)
+        };
     }
 
     public void setNomCarte(String nomCarte) {
@@ -104,5 +126,21 @@ public class Carte extends Observable {
         }
 
         return plusProche;
+    }
+
+    public Color[] getCouleurInterieurChemin() {
+        return couleurInterieurChemin;
+    }
+
+    public void setCouleurInterieurChemin(Color[] couleurInterieurChemin) {
+        this.couleurInterieurChemin = couleurInterieurChemin;
+    }
+
+    public Color[] getCouleurExterieurChemin() {
+        return couleurExterieurChemin;
+    }
+
+    public void setCouleurExterieurChemin(Color[] couleurExterieurChemin) {
+        this.couleurExterieurChemin = couleurExterieurChemin;
     }
 }

@@ -7,6 +7,10 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
+
+/**
+ * Ecouteur permettant de deplacer la carte avec clic droit ou clic molette
+ */
 public class EcouteurDrag implements MouseMotionListener {
 
     private CartePanel cartePanel;

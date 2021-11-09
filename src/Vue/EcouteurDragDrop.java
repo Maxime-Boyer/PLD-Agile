@@ -12,7 +12,7 @@ public class EcouteurDragDrop implements MouseMotionListener {
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        if(e.getSource() instanceof Legende){
+        if(e.getSource() instanceof Legende && SwingUtilities.isLeftMouseButton(e)){
             int x = e.getXOnScreen();
             int y = e.getYOnScreen();
 

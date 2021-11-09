@@ -103,7 +103,7 @@ public class CartePanel extends JPanel implements Observer {
         //ininitialisation du popup de saisie des durees lors de l'ajout d'une etape
         popUpSaisieDuree = new PopUpSaisieDuree(policeTexte, ecouteurBoutons);
 
-        legende = new Legende(this.getWidth(), this.getHeight(), ecouteurDragDrop, ecouteurSurvol);
+        legende = new Legende(this.carte,this.getWidth(), this.getHeight(), ecouteurDragDrop, ecouteurSurvol);
 
         this.setVisible(true);
 
@@ -448,23 +448,13 @@ public class CartePanel extends JPanel implements Observer {
 
                 switch(entryBis.getValue()){
                     case 1:
-                        g.setColor(new Color(14, 100, 182));
-                        break;
                     case 2:
-                        g.setColor(new Color(143, 106,0));
-                        //g.setColor(Color.yellow);
-                        break;
                     case 3:
-                        g.setColor(new Color(151, 58, 37));
-                        //g.setColor(Color.orange);
-                        break;
                     case 4:
-                        g.setColor(new Color(99, 0, 6));
-                        //g.setColor(Color.red);
+                        g.setColor(carte.getCouleurExterieurChemin()[entryBis.getValue()-1]);
                         break;
                     default :
-                        g.setColor(new Color(0, 0, 0));
-                        //g.setColor(Color.darkGray);
+                        g.setColor(carte.getCouleurExterieurChemin()[4]);
                         break;
                 }
 
@@ -489,23 +479,13 @@ public class CartePanel extends JPanel implements Observer {
 
                 switch(entryBis.getValue()){
                     case 1:
-                        g.setColor(new Color(50,200,255));
-                        break;
                     case 2:
-                        g.setColor(new Color(228, 221,0));
-                        //g.setColor(Color.yellow);
-                        break;
                     case 3:
-                        g.setColor(new Color(229, 135, 49));
-                        //g.setColor(Color.orange);
-                        break;
                     case 4:
-                        g.setColor(new Color(217, 31, 41));
-                        //g.setColor(Color.red);
+                        g.setColor(carte.getCouleurInterieurChemin()[entryBis.getValue()-1]);
                         break;
                     default :
-                        g.setColor(new Color(58, 10, 18));
-                        //g.setColor(Color.darkGray);
+                        g.setColor(carte.getCouleurInterieurChemin()[4]);
                         break;
                 }
 
