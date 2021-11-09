@@ -23,6 +23,7 @@ public class Fenetre extends JFrame {
     private EcouteurBoutons ecouteurBoutons;
     private EcouteurSurvol ecouteurSurvol;
     private EcouteurSouris ecouteurSouris;
+    private EcouteurDragDrop ecouteurSouris;
 
     // definition des polices
     private Font policeTitre = new Font("SansSerif", Font.BOLD, 28);
@@ -65,6 +66,7 @@ public class Fenetre extends JFrame {
         this.ecouteurBoutons = new EcouteurBoutons(controleur);
         this.ecouteurSouris = new EcouteurSouris(controleur,cartePanel,this);
         this.ecouteurSurvol = new EcouteurSurvol(this);
+        this.ecouteurSouris = new EcouteurDragDrop();
 
         this.setResizable(true); //TODO: passer à false
 

@@ -43,7 +43,8 @@ public class EcouteurSurvol implements MouseListener {
             fenetre.getCartePanel().indiquerPositionRequete(((RequetePanel) e.getSource()).getCollecte(), ((RequetePanel) e.getSource()).getDepot());
         }
 
-        if(e.getSource() instanceof JLabel && ((JLabel) e.getSource()).getText().equals("X")){
+        if((e.getSource() instanceof JLabel && ((JLabel) e.getSource()).getText().equals("X"))
+            || e.getSource() instanceof Legende){
             fenetre.setCursor(new Cursor(Cursor.HAND_CURSOR));
         }
         else{

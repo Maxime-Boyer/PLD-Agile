@@ -48,6 +48,8 @@ public class CartePanel extends JPanel implements Observer {
     private Carte carte;
     private PopUpSaisieDuree popUpSaisieDuree;
     private Graphics2D g;
+    private Legende legende;
+
 
     /**
      * Panel où est tracée la carte importée par l'utilisateur
@@ -57,14 +59,15 @@ public class CartePanel extends JPanel implements Observer {
      * @param hauteurEcran: hauteur de la fenetre
      * @param policeTexte: police a appliquer dans ce panel
      * @param ecouteurBoutons: ecouteur permettant de saisir des evenements liés aux boutons
+     * @param ecouteurSurvol: ecouteur permettant de saisir des evenements liés au survol de la souris
+     * @param ecouteurDragDrop: ecouteur permettant la gestion du drag & drop de la legende
      * @param ecouteurSouris: ecouteur permettant de saisir des evenements liés au survol de la souris
      */
 
-    public CartePanel(Carte carte, Tournee tournee, int largeurEcran, int hauteurEcran, Font policeTexte, EcouteurBoutons ecouteurBoutons, EcouteurSouris ecouteurSouris, EcouteurSurvol ecouteurSurvol) {
+    public CartePanel(Carte carte, Tournee tournee, int largeurEcran, int hauteurEcran, Font policeTexte, EcouteurBoutons ecouteurBoutons, EcouteurSouris ecouteurSouris, EcouteurSurvol ecouteurSurvol, EcouteurDragDrop ecouteurDragDrop) {
         super();
 
-            carte.addObserver(this); // this observe la carte
-
+        carte.addObserver(this); // this observe la carte
         this.carte = carte;
         tournee.addObserver(this); // this observe la tournee
         this.tournee = tournee;
@@ -95,6 +98,8 @@ public class CartePanel extends JPanel implements Observer {
 
         //ininitialisation du popup de saisie des durees lors de l'ajout d'une etape
         popUpSaisieDuree = new PopUpSaisieDuree(policeTexte, ecouteurBoutons);
+
+        legende = new Legende(this.getWidth(), this.getHeight(), ecouteurDragDrop, ecouteurSurvol);
 
         this.setVisible(true);
 
