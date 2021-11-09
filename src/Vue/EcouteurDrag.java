@@ -23,7 +23,7 @@ public class EcouteurDrag implements MouseMotionListener {
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        if(SwingUtilities.isMiddleMouseButton(e)){
+        if(SwingUtilities.isMiddleMouseButton(e) || SwingUtilities.isRightMouseButton(e)){
             if(System.currentTimeMillis() - temps < 50){
                 double modificationLatitude = -(pointPrecedent.y-e.getY())/(double)cartePanel.getHauteur()*(cartePanel.getMaxLatitudeCarte()-cartePanel.getMinLatitudeCarte());
                 double modificationLongitude = (pointPrecedent.x-e.getX())/(double)cartePanel.getLargeur()*(cartePanel.getMaxLongitudeCarte()-cartePanel.getMinLongitudeCarte());
@@ -31,11 +31,10 @@ public class EcouteurDrag implements MouseMotionListener {
                 cartePanel.setMinLatitudeCarte(cartePanel.getMinLatitudeCarte() + modificationLatitude);
                 cartePanel.setMaxLongitudeCarte(cartePanel.getMaxLongitudeCarte() + modificationLongitude);
                 cartePanel.setMinLongitudeCarte(cartePanel.getMinLongitudeCarte() + modificationLongitude);
-                System.out.println("Moved ! " + (new Point(pointPrecedent.x-e.getX(),pointPrecedent.y-e.getY())));
+                //System.out.println("Moved ! " + (new Point(pointPrecedent.x-e.getX(),pointPrecedent.y-e.getY())));
             }
             pointPrecedent = e.getPoint();
             temps = System.currentTimeMillis();
-            System.out.println("Dragged");
             cartePanel.repaint();
         }
     }
