@@ -116,7 +116,7 @@ public class CalculateurTournee {
         LocalTime heureActuelle = tournee.getDateDepart();
         for(CheminEntreEtape cee : tournee.getListeChemins()){
             cee.getEtapeDepart().setHeureDePassage(heureActuelle);
-            heureActuelle = heureActuelle.plusSeconds(cee.getEtapeDepart().getDureeEtape() + ((cee.distance/(vitesse*1000))*60));
+            heureActuelle = heureActuelle.plusSeconds(cee.getEtapeDepart().getDureeEtape() + (int)Math.ceil((cee.distance / 1000. /(vitesse))*3600));
             cee.getEtapeArrivee().setHeureDePassage(heureActuelle);
         }
     }

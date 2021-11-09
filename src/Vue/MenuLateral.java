@@ -68,6 +68,7 @@ public class MenuLateral extends JPanel implements Observer {
         /************************************************************************************/
         /*                          Panel boutons d'import                                  */
         /************************************************************************************/
+
         afficherMenuImportation();
 
     }

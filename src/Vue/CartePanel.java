@@ -512,7 +512,7 @@ public class CartePanel extends JPanel implements Observer {
 
                 //Si le segment est trop petit, on n'affiche pas la fleche
                 //FIXME prend en compte les segments 1 par 1, et non la liste de segment sur la meme rue
-                if((origineX-destinationX)*(origineX-destinationX)+(origineY-destinationY)*(origineY-destinationY) > 20*20){
+                if((origineX-destinationX)*(origineX-destinationX)+(origineY-destinationY)*(origineY-destinationY) > 25*25){
                     g.setColor(Color.white);
 
                     AffineTransform at1 = g.getTransform();
