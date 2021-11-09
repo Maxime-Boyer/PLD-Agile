@@ -1,14 +1,17 @@
 package Vue;
 
+import Model.Carte;
 import Model.Requete;
 import Model.Tournee;
 import Model.Etape;
+import Observer.Observer;
+import Observer.Observable;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 
-public class MenuLateral extends JPanel {
+public class MenuLateral extends JPanel implements Observer {
 
     private Font policeTexte;
     private Font policeTexteImportant;
@@ -28,6 +31,8 @@ public class MenuLateral extends JPanel {
     private Bouton boutonExporterFeuilleRoute;
     private JTextArea messageUtilisateur;
 
+    private Tournee tournee;
+
     /**
      * Constructeur du panel de manu associé a la carte
      * @param largeurFenetre: largeur de la fenetre
@@ -37,7 +42,10 @@ public class MenuLateral extends JPanel {
      * @param ecouteurBoutons: l'ecouteur gerant les clics des boutons
      * @param ecouteurSurvol: l'ecouteur gerant les survols de la souris
      */
-    public MenuLateral(int largeurFenetre, int hauteurEcran, Font policeTexte, Font policeTexteImportant, EcouteurBoutons ecouteurBoutons, EcouteurSurvol ecouteurSurvol){
+    public MenuLateral(Tournee tournee, int largeurFenetre, int hauteurEcran, Font policeTexte, Font policeTexteImportant, EcouteurBoutons ecouteurBoutons, EcouteurSurvol ecouteurSurvol){
+
+        tournee.addObserver(this); // this observe la carte
+        this.tournee = tournee;
 
         this.policeTexte = policeTexte;
         this.policeTexteImportant = policeTexteImportant;
@@ -123,13 +131,13 @@ public class MenuLateral extends JPanel {
             panelInsideScrollPanel.add(listeEtapes[i]);
             panelInsideScrollPanel.add(Box.createRigidArea(new Dimension(0, 2*Fenetre.valMarginBase)));
         }
+        this.add(scrollPanel);
 
         // bouton Exporter feuille de route
         this.remove(boutonPreparerTournee);
         boutonExporterFeuilleRoute = new Bouton("Exporter feuille de route", policeTexte, ecouteurBoutons);
         boutonExporterFeuilleRoute.setBounds( Fenetre.valMarginBase, this.getHeight() - Fenetre.hauteurBouton - Fenetre.valMarginBase, this.getWidth() - 2*Fenetre.valMarginBase, Fenetre.hauteurBouton);
         this.add(boutonExporterFeuilleRoute);
-    }
 
     /**
      * seteur
@@ -143,20 +151,54 @@ public class MenuLateral extends JPanel {
      * Permet de retirer l'affichage textuel de la requete non triee
      */
     public void retirerMenuRequete() {
-        this.remove(scrollPanel);
-        this.remove(boutonPreparerTournee);
+        if (scrollPanel != null)
+            this.remove(scrollPanel);
+        if (boutonPreparerTournee != null)
+            this.remove(boutonPreparerTournee);
     }
 
     /**
      * Permet de retirer l'affichage textuel de la requete triee
      */
     public void retirerMenuEtape() {
-        this.remove(panelBoutonsE4);
+        if (panelBoutonsE4 != null)
+            this.remove(panelBoutonsE4);
         //this.remove(boutonUndo);
         //this.remove(boutonRedo);
         //this.remove(boutonAjouterEtape);
-        this.remove(scrollPanel);
-        this.remove(boutonExporterFeuilleRoute);
+        if (scrollPanel != null)
+            this.remove(scrollPanel);
+        if (boutonExporterFeuilleRoute != null)
+            this.remove(boutonExporterFeuilleRoute);
+    }
+
+    /**
+     * Methode appelée par les objets qui sont observés par cette fenêtre à chaque fois qu'ils sont mofifiés.
+     */
+    @Override
+    public void update(Observable observed, Object arg) {
+        System.out.println("..... update MenuLateral");
+        if (arg != null){ // arg est soit une carte, soit une tournée qui a été mise à jour
+            retirerMenuRequete();
+            retirerMenuEtape();
+            //Met à jour la tournee
+            if (arg instanceof Tournee) {
+                tournee = (Tournee) arg;
+                if (tournee.getTourneeEstChargee()){
+                    //Si la tournee est chargee mais pas ordonnée, affiche la liste des requêtes
+                    if (!tournee.getTourneeEstOrdonee()){
+                        afficherMenuRequete(tournee);
+                    }
+                    //Si la tournee est chargee et ordonnée, affiche la liste des étapes
+                    else {
+                        afficherMenuEtapes(tournee);
+                        afficherMenuImportation();
+                    }
+                }
+            }
+        }
+        revalidate();
+        repaint();
     }
 
     /**
@@ -302,5 +344,9 @@ public class MenuLateral extends JPanel {
         if(boutonPreparerTournee != null){
             boutonPreparerTournee.setVisible(true);
         }
+    }
+
+    public void setMessageUtilisateur(String texte){
+        messageUtilisateur.setText(texte);
     }
 }

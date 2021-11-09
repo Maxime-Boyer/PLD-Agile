@@ -10,6 +10,10 @@ public class EtatAjoutRequete6PointPrecedentDepot implements Etat{
     @Override
     public void cliqueGauche (Controleur controleur, Fenetre fenetre, Carte carte, ListeDeCommandes l, Tournee tournee, Adresse precedent){
         try {
+            Adresse etapePrecedentDepot = tournee.rechercheEtape(precedent);
+            //System.out.println(etapePrecedentDepot);
+            Etape etapePrecDepot = tournee.obtenirEtapeParId(etapePrecedentDepot.getIdAdresse());
+            //System.out.println(etapePrecDepot);
 
             Adresse nouvelleAdresseDepot = fenetre.getCartePanel().getNouvelleAdresse().get(1);
             Etape depot = new Etape(nouvelleAdresseDepot.getLatitude(), nouvelleAdresseDepot.getLongitude(), nouvelleAdresseDepot.getIdAdresse(),dureeEtape);
@@ -32,9 +36,10 @@ public class EtatAjoutRequete6PointPrecedentDepot implements Etat{
             Requete nouvelleRequete = new Requete(collecte,depot);
             tournee.ajoutRequete(nouvelleRequete);
             fenetre.getCartePanel().getNouvelleAdresse().clear();
-            fenetre.getCartePanel().repaint();
+            //fenetre.getCartePanel().repaint();
             controleur.setEtatActuel(controleur.etatTourneeOrdonnee);
-            fenetre.afficherEtatTourneePreparee(tournee);
+            //fenetre.afficherEtatTourneePreparee(tournee);
+            tournee.notifyObservers(tournee);
         }
         catch (CommandeImpossibleException e) {
             e.printStackTrace();

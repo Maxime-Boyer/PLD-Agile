@@ -36,7 +36,7 @@ public class EtatPlanAffiche implements Etat {
     }
 
     @Override
-    public void chargerPlan (Controleur controleur, Fenetre fenetre, Carte carte) {
+    public void chargerPlan (Controleur controleur, Fenetre fenetre, Carte carte, Tournee tournee) {
         System.out.println("EtatPlanAffiche : chargerPlan");
 
         //Récupère le nom du fichier choisi
@@ -48,8 +48,8 @@ public class EtatPlanAffiche implements Etat {
             carte = lecteur.lectureCarte(nomFichier, carte);
             System.out.println("EtatPlanAffiche : carte succes = " + carte);
             //Change vers l'état PlanAffiche avec la nouvelle carte
-            fenetre.retirerCartePanel();
-            fenetre.retirerMenuLateral();
+            //fenetre.retirerCartePanel();
+            //fenetre.retirerMenuLateral();
             fenetre.afficherEtatPlanAffiche(carte);
             controleur.setEtatActuel(controleur.etatPlanAffiche);
         } catch (Exception e) {

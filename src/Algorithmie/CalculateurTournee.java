@@ -47,6 +47,9 @@ public class CalculateurTournee {
 
         ajouteHeureDePassage(tournee);
 
+        //Passe la tournee à ordonne et notifie l'observer que l'objet tournée a été modifié
+        tournee.setTourneeEstOrdonee(true);
+        tournee.notifyObservers(tournee);
 
         return grapheCompletDesEtapes;
     }

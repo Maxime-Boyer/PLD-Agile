@@ -37,7 +37,8 @@ public class Controleur {
         tournee = new Tournee();
         listeDeCommandes = new ListeDeCommandes();
         this.etatActuel = etatInitial;
-        fenetre = new Fenetre(carte, this);
+        //Crée la fenêtre d'affichage
+        fenetre = new Fenetre(carte, tournee, this);
     }
 
     /**
@@ -52,7 +53,7 @@ public class Controleur {
      * Méthode appelé par fenêtre après avoir cliqué sur le bouton "Importer un plan"
      */
     public void chargerPlan() {
-        etatActuel.chargerPlan(this, fenetre, carte);
+        etatActuel.chargerPlan(this, fenetre, carte, tournee);
         System.out.println("Controlleur : carte = ");
         System.out.println( "       aaaaaaaaaaaaaaaaaaaaaaaa" + carte);
     }

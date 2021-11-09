@@ -23,7 +23,7 @@ public class EtatTourneeOrdonnee implements Etat {
         try {
             System.out.println("    avant");
             tournee = lecteur.lectureRequete(nomFichier, carte, tournee);
-            fenetre.retirerMenuEtape();
+            //fenetre.retirerMenuEtape();
             System.out.println("    après tournee = " + tournee);
             //Change vers l'état PlanAffiche avec la nouvelle carte
             fenetre.afficherEtatTourneChargee(tournee);
@@ -38,7 +38,7 @@ public class EtatTourneeOrdonnee implements Etat {
     }
 
     @Override
-    public void chargerPlan (Controleur controleur, Fenetre fenetre, Carte carte) {
+    public void chargerPlan (Controleur controleur, Fenetre fenetre, Carte carte, Tournee tournee) {
         System.out.println("Ouvrir explorateur de fichier");
         /*fenetre.retirerCartePanel();
         fenetre.retirerMenuLateral();
@@ -53,8 +53,9 @@ public class EtatTourneeOrdonnee implements Etat {
 
             carte = lecteur.lectureCarte(nomFichier, carte);
             //Change vers l'état PlanAffiche avec la nouvelle carte
-            fenetre.retirerCartePanel();
-            fenetre.retirerMenuLateral();
+            //retirerCartePanel();
+            tournee.reset();
+            //fenetre.retirerMenuLateral();
             fenetre.afficherEtatPlanAffiche(carte);
             controleur.setEtatActuel(controleur.etatPlanAffiche);
         } catch (Exception e) {

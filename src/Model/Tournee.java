@@ -7,20 +7,24 @@ import Exceptions.CommandeImpossibleException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Observable;
+
+import Observer.Observable;
 
 public class Tournee extends Observable {
     private Adresse adresseDepart;
     private LocalTime heureDepart;
     private List<Requete> listeRequetes;
     private List<CheminEntreEtape> listeChemins;
+    private boolean tourneeEstChargee;
+    private boolean tourneeEstOrdonee;
 
     public Tournee(){
         listeRequetes = new ArrayList<>();
         listeChemins = new ArrayList<>();
         adresseDepart = null;
         heureDepart = null;
+        tourneeEstChargee = false;
+        tourneeEstOrdonee = false;
     }
 
     public Adresse getAdresseDepart() {
@@ -39,6 +43,14 @@ public class Tournee extends Observable {
         return listeChemins;
     }
 
+    public boolean getTourneeEstChargee() {
+        return tourneeEstChargee;
+    }
+
+    public boolean getTourneeEstOrdonee() {
+        return tourneeEstOrdonee;
+    }
+
     public void setAdresseDepart(Adresse adresseDepart) {
         this.adresseDepart = adresseDepart;
     }
@@ -55,6 +67,13 @@ public class Tournee extends Observable {
         this.listeChemins = listeChemins;
     }
 
+    public void setTourneeEstChargee(boolean tourneeEstChargee) {
+        this.tourneeEstChargee = tourneeEstChargee;
+    }
+
+    public void setTourneeEstOrdonee(boolean tourneeEstOrdonee) {
+        this.tourneeEstOrdonee = tourneeEstOrdonee;
+    }
 
     /**
      * Supprime une requete de la liste des requetes et de la liste de chemins entre etape.
@@ -119,6 +138,7 @@ public class Tournee extends Observable {
         //Ajoute le chemin entre l'étape précente et l'étape suivante du point de depot
         listeChemins.add(indexEtapePrecedentDepot, nouveauCheminEntrePrecedentEtSuivantDepot);
 
+        //Notifie les observateurs que la tournee a été mofifié
         notifyObservers(this);
 
     }
@@ -132,6 +152,23 @@ public class Tournee extends Observable {
         this.heureDepart = touneeACloner.heureDepart;
         this.listeRequetes = touneeACloner.listeRequetes;
         this.listeChemins = touneeACloner.listeChemins;
+        this.tourneeEstChargee = touneeACloner.tourneeEstChargee;
+        this.tourneeEstOrdonee = touneeACloner.tourneeEstOrdonee;
+    }
+
+    /**
+     * Vide la tournee
+     */
+    public void reset() {
+        listeRequetes = new ArrayList<>();
+        listeChemins = new ArrayList<>();
+        adresseDepart = null;
+        heureDepart = null;
+        tourneeEstChargee = false;
+        tourneeEstOrdonee = false;
+
+        //Notifie les observateurs que la tournee a été mofifié
+        notifyObservers(this);
     }
 
     @Override
