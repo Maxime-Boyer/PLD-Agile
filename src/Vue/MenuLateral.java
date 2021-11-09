@@ -60,69 +60,10 @@ public class MenuLateral extends JPanel {
         /************************************************************************************/
         /*                          Panel boutons d'import                                  */
         /************************************************************************************/
-        afficherMenuImportation();
+        creerMenuImportation();
+        creerBoutonPreparerTournee();
+        creerMenuRequete();
 
-    }
-
-    public void afficherMenuImportation(){
-        panelImport = new JPanel();
-        panelImport.setBounds(Fenetre.valMarginBase, messageUtilisateur.getY()+messageUtilisateur.getHeight()+Fenetre.valMarginBase, this.getWidth()-2*Fenetre.valMarginBase, Fenetre.hauteurBouton );
-        panelImport.setLayout(null);
-        this.add(panelImport);
-
-        boutonImporterPlan = new Bouton(Fenetre.IMPORT_CARTE, policeTexte, ecouteurBoutons);
-        boutonImporterPlan.setBounds( 0,0, panelImport.getWidth()/2 - Fenetre.valMarginBase/2, Fenetre.hauteurBouton);
-        panelImport.add(boutonImporterPlan);
-
-        boutonImporterTournee = new Bouton(Fenetre.IMPORT_TOURNEE, policeTexte, ecouteurBoutons);
-        boutonImporterTournee.setBounds(panelImport.getWidth()/2 + Fenetre.valMarginBase/2,0, panelImport.getWidth()/2 - Fenetre.valMarginBase/2, Fenetre.hauteurBouton);
-        panelImport.add(boutonImporterTournee);
-    }
-
-    /**
-     * Affichage de la vue textuelle de la tournee non triee
-     * @param tournee: la tournee a afficher
-     */
-    public void afficherMenuRequete(Tournee tournee){
-
-        //affichage du détaillé des requêtes
-        this.panelInsideScrollPanel = new JPanel(null);
-        //panelInsideScrollPanel.setOpaque(true);
-        BoxLayout boxlayout = new BoxLayout(panelInsideScrollPanel, BoxLayout.Y_AXIS);
-        panelInsideScrollPanel.setLayout(boxlayout);
-
-        RequetePanel[] listeRequetes = new RequetePanel[tournee.getListeRequetes().size()];
-        int positionTop = 0;
-        Etape collecte, depot;
-        for (int i = 0; i < tournee.getListeRequetes().size(); i++) {
-            collecte = tournee.getListeRequetes().get(i).getEtapeCollecte();
-            depot = tournee.getListeRequetes().get(i).getEtapeDepot();
-
-            listeRequetes[i] = new RequetePanel(collecte, depot, tournee.getListeRequetes().get(i).getCouleur(), this.getWidth()-2*Fenetre.valMarginBase - 8, Fenetre.valMarginBase, policeTexte, policeTexteImportant, ecouteurSurvol);
-            panelInsideScrollPanel.add(listeRequetes[i]);
-            panelInsideScrollPanel.add(Box.createRigidArea(new Dimension(0, 2*Fenetre.valMarginBase)));
-        }
-
-        this.scrollPanel = new JScrollPane(panelInsideScrollPanel);
-
-        //repaint au scroll
-        scrollPanel.getViewport().setScrollMode(JViewport.SIMPLE_SCROLL_MODE);
-
-        scrollPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        int yDebutPanelConsultation = (int) (panelImport.getY() + panelImport.getHeight() + 2 * Fenetre.valMarginBase +2);
-        int yFinPanelConsultation = (int) (this.getHeight() - Fenetre.hauteurBouton - 4 * Fenetre.valMarginBase - 4);
-        scrollPanel.setBounds(Fenetre.valMarginBase+2, yDebutPanelConsultation, this.getWidth()-2*Fenetre.valMarginBase - 4, yFinPanelConsultation - yDebutPanelConsultation );
-        Border border = BorderFactory.createEmptyBorder( 0, 0, 0, 0 );
-        scrollPanel.setViewportBorder( border );
-        scrollPanel.setBorder(border);
-        this.add(scrollPanel);
-
-        //creation du bouton de calcul d'itineraire
-        boutonPreparerTournee = new Bouton(Fenetre.PREPARER_TOURNEE, policeTexte, ecouteurBoutons);
-        boutonPreparerTournee.addMouseListener(ecouteurSurvol);
-        boutonPreparerTournee.setBounds( Fenetre.valMarginBase, this.getHeight() - Fenetre.hauteurBouton - Fenetre.valMarginBase, this.getWidth() - 2*Fenetre.valMarginBase, Fenetre.hauteurBouton);
-        this.add(boutonPreparerTournee);
     }
 
     /**
@@ -222,9 +163,10 @@ public class MenuLateral extends JPanel {
      * Permet de retirer l'affichage textuel de tous les boutons
      */
     public void retirerBoutonsMenu() {
-        this.remove(boutonImporterTournee);
+        if(boutonImporterTournee != null)
         //boutonPreparerTournee.setVisible(false);
-        this.remove(boutonPreparerTournee);
+        if(boutonPreparerTournee != null)
+            this.remove(boutonPreparerTournee);
         this.remove(panelBoutonsE4);
         //panelBoutonsE4.setVisible(false);
         //panelImport.setVisible(false);
@@ -239,5 +181,126 @@ public class MenuLateral extends JPanel {
         //boutonImporterPlan.setVisible(false);
         //boutonImporterTournee.setVisible(false);
 
+    }
+
+    public void creerMenuImportation(){
+        panelImport = new JPanel();
+        panelImport.setBounds(Fenetre.valMarginBase, messageUtilisateur.getY()+messageUtilisateur.getHeight()+Fenetre.valMarginBase, this.getWidth()-2*Fenetre.valMarginBase, Fenetre.hauteurBouton );
+        panelImport.setLayout(null);
+        this.add(panelImport);
+
+        boutonImporterPlan = new Bouton(Fenetre.IMPORT_CARTE, policeTexte, ecouteurBoutons);
+        boutonImporterPlan.setBounds( 0,0, panelImport.getWidth()/2 - Fenetre.valMarginBase/2, Fenetre.hauteurBouton);
+        panelImport.add(boutonImporterPlan);
+
+        boutonImporterTournee = new Bouton(Fenetre.IMPORT_TOURNEE, policeTexte, ecouteurBoutons);
+        boutonImporterTournee.setBounds(panelImport.getWidth()/2 + Fenetre.valMarginBase/2,0, panelImport.getWidth()/2 - Fenetre.valMarginBase/2, Fenetre.hauteurBouton);
+        panelImport.add(boutonImporterTournee);
+    }
+
+    public void afficherMenuImportation() {
+        if(boutonImporterTournee != null)
+            boutonImporterTournee.setVisible(true);
+        if(boutonPreparerTournee != null)
+            boutonPreparerTournee.setVisible(true);
+        if(panelImport != null)
+            panelImport.setVisible(true);
+    }
+
+    /**
+     * Permet de retirer l'affichage textuel de tous les boutons
+     */
+    public void cacherMenuImportation() {
+        if(boutonImporterTournee != null)
+            boutonImporterTournee.setVisible(false);
+        if(boutonPreparerTournee != null)
+            boutonPreparerTournee.setVisible(false);
+        if(panelImport != null)
+            panelImport.setVisible(false);
+    }
+
+    /**
+     * Affichage de la vue textuelle de la tournee non triee
+     * @param tournee: la tournee a afficher
+     */
+    public void creerMenuRequete(){
+
+        //affichage du détaillé des requêtes
+        this.panelInsideScrollPanel = new JPanel(null);
+        //panelInsideScrollPanel.setOpaque(true);
+
+        this.scrollPanel = new JScrollPane(panelInsideScrollPanel);
+
+        //repaint au scroll
+        scrollPanel.getViewport().setScrollMode(JViewport.SIMPLE_SCROLL_MODE);
+
+        scrollPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        int yDebutPanelConsultation = (int) (panelImport.getY() + panelImport.getHeight() + 2 * Fenetre.valMarginBase +2);
+        int yFinPanelConsultation = (int) (this.getHeight() - Fenetre.hauteurBouton - 4 * Fenetre.valMarginBase - 4);
+        scrollPanel.setBounds(Fenetre.valMarginBase+2, yDebutPanelConsultation, this.getWidth()-2*Fenetre.valMarginBase - 4, yFinPanelConsultation - yDebutPanelConsultation );
+        Border border = BorderFactory.createEmptyBorder( 0, 0, 0, 0 );
+        scrollPanel.setViewportBorder( border );
+        scrollPanel.setBorder(border);
+        this.add(scrollPanel);
+    }
+
+    public void viderMenuRequete() {
+        panelInsideScrollPanel.removeAll();
+    }
+
+    public void mettreAJourMenuRequete(Tournee tournee) {
+        BoxLayout boxlayout = new BoxLayout(this.panelInsideScrollPanel, BoxLayout.Y_AXIS);
+        this.panelInsideScrollPanel.setLayout(boxlayout);
+
+        RequetePanel[] listeRequetes = new RequetePanel[tournee.getListeRequetes().size()];
+        int positionTop = 0;
+        Etape collecte, depot;
+        for (int i = 0; i < tournee.getListeRequetes().size(); i++) {
+            collecte = tournee.getListeRequetes().get(i).getEtapeCollecte();
+            depot = tournee.getListeRequetes().get(i).getEtapeDepot();
+
+            listeRequetes[i] = new RequetePanel(collecte, depot, tournee.getListeRequetes().get(i).getCouleur(), this.getWidth()-2*Fenetre.valMarginBase - 8, Fenetre.valMarginBase, policeTexte, policeTexteImportant, ecouteurSurvol);
+            panelInsideScrollPanel.add(listeRequetes[i]);
+            panelInsideScrollPanel.add(Box.createRigidArea(new Dimension(0, 2*Fenetre.valMarginBase)));
+        }
+    }
+
+    public void creerBoutonPreparerTournee() {
+        //creation du bouton de calcul d'itineraire
+        boutonPreparerTournee = new Bouton(Fenetre.PREPARER_TOURNEE, policeTexte, ecouteurBoutons);
+        boutonPreparerTournee.addMouseListener(ecouteurSurvol);
+        boutonPreparerTournee.setBounds( Fenetre.valMarginBase, this.getHeight() - Fenetre.hauteurBouton - Fenetre.valMarginBase, this.getWidth() - 2*Fenetre.valMarginBase, Fenetre.hauteurBouton);
+        this.add(boutonPreparerTournee);
+    }
+
+    public void cacherMenuRequete() {
+
+        if(panelInsideScrollPanel != null)
+            panelInsideScrollPanel.setVisible(false);
+
+        if(scrollPanel != null)
+            scrollPanel.setVisible(false);
+    }
+
+    public void cacherBoutonPreparerTournee(){
+        if(boutonPreparerTournee != null){
+            boutonPreparerTournee.setVisible(false);
+        }
+    }
+
+    public void afficherMenuRequete() {
+
+        if(panelInsideScrollPanel != null)
+            panelInsideScrollPanel.setVisible(true);
+
+        if(scrollPanel != null)
+            scrollPanel.setVisible(true);
+    }
+
+    public void afficherBoutonPreparerTournee(){
+        if(boutonPreparerTournee != null){
+            boutonPreparerTournee.setVisible(true);
+        }
     }
 }
