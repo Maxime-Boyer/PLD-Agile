@@ -51,7 +51,7 @@ public class CartePanel extends JPanel implements Observer {
      * @param ecouteurBoutons: ecouteur permettant de saisir des evenements liés aux boutons
      * @param ecouteurSurvol: ecouteur permettant de saisir des evenements liés au survol de la souris
      */
-    public CartePanel(Carte carte, Tournee tournee, int largeurEcran, int hauteurEcran, Font policeTexte, EcouteurBoutons ecouteurBoutons, EcouteurSurvol ecouteurSurvol, EcouteurSouris ecouteurSouris) {
+    public CartePanel(Carte carte, Tournee tournee, int largeurEcran, int hauteurEcran, Font policeTexte, EcouteurBoutons ecouteurBoutons, EcouteurSurvol ecouteurSurvol, EcouteurDragDrop ecouteurSouris) {
 
         carte.addObserver(this); // this observe la carte
         this.carte = carte;

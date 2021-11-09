@@ -6,9 +6,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-public class EcouteurSouris implements MouseMotionListener {
+public class EcouteurDragDrop implements MouseMotionListener {
 
-    public EcouteurSouris(){}
+    public EcouteurDragDrop(){}
 
     @Override
     public void mouseDragged(MouseEvent e) {

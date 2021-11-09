@@ -1,7 +1,6 @@
 package Vue;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class Legende extends JPanel{
 
@@ -19,8 +18,12 @@ public class Legende extends JPanel{
     /**
      * Affichage d'une legende pour expliquer à l'utilisateur la signification
      * du rond, du carre et du triangle
+     * @param largeurParent: largeur du parent en px
+     * @param hauteurParent: haueteur du parent en px
+     * @param ecouteurDragDrop: ecouteur assurant le drag & drop de la legende
+     * @param ecouteurSurvol: ecouteur gerant les evenements de survol
      */
-    public Legende(int largeurParent, int hauteurParent, EcouteurSouris ecouteurSouris, EcouteurSurvol ecouteurSurvol){
+    public Legende(int largeurParent, int hauteurParent, EcouteurDragDrop ecouteurDragDrop, EcouteurSurvol ecouteurSurvol){
 
         this.largeurParent = largeurParent;
         this.hauteurParent = hauteurParent;
@@ -29,7 +32,7 @@ public class Legende extends JPanel{
         this.setBounds(20, 20, 260, 120);
         this.setLayout(null);
 
-        this.addMouseMotionListener(ecouteurSouris);
+        this.addMouseMotionListener(ecouteurDragDrop);
         this.addMouseListener(ecouteurSurvol);
 
         ecartLabels = 50;
