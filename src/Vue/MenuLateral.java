@@ -57,7 +57,6 @@ public class MenuLateral extends JPanel implements Observer {
         this.setLayout(null);
 
         messageUtilisateur = new JTextArea();
-        messageUtilisateur.setText("Veuillez importer une tournée au format xml pour l'afficher sur la carte.");
         messageUtilisateur.setFont(policeTexte);
         messageUtilisateur.setEditable(false);
         messageUtilisateur.setLineWrap(true);
@@ -93,9 +92,6 @@ public class MenuLateral extends JPanel implements Observer {
      * @param tournee: la tournee a afficher
      */
     public void afficherMenuRequete(Tournee tournee){
-
-        //message utilisateur
-        messageUtilisateur.setText("Veuillez préparer la tournée pour visualiser l'itinéraire sur la carte.");
 
         //affichage du détaillé des requêtes
         this.panelInsideScrollPanel = new JPanel(null);
@@ -142,9 +138,6 @@ public class MenuLateral extends JPanel implements Observer {
      * @param tournee: la tournee a afficher
      */
     public void afficherMenuEtapes(Tournee tournee){
-
-        //message utilisateur
-        messageUtilisateur.setText("Maintenant vous pouvez éditer votre tournée ou exporter la feuille de route.");
 
         System.out.println("afficherMenuEtapes");
 
@@ -284,5 +277,9 @@ public class MenuLateral extends JPanel implements Observer {
         //boutonImporterPlan.setVisible(false);
         //boutonImporterTournee.setVisible(false);
 
+    }
+
+    public void setMessageUtilisateur(String texte){
+        messageUtilisateur.setText(texte);
     }
 }

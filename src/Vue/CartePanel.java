@@ -236,6 +236,8 @@ public class CartePanel extends JPanel implements Observer {
      */
     public void dessinerCarte(Graphics2D g) {
 
+        this.remove(legende);
+
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         // BackGround
@@ -290,6 +292,7 @@ public class CartePanel extends JPanel implements Observer {
      * @throws IncompatibleAdresseException: //TODO
      */
     public void dessinerTournee(Graphics2D g) throws IncompatibleAdresseException {
+        this.add(legende);
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         //triangle depart tournee

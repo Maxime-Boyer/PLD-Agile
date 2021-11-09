@@ -23,7 +23,7 @@ public class Fenetre extends JFrame {
     private EcouteurBoutons ecouteurBoutons;
     private EcouteurSurvol ecouteurSurvol;
     private EcouteurSouris ecouteurSouris;
-    private EcouteurDragDrop ecouteurSouris;
+    private EcouteurDragDrop ecouteurDragDrop;
 
     // definition des polices
     private Font policeTitre = new Font("SansSerif", Font.BOLD, 28);
@@ -34,7 +34,6 @@ public class Fenetre extends JFrame {
     private EcranAccueil ecranAccueil;
     private MenuLateral menuLateral;
     private CartePanel cartePanel;
-    private Legende legende;
     private PopUpSaisieDuree popUpSaisieDuree;
 
     private Carte carte;
@@ -66,7 +65,7 @@ public class Fenetre extends JFrame {
         this.ecouteurBoutons = new EcouteurBoutons(controleur);
         this.ecouteurSouris = new EcouteurSouris(controleur,cartePanel,this);
         this.ecouteurSurvol = new EcouteurSurvol(this);
-        this.ecouteurSouris = new EcouteurDragDrop();
+        this.ecouteurDragDrop = new EcouteurDragDrop();
 
         this.setResizable(true); //TODO: passer à false
 
@@ -100,11 +99,12 @@ public class Fenetre extends JFrame {
         //E1: Carte chargée
 
         if (cartePanel == null) {
-            cartePanel = new CartePanel(carte, tournee, this.getContentPane().getWidth(), this.getContentPane().getHeight(), policeTexte, ecouteurBoutons, ecouteurSouris, ecouteurSurvol);
+            cartePanel = new CartePanel(carte, tournee, this.getContentPane().getWidth(), this.getContentPane().getHeight(), policeTexte, ecouteurBoutons, ecouteurSouris, ecouteurSurvol, ecouteurDragDrop);
             this.add(cartePanel);
         }
         if (menuLateral == null) {
             menuLateral = new MenuLateral(tournee, this.getContentPane().getWidth(), this.getContentPane().getHeight(), policeTexte, policeTexteImportant, ecouteurBoutons, ecouteurSurvol);
+            menuLateral.setMessageUtilisateur("Veuillez importer une tournée au format xml pour l'afficher sur la carte.");
             this.add(menuLateral);
         }
 
@@ -122,9 +122,9 @@ public class Fenetre extends JFrame {
      */
     public void afficherEtatTourneChargee (Tournee tournee) {
         System.out.println("Frentre.afficherEtatTourneChargee(tounee) : ETAT_TOURNEE_CHARGEE");
+        menuLateral.setMessageUtilisateur("Veuillez préparer la tournée pour visualiser l'itinéraire sur la carte.");
         //cartePanel.tracerRequetes(tournee);
         //menuLateral.afficherMenuRequete(tournee);
-        legende = new Legende();
 
         // repaint la fenetre
         this.revalidate();
@@ -137,6 +137,7 @@ public class Fenetre extends JFrame {
      */
     public void afficherEtatTourneePreparee (Tournee tournee) {
         System.out.println("Fenetre.afficherEtatTourneePreparee(tournee) : ETAT_TOURNEE_PREPAREE ");
+        menuLateral.setMessageUtilisateur("Maintenant vous pouvez éditer votre tournée ou exporter la feuille de route.");
 
         //cartePanel.tracerItineraire(tournee);
         //menuLateral.afficherMenuEtapes(tournee);
