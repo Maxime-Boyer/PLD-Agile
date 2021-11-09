@@ -83,7 +83,7 @@ public class CartePanel extends JPanel implements Observer {
         //ininitialisation du popup de saisie des durees lors de l'ajout d'une etape
         popUpSaisieDuree = new PopUpSaisieDuree(policeTexte, ecouteurBoutons);
 
-        legende = new Legende(this.getWidth(), this.getHeight(), ecouteurSouris);
+        legende = new Legende(this.getWidth(), this.getHeight(), ecouteurSouris, ecouteurSurvol);
 
         this.setVisible(true);
 

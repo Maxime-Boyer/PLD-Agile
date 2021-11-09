@@ -20,7 +20,7 @@ public class Legende extends JPanel{
      * Affichage d'une legende pour expliquer à l'utilisateur la signification
      * du rond, du carre et du triangle
      */
-    public Legende(int largeurParent, int hauteurParent, EcouteurSouris ecouteurSouris){
+    public Legende(int largeurParent, int hauteurParent, EcouteurSouris ecouteurSouris, EcouteurSurvol ecouteurSurvol){
 
         this.largeurParent = largeurParent;
         this.hauteurParent = hauteurParent;
@@ -30,6 +30,7 @@ public class Legende extends JPanel{
         this.setLayout(null);
 
         this.addMouseMotionListener(ecouteurSouris);
+        this.addMouseListener(ecouteurSurvol);
 
         ecartLabels = 50;
         hauteurLigne = 25;
