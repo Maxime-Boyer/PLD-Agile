@@ -47,13 +47,7 @@ public class ResetZoomPanel extends JPanel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if(e.getButton() == MouseEvent.BUTTON1){
-            cartePanel.setMinLongitudeCarte(cartePanel.getMinLongitudeInitialeCarte());
-            cartePanel.setMaxLongitudeCarte(cartePanel.getMaxLongitudeInitialeCarte());
-            cartePanel.setMinLatitudeCarte(cartePanel.getMinLatitudeInitialeCarte());
-            cartePanel.setMaxLatitudeCarte(cartePanel.getMaxLatitudeInitialeCarte());
-            cartePanel.repaint();
-        }
+
     }
 
     @Override
@@ -63,7 +57,13 @@ public class ResetZoomPanel extends JPanel implements MouseListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        if(e.getButton() == MouseEvent.BUTTON1){
+            cartePanel.setMinLongitudeCarte(cartePanel.getMinLongitudeInitialeCarte());
+            cartePanel.setMaxLongitudeCarte(cartePanel.getMaxLongitudeInitialeCarte());
+            cartePanel.setMinLatitudeCarte(cartePanel.getMinLatitudeInitialeCarte());
+            cartePanel.setMaxLatitudeCarte(cartePanel.getMaxLatitudeInitialeCarte());
+            cartePanel.repaint();
+        }
     }
 
     @Override
