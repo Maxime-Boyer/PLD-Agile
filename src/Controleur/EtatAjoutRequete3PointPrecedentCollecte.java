@@ -7,6 +7,8 @@ import Model.Etape;
 import Model.Tournee;
 import Vue.Fenetre;
 
+import javax.swing.*;
+
 public class EtatAjoutRequete3PointPrecedentCollecte implements Etat{
     private Integer dureeEtape;
     @Override
@@ -23,7 +25,10 @@ public class EtatAjoutRequete3PointPrecedentCollecte implements Etat{
             tournee.notifyObservers(tournee);
         }
         catch (CommandeImpossibleException e) {
-            e.printStackTrace();
+            //En cas d'erreur ouvre une popup
+            String messageErreur = e.getMessage();
+            System.out.println("ERREUR "+e);
+            JOptionPane.showMessageDialog(null, messageErreur);
         }
     }
 
