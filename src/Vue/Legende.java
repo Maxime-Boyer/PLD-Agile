@@ -61,8 +61,6 @@ public class Legende extends JPanel{
         this.addMouseMotionListener(ecouteurDragDrop);
         this.addMouseListener(ecouteurSurvol);
 
-
-
         // dessin des formes
         legendeFormes = new LegendeFormes(carte, ecartLabels - tailleBordure, this.getHeight() - 2*tailleBordure, tailleBordureVerticale, hauteurLigne,tailleBordure);
         this.add(legendeFormes);
