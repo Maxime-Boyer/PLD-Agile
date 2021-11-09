@@ -51,15 +51,16 @@ public abstract class TemplateTSP implements TSP{
 
         //On execute l'algorithme
         separationEtEvaluation(tournee.getAdresseDepart(), nonVisite, visite, 0);
+
     }
 
     private void separationEtEvaluation(Adresse adresseActuelle, List<Adresse> nonVisite, List<Adresse> visite, int coutActuel){
 
         //On s'arrete au temps limite
-        if (System.currentTimeMillis() - tempsDepart > tempsLimite){
+     /*   if (System.currentTimeMillis() - tempsDepart > tempsLimite){
             //System.out.println(coutMeilleureSolution);
             return;
-        }
+        }*/
 
         if (nonVisite.size() == 0){
             //On retourne au point de depart

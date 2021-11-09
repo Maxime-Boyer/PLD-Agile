@@ -2,6 +2,7 @@ package Model;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Objects;
 
 public class Etape extends Adresse{
 
@@ -47,4 +48,18 @@ public class Etape extends Adresse{
                 ", dureeEtape=" + dureeEtape +
                 '}';
     }
+/*
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Etape etape = (Etape) o;
+        return getHeureDePassage().equals(etape.getHeureDePassage()) && getDureeEtape().equals(etape.getDureeEtape()) && getNomAdresse().equals(etape.getNomAdresse());
+    }*/
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getHeureDePassage(), getDureeEtape(), getNomAdresse());
+    }
+
 }
