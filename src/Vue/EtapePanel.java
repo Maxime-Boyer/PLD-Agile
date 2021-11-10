@@ -22,14 +22,14 @@ public class EtapePanel extends JPanel {
      * @param policeTexteImportant: la police a appliquer aux textes à mettre en evidence
      * @param ecouteurSurvol: l'ecouteur gerant les evenements de survol afin de pointer la requete sur la carte
      */
-    public EtapePanel(Etape etape, Requete requeteEtape, int parentWidth, int valMarginBase, Font policeTexte, Font policeTexteImportant, EcouteurSurvol ecouteurSurvol){
+    public EtapePanel(Etape etape, Requete requeteEtape, int parentWidth, int valMarginBase, Font policeTexte, Font policeTexteImportant, EcouteurSurvol ecouteurSurvol, EcouteurBoutons ecouteurBoutons){
 
         /************************************************************************************/
         /*                              Panel principal                                     */
         /************************************************************************************/
         BoxLayout boxlayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         this.setLayout(boxlayout);
-        this.setPreferredSize(new Dimension(parentWidth - 24, 110));
+        this.setPreferredSize(new Dimension(parentWidth - 24, 120));
         this.addMouseListener(ecouteurSurvol);
 
         this.requeteEtape = requeteEtape;
@@ -71,8 +71,8 @@ public class EtapePanel extends JPanel {
         labelTitreCollecte.setFont(policeTexteImportant);
         firstLine.add(labelTitreCollecte, BorderLayout.LINE_START);
 
-        JButton bouttonSuppr = new JButton("X");
-        bouttonSuppr.addMouseListener(ecouteurSurvol);
+        BoutonSuppressionRequete bouttonSuppr = new BoutonSuppressionRequete(Fenetre.SUPPRIMER_REQUETE, policeTexte, ecouteurBoutons, requeteEtape);
+        bouttonSuppr.addActionListener(ecouteurBoutons);
         firstLine.add(bouttonSuppr, BorderLayout.LINE_END);
 
         panelInside.add(firstLine);

@@ -45,6 +45,12 @@ public class EcouteurBoutons implements ActionListener {
             case Fenetre.VALIDER_AJOUT_DUREE_COLLECTE_REQUETE:
                 controleur.validerAjoutDureeEtape();
                 break;
+
+            case Fenetre.SUPPRIMER_REQUETE:
+                System.out.println("bouton supp cliqué");
+                System.out.println(((BoutonSuppressionRequete) e.getSource()).getRequete());
+                //System.out.println(((EtapePanel) e.getSource()).getRequeteEtape().getEtapeCollecte());
+                break;
         }
     }
 }

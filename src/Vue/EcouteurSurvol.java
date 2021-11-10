@@ -25,6 +25,7 @@ public class EcouteurSurvol implements MouseListener {
             System.out.println("arrive dans mouseClicked");
             //fenetre.getCartePanel().indiquerPositionRequete(((EtapePanel) e.getSource()).getRequeteEtape().getEtapeCollecte(), ((EtapePanel) e.getSource()).getRequeteEtape().getEtapeDepot());
         }*/
+
     }
 
     @Override

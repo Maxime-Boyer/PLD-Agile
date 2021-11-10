@@ -189,7 +189,7 @@ public class MenuLateral extends JPanel implements Observer {
             }
 
             // affichage de l'etape
-            listeEtapes[i] = new EtapePanel(etapeFinChemin, requete, panelInsideScrollPanel.getWidth(), Fenetre.valMarginBase, policeTexte, policeTexteImportant, ecouteurSurvol);
+            listeEtapes[i] = new EtapePanel(etapeFinChemin, requete, panelInsideScrollPanel.getWidth(), Fenetre.valMarginBase, policeTexte, policeTexteImportant, ecouteurSurvol, ecouteurBoutons);
             panelInsideScrollPanel.add(listeEtapes[i]);
             panelInsideScrollPanel.add(Box.createRigidArea(new Dimension(0, 2*Fenetre.valMarginBase)));
         }
