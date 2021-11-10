@@ -82,8 +82,6 @@ public class Tournee extends Observable {
      * @param carte la carte a partir de laquelle les chemins ont ete calcules
      */
     public void supprimerRequete(Requete requeteASupprimer, Carte carte) throws CommandeImpossibleException {
-        //Supprime la requête
-        listeRequetes.remove(requeteASupprimer);
 
         int index = 0;
         int indexEtapePrecedentCollecte = 0;
@@ -113,9 +111,13 @@ public class Tournee extends Observable {
                 cheminEntreDepotEtEtapeSuivantDepot = cheminEntreEtape;
         }
 
+
         //Si un des chemins n'est pas touvée, renvoi une erreure
         if (cheminEntreEtapePrecedentCollecteEtCollecte == null || cheminEntreCollecteEtEtapeSuivantCollecte == null || cheminEntreEtapePrecedentDepotEtDepot == null || cheminEntreDepotEtEtapeSuivantDepot == null)
             throw new CommandeImpossibleException("Impossible de supprimer la requete : la tournée est mal formée");
+
+        //Supprime la requête
+        listeRequetes.remove(requeteASupprimer);
 
         Astar astar = new Astar2(carte);
         //Suppression de l'étape de collecte de la requete

@@ -100,7 +100,7 @@ public class Controleur {
      * Méthode appelé par fenetre après avoir cliqué sur la croix d'une étape de la requête qui doit être supprimé
      */
     public void supressionRequete(Requete requete) {
-        etatActuel.supressionRequete(this, fenetre, listeDeCommandes, tournee, requete);
+        etatActuel.supressionRequete(this, fenetre, listeDeCommandes, tournee, carte, requete);
     }
 
     /**

@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import Controleur.Controleur;
+import Model.Requete;
 
 public class EcouteurBoutons implements ActionListener {
 
@@ -47,9 +48,9 @@ public class EcouteurBoutons implements ActionListener {
                 break;
 
             case Fenetre.SUPPRIMER_REQUETE:
-                System.out.println("bouton supp cliqué");
-                System.out.println(((BoutonSuppressionRequete) e.getSource()).getRequete());
-                //System.out.println(((EtapePanel) e.getSource()).getRequeteEtape().getEtapeCollecte());
+                Requete requete = ((BoutonSuppressionRequete) e.getSource()).getRequete();
+                System.out.println(requete);
+                controleur.supressionRequete(requete);
                 break;
         }
     }

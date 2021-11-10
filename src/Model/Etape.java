@@ -60,4 +60,5 @@ public class Etape extends Adresse{
                 ", dureeEtape=" + dureeEtape +
                 '}';
     }
+
 }
