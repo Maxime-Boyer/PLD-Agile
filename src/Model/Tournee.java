@@ -94,20 +94,20 @@ public class Tournee extends Observable {
         for (CheminEntreEtape cheminEntreEtape : listeChemins) {
             index ++;
             //Cherche l'étape précédente de l'étape de collecte de la requette
-            if (cheminEntreEtape.getEtapeArrivee().equals(requeteASupprimer.getEtapeCollecte())) {
+            if (cheminEntreEtape.getEtapeArrivee().getIdAdresse() == requeteASupprimer.getEtapeCollecte().getIdAdresse()) {
                 cheminEntreEtapePrecedentCollecteEtCollecte = cheminEntreEtape;
                 indexEtapePrecedentCollecte = index;
             }
             //Cherche l'étape suivante de l'étape de collecte de la requette
-            else if (cheminEntreEtape.getEtapeDepart().equals(requeteASupprimer.getEtapeCollecte()))
+            if (cheminEntreEtape.getEtapeDepart().getIdAdresse() == requeteASupprimer.getEtapeCollecte().getIdAdresse())
                 cheminEntreCollecteEtEtapeSuivantCollecte = cheminEntreEtape;
             //Cherche l'étape précédente de l'étape de depot de la requette
-            else if (cheminEntreEtape.getEtapeArrivee().equals(requeteASupprimer.getEtapeCollecte())) {
+             if (cheminEntreEtape.getEtapeArrivee().getIdAdresse() == requeteASupprimer.getEtapeDepot().getIdAdresse()) {
                 cheminEntreEtapePrecedentDepotEtDepot = cheminEntreEtape;
                 indexEtapePrecedentDepot = index;
             }
             //Cherche l'étape suivante de l'étape de depot de la requette
-            else if (cheminEntreEtape.getEtapeDepart().equals(requeteASupprimer.getEtapeCollecte()))
+             if (cheminEntreEtape.getEtapeDepart().getIdAdresse() == requeteASupprimer.getEtapeDepot().getIdAdresse())
                 cheminEntreDepotEtEtapeSuivantDepot = cheminEntreEtape;
         }
 
@@ -122,21 +122,34 @@ public class Tournee extends Observable {
         Astar astar = new Astar2(carte);
         //Suppression de l'étape de collecte de la requete
         //Calcul le plus court chemin entre l'étape précente et l'étape suivante du point de collecte
-        CheminEntreEtape nouveauCheminEntrePrecedentEtSuivantCollecte = astar.chercherCheminEntreEtape(cheminEntreEtapePrecedentCollecteEtCollecte.getEtapeDepart(), cheminEntreCollecteEtEtapeSuivantCollecte.getEtapeArrivee());
+        CheminEntreEtape nouveauCheminEntrePrecedentEtSuivantCollecte;
+        CheminEntreEtape nouveauCheminEntrePrecedentEtSuivantDepot;
+        CheminEntreEtape nouveauCheminEntrePrecedentCollecteEtSuivantDepot;
+        if(!cheminEntreCollecteEtEtapeSuivantCollecte.equals(cheminEntreEtapePrecedentDepotEtDepot)){
+            nouveauCheminEntrePrecedentEtSuivantCollecte = astar.chercherCheminEntreEtape(cheminEntreEtapePrecedentCollecteEtCollecte.getEtapeDepart(), cheminEntreCollecteEtEtapeSuivantCollecte.getEtapeArrivee());
+            nouveauCheminEntrePrecedentEtSuivantDepot = astar.chercherCheminEntreEtape(cheminEntreEtapePrecedentDepotEtDepot.getEtapeDepart(), cheminEntreDepotEtEtapeSuivantDepot.getEtapeArrivee());
+        }else {
+            nouveauCheminEntrePrecedentCollecteEtSuivantDepot = astar.chercherCheminEntreEtape(cheminEntreEtapePrecedentCollecteEtCollecte.getEtapeDepart(), cheminEntreDepotEtEtapeSuivantDepot.getEtapeArrivee());
+        }
         //Supprime le chemin entre l'étape précédente de la collecte et la collecte
         listeChemins.remove(indexEtapePrecedentCollecte);
         //Supprime le chemin entre la collecte et l'étape suivante de la collecte
-        listeChemins.remove(indexEtapePrecedentCollecte+1);
+        listeChemins.remove(indexEtapePrecedentCollecte);
         //Ajoute le chemin entre l'étape précente et l'étape suivante du point de collecte
         listeChemins.add(indexEtapePrecedentCollecte, nouveauCheminEntrePrecedentEtSuivantCollecte);
 
         //Suppression de l'étape de depot de la requete
         //Calcul le plus court chemin entre l'étape précente et l'étape suivante du point de depot
-        CheminEntreEtape nouveauCheminEntrePrecedentEtSuivantDepot = astar.chercherCheminEntreEtape(cheminEntreEtapePrecedentDepotEtDepot.getEtapeDepart(), cheminEntreDepotEtEtapeSuivantDepot.getEtapeArrivee());
+
         //Supprime le chemin entre l'étape précédente de le depot et le depot
-        listeChemins.remove(indexEtapePrecedentDepot);
-        //Supprime le chemin entre le depot et l'étape suivante du depot
-        listeChemins.remove(indexEtapePrecedentDepot+1);
+        if(!cheminEntreCollecteEtEtapeSuivantCollecte.equals(cheminEntreEtapePrecedentDepotEtDepot)){
+            listeChemins.remove(indexEtapePrecedentDepot);
+            listeChemins.remove(indexEtapePrecedentDepot);
+        }
+        else{
+            listeChemins.remove(indexEtapePrecedentDepot);
+        }
+
         //Ajoute le chemin entre l'étape précente et l'étape suivante du point de depot
         listeChemins.add(indexEtapePrecedentDepot, nouveauCheminEntrePrecedentEtSuivantDepot);
 

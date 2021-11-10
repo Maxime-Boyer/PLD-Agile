@@ -75,7 +75,7 @@ public class EtatTourneeOrdonnee implements Etat {
     }
 
     @Override
-    public void supressionRequete(Controleur controleur, Fenetre fenetre, ListeDeCommandes listeDeCommandes, Tournee tournee, Requete requete){
-
+    public void supressionRequete(Controleur controleur, Fenetre fenetre, ListeDeCommandes listeDeCommandes, Tournee tournee, Carte carte, Requete requete){
+        controleur.setEtatActuel(controleur.etatSupprimerRequete);
     }
 }

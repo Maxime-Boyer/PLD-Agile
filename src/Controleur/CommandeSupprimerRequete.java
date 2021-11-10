@@ -20,6 +20,7 @@ public class CommandeSupprimerRequete implements Commande{
     public CommandeSupprimerRequete(Tournee tournee, Requete requeteASupprimer, Carte carte) {
         this.tournee = tournee;
         this.carte = carte;
+        this.requeteASupprimer = requeteASupprimer;
     }
 
     @Override
