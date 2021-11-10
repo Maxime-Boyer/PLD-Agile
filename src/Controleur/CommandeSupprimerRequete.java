@@ -29,6 +29,6 @@ public class CommandeSupprimerRequete implements Commande{
 
     @Override
     public void defaireCommande() throws CommandeImpossibleException {
-        //tournee.ajouterRequete();
+        tournee.ajoutRequete(requeteASupprimer);
     }
 }

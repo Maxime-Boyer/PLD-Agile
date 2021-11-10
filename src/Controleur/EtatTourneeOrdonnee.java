@@ -73,4 +73,9 @@ public class EtatTourneeOrdonnee implements Etat {
         fenetre.afficherEtatAjoutRequete();
         controleur.setEtatActuel(controleur.etatAjoutRequete1PointCollecte);
     }
+
+    @Override
+    public void supressionRequete(Controleur controleur, Fenetre fenetre, ListeDeCommandes listeDeCommandes, Tournee tournee, Requete requete){
+
+    }
 }
