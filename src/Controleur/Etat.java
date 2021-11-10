@@ -2,6 +2,7 @@ package Controleur;
 
 import Model.Adresse;
 import Model.Carte;
+import Model.Requete;
 import Model.Tournee;
 import Vue.Fenetre;
 

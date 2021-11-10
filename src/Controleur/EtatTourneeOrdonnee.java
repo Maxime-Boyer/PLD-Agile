@@ -2,6 +2,7 @@ package Controleur;
 
 import Model.Carte;
 import Model.LecteurXML;
+import Model.Requete;
 import Model.Tournee;
 import Vue.Fenetre;
 
