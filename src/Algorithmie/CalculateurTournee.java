@@ -25,7 +25,7 @@ public class CalculateurTournee {
     }
 
     /**
-     * Calcul la tournée passant par l'ensemble des étapes
+     * methode qui calcul la tournée passant par l'ensemble des étapes
      * @return
      * @throws AStarImpossibleException
      */
@@ -56,7 +56,7 @@ public class CalculateurTournee {
 
 
     /**
-     * Calcul le graphe complet de l'ensemble des étapes
+     * methode qui calcul le graphe complet de l'ensemble des étapes
      * @param astar
      * @return le graphe complet de l'ensemble des étapes
      * @throws AStarImpossibleException
@@ -111,6 +111,10 @@ public class CalculateurTournee {
         return grapheCompletDesEtapes;
     }
 
+    /**
+     * methode qui permet d'ajouter l'heure de passage au Etape de la tournée
+     * @param tournee: tournee à modifier
+     */
     private void ajouteHeureDePassage(Tournee tournee){
         int vitesse = 15; //15 km.h-1
         LocalTime heureActuelle = tournee.getDateDepart();
@@ -121,6 +125,10 @@ public class CalculateurTournee {
         }
     }
 
+    /**
+     * methode qui renvoie la tournée
+     * @return
+     */
     public Tournee getTournee(){
         return tournee;
     }
