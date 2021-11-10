@@ -18,8 +18,8 @@ public class Carte extends Observable {
     private Color[] couleurExterieurChemin;
 
     /**
-     * constructeur de la carte
-     * @param nomCarte
+     * constructeur de la carte, une carte est un ensemble d’adresses et de segments
+     * @param nomCarte: nom du fichier xml à ouvrir
      */
     public Carte(String nomCarte) {
         this();
@@ -27,7 +27,7 @@ public class Carte extends Observable {
     }
 
     /**
-     * constreucteur vide de la carte
+     * constructeur vide de la carte
      */
     public Carte() {
         listeAdresses = new HashMap<Long,Adresse>();
@@ -53,13 +53,9 @@ public class Carte extends Observable {
         };
     }
 
-    public void setNomCarte(String nomCarte) {
-        this.nomCarte = nomCarte;
-    }
-
     /**
-     * retourne l'adresse en entrant l'id de celle ci
-     * @param id
+     * methode qui retourne l'adresse en entrant l'id de celle ci
+     * @param id: id de l'adresse à retourner
      * @return
      */
     public Adresse obtenirAdresseParId(Long id){
@@ -68,7 +64,7 @@ public class Carte extends Observable {
     }
 
     /**
-     * retourne la liste des adresses de la carte
+     * methode qui retourne la liste des adresses de la carte
      * @return
      */
     public Map<Long, Adresse> getListeAdresses() {
@@ -76,13 +72,16 @@ public class Carte extends Observable {
     }
 
     /**
-     * retourne la liste des segments de la carte
+     * methode qui retourne la liste des segments de la carte
      * @return
      */
     public List<Segment> getListeSegments() {
         return listeSegments;
     }
 
+    /**
+     * methode qui vide la carte pour la gestion des exception, si une exception est levée lors de l'ouverture des fihiers de carte, on vide la carte
+     */
     public void reset() {
         this.nomCarte = "";
         listeAdresses = new HashMap<Long,Adresse>();
@@ -90,8 +89,8 @@ public class Carte extends Observable {
     }
 
     /**
-     * Remplaces tous les attibuts de la carte par celle d'une autre carte
-     * @param carteACloner la carte de laquelle les attributs sont récupérés
+     * methode qui remplace tous les attibuts de la carte par celle d'une autre carte
+     * @param carteACloner: la carte de laquelle les attributs sont récupérés
      */
     public void clone(Carte carteACloner) {
         this.listeAdresses = carteACloner.listeAdresses;
@@ -99,6 +98,10 @@ public class Carte extends Observable {
         this.nomCarte = carteACloner.nomCarte;
     }
 
+    /**
+     * merhode qui affiche la carte
+     * @return
+     */
     @Override
     public String toString() {
         return "Carte{" +
@@ -108,11 +111,22 @@ public class Carte extends Observable {
                 '}';
     }
 
+    /**
+     * methode qui retourne la distance entre les Adresse a et b pour le calcul de l'heuristique (distance en vol d'oiseau)
+     * @param a: Adresse 1
+     * @param b: Adresse 2
+     * @return
+     */
     public double distanceEntreAdresse(Adresse a, Adresse b){
         double distance = Math.pow(a.getLongitude() - b.getLongitude(), 2) + Math.pow(a.getLatitude() - b.getLatitude(), 2);
         return distance;
     }
 
+    /**
+     * methode qui retourne l'adresse la plus proche lors du clique dans l'etat ajout de requête
+     * @param a : adresse qui est cliquée
+     * @return
+     */
     public Adresse recherche(Adresse a){
         double distanceMin = Double.MAX_VALUE;
         double distance;
