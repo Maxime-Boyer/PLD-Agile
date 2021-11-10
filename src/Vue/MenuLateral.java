@@ -21,13 +21,13 @@ public class MenuLateral extends JPanel implements Observer {
     private JPanel panelImport;
     private Bouton boutonImporterPlan;
     private Bouton boutonImporterTournee;
-    private JPanel panelBoutonsE4;
+    private JPanel panelBoutonsUndoRedoAjoutRequete;
     private JScrollPane scrollPanel;
     private JPanel panelInsideScrollPanel;
     private Bouton boutonPreparerTournee;
     private Bouton boutonUndo;
     private Bouton boutonRedo;
-    private Bouton boutonAjouterEtape;
+    private Bouton boutonAjouterRequete;
     private Bouton boutonExporterFeuilleRoute;
     private JTextArea messageUtilisateur;
 
@@ -69,10 +69,37 @@ public class MenuLateral extends JPanel implements Observer {
         /*                          Panel boutons d'import                                  */
         /************************************************************************************/
 
-        afficherMenuImportation();
+        //afficherMenuImportation();
+        creerPannelImportation();
+        creerBoutonPreparerTournee();
+        creerPannelBoutonsUndoRedoAjoutRequete();
 
     }
 
+    public void creerPannelImportation() {
+        panelImport = new JPanel();
+        panelImport.setBounds(Fenetre.valMarginBase, messageUtilisateur.getY()+messageUtilisateur.getHeight()+Fenetre.valMarginBase, this.getWidth()-2*Fenetre.valMarginBase, Fenetre.hauteurBouton );
+        panelImport.setLayout(null);
+        this.add(panelImport);
+
+        boutonImporterPlan = new Bouton(Fenetre.IMPORT_CARTE, policeTexte, ecouteurBoutons);
+        boutonImporterPlan.setBounds( 0,0, panelImport.getWidth()/2 - Fenetre.valMarginBase/2, Fenetre.hauteurBouton);
+        panelImport.add(boutonImporterPlan);
+
+        boutonImporterTournee = new Bouton(Fenetre.IMPORT_TOURNEE, policeTexte, ecouteurBoutons);
+        boutonImporterTournee.setBounds(panelImport.getWidth()/2 + Fenetre.valMarginBase/2,0, panelImport.getWidth()/2 - Fenetre.valMarginBase/2, Fenetre.hauteurBouton);
+        panelImport.add(boutonImporterTournee);
+    }
+
+    /**
+     * Modifie la visibilité du MenuImportation : importer plan et importer tournée
+     * @param visible visibilité souhaitée
+     */
+    public void visibilitePannelImportation(boolean visible) {
+        panelImport.setVisible(visible);
+    }
+
+    /*
     public void afficherMenuImportation(){
         panelImport = new JPanel();
         panelImport.setBounds(Fenetre.valMarginBase, messageUtilisateur.getY()+messageUtilisateur.getHeight()+Fenetre.valMarginBase, this.getWidth()-2*Fenetre.valMarginBase, Fenetre.hauteurBouton );
@@ -87,6 +114,87 @@ public class MenuLateral extends JPanel implements Observer {
         boutonImporterTournee.setBounds(panelImport.getWidth()/2 + Fenetre.valMarginBase/2,0, panelImport.getWidth()/2 - Fenetre.valMarginBase/2, Fenetre.hauteurBouton);
         panelImport.add(boutonImporterTournee);
     }
+    */
+
+    /**
+     * Créer le bouton pour préparer une tournée
+     */
+    public void creerBoutonPreparerTournee () {
+        //creation du bouton de calcul d'itineraire
+        boutonPreparerTournee = new Bouton(Fenetre.PREPARER_TOURNEE, policeTexte, ecouteurBoutons);
+        boutonPreparerTournee.addMouseListener(ecouteurSurvol);
+        boutonPreparerTournee.setBounds( Fenetre.valMarginBase, this.getHeight() - Fenetre.hauteurBouton - Fenetre.valMarginBase, this.getWidth() - 2*Fenetre.valMarginBase, Fenetre.hauteurBouton);
+        this.add(boutonPreparerTournee);
+    }
+
+    /**
+     * Modifie la visibilité du BoutonPreparerTournee
+     * @param visible visibilité souhaitée
+     */
+    public void visibiliteBoutonPreparerTournee(boolean visible) {
+        boutonPreparerTournee.setVisible(visible);
+    }
+
+    /**
+     * Créer le pannel regroupant lee boutons : undo, redo, ajout requete
+     */
+    public void creerPannelBoutonsUndoRedoAjoutRequete() {
+        // Undo, Redo, Ajouter Etape
+        panelBoutonsUndoRedoAjoutRequete = new JPanel();
+        panelBoutonsUndoRedoAjoutRequete.setBounds(Fenetre.valMarginBase, panelImport.getY() + panelImport.getHeight() + Fenetre.valMarginBase, this.getWidth()-2*Fenetre.valMarginBase, Fenetre.hauteurBouton );
+        panelBoutonsUndoRedoAjoutRequete.setLayout(null);
+        this.add(panelBoutonsUndoRedoAjoutRequete);
+
+        boutonUndo = new Bouton("<--", policeTexte, ecouteurBoutons);
+        boutonUndo.setBounds( 0,0, panelBoutonsUndoRedoAjoutRequete.getWidth()/4 - Fenetre.valMarginBase*3/4, 50);
+        panelBoutonsUndoRedoAjoutRequete.add(boutonUndo);
+
+        boutonRedo = new Bouton("-->", policeTexte, ecouteurBoutons);
+        boutonRedo.setBounds(boutonUndo.getX() + boutonUndo.getWidth() + Fenetre.valMarginBase,0, panelBoutonsUndoRedoAjoutRequete.getWidth()/4 - Fenetre.valMarginBase*3/4 -1, Fenetre.hauteurBouton);
+        panelBoutonsUndoRedoAjoutRequete.add(boutonRedo);
+
+        boutonAjouterRequete = new Bouton(Fenetre.AJOUT_REQUETE, policeTexte, ecouteurBoutons);
+        boutonAjouterRequete.setBounds(boutonRedo.getX() + boutonRedo.getWidth() + Fenetre.valMarginBase,0, panelBoutonsUndoRedoAjoutRequete.getWidth()/2 - Fenetre.valMarginBase/2, Fenetre.hauteurBouton);
+        panelBoutonsUndoRedoAjoutRequete.add(boutonAjouterRequete);
+
+    }
+
+    /**
+     * Modifie la visibilité du BoutonUndo
+     * @param visible visibilité souhaitée
+     */
+    public void visibiliteBoutonUndo(boolean visible) {
+        boutonUndo.setVisible(visible);
+    }
+
+    /**
+     * Modifie le fait que le bouton undo soit cliquable
+     * @param cliquable
+     */
+    public void authoriseCliquerBoutonUndo(boolean cliquable) { boutonUndo.setEnabled(false); }
+
+    /**
+     * Modifie la visibilité du BoutonRedo
+     * @param visible visibilité souhaitée
+     */
+    public void visibiliteBoutonRedo(boolean visible) {
+        boutonRedo.setVisible(visible);
+    }
+
+    /**
+     * Modifie le fait que le bouton redo soit cliquable
+     * @param cliquable
+     */
+    public void authoriseCliquerBoutonRedo(boolean cliquable) { boutonRedo.setEnabled(false); }
+
+    /**
+     * Modifie la visibilité du boutonAjouterRequete
+     * @param visible visibilité souhaitée
+     */
+    public void visibiliteBoutonAjouterRequete(boolean visible) {
+        boutonAjouterRequete.setVisible(visible);
+    }
+
 
     /**
      * Affichage de la vue textuelle de la tournee non triee
@@ -126,12 +234,6 @@ public class MenuLateral extends JPanel implements Observer {
         scrollPanel.setViewportBorder( border );
         scrollPanel.setBorder(border);
         this.add(scrollPanel);
-
-        //creation du bouton de calcul d'itineraire
-        boutonPreparerTournee = new Bouton(Fenetre.PREPARER_TOURNEE, policeTexte, ecouteurBoutons);
-        boutonPreparerTournee.addMouseListener(ecouteurSurvol);
-        boutonPreparerTournee.setBounds( Fenetre.valMarginBase, this.getHeight() - Fenetre.hauteurBouton - Fenetre.valMarginBase, this.getWidth() - 2*Fenetre.valMarginBase, Fenetre.hauteurBouton);
-        this.add(boutonPreparerTournee);
     }
 
     /**
@@ -142,27 +244,29 @@ public class MenuLateral extends JPanel implements Observer {
 
         System.out.println("afficherMenuEtapes");
 
+        /*
         // Undo, Redo, Ajouter Etape
-        panelBoutonsE4 = new JPanel();
-        panelBoutonsE4.setBounds(Fenetre.valMarginBase, panelImport.getY() + panelImport.getHeight() + Fenetre.valMarginBase, this.getWidth()-2*Fenetre.valMarginBase, Fenetre.hauteurBouton );
-        panelBoutonsE4.setLayout(null);
-        this.add(panelBoutonsE4);
+        panelBoutonsUndoRedoAjoutRequete = new JPanel();
+        panelBoutonsUndoRedoAjoutRequete.setBounds(Fenetre.valMarginBase, panelImport.getY() + panelImport.getHeight() + Fenetre.valMarginBase, this.getWidth()-2*Fenetre.valMarginBase, Fenetre.hauteurBouton );
+        panelBoutonsUndoRedoAjoutRequete.setLayout(null);
+        this.add(panelBoutonsUndoRedoAjoutRequete);
 
         boutonUndo = new Bouton("<--", policeTexte, ecouteurBoutons);
-        boutonUndo.setBounds( 0,0, panelBoutonsE4.getWidth()/4 - Fenetre.valMarginBase*3/4, 50);
-        panelBoutonsE4.add(boutonUndo);
+        boutonUndo.setBounds( 0,0, panelBoutonsUndoRedoAjoutRequete.getWidth()/4 - Fenetre.valMarginBase*3/4, 50);
+        panelBoutonsUndoRedoAjoutRequete.add(boutonUndo);
 
         boutonRedo = new Bouton("-->", policeTexte, ecouteurBoutons);
-        boutonRedo.setBounds(boutonUndo.getX() + boutonUndo.getWidth() + Fenetre.valMarginBase,0, panelBoutonsE4.getWidth()/4 - Fenetre.valMarginBase*3/4 -1, Fenetre.hauteurBouton);
-        panelBoutonsE4.add(boutonRedo);
+        boutonRedo.setBounds(boutonUndo.getX() + boutonUndo.getWidth() + Fenetre.valMarginBase,0, panelBoutonsUndoRedoAjoutRequete.getWidth()/4 - Fenetre.valMarginBase*3/4 -1, Fenetre.hauteurBouton);
+        panelBoutonsUndoRedoAjoutRequete.add(boutonRedo);
 
-        boutonAjouterEtape = new Bouton(Fenetre.AJOUT_REQUETE, policeTexte, ecouteurBoutons);
-        boutonAjouterEtape.setBounds(boutonRedo.getX() + boutonRedo.getWidth() + Fenetre.valMarginBase,0, panelBoutonsE4.getWidth()/2 - Fenetre.valMarginBase/2, Fenetre.hauteurBouton);
-        panelBoutonsE4.add(boutonAjouterEtape);
+        boutonAjouterRequete = new Bouton(Fenetre.AJOUT_REQUETE, policeTexte, ecouteurBoutons);
+        boutonAjouterRequete.setBounds(boutonRedo.getX() + boutonRedo.getWidth() + Fenetre.valMarginBase,0, panelBoutonsUndoRedoAjoutRequete.getWidth()/2 - Fenetre.valMarginBase/2, Fenetre.hauteurBouton);
+        panelBoutonsUndoRedoAjoutRequete.add(boutonAjouterRequete);
+        */
 
         // suppr ancien panel consultation et construiction du nouveau
         panelInsideScrollPanel.removeAll();
-        int yDebutPanelConsultation = (int) (panelBoutonsE4.getY() + panelBoutonsE4.getHeight() + 2 * Fenetre.valMarginBase +2);
+        int yDebutPanelConsultation = (int) (panelBoutonsUndoRedoAjoutRequete.getY() + panelBoutonsUndoRedoAjoutRequete.getHeight() + 2 * Fenetre.valMarginBase +2);
         int yFinPanelConsultation = (int) (this.getHeight() - Fenetre.hauteurBouton - 4 * Fenetre.valMarginBase - 4);
         scrollPanel.setBounds(Fenetre.valMarginBase+2, yDebutPanelConsultation, this.getWidth()-2*Fenetre.valMarginBase - 4, yFinPanelConsultation - yDebutPanelConsultation );
 
@@ -195,12 +299,13 @@ public class MenuLateral extends JPanel implements Observer {
         }
         this.add(scrollPanel);
 
+        /*
         // bouton Exporter feuille de route
         this.remove(boutonPreparerTournee);
         boutonExporterFeuilleRoute = new Bouton("Exporter feuille de route", policeTexte, ecouteurBoutons);
         boutonExporterFeuilleRoute.setBounds( Fenetre.valMarginBase, this.getHeight() - Fenetre.hauteurBouton - Fenetre.valMarginBase, this.getWidth() - 2*Fenetre.valMarginBase, Fenetre.hauteurBouton);
         this.add(boutonExporterFeuilleRoute);
-
+        */
     }
 
     /**
@@ -209,19 +314,22 @@ public class MenuLateral extends JPanel implements Observer {
     public void retirerMenuRequete() {
         if (scrollPanel != null)
             this.remove(scrollPanel);
+        /*
         if (boutonPreparerTournee != null)
             this.remove(boutonPreparerTournee);
+
+         */
     }
 
     /**
      * Permet de retirer l'affichage textuel de la requete triee
      */
     public void retirerMenuEtape() {
-        if (panelBoutonsE4 != null)
-            this.remove(panelBoutonsE4);
+        //if (panelBoutonsUndoRedoAjoutRequete != null)
+          //  this.remove(panelBoutonsUndoRedoAjoutRequete);
         //this.remove(boutonUndo);
         //this.remove(boutonRedo);
-        //this.remove(boutonAjouterEtape);
+        //this.remove(boutonAjouterRequete);
         if (scrollPanel != null)
             this.remove(scrollPanel);
         if (boutonExporterFeuilleRoute != null)
@@ -248,7 +356,7 @@ public class MenuLateral extends JPanel implements Observer {
                     //Si la tournee est chargee et ordonnée, affiche la liste des étapes
                     else {
                         afficherMenuEtapes(tournee);
-                        afficherMenuImportation();
+                        //afficherMenuImportation();
                     }
                 }
             }
@@ -263,13 +371,13 @@ public class MenuLateral extends JPanel implements Observer {
     public void retirerBoutonsMenu() {
         this.remove(boutonImporterTournee);
         //boutonPreparerTournee.setVisible(false);
-        this.remove(boutonPreparerTournee);
-        this.remove(panelBoutonsE4);
-        //panelBoutonsE4.setVisible(false);
+        //this.remove(boutonPreparerTournee);
+        //this.remove(panelBoutonsUndoRedoAjoutRequete);
+        //panelBoutonsUndoRedoAjoutRequete.setVisible(false);
         //panelImport.setVisible(false);
-        this.remove(panelImport);
-        this.remove(boutonAjouterEtape);
-        //boutonAjouterEtape.setVisible(false);
+        //this.remove(panelImport);
+        //this.remove(boutonAjouterRequete);
+        //boutonAjouterRequete.setVisible(false);
         this.remove(scrollPanel);
         //scrollPanel.setVisible(false);
         this.remove(boutonExporterFeuilleRoute);

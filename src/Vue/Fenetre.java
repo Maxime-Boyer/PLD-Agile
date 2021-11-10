@@ -91,7 +91,7 @@ public class Fenetre extends JFrame {
     }
 
     /**
-     * TODO
+     * Affichage de l'état juste après le chargement de la carte : affiche / cache les pannels selon leur utilité
      * @param carte
      */
     public void afficherEtatPlanAffiche(Carte carte) {
@@ -108,8 +108,13 @@ public class Fenetre extends JFrame {
             this.add(menuLateral);
         }
 
-        menuLateral.afficherMenuImportation();
-
+        //menuLateral.afficherMenuImportation();
+        //Configure les visibilités
+        menuLateral.visibilitePannelImportation(true);
+        menuLateral.visibiliteBoutonPreparerTournee(false);
+        menuLateral.visibiliteBoutonAjouterRequete(false);
+        menuLateral.visibiliteBoutonUndo(false);
+        menuLateral.visibiliteBoutonRedo(false);
 
         // repaint la fenetre
         this.revalidate();
@@ -125,6 +130,13 @@ public class Fenetre extends JFrame {
         menuLateral.setMessageUtilisateur("Veuillez préparer la tournée pour visualiser l'itinéraire sur la carte.");
         //cartePanel.tracerRequetes(tournee);
         //menuLateral.afficherMenuRequete(tournee);
+
+        //Configure les visibilités
+        menuLateral.visibilitePannelImportation(true);
+        menuLateral.visibiliteBoutonPreparerTournee(true);
+        menuLateral.visibiliteBoutonAjouterRequete(false);
+        menuLateral.visibiliteBoutonUndo(false);
+        menuLateral.visibiliteBoutonRedo(false);
 
         // repaint la fenetre
         this.revalidate();
@@ -146,13 +158,27 @@ public class Fenetre extends JFrame {
         //cartePanel.tracerItineraire(tournee);
         //menuLateral.afficherMenuEtapes(tournee);
         //menuLateral.afficherMenuImportation();
-
+        //FIXME : pourquoi en double ?
         menuLateral.setMessageUtilisateur("Maintenant vous pouvez éditer votre tournée ou exporter la feuille de route.");
+
+        //Configure les visibilités
+        menuLateral.visibilitePannelImportation(true);
+        menuLateral.visibiliteBoutonPreparerTournee(false);
+        menuLateral.visibiliteBoutonAjouterRequete(true);
+        menuLateral.visibiliteBoutonUndo(true);
+        menuLateral.visibiliteBoutonRedo(true);
+        //TODO : Authorisation de clique sur les boutons undo/redo
+        menuLateral.authoriseCliquerBoutonUndo(false);
+        menuLateral.authoriseCliquerBoutonRedo(false);
+
         this.revalidate();
         this.repaint();
     }
 
     public void afficherEtatAjoutRequete(){
+        //Cache le MenuImportation
+        menuLateral.visibilitePannelImportation(false);
+
         menuLateral.retirerBoutonsMenu();
         menuLateral.setMessageUtilisateur("Ajouter une Etape de collecte: [Clique Gauche] sur une Adresse de la Carte " + "[Clique Droit] pour annuler");
         this.ecouteurSouris.setVueGraphique(cartePanel);
