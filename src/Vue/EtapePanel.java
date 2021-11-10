@@ -71,7 +71,7 @@ public class EtapePanel extends JPanel {
         labelTitreCollecte.setFont(policeTexteImportant);
         firstLine.add(labelTitreCollecte, BorderLayout.LINE_START);
 
-        JLabel labelSuppr = new JLabel("X");
+        JButton labelSuppr = new JButton("X");
         labelSuppr.addMouseListener(ecouteurSurvol);
         firstLine.add(labelSuppr, BorderLayout.LINE_END);
 

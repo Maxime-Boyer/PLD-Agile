@@ -21,6 +21,10 @@ public class EcouteurSurvol implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         //fenetre.getMenuLateral().setMessageUtilisateur("Clique avec ecouteur survol");
+        /*if(e.getSource() instanceof JButton){
+            System.out.println("arrive dans mouseClicked");
+            //fenetre.getCartePanel().indiquerPositionRequete(((EtapePanel) e.getSource()).getRequeteEtape().getEtapeCollecte(), ((EtapePanel) e.getSource()).getRequeteEtape().getEtapeDepot());
+        }*/
     }
 
     @Override
