@@ -224,6 +224,35 @@ public class Tournee extends Observable {
         return plusProche;
     }
 
+    public Adresse rechercheEtape (Adresse a, Adresse collectePlacee){
+        double distanceMin = Double.MAX_VALUE;
+        double distanceCollecte;
+        double distanceDepot;
+        double distanceCollectePlacee;
+        Adresse plusProche = null;
+        for(CheminEntreEtape chemin : listeChemins){
+            Adresse collecte = new Adresse (chemin.getEtapeDepart().getLatitude(),chemin.getEtapeDepart().getLongitude(),chemin.getEtapeArrivee().getIdAdresse());
+            Adresse depot = new Adresse (chemin.getEtapeArrivee().getLatitude(),chemin.getEtapeArrivee().getLongitude(),chemin.getEtapeArrivee().getIdAdresse());
+            distanceCollecte = distanceEntreAdresse(a, collecte);
+            distanceDepot = distanceEntreAdresse(a, depot);
+            distanceCollectePlacee = distanceEntreAdresse(a, collectePlacee);
+            if( distanceCollecte < distanceMin){
+                distanceMin = distanceCollecte;
+                plusProche = collecte;
+            }
+            if( distanceDepot < distanceMin){
+                distanceMin = distanceDepot;
+                plusProche = depot;
+            }
+            if(distanceCollectePlacee < distanceMin){
+                distanceMin = distanceCollectePlacee;
+                plusProche = collectePlacee;
+            }
+        }
+
+        return plusProche;
+    }
+
     public void ajoutChemin(Etape adresse, Etape precedent, Carte carte){
         int index = 0;
         Etape suivant = null;
