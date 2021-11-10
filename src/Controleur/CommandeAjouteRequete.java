@@ -20,7 +20,7 @@ public class CommandeAjouteRequete implements Commande{
     }
 
     /**
-     * Execute the command this
+     * Execute la commande de this
      */
     @Override
     public void faireCommande(){
@@ -28,7 +28,7 @@ public class CommandeAjouteRequete implements Commande{
     }
 
     /**
-     * Execute the reverse command of this
+     * Execute la commande inverse de this
      */
     @Override
     public void defaireCommande(){
