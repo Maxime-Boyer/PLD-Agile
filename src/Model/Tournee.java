@@ -10,6 +10,7 @@ import java.util.List;
 
 import Observer.Observable;
 
+
 public class Tournee extends Observable {
     private Adresse adresseDepart;
     private LocalTime heureDepart;
@@ -18,6 +19,10 @@ public class Tournee extends Observable {
     private boolean tourneeEstChargee;
     private boolean tourneeEstOrdonee;
 
+    /**
+     * Constructeur de Tournee , elle à deux états , un état initial : Ensemble non ordonné d’étapes. Elle contient aussi une adresse de départ, d’arrivée et une heure de départ.
+     * un état ordonné : Liste ordonnée d’étapes démarrant et terminant à une même adresse donnée. Il est également composé d’une suite de segments reliant ces étapes ainsi qu’une heure de départ.
+     */
     public Tournee(){
         listeRequetes = new ArrayList<>();
         listeChemins = new ArrayList<>();
@@ -27,64 +32,110 @@ public class Tournee extends Observable {
         tourneeEstOrdonee = false;
     }
 
+    /**
+     * methode qui renvoie l'adresse de départ
+     * @return
+     */
     public Adresse getAdresseDepart() {
         return adresseDepart;
     }
 
+    /**
+     * methode qui renvoie l'heure de départ
+     * @return
+     */
     public LocalTime getDateDepart() {
         return heureDepart;
     }
 
+    /**
+     * methode qui renvoie la liste des requêtes
+     * @return
+     */
     public List<Requete> getListeRequetes() {
         return listeRequetes;
     }
 
+    /**
+     * methode qui renvoie la liste des chemins entre étapes
+     * @return
+     */
     public List<CheminEntreEtape> getListeChemins() {
         return listeChemins;
     }
 
+    /**
+     * methode qui renvoie true si la tournee est chargée
+     * @return
+     */
     public boolean getTourneeEstChargee() {
         return tourneeEstChargee;
     }
 
+    /**
+     * methode qui renvoie true si la tournee est ordonnée
+     * @return
+     */
     public boolean getTourneeEstOrdonee() {
         return tourneeEstOrdonee;
     }
 
+    /**
+     * methode qui place l'adresse de départ
+     * @param adresseDepart: adresse de départ
+     */
     public void setAdresseDepart(Adresse adresseDepart) {
         this.adresseDepart = adresseDepart;
     }
 
+    /**
+     * methode qui place l'heure de départ
+     * @param heureDepart:cheure de départ
+     */
     public void setHeureDepart(LocalTime heureDepart) {
         this.heureDepart = heureDepart;
     }
 
+    /**
+     * methode qui place la liste de requêtes
+     * @param listeRequetes: liste des requêtes à placer
+     */
     public void setListeRequetes(List<Requete> listeRequetes) {
         this.listeRequetes = listeRequetes;
     }
-
+    /**
+     * methode qui place la liste de chemins entre étape
+     * @param listeChemins: liste des chemins entre étape
+     */
     public void setListeChemins(List<CheminEntreEtape> listeChemins) {
         this.listeChemins = listeChemins;
     }
 
+    /**
+     * methode qui place le boolean si la tournee est chargée
+     * @param tourneeEstChargee: boolean tournée est chargée
+     */
     public void setTourneeEstChargee(boolean tourneeEstChargee) {
         this.tourneeEstChargee = tourneeEstChargee;
     }
 
+    /**
+     * methode qui place le boolean si la tournee est ordonée
+     * @param tourneeEstOrdonee: boolean tournée est ordonnée
+     */
     public void setTourneeEstOrdonee(boolean tourneeEstOrdonee) {
         this.tourneeEstOrdonee = tourneeEstOrdonee;
     }
 
     /**
-     * Supprime une requete de la liste des requetes et de la liste de chemins entre etape.
+     * methode qui supprime une requete de la liste des requetes et de la liste de chemins entre etape.
      *  Pour cela recalcul le plus court chemin entre l'étape précédente et l'étape suivante du point de collecte et de depot de la requete
-     * @param requeteASupprimer la requete qui doit etre supprimee
-     * @param carte la carte a partir de laquelle les chemins ont ete calcules
+     * @param requeteASupprimer: la requete qui doit etre supprimee
+     * @param carte: la carte a partir de laquelle les chemins ont ete calcules
      */
     public void supprimerRequete(Requete requeteASupprimer, Carte carte) throws CommandeImpossibleException {
         //Supprime la requête
         listeRequetes.remove(requeteASupprimer);
-
         int index = 0;
         int indexEtapePrecedentCollecte = 0;
         int indexEtapePrecedentDepot = 0;
@@ -116,7 +167,6 @@ public class Tournee extends Observable {
         //Si un des chemins n'est pas touvée, renvoi une erreure
         if (cheminEntreEtapePrecedentCollecteEtCollecte == null || cheminEntreCollecteEtEtapeSuivantCollecte == null || cheminEntreEtapePrecedentDepotEtDepot == null || cheminEntreDepotEtEtapeSuivantDepot == null)
             throw new CommandeImpossibleException("Impossible de supprimer la requete : la tournée est mal formée");
-
         Astar astar = new Astar2(carte);
         //Suppression de l'étape de collecte de la requete
         //Calcul le plus court chemin entre l'étape précente et l'étape suivante du point de collecte
@@ -140,11 +190,10 @@ public class Tournee extends Observable {
 
         //Notifie les observateurs que la tournee a été mofifié
         notifyObservers(this);
-
     }
 
     /**
-     * Remplaces tous les attibuts de la tournee par celle d'une autre tournee
+     * methode qui emplace tous les attibuts de la tournee par celle d'une autre tournee
      * @param touneeACloner la tournee de laquelle les attributs sont récupérés
      */
     public void clone(Tournee touneeACloner) {
@@ -157,7 +206,7 @@ public class Tournee extends Observable {
     }
 
     /**
-     * Vide la tournee
+     * methode qui vide la tournee
      */
     public void reset() {
         listeRequetes = new ArrayList<>();
@@ -171,6 +220,10 @@ public class Tournee extends Observable {
         notifyObservers(this);
     }
 
+    /**
+     * methode qui affiche la tournée
+     * @return
+     */
     @Override
     public String toString() {
         return "Tournee{" +
@@ -181,6 +234,11 @@ public class Tournee extends Observable {
                 '}';
     }
 
+    /**
+     * methode qui permet d'obtenir une étape de la tournée grâce à l'id
+     * @param id: id de l'étape à rechercher
+     * @return
+     */
     public Etape obtenirEtapeParId(Long id){
         Etape etapeCherchee = null;
         for(CheminEntreEtape chemin : listeChemins){
@@ -196,11 +254,22 @@ public class Tournee extends Observable {
         return etapeCherchee;
     }
 
+    /**
+     * methode qui permet de renvoyer la distance entre les deux adresses 1 et 2
+     * @param a:Adresse 1
+     * @param b: Adresse é
+     * @return
+     */
     public double distanceEntreAdresse(Adresse a, Adresse b){
         double distance = Math.pow(a.getLongitude() - b.getLongitude(), 2) + Math.pow(a.getLatitude() - b.getLatitude(), 2);
         return distance;
     }
 
+    /**
+     * methode qui renvoie l'etape la plus proche en focntion de l'adresse en paramètre.
+     * @param a: adresse récupéré au clic de l'utilisateur
+     * @return
+     */
     public Adresse rechercheEtape (Adresse a){
         double distanceMin = Double.MAX_VALUE;
         double distanceCollecte;
@@ -224,6 +293,12 @@ public class Tournee extends Observable {
         return plusProche;
     }
 
+    /**
+     * methode qui permet de rechercher l'étape entre l'adresse cliquée et l'adresse déjà placée sur le carte dans l'état ajout requête
+     * @param a: adresse cliquée
+     * @param collectePlacee: nouvelle adresse de collecte
+     * @return
+     */
     public Adresse rechercheEtape (Adresse a, Adresse collectePlacee){
         double distanceMin = Double.MAX_VALUE;
         double distanceCollecte;
@@ -253,6 +328,12 @@ public class Tournee extends Observable {
         return plusProche;
     }
 
+    /**
+     * methode qui ajoute le chemin lors de l'ajout de requête
+     * @param adresse: étape à ajouter
+     * @param precedent: étape précédente
+     * @param carte: permet d'obtenir les informations en temps réel sur la carte
+     */
     public void ajoutChemin(Etape adresse, Etape precedent, Carte carte){
         int index = 0;
         Etape suivant = null;
@@ -272,6 +353,9 @@ public class Tournee extends Observable {
         ajouteHeureDePassage();
     }
 
+    /**
+     * methode qui ajoute l'heure de passage à la tournee
+     */
     private void ajouteHeureDePassage(){
         int vitesse = 15; //15 km.h-1
         LocalTime heureActuelle = heureDepart;
@@ -282,6 +366,12 @@ public class Tournee extends Observable {
         }
     }
 
+    /**
+     * methode qui renvoie true si le dépot de la requête ajoutée est bien placée après la collecte
+     * @param collecte: étape de collacte
+     * @param precedentDepot: étape qui préède le dépot
+     * @return
+     */
     public boolean collectePrecedeDepot(Etape collecte, Etape precedentDepot) {
         boolean depotTrouvee = false;
         for (CheminEntreEtape chemin : listeChemins){
@@ -311,6 +401,10 @@ public class Tournee extends Observable {
         return false;
     }
 
+    /**
+     * methode qui permet d'ajouter une requete à la liste des requêtes
+     * @param requete: requête à placer
+     */
     public void ajoutRequete(Requete requete){
         listeRequetes.add(requete);
     }
