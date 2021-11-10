@@ -73,6 +73,7 @@ public class MenuLateral extends JPanel implements Observer {
         creerPannelImportation();
         creerBoutonPreparerTournee();
         creerPannelBoutonsUndoRedoAjoutRequete();
+        creerBoutonExporterFeuilleRoute();
 
     }
 
@@ -195,12 +196,25 @@ public class MenuLateral extends JPanel implements Observer {
         boutonAjouterRequete.setVisible(visible);
     }
 
+    /**
+     * Créer le bouton pour ExporterFeuilleRoute
+     */
+    public void creerBoutonExporterFeuilleRoute() {
+        boutonExporterFeuilleRoute = new Bouton("Exporter feuille de route", policeTexte, ecouteurBoutons);
+        boutonExporterFeuilleRoute.setBounds( Fenetre.valMarginBase, this.getHeight() - Fenetre.hauteurBouton - Fenetre.valMarginBase, this.getWidth() - 2*Fenetre.valMarginBase, Fenetre.hauteurBouton);
+        this.add(boutonExporterFeuilleRoute);
+    }
+
+    /**
+     * Modifie la visibilité du boutonExporterFeuilleRoute
+     * @param visible visibilité souhaitée
+     */
+    public void visibiliteBoutonExporterFeuilleRoute(boolean visible) { boutonExporterFeuilleRoute.setVisible(visible); }
 
     /**
      * Affichage de la vue textuelle de la tournee non triee
-     * @param tournee: la tournee a afficher
      */
-    public void afficherMenuRequete(Tournee tournee){
+    public void afficherMenuRequete(){
 
         //affichage du détaillé des requêtes
         this.panelInsideScrollPanel = new JPanel(null);
@@ -227,7 +241,10 @@ public class MenuLateral extends JPanel implements Observer {
 
         scrollPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        int yDebutPanelConsultation = (int) (panelImport.getY() + panelImport.getHeight() + 2 * Fenetre.valMarginBase +2);
+        //int yDebutPanelConsultation = (int) (panelImport.getY() + panelImport.getHeight() + 2 * Fenetre.valMarginBase +2);
+        //int yFinPanelConsultation = (int) (this.getHeight() - Fenetre.hauteurBouton - 4 * Fenetre.valMarginBase - 4);
+        //scrollPanel.setBounds(Fenetre.valMarginBase+2, yDebutPanelConsultation, this.getWidth()-2*Fenetre.valMarginBase - 4, yFinPanelConsultation - yDebutPanelConsultation );
+        int yDebutPanelConsultation = (int) (panelBoutonsUndoRedoAjoutRequete.getY() + panelBoutonsUndoRedoAjoutRequete.getHeight() + 2 * Fenetre.valMarginBase +2);
         int yFinPanelConsultation = (int) (this.getHeight() - Fenetre.hauteurBouton - 4 * Fenetre.valMarginBase - 4);
         scrollPanel.setBounds(Fenetre.valMarginBase+2, yDebutPanelConsultation, this.getWidth()-2*Fenetre.valMarginBase - 4, yFinPanelConsultation - yDebutPanelConsultation );
         Border border = BorderFactory.createEmptyBorder( 0, 0, 0, 0 );
@@ -237,10 +254,9 @@ public class MenuLateral extends JPanel implements Observer {
     }
 
     /**
-     * Affichage de la vue textuelle de la tournee triee
-     * @param tournee: la tournee a afficher
+     * Affichage de la vue textuelle de la tournee ordonnee
      */
-    public void afficherMenuEtapes(Tournee tournee){
+    public void afficherMenuEtapes(){
 
         System.out.println("afficherMenuEtapes");
 
@@ -332,8 +348,8 @@ public class MenuLateral extends JPanel implements Observer {
         //this.remove(boutonAjouterRequete);
         if (scrollPanel != null)
             this.remove(scrollPanel);
-        if (boutonExporterFeuilleRoute != null)
-            this.remove(boutonExporterFeuilleRoute);
+        //if (boutonExporterFeuilleRoute != null)
+          //  this.remove(boutonExporterFeuilleRoute);
     }
 
     /**
@@ -348,6 +364,7 @@ public class MenuLateral extends JPanel implements Observer {
             //Met à jour la tournee
             if (arg instanceof Tournee) {
                 tournee = (Tournee) arg;
+                /*
                 if (tournee.getTourneeEstChargee()){
                     //Si la tournee est chargee mais pas ordonnée, affiche la liste des requêtes
                     if (!tournee.getTourneeEstOrdonee()){
@@ -358,7 +375,7 @@ public class MenuLateral extends JPanel implements Observer {
                         afficherMenuEtapes(tournee);
                         //afficherMenuImportation();
                     }
-                }
+                }*/
             }
         }
         revalidate();

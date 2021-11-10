@@ -112,6 +112,7 @@ public class Fenetre extends JFrame {
         //Configure les visibilités
         menuLateral.visibilitePannelImportation(true);
         menuLateral.visibiliteBoutonPreparerTournee(false);
+        menuLateral.visibiliteBoutonExporterFeuilleRoute(false);
         menuLateral.visibiliteBoutonAjouterRequete(false);
         menuLateral.visibiliteBoutonUndo(false);
         menuLateral.visibiliteBoutonRedo(false);
@@ -134,9 +135,12 @@ public class Fenetre extends JFrame {
         //Configure les visibilités
         menuLateral.visibilitePannelImportation(true);
         menuLateral.visibiliteBoutonPreparerTournee(true);
+        menuLateral.visibiliteBoutonExporterFeuilleRoute(false);
         menuLateral.visibiliteBoutonAjouterRequete(false);
         menuLateral.visibiliteBoutonUndo(false);
         menuLateral.visibiliteBoutonRedo(false);
+        //Affiche la liste des requetes
+        menuLateral.afficherMenuRequete();
 
         // repaint la fenetre
         this.revalidate();
@@ -164,12 +168,15 @@ public class Fenetre extends JFrame {
         //Configure les visibilités
         menuLateral.visibilitePannelImportation(true);
         menuLateral.visibiliteBoutonPreparerTournee(false);
+        menuLateral.visibiliteBoutonExporterFeuilleRoute(true);
         menuLateral.visibiliteBoutonAjouterRequete(true);
         menuLateral.visibiliteBoutonUndo(true);
         menuLateral.visibiliteBoutonRedo(true);
         //TODO : Authorisation de clique sur les boutons undo/redo
         menuLateral.authoriseCliquerBoutonUndo(false);
         menuLateral.authoriseCliquerBoutonRedo(false);
+        //Affiche la tournee ordonnee
+        menuLateral.afficherMenuEtapes();
 
         this.revalidate();
         this.repaint();
