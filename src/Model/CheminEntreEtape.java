@@ -10,11 +10,11 @@ public class CheminEntreEtape implements Comparable<CheminEntreEtape> {
     public Integer distance;
 
     /**
-     * constructeur de la classe chemin entre étape qui correspond aux chemins entre deux étapes
-     * @param etapeDepart
-     * @param etapeArrivee
-     * @param listeSegment
-     * @param distance
+     * constructeur de la classe chemin entre étape qui correspond aux chemins entre deux étapes de la collecte
+     * @param etapeDepart: Etape de départ
+     * @param etapeArrivee: Etape d'arrivée
+     * @param listeSegment: liste des segments entre les deux étapes
+     * @param distance: distance en mètre entre les deuc étapes
      */
     public CheminEntreEtape(Etape etapeDepart, Etape etapeArrivee, List<Segment> listeSegment, Integer distance) {
         this.etapeDepart = etapeDepart;
@@ -24,7 +24,7 @@ public class CheminEntreEtape implements Comparable<CheminEntreEtape> {
     }
 
     /**
-     * retourne l'étape de départ
+     * methode qui retourne l'étape de départ
      * @return
      */
     public Etape getEtapeDepart() {
@@ -32,7 +32,7 @@ public class CheminEntreEtape implements Comparable<CheminEntreEtape> {
     }
 
     /**
-     * reourne l'étape d'arrivée
+     * methode qui reourne l'étape d'arrivée
      * @return
      */
     public Etape getEtapeArrivee() {
@@ -40,7 +40,7 @@ public class CheminEntreEtape implements Comparable<CheminEntreEtape> {
     }
 
     /**
-     * retourne la liste des segments entre les étapes
+     * methode qui retourne la liste des segments entre les étapes
      * @return
      */
     public List<Segment> getListeSegment() {
@@ -48,13 +48,18 @@ public class CheminEntreEtape implements Comparable<CheminEntreEtape> {
     }
 
     /**
-     * retourne la distance du chemin
+     * methode qui retourne la distance du chemin
      * @return
      */
     public Integer getDistance() {
         return distance;
     }
 
+    /**
+     * methode qui compare la distance entre le CheminEntreEtape et celui mis en paramètre
+     * @param o: CheminEntreEtape à vérifier
+     * @return
+     */
     @Override
     public int compareTo(CheminEntreEtape o) {
         return this.getDistance() - o.getDistance();
