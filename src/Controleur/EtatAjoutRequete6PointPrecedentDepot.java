@@ -30,7 +30,7 @@ public class EtatAjoutRequete6PointPrecedentDepot implements Etat{
             fenetre.getCartePanel().getNouvelleAdresse().clear();
             //fenetre.getCartePanel().repaint();
             controleur.setEtatActuel(controleur.etatTourneeOrdonnee);
-            //fenetre.afficherEtatTourneePreparee(tournee);
+            fenetre.afficherEtatTourneePreparee(tournee);
             tournee.notifyObservers(tournee);
         }
         catch (CommandeImpossibleException e) {

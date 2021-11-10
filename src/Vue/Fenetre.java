@@ -16,6 +16,7 @@ public class Fenetre extends JFrame {
     protected final static String PREPARER_TOURNEE = "Préparer tournée";
     protected final static String AJOUT_REQUETE = "Ajouter requête";
     protected final static String VALIDER_AJOUT_DUREE_COLLECTE_REQUETE = "Valider";
+    protected final static String ANNULER_AJOUT_REQUETE = "Annuler";
 
     protected final static int valMarginBase = 5;
     protected final static int hauteurBouton = 50;
@@ -116,6 +117,9 @@ public class Fenetre extends JFrame {
         menuLateral.visibiliteBoutonAjouterRequete(false);
         menuLateral.visibiliteBoutonUndo(false);
         menuLateral.visibiliteBoutonRedo(false);
+        menuLateral.visibiliteBoutonAnnulerAjoutRequete(false);
+        menuLateral.retirerMenuRequete();
+        menuLateral.retirerMenuEtape();
 
         // repaint la fenetre
         this.revalidate();
@@ -139,6 +143,7 @@ public class Fenetre extends JFrame {
         menuLateral.visibiliteBoutonAjouterRequete(false);
         menuLateral.visibiliteBoutonUndo(false);
         menuLateral.visibiliteBoutonRedo(false);
+        menuLateral.visibiliteBoutonAnnulerAjoutRequete(false);
         //Affiche la liste des requetes
         menuLateral.afficherMenuRequete();
 
@@ -172,10 +177,12 @@ public class Fenetre extends JFrame {
         menuLateral.visibiliteBoutonAjouterRequete(true);
         menuLateral.visibiliteBoutonUndo(true);
         menuLateral.visibiliteBoutonRedo(true);
+        menuLateral.visibiliteBoutonAnnulerAjoutRequete(false);
         //TODO : Authorisation de clique sur les boutons undo/redo
         menuLateral.authoriseCliquerBoutonUndo(false);
         menuLateral.authoriseCliquerBoutonRedo(false);
         //Affiche la tournee ordonnee
+        menuLateral.retirerMenuRequete();
         menuLateral.afficherMenuEtapes();
 
         this.revalidate();
@@ -183,15 +190,24 @@ public class Fenetre extends JFrame {
     }
 
     public void afficherEtatAjoutRequete(){
-        //Cache le MenuImportation
-        menuLateral.visibilitePannelImportation(false);
 
-        menuLateral.retirerBoutonsMenu();
+        //Configure les visibilités
+        menuLateral.visibilitePannelImportation(false);
+        menuLateral.visibiliteBoutonPreparerTournee(false);
+        menuLateral.visibiliteBoutonExporterFeuilleRoute(false);
+        menuLateral.visibiliteBoutonAjouterRequete(false);
+        menuLateral.visibiliteBoutonUndo(false);
+        menuLateral.visibiliteBoutonRedo(false);
+        menuLateral.visibiliteBoutonAnnulerAjoutRequete(true);
+        menuLateral.retirerMenuEtape();
+
+        //menuLateral.retirerBoutonsMenu();
         menuLateral.setMessageUtilisateur("Ajouter une Etape de collecte: [Clique Gauche] sur une Adresse de la Carte " + "[Clique Droit] pour annuler");
         this.ecouteurSouris.setVueGraphique(cartePanel);
         this.revalidate();
         this.repaint();
     }
+
     public void afficherEtatAjoutRequete2(){
         popUpSaisieDuree = new PopUpSaisieDuree(policeTexte,ecouteurBoutons);
         menuLateral.setMessageUtilisateur("Entrer la durée de l'étape collecte et Valider");
@@ -200,6 +216,7 @@ public class Fenetre extends JFrame {
         this.repaint();
 
     }
+
     public void afficherEtatAjoutRequete3(){
         menuLateral.setMessageUtilisateur("Selectionner l'étape qui précéde votre collecte: [Clique Gauche] sur une Etape de la Carte " + "[Clique Droit] pour annuler");
         //this.ecouteurSouris.setVueGraphique(cartePanel);
