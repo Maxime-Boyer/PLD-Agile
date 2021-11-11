@@ -18,22 +18,24 @@ public class EtatTourneeOrdonnee implements Etat {
 
         //Récupère le nom du fichier choisi
         String nomFichier = fenetre.afficherChoixFichier();
-        //Appel la méthode qui vérifie si le fichier est valide et récupère la tournee
-        LecteurXML lecteur = new LecteurXML();
-        try {
-            System.out.println("    avant");
-            tournee = lecteur.lectureRequete(nomFichier, carte, tournee);
-            //fenetre.retirerMenuEtape();
-            System.out.println("    après tournee = " + tournee);
-            //Change vers l'état PlanAffiche avec la nouvelle carte
-            fenetre.afficherEtatTourneChargee(tournee);
-            controleur.setEtatActuel(controleur.etatTourneeChargee);
-        } catch (Exception e) {
-            //En cas d'erreur
-            String messageErreur = e.getMessage();
-            System.out.println("ERREUR "+e);
-            JOptionPane.showMessageDialog(null, messageErreur);
-            //Reste dans l'état actuel
+        if(!nomFichier.equals("nullnull")) {
+            //Appel la méthode qui vérifie si le fichier est valide et récupère la tournee
+            LecteurXML lecteur = new LecteurXML();
+            try {
+                System.out.println("    avant");
+                tournee = lecteur.lectureRequete(nomFichier, carte, tournee);
+                //fenetre.retirerMenuEtape();
+                System.out.println("    après tournee = " + tournee);
+                //Change vers l'état PlanAffiche avec la nouvelle carte
+                fenetre.afficherEtatTourneChargee(tournee);
+                controleur.setEtatActuel(controleur.etatTourneeChargee);
+            } catch (Exception e) {
+                //En cas d'erreur
+                String messageErreur = e.getMessage();
+                System.out.println("ERREUR " + e);
+                JOptionPane.showMessageDialog(null, messageErreur);
+                //Reste dans l'état actuel
+            }
         }
     }
 
@@ -47,23 +49,25 @@ public class EtatTourneeOrdonnee implements Etat {
 
         //Récupère le nom du fichier choisi
         String nomFichier = fenetre.afficherChoixFichier();
-        //Appel la méthode qui vérifie si le fichier est valide et récupère la carte
-        LecteurXML lecteur = new LecteurXML();
-        try {
+        if(!nomFichier.equals("nullnull")) {
+            //Appel la méthode qui vérifie si le fichier est valide et récupère la carte
+            LecteurXML lecteur = new LecteurXML();
+            try {
 
-            carte = lecteur.lectureCarte(nomFichier, carte);
-            //Change vers l'état PlanAffiche avec la nouvelle carte
-            //retirerCartePanel();
-            tournee.reset();
-            //fenetre.retirerMenuLateral();
-            fenetre.afficherEtatPlanAffiche(carte);
-            controleur.setEtatActuel(controleur.etatPlanAffiche);
-        } catch (Exception e) {
-            //En cas d'erreur
-            String messageErreur = e.getMessage();
-            System.out.println("ERREUR "+e);
-            JOptionPane.showMessageDialog(null, messageErreur);
-            //Reste dans l'état actuel
+                carte = lecteur.lectureCarte(nomFichier, carte);
+                //Change vers l'état PlanAffiche avec la nouvelle carte
+                //retirerCartePanel();
+                tournee.reset();
+                //fenetre.retirerMenuLateral();
+                fenetre.afficherEtatPlanAffiche(carte);
+                controleur.setEtatActuel(controleur.etatPlanAffiche);
+            } catch (Exception e) {
+                //En cas d'erreur
+                String messageErreur = e.getMessage();
+                System.out.println("ERREUR " + e);
+                JOptionPane.showMessageDialog(null, messageErreur);
+                //Reste dans l'état actuel
+            }
         }
     }
 

@@ -39,8 +39,11 @@ public class EcouteurSurvol implements MouseListener {
      */
     @Override
     public void mouseEntered(MouseEvent e) {
+        //System.out.println(e.getSource());
         if(e.getSource() instanceof RequetePanel){
             fenetre.getCartePanel().indiquerPositionRequete(((RequetePanel) e.getSource()).getCollecte(), ((RequetePanel) e.getSource()).getDepot());
+        } else {
+            fenetre.getCartePanel().supprimerPositionRequete();
         }
 
         if((e.getSource() instanceof JLabel && ((JLabel) e.getSource()).getText().equals("X"))
@@ -51,17 +54,20 @@ public class EcouteurSurvol implements MouseListener {
             fenetre.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         }
 
-        if(e.getSource() instanceof EtapePanel){
+        /*if(e.getSource() instanceof EtapePanel){
             fenetre.getCartePanel().indiquerPositionRequete(((EtapePanel) e.getSource()).getRequeteEtape().getEtapeCollecte(), ((EtapePanel) e.getSource()).getRequeteEtape().getEtapeDepot());
         }
 
         if(e.getSource() instanceof  CartePanel || e.getSource() instanceof  Bouton){
             fenetre.getCartePanel().supprimerPositionRequete();
-        }
+        }*/
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-
+        /*
+        if(!(e.getSource() instanceof RequetePanel)){
+            fenetre.getCartePanel().supprimerPositionRequete();
+        }*/
     }
 }

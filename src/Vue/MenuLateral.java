@@ -1,5 +1,6 @@
 package Vue;
 
+import Exceptions.ValeurNegativeException;
 import Model.Carte;
 import Model.Requete;
 import Model.Tournee;
@@ -30,6 +31,8 @@ public class MenuLateral extends JPanel implements Observer {
     private Bouton boutonAjouterEtape;
     private Bouton boutonExporterFeuilleRoute;
     private JTextArea messageUtilisateur;
+    private JTextArea entreeTempsCalcul;
+    private JLabel labelTempsCalcul;
 
     private Tournee tournee;
 
@@ -116,6 +119,9 @@ public class MenuLateral extends JPanel implements Observer {
 
         //repaint au scroll
         scrollPanel.getViewport().setScrollMode(JViewport.SIMPLE_SCROLL_MODE);
+        //Augmentation de la vitesse du scroll
+        scrollPanel.getVerticalScrollBar().setUnitIncrement(16);
+
 
         scrollPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -127,11 +133,24 @@ public class MenuLateral extends JPanel implements Observer {
         scrollPanel.setBorder(border);
         this.add(scrollPanel);
 
+
+        //creation du label expliquant l'input permettant de chosiir le temps de calcul
+        labelTempsCalcul = new JLabel("Ecrivez le temps de calcul (en sec)");
+        labelTempsCalcul.setBounds( Fenetre.valMarginBase, this.getHeight() - Fenetre.hauteurBouton - Fenetre.valMarginBase, ( this.getWidth() - 2*Fenetre.valMarginBase ) /2 , Fenetre.hauteurBouton / 2);
+        this.add(labelTempsCalcul);
+
+        //creation de l'input pour choisir le temps de calcul
+        entreeTempsCalcul = new JTextArea("20");
+        entreeTempsCalcul.setBounds( Fenetre.valMarginBase, this.getHeight() - Fenetre.hauteurBouton - Fenetre.valMarginBase + (Fenetre.hauteurBouton)/2, ( this.getWidth() - 2*Fenetre.valMarginBase ) /2 , Fenetre.hauteurBouton / 2);
+        this.add(entreeTempsCalcul);
+
         //creation du bouton de calcul d'itineraire
         boutonPreparerTournee = new Bouton(Fenetre.PREPARER_TOURNEE, policeTexte, ecouteurBoutons);
         boutonPreparerTournee.addMouseListener(ecouteurSurvol);
-        boutonPreparerTournee.setBounds( Fenetre.valMarginBase, this.getHeight() - Fenetre.hauteurBouton - Fenetre.valMarginBase, this.getWidth() - 2*Fenetre.valMarginBase, Fenetre.hauteurBouton);
+        boutonPreparerTournee.setBounds( Fenetre.valMarginBase/2 + this.getWidth()/2 , this.getHeight() - Fenetre.hauteurBouton - Fenetre.valMarginBase, ( this.getWidth() - 2*Fenetre.valMarginBase ) /2 , Fenetre.hauteurBouton);
         this.add(boutonPreparerTournee);
+
+
     }
 
     /**
@@ -282,5 +301,13 @@ public class MenuLateral extends JPanel implements Observer {
 
     public void setMessageUtilisateur(String texte){
         messageUtilisateur.setText(texte);
+    }
+
+    public int obtenirTempsMaxCalcul() throws ValeurNegativeException{
+        int tempsMaxCalcul = Integer.valueOf(entreeTempsCalcul.getText());
+        if(tempsMaxCalcul < 0){
+            throw new ValeurNegativeException("La valeur entrée est négative : \""+tempsMaxCalcul+"\"");
+        }
+        return tempsMaxCalcul;
     }
 }

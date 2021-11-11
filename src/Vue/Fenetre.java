@@ -3,6 +3,7 @@ package Vue;
 
 import Controleur.Controleur;
 import Controleur.NomEtat;
+import Exceptions.ValeurNegativeException;
 import Model.Carte;
 import Model.Tournee;
 
@@ -273,5 +274,9 @@ public class Fenetre extends JFrame {
 
     public MenuLateral getMenuLateral() {
         return menuLateral;
+    }
+
+    public int obtenirTempsMaxCalcul() throws ValeurNegativeException {
+        return menuLateral.obtenirTempsMaxCalcul();
     }
 }
