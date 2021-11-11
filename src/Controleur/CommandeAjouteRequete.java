@@ -1,9 +1,15 @@
 package Controleur;
 
 import Exceptions.CommandeImpossibleException;
-import Model.*;
+import Model.Carte;
+import Model.Etape;
+import Model.Requete;
+import Model.Tournee;
 
-public class CommandeAjouteRequete implements Commande{
+/**
+ * Permet l'ajout d'exécuter la commande d'ajout de requêtes
+ */
+public class CommandeAjouteRequete implements Commande {
 
     Tournee tournee;
     Etape precedentDepot;
@@ -11,7 +17,7 @@ public class CommandeAjouteRequete implements Commande{
     Requete requete;
     Carte carte;
 
-    public CommandeAjouteRequete(Requete requete, Etape precedentCollecte, Etape precedentDepot, Tournee tournee, Carte carte){
+    public CommandeAjouteRequete(Requete requete, Etape precedentCollecte, Etape precedentDepot, Tournee tournee, Carte carte) {
         this.tournee = tournee;
         this.carte = carte;
         this.requete = requete;
@@ -23,7 +29,7 @@ public class CommandeAjouteRequete implements Commande{
      * Execute la commande de this
      */
     @Override
-    public void faireCommande(){
+    public void faireCommande() {
         tournee.ajoutRequete(requete, precedentCollecte, precedentDepot, carte);
     }
 
@@ -31,6 +37,8 @@ public class CommandeAjouteRequete implements Commande{
      * Execute la commande inverse de this
      */
     @Override
-    public void defaireCommande() throws CommandeImpossibleException { tournee.supprimerRequete(requete, carte);}
+    public void defaireCommande() throws CommandeImpossibleException {
+        tournee.supprimerRequete(requete, carte);
+    }
 
 }

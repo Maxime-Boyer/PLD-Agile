@@ -6,13 +6,16 @@ import Model.Etape;
 import Model.Requete;
 import Model.Tournee;
 
+/**
+ * Permet l'ajout d'exécuter la commande de suppression de requêtes
+ */
 public class CommandeSupprimerRequete implements Commande{
 
     private Tournee tournee;
     private Requete requeteASupprimer;
     private Carte carte;
-    private Etape etapePrecedentCollecte = null;
-    private Etape etapePrecedentDepot = null;
+    private Etape etapePrecedentCollecte;
+    private Etape etapePrecedentDepot;
 
     /**
      * Créé la commande qui supprime une requte dans une tournee
@@ -37,7 +40,7 @@ public class CommandeSupprimerRequete implements Commande{
      * Execute la commande inverse de this
      */
     @Override
-    public void defaireCommande() throws CommandeImpossibleException {
+    public void defaireCommande() {
         tournee.ajoutRequete(requeteASupprimer, etapePrecedentCollecte, etapePrecedentDepot, carte);
     }
 }
