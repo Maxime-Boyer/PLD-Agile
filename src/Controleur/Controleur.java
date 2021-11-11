@@ -5,9 +5,11 @@ import Model.Adresse;
 import Model.Carte;
 import Model.Requete;
 import Model.Tournee;
-import Vue.CartePanel;
 import Vue.Fenetre;
 
+/**
+ * Controleur dans l'architecture MVC
+ */
 public class Controleur {
 
     private Carte carte;
@@ -28,11 +30,11 @@ public class Controleur {
     protected final EtatTourneeOrdonnee etatTourneeOrdonnee = new EtatTourneeOrdonnee();
     protected final EtatPlanAffiche etatPlanAffiche = new EtatPlanAffiche();
     protected final EtatSupprimerRequete etatSupprimerRequete = new EtatSupprimerRequete();
-    protected final EtatSupprimerRequetePointSelectionne etatSupprimerRequetePointSelectionne = new EtatSupprimerRequetePointSelectionne();
 
     /**
      * Créer le controlleur de l'application
-     * @param carte : la carte
+     *
+     * @param carte la carte
      */
     public Controleur(Carte carte) {
         this.carte = carte;
@@ -45,7 +47,8 @@ public class Controleur {
 
     /**
      * Change l'état actuel du controleur
-     * @param etat : le nouvel  état
+     *
+     * @param etat le nouvel  état
      */
     protected void setEtatActuel(Etat etat) {
         etatActuel = etat;
@@ -56,30 +59,14 @@ public class Controleur {
      */
     public void chargerPlan() {
         etatActuel.chargerPlan(this, fenetre, carte, tournee);
-        System.out.println("Controlleur : carte = ");
-        System.out.println( "       aaaaaaaaaaaaaaaaaaaaaaaa" + carte);
-    }
-
-    /**
-     * Méthode appelée par fenetre après  sur le bouton "Importer un plan"
-     */
-    public void chargerNouveauPlan() {
-        etatActuel.chargerNouveauPlan(this, fenetre);
     }
 
     /**
      * Méthode appelée par fenetre après avoir cliqué sur le bouton "Importer tournée"
      */
-    public void chargerListeRequete(){
+    public void chargerListeRequete() {
         etatActuel.chargerListeRequete(this, fenetre, carte, tournee);
 
-    }
-    /**
-     * FIXME: pour moi c'est le même qu'au dessus
-     */
-
-    public void chargerNouvelleListeRequete() {
-        etatActuel.chargerNouvelleListeRequete(this, fenetre);
     }
 
     /**
@@ -87,14 +74,7 @@ public class Controleur {
      * FIXME : cohérence du vocabulaire
      */
     public void preparerTournee() {
-        etatActuel.preparerTournee(this, fenetre, carte, tournee,listeDeCommandes);
-    }
-
-    /**
-     * Méthode appelée par fenetre après avoir cliqué sur la carte
-     */
-    public void selectionPointCarte() {
-        etatActuel.selectionPointCarte(this, fenetre);
+        etatActuel.preparerTournee(this, fenetre, carte, tournee, listeDeCommandes);
     }
 
     /**
@@ -102,13 +82,6 @@ public class Controleur {
      */
     public void supressionRequete(Requete requete) {
         etatActuel.supressionRequete(this, fenetre, listeDeCommandes, tournee, carte, requete);
-    }
-
-    /**
-     * Méthode appelée par fenetre après avoir cliqué sur la validation de la suppression de la reqête
-     */
-    public void validerSupressionRequete() {
-        etatActuel.validerSupressionRequete(this, fenetre);
     }
 
     /**
@@ -126,92 +99,19 @@ public class Controleur {
     }
 
     /**
-     * Méthode appelée par fenetre après avoir cliqué sur la carte à l'endroit du nouveau point de collecte souhaité
-     */
-    public void ajoutRequetePointCollecte() {
-        etatActuel.ajoutRequetePointCollecte(this, fenetre);
-    }
-
-    /**
-     * Méthode appelée par fenetre après avoir cliqué sur le bouton "Valider position dun point de collecte"
-     * TODO : vérifier ensemble si cette méthode existe
-     */
-    public void validerAjoutRequetePointCollecte() {
-        etatActuel.validerAjoutRequetePointCollecte(this, fenetre);
-    }
-
-    /**
-     * Méthode appelée par fenetre après avoir cliqué sur l'étape qui doit précéder le point de collecte
-     */
-    public void ajoutRequeteOrdreCollecte() {
-        etatActuel.ajoutRequeteOrdreCollecte(this, fenetre);
-    }
-
-    //TODO : vérifier ensemble si il ne faut pas ajouter une méthode validerAjoutRequeteOrdreCollecte
-
-    public void ajoutRequeteDureeCollecte() {
-        etatActuel.ajoutRequeteDureeCollecte(this, fenetre);
-    }
-
-    /**
-     * Méthode appelée par fenetre après avoir cliqué sur la carte à l'endroit du nouveau point de dépôt souhaité
-     */
-    public void ajoutRequetePointDepot() {
-        etatActuel.ajoutRequetePointDepot(this, fenetre);
-    }
-
-    /**
-     * Méthode appelée par fenetre après avoir cliqué sur le bouton "Valider position du point de dépôt"
-     * TODO : vérifier ensemble si cette méthode existe
-     */
-    public void validerAjoutRequetePointDepot() {
-        etatActuel.validerAjoutRequetePointDepot(this, fenetre);
-    }
-
-    /**
-     * Méthode appelée par fenetre après avoir cliqué sur l'étape qui doit précéder le point de dépôt
-     */
-    public void ajoutRequeteOrdreDepot() {
-        etatActuel.ajoutRequeteOrdreDepot(this, fenetre);
-    }
-
-    //TODO : vérifier ensemble si il ne faut pas ajouter une méthode validerAjoutRequeteOrdreDepot
-
-    /**
-     * Méthode appelée par fenetre après avoir cliqué sur le bouton "Modifier la durée du dépôt"
-     * TODO : préciser
-     */
-    public void ajoutRequeteDureeDepot() {
-        etatActuel.ajoutRequeteDureeDepot(this, fenetre);
-    }
-
-    /**
      * Méthode appeléee par la fenêtre après avoir cliqué sur le clic gauche de la souris
+     *
      * @param a: Adresse obtenu lors du clic
      */
     public void cliqueGauche(Adresse a) throws CommandeImpossibleException {
-        etatActuel.cliqueGauche(this, fenetre,carte,listeDeCommandes, tournee, a);
+        etatActuel.cliqueGauche(this, fenetre, carte, listeDeCommandes, tournee, a);
     }
 
     /**
      * Méthode appeléee par la fenêtre après avoir cliqué sur le clic droit de la souris
      */
-    public void cliqueDroit(){
-        etatActuel.cliqueDroit(this, fenetre,carte,listeDeCommandes, tournee);
-    }
-
-    /**
-     * Méthode appelée par fenetre après avoir cliqué sur le bouton "undo"
-     */
-    public void defaire() throws CommandeImpossibleException {
-        listeDeCommandes.defaire();
-    }
-
-    /**
-     * Méthode appelée par fenetre après avoir cliqué sur le bouton "redo"
-     */
-    public void refaire() throws CommandeImpossibleException {
-        listeDeCommandes.refaire();
+    public void annuler(){
+        etatActuel.annuler(this, fenetre,carte,listeDeCommandes, tournee);
     }
 
     /**
@@ -221,11 +121,16 @@ public class Controleur {
         etatActuel.validerAjoutDureeEtape(this, fenetre);
     }
 
+    /**
+     * Méthode appelée par fenetre après avoir cliqué sur le bouton "Undo"
+     *
+     * @throws CommandeImpossibleException retourne une erreure si la commande est impossible
+     */
     public void cliqueBoutonUndo() throws CommandeImpossibleException {
         listeDeCommandes.defaire();
         fenetre.setAuthorisationCliquerBoutonRedo(true);
 
-        if(listeDeCommandes.getIndexCourant() < 0){
+        if (listeDeCommandes.getIndexCourant() < 0) {
             fenetre.setAuthorisationCliquerBoutonUndo(false);
         }
         fenetre.afficherEtatTourneePreparee(tournee);
@@ -233,10 +138,16 @@ public class Controleur {
 
 
     }
+
+    /**
+     * Méthode appelée par fenetre après avoir cliqué sur le bouton "Redo"
+     *
+     * @throws CommandeImpossibleException retourne une erreure si la commande est impossible
+     */
     public void cliqueBoutonRedo() throws CommandeImpossibleException {
         listeDeCommandes.refaire();
         fenetre.setAuthorisationCliquerBoutonUndo(true);
-        if(listeDeCommandes.getIndexCourant() == listeDeCommandes.getList().size()-1){
+        if (listeDeCommandes.getIndexCourant() == listeDeCommandes.getList().size() - 1) {
             fenetre.setAuthorisationCliquerBoutonRedo(false);
         }
         fenetre.afficherEtatTourneePreparee(tournee);
