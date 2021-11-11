@@ -368,10 +368,10 @@ public class LecteurXML {
                 }
                 // si les coordonnes de l'étape de depot concordent avec celles d'une extremite du segment
                 if(requete.getEtapeDepot().getIdAdresse().equals(segment.getOrigine().getIdAdresse()) || requete.getEtapeDepot().getIdAdresse().equals(segment.getDestination().getIdAdresse())){
-                    if(segmentDepot1 == null){
+                    if(segmentDepot1 == null || segmentDepot1.getNom() == ""){
                         segmentDepot1 = segment;
                     }
-                    else if(segmentDepot2 == null || !segment.getNom().equals(segmentDepot1.getNom())){
+                    else if(segmentDepot2 == null || segmentDepot2.getNom() == "" || !segment.getNom().equals(segmentDepot1.getNom())){
                         segmentDepot2 = segment;
                     }
                 }
