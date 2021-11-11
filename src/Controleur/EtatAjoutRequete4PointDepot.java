@@ -1,8 +1,6 @@
 package Controleur;
 
-import Model.Adresse;
-import Model.Carte;
-import Model.Tournee;
+import Model.*;
 import Vue.Fenetre;
 
 public class EtatAjoutRequete4PointDepot implements Etat{
@@ -14,5 +12,16 @@ public class EtatAjoutRequete4PointDepot implements Etat{
         controleur.setEtatActuel(controleur.etatAjoutRequete5DureeDepot);
         fenetre.afficherEtatAjoutRequete5();
     }
+
+    @Override
+    public void cliqueDroit(Controleur controleur, Fenetre fenetre, Carte carte, ListeDeCommandes l, Tournee tournee) {
+        //tournee.enleverChemin(collecte,carte);
+        fenetre.getCartePanel().viderNouvelleRequete();
+        controleur.setEtatActuel(controleur.etatTourneeOrdonnee);
+        fenetre.afficherEtatTourneePreparee(tournee);
+        //tournee.notifyObservers(tournee);
+    }
+
+
 
 }
