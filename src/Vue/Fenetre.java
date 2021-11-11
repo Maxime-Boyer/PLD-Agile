@@ -2,7 +2,6 @@ package Vue;
 
 
 import Controleur.Controleur;
-import Controleur.NomEtat;
 import Exceptions.ValeurNegativeException;
 import Model.Carte;
 import Model.Etape;
@@ -82,7 +81,7 @@ public class Fenetre extends JFrame {
         this.setVisible(true);
 
         //Après avoir tout initialisé, affiche l'état initial
-        afficherEtat(NomEtat.ETAT_INITIAL);
+        afficherEtat();
     }
 
     public PopUpSaisieDuree getPopUpSaisieDuree() {
@@ -271,18 +270,13 @@ public class Fenetre extends JFrame {
     /**
      * Affiche les etas détermines par le controleur
      *
-     * @param etat: l'etat a afficher
      */
-    public void afficherEtat(NomEtat etat) {
+    public void afficherEtat() {
 
-        switch (etat) {
-            case ETAT_INITIAL:
-                System.out.println("Fenetre.afficherEtat() : ETAT_INITIAL");
-                // E0: Vue ecran Accueil
-                ecranAccueil = new EcranAccueil(this.getWidth(), this.getHeight(), policeSousTitre, policeTexte, this.ecouteurBoutons);
-                this.add(ecranAccueil);
-                break;
-        }
+        System.out.println("Fenetre.afficherEtat() : ETAT_INITIAL");
+        // E0: Vue ecran Accueil
+        ecranAccueil = new EcranAccueil(this.getWidth(), this.getHeight(), policeSousTitre, policeTexte, this.ecouteurBoutons);
+        this.add(ecranAccueil);
 
         // repaint la fenetre
         this.revalidate();
@@ -306,15 +300,8 @@ public class Fenetre extends JFrame {
     }
 
     /**
-     * Getter sur le menuLateral, soit le menu de droite
-     * @return le menuLateral
-     */
-    public MenuLateral getMenuLateral() {
-        return menuLateral;
-    }
-
-    /**
      * Set l'autorisation de cliquer sur le bouton undo
+     *
      * @param authorisationCliquerBoutonUndo
      */
     public void setAuthorisationCliquerBoutonUndo(boolean authorisationCliquerBoutonUndo) {
@@ -323,6 +310,7 @@ public class Fenetre extends JFrame {
 
     /**
      * Set l'autorisation de cliquer sur le bouton redo
+     *
      * @param authorisationCliquerBoutonRedo
      */
     public void setAuthorisationCliquerBoutonRedo(boolean authorisationCliquerBoutonRedo) {
@@ -331,6 +319,7 @@ public class Fenetre extends JFrame {
 
     /**
      * Retourne le temps maximum de calcul entré par l'utilisateur
+     *
      * @return le temps maximum de calcul entré par l'utilisateur
      * @throws ValeurNegativeException
      */
@@ -340,6 +329,7 @@ public class Fenetre extends JFrame {
 
     /**
      * Getter sur la tournee
+     *
      * @return la tournee
      */
     public Tournee getTournee() {
@@ -348,23 +338,24 @@ public class Fenetre extends JFrame {
 
     /**
      * Ajoute l'icone au dessus des étapes sélectionnées
+     *
      * @param collecte l'étape de collecte
-     * @param depot l'étape de dépot
+     * @param depot    l'étape de dépot
      */
     public void indiquerPositionRequete(Etape collecte, Etape depot) {
         supprimerPositionRequete();
-        cartePanel.indiquerPositionRequete(collecte,depot);
-        menuLateral.indiquerPositionRequete(collecte,depot);
+        cartePanel.indiquerPositionRequete(collecte, depot);
+        menuLateral.indiquerPositionRequete(collecte, depot);
     }
 
     /**
      * Supprime les icones au dessus des étapes
      */
     public void supprimerPositionRequete() {
-        if(cartePanel != null) {
+        if (cartePanel != null) {
             cartePanel.supprimerPositionRequete();
         }
-        if(menuLateral != null) {
+        if (menuLateral != null) {
             menuLateral.supprimerPositionRequete();
         }
     }

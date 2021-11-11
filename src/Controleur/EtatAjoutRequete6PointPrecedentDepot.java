@@ -21,7 +21,6 @@ public class EtatAjoutRequete6PointPrecedentDepot implements Etat {
             Adresse nouvelleAdresseCollecte = fenetre.getCartePanel().getNouvelleAdresse().get(0);
             Etape collecte = new Etape(nouvelleAdresseCollecte.getLatitude(), nouvelleAdresseCollecte.getLongitude(), nouvelleAdresseCollecte.getIdAdresse(), dureeEtape);
             Adresse etapePrecedentDepot = tournee.rechercheEtape(precedent, nouvelleAdresseCollecte);
-            //System.out.println(etapePrecedentDepot);
             Etape etapePrecDepot;
             if (nouvelleAdresseCollecte.getIdAdresse().equals(etapePrecedentDepot.getIdAdresse())) {
                 etapePrecDepot = collecte;
