@@ -89,9 +89,9 @@ public class FeuilleRoute {
                     bw.write("<div class='etape' style='border-color: red; background-color: rgba(255,0,0,0.1);'>");
                 }
                 else {
-                    couleurCss = requeteEtapeArriveeCheminCourant.getCouleur().getRed() + ",";
-                    couleurCss += requeteEtapeArriveeCheminCourant.getCouleur().getGreen() + ",";
-                    couleurCss += requeteEtapeArriveeCheminCourant.getCouleur().getBlue() + "";
+                    couleurCss = requeteEtapeArriveeCheminCourant.getCouleurRequete().getRed() + ",";
+                    couleurCss += requeteEtapeArriveeCheminCourant.getCouleurRequete().getGreen() + ",";
+                    couleurCss += requeteEtapeArriveeCheminCourant.getCouleurRequete().getBlue() + "";
                     bw.write("<div class='etape' style='border-color: rgb("+couleurCss+"); background-color: rgba("+couleurCss+", 0.1);'>");
                 }
 
