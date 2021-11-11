@@ -104,7 +104,7 @@ public class CartePanel extends JPanel implements Observer {
         //ininitialisation du popup de saisie des durees lors de l'ajout d'une etape
         popUpSaisieDuree = new PopUpSaisieDuree(policeTexte, ecouteurBoutons);
 
-        legende = new Legende(this.carte,this.getWidth(), this.getHeight(), ecouteurDragDrop, ecouteurSurvol);
+        legende = new Legende(this.carte,this.getWidth(), this.getHeight(), ecouteurDragDrop);
 
         this.setVisible(true);
 
@@ -122,14 +122,18 @@ public class CartePanel extends JPanel implements Observer {
      * @param depot: Etape de dépot de la requete à identifier
      */
     public void indiquerPositionRequete(Etape collecte, Etape depot){
-        int x1 = valeurX(collecte.getLongitude()) - iconPosition.getIconWidth()/2;
-        int y1 = valeurY(collecte.getLatitude()) - iconPosition.getIconHeight()/2 - 25;
-        int x2 = valeurX(depot.getLongitude()) - iconPosition.getIconWidth()/2;
-        int y2 = valeurY(depot.getLatitude()) - iconPosition.getIconHeight()/2 - 25;
-        labelPosition1.setBounds(x1, y1, iconPosition.getIconWidth(), iconPosition.getIconHeight());
-        labelPosition2.setBounds(x2, y2, iconPosition.getIconWidth(), iconPosition.getIconHeight());
-        this.add(labelPosition1);
-        this.add(labelPosition2);
+        if(collecte != null){
+            int x1 = valeurX(collecte.getLongitude()) - iconPosition.getIconWidth()/2;
+            int y1 = valeurY(collecte.getLatitude()) - iconPosition.getIconHeight()/2 - 25;
+            labelPosition1.setBounds(x1, y1, iconPosition.getIconWidth(), iconPosition.getIconHeight());
+            this.add(labelPosition1);
+        }
+        if(depot != null){
+            int x2 = valeurX(depot.getLongitude()) - iconPosition.getIconWidth()/2;
+            int y2 = valeurY(depot.getLatitude()) - iconPosition.getIconHeight()/2 - 25;
+            labelPosition2.setBounds(x2, y2, iconPosition.getIconWidth(), iconPosition.getIconHeight());
+            this.add(labelPosition2);
+        }
         this.repaint();
     }
 

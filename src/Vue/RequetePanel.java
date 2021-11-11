@@ -55,6 +55,7 @@ public class RequetePanel extends JPanel {
         panelInside.setOpaque(false);
         panelInside.setBackground(couleurFond);
         panelInside.setBorder(new EmptyBorder(10, 10, 10, 10));
+        panelInside.addMouseListener(ecouteurSurvol);
 
         /************************************************************************************/
         /*                               Label duree de collecte                            */
@@ -67,6 +68,7 @@ public class RequetePanel extends JPanel {
         labelTitreCollecte.setLineWrap(true);
         labelTitreCollecte.setWrapStyleWord(true);
         labelTitreCollecte.setOpaque(false);
+        labelTitreCollecte.addMouseListener(ecouteurSurvol);
         panelInside.add(labelTitreCollecte);
         panelInside.add(Box.createRigidArea(new Dimension(0, valMarginBase/2)));
 
@@ -80,6 +82,7 @@ public class RequetePanel extends JPanel {
         labelAdresseCollecte.setLineWrap(true);
         labelAdresseCollecte.setWrapStyleWord(true);
         labelAdresseCollecte.setOpaque(false);
+        labelAdresseCollecte.addMouseListener(ecouteurSurvol);
         panelInside.add(labelAdresseCollecte);
         panelInside.add(Box.createRigidArea(new Dimension(0, 2*valMarginBase)));
 
@@ -93,6 +96,7 @@ public class RequetePanel extends JPanel {
         labelTitreDepot.setLineWrap(true);
         labelTitreDepot.setWrapStyleWord(true);
         labelTitreDepot.setOpaque(false);
+        labelTitreDepot.addMouseListener(ecouteurSurvol);
         panelInside.add(labelTitreDepot);
         panelInside.add(Box.createRigidArea(new Dimension(0, valMarginBase/2)));
 
@@ -106,6 +110,7 @@ public class RequetePanel extends JPanel {
         labelAdresseDepot.setLineWrap(true);
         labelAdresseDepot.setWrapStyleWord(true);
         labelAdresseDepot.setOpaque(false);
+        labelAdresseDepot.addMouseListener(ecouteurSurvol);
         panelInside.add(labelAdresseDepot);
 
         this.add(panelInside);

@@ -330,4 +330,8 @@ public class Fenetre extends JFrame {
     public int obtenirTempsMaxCalcul() throws ValeurNegativeException {
         return menuLateral.obtenirTempsMaxCalcul();
     }
+
+    public Tournee getTournee() {
+        return tournee;
+    }
 }

@@ -37,9 +37,8 @@ public class Legende extends JPanel{
      * @param largeurParent: largeur du parent en px
      * @param hauteurParent: haueteur du parent en px
      * @param ecouteurDragDrop: ecouteur assurant le drag & drop de la legende
-     * @param ecouteurSurvol: ecouteur gerant les evenements de survol
      */
-    public Legende(Carte carte, int largeurParent, int hauteurParent, EcouteurDragDrop ecouteurDragDrop, EcouteurSurvol ecouteurSurvol) {
+    public Legende(Carte carte, int largeurParent, int hauteurParent, EcouteurDragDrop ecouteurDragDrop) {
 
         this.carte = carte;
 
@@ -59,7 +58,6 @@ public class Legende extends JPanel{
         this.setBorder(BorderFactory.createMatteBorder(tailleBordure, tailleBordure, tailleBordure, tailleBordure, Color.darkGray));
 
         this.addMouseMotionListener(ecouteurDragDrop);
-        this.addMouseListener(ecouteurSurvol);
 
         // dessin des formes
         legendeFormes = new LegendeFormes(carte, ecartLabels - tailleBordure, this.getHeight() - 2*tailleBordure, tailleBordureVerticale, hauteurLigne,tailleBordure);
@@ -74,7 +72,6 @@ public class Legende extends JPanel{
         legendeSegment3 = new JLabel("Trois passages sur le segment");
         legendeSegment4 = new JLabel("Quatre passages sur le segment");
         legendeSegment5 = new JLabel("Cinq ou plus passages sur le segment");
-
 
         legendeTriangle.setBounds(ecartLabels, tailleBordureVerticale, largeurLabels, hauteurLigne);
         legendeRond.setBounds(ecartLabels, hauteurLigne + tailleBordureVerticale, largeurLabels, hauteurLigne);

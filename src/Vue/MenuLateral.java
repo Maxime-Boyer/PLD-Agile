@@ -57,6 +57,8 @@ public class MenuLateral extends JPanel implements Observer {
         this.ecouteurBoutons = ecouteurBoutons;
         this.ecouteurSurvol = ecouteurSurvol;
 
+        this.addMouseListener(ecouteurSurvol);
+
         // propriétés du panel principal
         this.setBounds(largeurFenetre * 3 / 4, 0, largeurFenetre / 4, hauteurEcran);
         this.setLayout(null);
@@ -132,7 +134,7 @@ public class MenuLateral extends JPanel implements Observer {
 
         //creation du bouton de calcul d'itineraire
         boutonPreparerTournee = new Bouton(Fenetre.PREPARER_TOURNEE, policeTexte, ecouteurBoutons);
-        boutonPreparerTournee.addMouseListener(ecouteurSurvol);
+        //boutonPreparerTournee.addMouseListener(ecouteurSurvol);
         boutonPreparerTournee.setBounds( Fenetre.valMarginBase/2 + this.getWidth()/2 , this.getHeight() - Fenetre.hauteurBouton - Fenetre.valMarginBase, ( this.getWidth() - 2*Fenetre.valMarginBase ) /2 , Fenetre.hauteurBouton);
         this.add(boutonPreparerTournee);
     }
@@ -277,6 +279,8 @@ public class MenuLateral extends JPanel implements Observer {
             panelInsideScrollPanel.add(listeRequetes[i]);
             panelInsideScrollPanel.add(Box.createRigidArea(new Dimension(0, 2 * Fenetre.valMarginBase)));
         }
+        ecouteurSurvol.setListeRequetes(listeRequetes);
+
 
         this.scrollPanel = new JScrollPane(panelInsideScrollPanel);
 
@@ -352,10 +356,11 @@ public class MenuLateral extends JPanel implements Observer {
             }
 
             // affichage de l'etape
-            listeEtapes[i+1] = new EtapePanel(etapeFinChemin, requete, panelInsideScrollPanel.getWidth(), Fenetre.valMarginBase, policeTexte, policeTexteImportant, ecouteurSurvol);
+            listeEtapes[i+1] = new EtapePanel(etapeFinChemin, requete, panelInsideScrollPanel.getWidth(), Fenetre.valMarginBase, policeTexte, policeTexteImportant,ecouteurSurvol);
             panelInsideScrollPanel.add(listeEtapes[i+1]);
             panelInsideScrollPanel.add(Box.createRigidArea(new Dimension(0, 2 * Fenetre.valMarginBase)));
         }
+        ecouteurSurvol.setListeEtapes(listeEtapes);
 
         this.scrollPanel = new JScrollPane(panelInsideScrollPanel);
         //repaint au scroll
@@ -436,8 +441,8 @@ public class MenuLateral extends JPanel implements Observer {
 
     public int obtenirTempsMaxCalcul() throws ValeurNegativeException{
         int tempsMaxCalcul = Integer.valueOf(entreeTempsCalcul.getText());
-        if(tempsMaxCalcul < 0){
-            throw new ValeurNegativeException("La valeur entrée est négative : \""+tempsMaxCalcul+"\"");
+        if(tempsMaxCalcul <= 0){
+            throw new ValeurNegativeException("La valeur entrée est négative ou nulle : \""+tempsMaxCalcul+"\"");
         }
         return tempsMaxCalcul;
     }

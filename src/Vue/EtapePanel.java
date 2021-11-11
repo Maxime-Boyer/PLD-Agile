@@ -55,6 +55,7 @@ public class EtapePanel extends JPanel {
         panelInside.setLayout(boxlayoutInside);
         panelInside.setOpaque(false);
         panelInside.setBorder(new EmptyBorder(10, 10, 10, 10));
+        panelInside.addMouseListener(ecouteurSurvol);
 
         /************************************************************************************/
         /*                               Label duree de collecte                            */
@@ -74,12 +75,15 @@ public class EtapePanel extends JPanel {
         JPanel firstLine = new JPanel(new BorderLayout());
         firstLine.setSize(this.getWidth() - 4 * valMarginBase, 30);
         firstLine.setOpaque(false);
+        firstLine.addMouseListener(ecouteurSurvol);
 
         JLabel labelTitreCollecte = new JLabel(texteTitreEtape);
         labelTitreCollecte.setFont(policeTexteImportant);
         firstLine.add(labelTitreCollecte, BorderLayout.LINE_START);
+        labelTitreCollecte.addMouseListener(ecouteurSurvol);
 
         JLabel labelSuppr = new JLabel("X");
+        labelSuppr.addMouseListener(ecouteurSurvol);
         labelSuppr.addMouseListener(ecouteurSurvol);
         firstLine.add(labelSuppr, BorderLayout.LINE_END);
 
@@ -97,6 +101,7 @@ public class EtapePanel extends JPanel {
         labelHeurePassage.setLineWrap(true);
         labelHeurePassage.setWrapStyleWord(true);
         labelHeurePassage.setOpaque(false);
+        labelHeurePassage.addMouseListener(ecouteurSurvol);
         panelInside.add(labelHeurePassage);
         panelInside.add(Box.createRigidArea(new Dimension(0, valMarginBase/2)));
 
@@ -110,8 +115,17 @@ public class EtapePanel extends JPanel {
         labelAdresseCollecte.setLineWrap(true);
         labelAdresseCollecte.setWrapStyleWord(true);
         labelAdresseCollecte.setOpaque(false);
+        labelAdresseCollecte.addMouseListener(ecouteurSurvol);
         panelInside.add(labelAdresseCollecte);
 
         this.add(panelInside);
+    }
+
+    /**
+     * Getter sur requete liée à EtapePanel
+     * @return Requete liée à EtapePanel
+     */
+    public Requete getRequeteEtape() {
+        return requeteEtape;
     }
 }
