@@ -14,11 +14,14 @@ import java.sql.SQLOutput;
 public class EtatTourneeChargee implements Etat {
 
     @Override
-    public void preparerTournee(Controleur controleur, Fenetre fenetre, Carte carte, Tournee tournee) {
+    public void preparerTournee(Controleur controleur, Fenetre fenetre, Carte carte, Tournee tournee,ListeDeCommandes l) {
         System.out.println("EtatTourneeChargee : preparerTournee");
 
         CalculateurTournee calculTournee = new CalculateurTournee(carte, tournee);
         try {
+            l.reinitialiser();
+            fenetre.setAuthorisationCliquerBoutonUndo(false);
+            fenetre.setAuthorisationCliquerBoutonRedo(false);
             int tempsMaxCalcul = fenetre.obtenirTempsMaxCalcul();
             //Calcul la tounee
             calculTournee.calculerTournee(tempsMaxCalcul);

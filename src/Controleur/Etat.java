@@ -26,7 +26,7 @@ public interface Etat {
      * @param carte la carte
      * @param tournee la liste des requêtes qui vas permettred de calculer une tournee
      */
-    public default void preparerTournee(Controleur c, Fenetre fenetre, Carte carte, Tournee tournee) {}
+    public default void preparerTournee(Controleur c, Fenetre fenetre, Carte carte, Tournee tournee,ListeDeCommandes l) {}
     public default void supressionRequete(Controleur c, Fenetre fenetre,ListeDeCommandes listeDeCommandes,Tournee tournee, Carte carte, Requete requete){}
     public default void selectionPointCarte(Controleur c, Fenetre fenetre){}
     public default void validerSupressionRequete(Controleur c, Fenetre fenetre){}
