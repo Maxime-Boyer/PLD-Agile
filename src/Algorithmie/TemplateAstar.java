@@ -30,6 +30,11 @@ public abstract class TemplateAstar implements Astar {
     // La carte
     private Carte carte;
 
+    /**
+     * Constructeur de TemplateAstar
+     *
+     * @param carte la carte à partir de laquelle sera calculé le chemin
+     */
     public TemplateAstar(Carte carte) {
         this.carte = carte;
         this.d = new HashMap<>();
@@ -48,7 +53,6 @@ public abstract class TemplateAstar implements Astar {
      */
     protected abstract double calculHeuristique(Adresse adresse, Adresse arrivee);
 
-    //TODO : implémenter
     @Override
     public CheminEntreEtape chercherCheminEntreEtape(Etape depart, Etape arrivee) {
 
@@ -64,45 +68,34 @@ public abstract class TemplateAstar implements Astar {
         NoeudAdresse nouveauNoeudAdresse = new NoeudAdresse(depart.getIdAdresse(), d.get(depart.getIdAdresse()));
         filePrioriteAdressesGises.offer(nouveauNoeudAdresse);
         adressesGrises.put(nouveauNoeudAdresse.getIdAdresse(), nouveauNoeudAdresse);
-        int nbLoop = 0;//TODO : delete this
         while (!filePrioriteAdressesGises.isEmpty()) {
-            //System.out.println("Loop " + nbLoop++);
-
             //Prend l'adresse de la liste grise ayant le cout min
             Adresse adresseActuelle = carte.obtenirAdresseParId(filePrioriteAdressesGises.peek().getIdAdresse()); //O(1)
-            //System.out.println("    adresseActuelle="+adresseActuelle);
 
             //Si on a atteint la destination alors on retourne le chemin trouve (etat actuel correspond à l'arrivee)
             if (adresseActuelle.getIdAdresse().equals(arrivee.getIdAdresse())) {
-                //System.out.println("    destination atteinte");
                 ArrayList<Segment> meilleurChemin = new ArrayList<>();
                 //Tant que l'adresse actuelle est differente de l'adresse de depart
                 int distance = 0;
                 while (!adresseActuelle.getIdAdresse().equals(depart.getIdAdresse())) {
-                    //System.out.println("        adresseActuelle="+adresseActuelle);
                     //Ajoute le chemin pour aller du parent à l'adresse actuelle
                     Segment segmentVenantDuParent = pi.get(adresseActuelle.getIdAdresse());
                     meilleurChemin.add(0, segmentVenantDuParent);
                     distance += segmentVenantDuParent.getLongueur();
                     //L'adresse actuelle devient celle du parent
                     adresseActuelle = segmentVenantDuParent.getOrigine();
-                    //System.out.println("        adresseParent="+adresseActuelle);
                 }
                 return new CheminEntreEtape(depart, arrivee, meilleurChemin, distance);
             }
 
             //Passe l'adresse actuelle en visitée
             adressesNoire.add(adresseActuelle.getIdAdresse());
-            //System.out.println("    filePrioriteAdressesGises="+filePrioriteAdressesGises);
             filePrioriteAdressesGises.poll();
             adressesGrises.remove(adresseActuelle.getIdAdresse());
-            //System.out.println("    filePrioriteAdressesGises="+filePrioriteAdressesGises);
 
             //Visite les voisins de l'adresse actuelle
             for (Segment segSortants : adresseActuelle.getSegmentsSortants()) {
                 Adresse voisin = segSortants.getDestination();
-
-                //System.out.println("voisin : "+voisin);
 
                 // Il ne faut rien faire si le voisin est noir (deja visite)
                 if (adressesNoire.contains(voisin.getIdAdresse())) continue;
@@ -130,13 +123,8 @@ public abstract class TemplateAstar implements Astar {
                     }
                 }
             }
-            nbLoop++;
         }
         return null;
     }
 
-    //TODO : implémenter
-    private void relacher() {
-
-    }
 }

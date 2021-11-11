@@ -12,10 +12,17 @@ public class IterateurProximite implements Iterator<Adresse> {
     private Adresse[] candidats;
     private int nbCandidats;
 
+    /**
+     * //TODO: Ajouter description
+     *
+     * @param nonVisite              Addresses non visitées
+     * @param adresseActuelle        Addresse actuelle
+     * @param grapheCompletDesEtapes Le graphe complet des étapes
+     */
     public IterateurProximite(Collection<Adresse> nonVisite, Adresse adresseActuelle, HashMap<Long, HashMap<Long, CheminEntreEtape>> grapheCompletDesEtapes) {
         this.candidats = new Adresse[nonVisite.size()];
         for (Adresse a : nonVisite) {
-            if (a.getIdAdresse() != adresseActuelle.getIdAdresse()) {
+            if (!a.getIdAdresse().equals(adresseActuelle.getIdAdresse())) {
                 candidats[nbCandidats++] = a;
             }
         }

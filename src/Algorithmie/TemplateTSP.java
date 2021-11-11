@@ -15,6 +15,14 @@ public abstract class TemplateTSP implements TSP {
     private int tempsLimite;
     private int coutMeilleureSolution;
 
+    /**
+     * Constructeur de TemplateTSP
+     *
+     * @param carte                  La carte
+     * @param tournee                La liste des requetes souhaites
+     * @param grapheCompletDesEtapes Le graphe complet des etapes
+     * @param tempsLimite            Le temps limite de calcul du TSP
+     */
     TemplateTSP(Carte carte, Tournee tournee, HashMap<Long, HashMap<Long, CheminEntreEtape>> grapheCompletDesEtapes, int tempsLimite) {
         this.carte = carte;
         this.tournee = tournee;

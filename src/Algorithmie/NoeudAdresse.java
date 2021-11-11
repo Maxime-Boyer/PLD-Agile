@@ -1,43 +1,54 @@
 package Algorithmie;
 
+/**
+ * Stocke un noeud qui représente une adresse avec son cout associe pour le calcul Astar
+ */
 public class NoeudAdresse implements Comparable<NoeudAdresse> {
     public double cout;
     public Long idAdresse;
 
+    /**
+     * Constructeur de NoeudAdresse
+     *
+     * @param idAdresse L'id de l'adresse du noeud
+     * @param cout      Le cout associe au noeud pour Astar
+     */
     public NoeudAdresse(Long idAdresse, double cout) {
         this.idAdresse = idAdresse;
         this.cout = cout;
     }
 
-    public boolean equals(Object obj) {
-        NoeudAdresse vertex = (NoeudAdresse) obj;
-        return vertex.cout == cout && vertex.idAdresse == idAdresse;
+    /**
+     * Permet de savoir si deux noeuds sont égaux
+     *
+     * @param vertex Le noeud qui doit être comparé
+     * @return Retourne un booléen indiquant si deux noeuds sont égaux
+     */
+    public boolean equals(NoeudAdresse vertex) {
+        return vertex.cout == cout && vertex.idAdresse.equals(idAdresse);
     }
 
     @Override
     public int compareTo(NoeudAdresse other) {
-        if (this.cout == other.cout)
-            return 0;
-        else if (this.cout > other.cout)
-            return 1;
-        else
-            return -1;
+        return Double.compare(this.cout, other.cout);
     }
 
-    public double getCout() {
-        return cout;
-    }
-
+    /**
+     * Modifie la valeur du cout
+     *
+     * @param cout La nouvelle valeur du cout
+     */
     public void setCout(double cout) {
         this.cout = cout;
     }
 
+    /**
+     * Modifie la valeur de l'id de l'adresse associée au noeud
+     *
+     * @return La nouvelle valeur du noeud
+     */
     public Long getIdAdresse() {
         return idAdresse;
-    }
-
-    public void setIdAdresse(Long idAdresse) {
-        this.idAdresse = idAdresse;
     }
 
     @Override

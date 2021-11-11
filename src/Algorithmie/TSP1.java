@@ -22,7 +22,7 @@ public class TSP1 extends TemplateTSP {
 
     @Override
     protected Iterator<Adresse> iterateur(Adresse adresseActuelle, List<Adresse> nonVisite) {
-        return new IterateurSeq(nonVisite, adresseActuelle, grapheCompletDesEtapes);
+        return new IterateurSeq(nonVisite, adresseActuelle);
     }
 
 }
