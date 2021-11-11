@@ -46,7 +46,7 @@ public class FeuilleRoute {
             }
 
             // TODO: Arthur fixé ?
-            bw.write(" <h2>Départ</h2><p> Depart de l'entrepot situe à l'"+tournee.getEtapeDepart().getNomAdresse()+" à "+tournee.getDateDepart()+"</p>");
+            bw.write(" <h2>Départ</h2><p> Depart de l'entrepot à "+tournee.getDateDepart()+"</p>");
 
             Requete requeteEtapeArriveeCheminCourant;
             Etape etapeArriveeChemin;
