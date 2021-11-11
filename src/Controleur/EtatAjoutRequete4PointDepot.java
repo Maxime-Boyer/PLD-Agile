@@ -13,4 +13,15 @@ public class EtatAjoutRequete4PointDepot implements Etat{
         fenetre.afficherEtatAjoutRequete5();
     }
 
+    @Override
+    public void cliqueDroit(Controleur controleur, Fenetre fenetre, Carte carte, ListeDeCommandes l, Tournee tournee) {
+        //tournee.enleverChemin(collecte,carte);
+        fenetre.getCartePanel().viderNouvelleRequete();
+        controleur.setEtatActuel(controleur.etatTourneeOrdonnee);
+        fenetre.afficherEtatTourneePreparee(tournee);
+        //tournee.notifyObservers(tournee);
+    }
+
+
+
 }

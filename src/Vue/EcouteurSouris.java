@@ -31,8 +31,8 @@ public class EcouteurSouris extends MouseAdapter {
                 if (a != null)
                     controleur.cliqueGauche(a);
                 break;
-            /* case MouseEvent.BUTTON3:
-                controller.rightClick();
+             case MouseEvent.BUTTON3:
+                controleur.cliqueDroit();
                 break;
             default:
         }

@@ -7,8 +7,9 @@ import Vue.Fenetre;
 import javax.swing.*;
 
 public class EtatAjoutRequete6PointPrecedentDepot implements Etat{
-
     private Integer dureeEtape;
+    private Etape precendentColl = null;
+
     @Override
     public void cliqueGauche (Controleur controleur, Fenetre fenetre, Carte carte, ListeDeCommandes l, Tournee tournee, Adresse precedent){
         try {
@@ -27,8 +28,12 @@ public class EtatAjoutRequete6PointPrecedentDepot implements Etat{
                 etapePrecDepot = tournee.obtenirEtapeParId(etapePrecedentDepot.getIdAdresse());
             }
             //System.out.println(etapePrecDepot);
+            Requete nouvelleRequete = new Requete(collecte,depot);
+            //tournee.ajoutRequete(nouvelleRequete);
 
+            l.ajouter(new CommandeAjouteRequete(nouvelleRequete, precendentColl, etapePrecDepot, tournee, carte));
             if(!tournee.collectePrecedeDepot(collecte, etapePrecDepot)){
+                l.annuler();
                 throw new CommandeImpossibleException("Erreur le prédecesseur du depot se situe avant la collecte dans l'itinéraire");
             }
 
@@ -50,7 +55,21 @@ public class EtatAjoutRequete6PointPrecedentDepot implements Etat{
         }
     }
 
+    @Override
+    public void cliqueDroit(Controleur controleur , Fenetre fenetre, Carte carte, ListeDeCommandes l, Tournee tournee) {
+        //tournee.enleverChemin(collecte,carte);
+        fenetre.getCartePanel().viderNouvelleRequete();
+        controleur.setEtatActuel(controleur.etatTourneeOrdonnee);
+        fenetre.afficherEtatTourneePreparee(tournee);
+        //tournee.notifyObservers(tournee);
+    }
+
     public void mettreAjourDuree(Integer dureeEtape){
         this.dureeEtape = dureeEtape;
+    }
+
+
+    public void mettreAJourPrecedentCollecte(Etape precendentColl){
+        this.precendentColl= precendentColl;
     }
 }

@@ -15,4 +15,10 @@ public class EtatAjoutRequete1PointCollecte implements Etat {
         fenetre.afficherEtatAjoutRequete2();
     }
 
+    @Override
+    public void cliqueDroit (Controleur controleur, Fenetre fenetre, Carte carte, ListeDeCommandes l, Tournee tournee){
+        controleur.setEtatActuel(controleur.etatTourneeOrdonnee);
+        fenetre.afficherEtatTourneePreparee(tournee);
+    }
+
 }

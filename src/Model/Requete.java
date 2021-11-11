@@ -49,11 +49,7 @@ public class Requete {
     public Etape getEtapeDepot() {
         return etapeDepot;
     }
-    /**
-     * méthode qui retourne la couleur de la requete
-     * @return: la couleur de la requête pour l'IHM
-     */
-    public Color getCouleur() { return couleurRequete; }
+
 
     /**
      * méthode qui retourne true si les deux requetes sont les mêmes
@@ -96,4 +92,6 @@ public class Requete {
     public Color getCouleurRequete() {
         return couleurRequete;
     }
+
+
 }
