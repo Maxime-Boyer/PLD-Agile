@@ -87,7 +87,7 @@ public class Controleur {
      * FIXME : cohérence du vocabulaire
      */
     public void preparerTournee() {
-        etatActuel.preparerTournee(this, fenetre, carte, tournee);
+        etatActuel.preparerTournee(this, fenetre, carte, tournee,listeDeCommandes);
     }
 
     /**
