@@ -266,51 +266,25 @@ public class Tournee extends Observable {
     }
 
     /**
-     * méthode qui renvoie l'Adresse la plus proche en focntion de l'Adresse en paramètre.
-     * @param a: adresse récupéré au clic de l'utilisateur
-     * @return: l'Adresse recherchée
-     */
-    public Adresse rechercheEtape (Adresse a){
-        double distanceMin = Double.MAX_VALUE;
-        double distanceCollecte;
-        double distanceDepot;
-        Adresse plusProche = null;
-        for(Requete r : listeRequetes){
-            Adresse collecte = new Adresse (r.getEtapeCollecte().getLatitude(),r.getEtapeCollecte().getLongitude(),r.getEtapeCollecte().getIdAdresse());
-            Adresse depot = new Adresse (r.getEtapeDepot().getLatitude(),r.getEtapeDepot().getLongitude(),r.getEtapeDepot().getIdAdresse());
-            distanceCollecte = distanceEntreAdresse(a, collecte);
-            distanceDepot = distanceEntreAdresse(a, depot);
-            if( distanceCollecte < distanceMin){
-                distanceMin = distanceCollecte;
-                plusProche = collecte;
-            }
-            if( distanceDepot < distanceMin){
-                distanceMin = distanceDepot;
-                plusProche = depot;
-            }
-        }
-
-        return plusProche;
-    }
-
-    /**
-     * méthode qui permet de rechercher l'Adresse entre l'adresse cliquée et l'adresse déjà placée sur le carte dans l'état ajout requête
+     * méthode qui renvoie l'Adresse la plus proche en fonction de l'Adresse en paramètre.
      * @param a: adresse cliquée
-     * @param collectePlacee: nouvelle adresse de collecte
+     * @param collectePlacee: nouvelle adresse de collecte. null si on est actuellement en train de créer la collecte.
      * @return: l'Adresse entre l'Adresse cliquée et l'Adresse déjà placée
      */
     public Adresse rechercheEtape (Adresse a, Adresse collectePlacee){
         double distanceMin = Double.MAX_VALUE;
         double distanceCollecte;
         double distanceDepot;
-        double distanceCollectePlacee;
+        double distanceCollectePlacee = Double.MAX_VALUE;
         Adresse plusProche = null;
         for(CheminEntreEtape chemin : listeChemins){
             Adresse collecte = new Adresse (chemin.getEtapeDepart().getLatitude(),chemin.getEtapeDepart().getLongitude(),chemin.getEtapeArrivee().getIdAdresse());
             Adresse depot = new Adresse (chemin.getEtapeArrivee().getLatitude(),chemin.getEtapeArrivee().getLongitude(),chemin.getEtapeArrivee().getIdAdresse());
             distanceCollecte = distanceEntreAdresse(a, collecte);
             distanceDepot = distanceEntreAdresse(a, depot);
-            distanceCollectePlacee = distanceEntreAdresse(a, collectePlacee);
+            if(collectePlacee != null) {
+                distanceCollectePlacee = distanceEntreAdresse(a, collectePlacee);
+            }
             if( distanceCollecte < distanceMin){
                 distanceMin = distanceCollecte;
                 plusProche = collecte;

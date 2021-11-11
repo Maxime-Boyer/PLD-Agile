@@ -18,22 +18,24 @@ public class EtatAjoutRequete6PointPrecedentDepot implements Etat{
             Etape collecte = new Etape(nouvelleAdresseCollecte.getLatitude(), nouvelleAdresseCollecte.getLongitude(), nouvelleAdresseCollecte.getIdAdresse(),dureeEtape);
 
             Adresse etapePrecedentDepot = tournee.rechercheEtape(precedent, nouvelleAdresseCollecte);
-            //System.out.println(etapePrecedentDepot);
-            Etape etapePrecDepot = tournee.obtenirEtapeParId(etapePrecedentDepot.getIdAdresse());
-            //System.out.println(etapePrecDepot);
+            if(etapePrecedentDepot != null) {
+                //System.out.println(etapePrecedentDepot);
+                Etape etapePrecDepot = tournee.obtenirEtapeParId(etapePrecedentDepot.getIdAdresse());
+                //System.out.println(etapePrecDepot);
 
-            if(!tournee.collectePrecedeDepot(collecte, etapePrecDepot)){
-                throw new CommandeImpossibleException("Erreur le prédecesseur du depot se situe avant la collecte dans l'itinéraire");
+                if (!tournee.collectePrecedeDepot(collecte, etapePrecDepot)) {
+                    throw new CommandeImpossibleException("Erreur le prédecesseur du depot se situe avant la collecte dans l'itinéraire");
+                }
+
+                l.ajouter(new CommandeAjouteRequete(tournee, carte, depot, etapePrecDepot));
+                Requete nouvelleRequete = new Requete(collecte, depot);
+                tournee.ajoutRequete(nouvelleRequete);
+                fenetre.getCartePanel().getNouvelleAdresse().clear();
+                //fenetre.getCartePanel().repaint();
+                controleur.setEtatActuel(controleur.etatTourneeOrdonnee);
+                fenetre.afficherEtatTourneePreparee(tournee);
+                tournee.notifyObservers(tournee);
             }
-
-            l.ajouter(new CommandeAjouteRequete(tournee, carte, depot, etapePrecDepot));
-            Requete nouvelleRequete = new Requete(collecte,depot);
-            tournee.ajoutRequete(nouvelleRequete);
-            fenetre.getCartePanel().getNouvelleAdresse().clear();
-            //fenetre.getCartePanel().repaint();
-            controleur.setEtatActuel(controleur.etatTourneeOrdonnee);
-            fenetre.afficherEtatTourneePreparee(tournee);
-            tournee.notifyObservers(tournee);
         }
         catch (CommandeImpossibleException e) {
             //En cas d'erreur
