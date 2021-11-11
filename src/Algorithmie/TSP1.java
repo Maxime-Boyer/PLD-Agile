@@ -13,6 +13,7 @@ public class TSP1 extends TemplateTSP {
 
     /**
      * Constructeur de TSP1
+     * Utilise une évaluation retournant 0, et IterateurSeq
      *
      * @param carte:                 La carte
      * @param tournee:                La liste des requetes souhaites
