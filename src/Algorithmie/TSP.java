@@ -5,18 +5,8 @@ import Model.Tournee;
 public interface TSP {
 
     /**
-     * TODO Add JavaDoc
+     * Lance la recherche d'une solution
      */
     public void chercherSolution();
-
-    /**
-     * TODO Add JavaDoc
-     */
-    public Tournee obtenirSolution();
-
-    /**
-     * TODO Add JavaDoc
-     */
-    public int obtenirCoutSolution();
 
 }

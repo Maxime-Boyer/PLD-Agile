@@ -16,6 +16,7 @@ public class TSP2 extends TemplateTSP {
 
     /**
      * Constructeur de TSP2
+     * Utilise une évaluation retournant cheminLePlusCourt * nombre d'adresses non visitées, et IterateurProximite
      *
      * @param carte                  La carte
      * @param tournee                La liste des requetes souhaites

@@ -41,7 +41,7 @@ public abstract class TemplateTSP implements TSP {
      * //TODO
      *
      * @param adresseActuelle L'adresse actuelle
-     * @param nonVisite La liste des adresses pas encore visités
+     * @param nonVisite       La liste des adresses pas encore visités
      * @return //TODO
      */
     protected abstract int evaluation(Adresse adresseActuelle, List<Adresse> nonVisite);
@@ -50,7 +50,7 @@ public abstract class TemplateTSP implements TSP {
      * //TODO
      *
      * @param adresseActuelle L'adresse actuelle
-     * @param nonVisite La liste des adresses pas encore visités
+     * @param nonVisite       La liste des adresses pas encore visités
      * @return //TODO
      */
     protected abstract Iterator<Adresse> iterateur(Adresse adresseActuelle, List<Adresse> nonVisite);
@@ -77,12 +77,12 @@ public abstract class TemplateTSP implements TSP {
     }
 
     /**
-     * //TODO
+     * Application du Branch & Bound (Séparation et Evaluation en français)
      *
      * @param adresseActuelle L'adresse actuelle
-     * @param nonVisite La liste des adresses pas encore visitees
-     * @param visite La liste des adresses visitees
-     * @param coutActuel Le cout actuel TODO Préciser
+     * @param nonVisite       La liste des adresses pas encore visitees
+     * @param visite          La liste des adresses visitees
+     * @param coutActuel      Le cout actuel de la branche sur laquelle on se trouve
      */
     private void separationEtEvaluation(Adresse adresseActuelle, List<Adresse> nonVisite, List<Adresse> visite, int coutActuel) {
 
@@ -142,16 +142,6 @@ public abstract class TemplateTSP implements TSP {
         } else {
             return visite.contains(mapRequete.get(prochaineAdresse.getIdAdresse()).getEtapeCollecte());
         }
-    }
-
-    @Override
-    public Tournee obtenirSolution() {
-        return tournee;
-    }
-
-    @Override
-    public int obtenirCoutSolution() {
-        return coutMeilleureSolution;
     }
 
 }
