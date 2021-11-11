@@ -30,9 +30,6 @@ public class EtatAjoutRequete6PointPrecedentDepot implements Etat{
 
             Requete nouvelleRequete = new Requete(collecte,depot);
 
-
-
-
             if(!tournee.collectePrecedeDepot(collecte, etapePrecDepot, etapePrecedentCollecte)){
                 throw new CommandeImpossibleException("Erreur le prédecesseur du depot se situe avant la collecte dans l'itinéraire");
             }
