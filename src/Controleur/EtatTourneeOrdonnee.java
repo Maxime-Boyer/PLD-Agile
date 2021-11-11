@@ -76,7 +76,6 @@ public class EtatTourneeOrdonnee implements Etat {
 
     @Override
     public void ajoutRequete (Controleur controleur, Fenetre fenetre){
-        fenetre.getCartePanel().supprimerPositionRequete();
         fenetre.afficherEtatAjoutRequete();
         controleur.setEtatActuel(controleur.etatAjoutRequete1PointCollecte);
     }

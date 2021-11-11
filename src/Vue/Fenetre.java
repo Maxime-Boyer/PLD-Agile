@@ -110,6 +110,8 @@ public class Fenetre extends JFrame {
         System.out.println("Frentre.afficherEtatPlanAffiche(carte) : ETAT_PLAN_AFFICHE");
         //E1: Carte chargée
 
+        supprimerPositionRequete();
+
         if (cartePanel == null) {
             cartePanel = new CartePanel(carte, tournee, this.getContentPane().getWidth(), this.getContentPane().getHeight(), policeTexte, ecouteurBoutons, ecouteurSouris, ecouteurSurvol, ecouteurDragDrop);
             this.add(cartePanel);
@@ -144,6 +146,9 @@ public class Fenetre extends JFrame {
      */
     public void afficherEtatTourneChargee(Tournee tournee) {
         System.out.println("Frentre.afficherEtatTourneChargee(tounee) : ETAT_TOURNEE_CHARGEE");
+
+        supprimerPositionRequete();
+
         menuLateral.setMessageUtilisateur("Veuillez préparer la tournée pour visualiser l'itinéraire sur la carte.");
         //cartePanel.tracerRequetes(tournee);
         //menuLateral.afficherMenuRequete(tournee);
@@ -205,6 +210,8 @@ public class Fenetre extends JFrame {
     }
 
     public void afficherEtatAjoutRequete() {
+
+        supprimerPositionRequete();
 
         //Configure les visibilités
         menuLateral.visibilitePannelImportation(false);
@@ -368,8 +375,12 @@ public class Fenetre extends JFrame {
     }
 
     public void supprimerPositionRequete() {
-        cartePanel.supprimerPositionRequete();
-        menuLateral.supprimerPositionRequete();
+        if(cartePanel != null) {
+            cartePanel.supprimerPositionRequete();
+        }
+        if(menuLateral != null) {
+            menuLateral.supprimerPositionRequete();
+        }
     }
 
 
