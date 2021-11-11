@@ -1,7 +1,5 @@
 package Vue;
 
-import Model.Carte;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -12,10 +10,10 @@ public class ResetZoomPanel extends JPanel implements MouseListener {
     CartePanel cartePanel;
     int taille;
 
-    public ResetZoomPanel(CartePanel cartePanel, int taille, int x, int y){
+    public ResetZoomPanel(CartePanel cartePanel, int taille, int x, int y) {
         this.cartePanel = cartePanel;
         this.setLayout(null);
-        this.setBounds(x,y,taille,taille);
+        this.setBounds(x, y, taille, taille);
         this.taille = taille;
         this.setOpaque(false);
         this.addMouseListener(this);
@@ -28,19 +26,19 @@ public class ResetZoomPanel extends JPanel implements MouseListener {
 
         g2.setColor(Color.white);
         //background
-        g2.fillRoundRect(0, 0, taille, taille,20,20);
+        g2.fillRoundRect(0, 0, taille, taille, 20, 20);
 
 
         g2.setColor(Color.darkGray);
         //bordure
-        g2.setStroke(new BasicStroke(2.0f,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND));
-        g2.drawRoundRect(0,0,taille-1,taille-1,20,20);
+        g2.setStroke(new BasicStroke(2.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+        g2.drawRoundRect(0, 0, taille - 1, taille - 1, 20, 20);
         //lignes
-        g2.drawLine(taille/8,taille/2,taille-taille/8,taille/2);
-        g2.drawLine(taille/2,taille/8,taille/2,taille-taille/8);
+        g2.drawLine(taille / 8, taille / 2, taille - taille / 8, taille / 2);
+        g2.drawLine(taille / 2, taille / 8, taille / 2, taille - taille / 8);
         //ronds
-        g2.drawOval(taille/4,taille/4,taille/2,taille/2);
-        g2.fillOval(taille/3+1,taille/3+1,taille/3,taille/3);
+        g2.drawOval(taille / 4, taille / 4, taille / 2, taille / 2);
+        g2.fillOval(taille / 3 + 1, taille / 3 + 1, taille / 3, taille / 3);
 
         super.paintComponent(g);
     }
@@ -57,7 +55,7 @@ public class ResetZoomPanel extends JPanel implements MouseListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if(e.getButton() == MouseEvent.BUTTON1){
+        if (e.getButton() == MouseEvent.BUTTON1) {
             cartePanel.setMinLongitudeCarte(cartePanel.getMinLongitudeInitialeCarte());
             cartePanel.setMaxLongitudeCarte(cartePanel.getMaxLongitudeInitialeCarte());
             cartePanel.setMinLatitudeCarte(cartePanel.getMinLatitudeInitialeCarte());
