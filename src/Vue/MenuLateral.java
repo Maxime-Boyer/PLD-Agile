@@ -172,7 +172,7 @@ public class MenuLateral extends JPanel implements Observer {
      * @param cliquable
      */
     public void authoriseCliquerBoutonUndo(boolean cliquable) {
-        boutonUndo.setEnabled(false);
+        boutonUndo.setEnabled(cliquable);
     }
 
     /**
@@ -190,7 +190,7 @@ public class MenuLateral extends JPanel implements Observer {
      * @param cliquable
      */
     public void authoriseCliquerBoutonRedo(boolean cliquable) {
-        boutonRedo.setEnabled(false);
+        boutonRedo.setEnabled(cliquable);
     }
 
     /**

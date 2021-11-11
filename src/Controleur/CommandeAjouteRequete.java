@@ -32,4 +32,5 @@ public class CommandeAjouteRequete implements Commande{
      */
     @Override
     public void defaireCommande() throws CommandeImpossibleException { tournee.supprimerRequete(requete, carte);}
+
 }

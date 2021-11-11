@@ -184,9 +184,9 @@ public class Fenetre extends JFrame {
         menuLateral.visibiliteBoutonUndo(true);
         menuLateral.visibiliteBoutonRedo(true);
         menuLateral.visibiliteBoutonAnnulerAjoutRequete(false);
-        //TODO : Authorisation de clique sur les boutons undo/redo
-        menuLateral.authoriseCliquerBoutonUndo(false);
-        menuLateral.authoriseCliquerBoutonRedo(false);
+
+        menuLateral.authoriseCliquerBoutonUndo(authorisationCliquerBoutonUndo);
+        menuLateral.authoriseCliquerBoutonRedo(authorisationCliquerBoutonRedo);
         //Affiche la tournee ordonnee
         menuLateral.retirerMenuRequete();
         menuLateral.afficherMenuEtapes();
@@ -214,8 +214,9 @@ public class Fenetre extends JFrame {
         this.repaint();
     }
 
-    public void afficherEtatAjoutRequete2(){
+    public void afficherEtatAjoutRequete2(int positionX, int positionY){
         popUpSaisieDuree = new PopUpSaisieDuree(policeTexte,ecouteurBoutons);
+        //popUpSaisieDuree.setPosition(positionX,positionY);
         menuLateral.setMessageUtilisateur("Entrer la durée de l'étape collecte et Valider");
         cartePanel.add(popUpSaisieDuree);
         this.revalidate();
@@ -237,7 +238,8 @@ public class Fenetre extends JFrame {
         this.repaint();
     }
 
-    public void afficherEtatAjoutRequete5(){
+    public void afficherEtatAjoutRequete5(int positionX, int positionY){
+        //popUpSaisieDuree.setPosition(positionX,positionY);
         menuLateral.setMessageUtilisateur("Entrer la durée de l'étape depot et Valider");
         cartePanel.add(popUpSaisieDuree);
         this.revalidate();

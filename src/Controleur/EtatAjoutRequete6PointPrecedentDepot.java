@@ -8,7 +8,7 @@ import javax.swing.*;
 
 public class EtatAjoutRequete6PointPrecedentDepot implements Etat{
     private Integer dureeEtape;
-    private Etape precendentColl = null;
+    private Etape etapePrecedentCollecte = null;
 
     @Override
     public void cliqueGauche (Controleur controleur, Fenetre fenetre, Carte carte, ListeDeCommandes l, Tournee tournee, Adresse precedent)  {
@@ -29,17 +29,15 @@ public class EtatAjoutRequete6PointPrecedentDepot implements Etat{
             }
 
             Requete nouvelleRequete = new Requete(collecte,depot);
-            //tournee.ajoutRequete(nouvelleRequete);
 
-            l.ajouter(new CommandeAjouteRequete(nouvelleRequete, precendentColl, etapePrecDepot, tournee, carte));
-            if(!tournee.collectePrecedeDepot(collecte, etapePrecDepot)){
-                l.annuler();
+
+
+
+            if(!tournee.collectePrecedeDepot(collecte, etapePrecDepot, etapePrecedentCollecte)){
                 throw new CommandeImpossibleException("Erreur le prédecesseur du depot se situe avant la collecte dans l'itinéraire");
             }
-
-            //l.ajouter(new CommandeAjouteRequete(tournee, carte, depot, etapePrecDepot));
-            //tournee.ajoutChemin(depot,etapePrecDepot,carte);
-
+            l.ajouter(new CommandeAjouteRequete(nouvelleRequete, etapePrecedentCollecte, etapePrecDepot, tournee, carte));
+            fenetre.setAuthorisationCliquerBoutonUndo(true);
             fenetre.getCartePanel().viderNouvelleRequete();
             controleur.setEtatActuel(controleur.etatTourneeOrdonnee);
             fenetre.afficherEtatTourneePreparee(tournee);
@@ -67,6 +65,6 @@ public class EtatAjoutRequete6PointPrecedentDepot implements Etat{
 
 
     public void mettreAJourPrecedentCollecte(Etape precendentColl){
-        this.precendentColl= precendentColl;
+        this.etapePrecedentCollecte = precendentColl;
     }
 }

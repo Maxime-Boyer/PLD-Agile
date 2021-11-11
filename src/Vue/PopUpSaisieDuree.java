@@ -59,7 +59,7 @@ public class PopUpSaisieDuree extends JPanel {
      */
     public void setPosition(int x, int y){
         positionX = x + 10;
-        positionY = (int) (y - hauteur/2);
+        positionY = (int)(y - hauteur/2);
         setBounds(positionX,positionY,largeur,hauteur);
     }
 
