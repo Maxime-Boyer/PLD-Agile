@@ -1,10 +1,8 @@
 package Algorithmie;
 
 import Model.Adresse;
-import Model.CheminEntreEtape;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
 
 public class IterateurSeq implements Iterator<Adresse> {
@@ -12,10 +10,16 @@ public class IterateurSeq implements Iterator<Adresse> {
     private Adresse[] candidats;
     private int nbCandidats;
 
-    public IterateurSeq(Collection<Adresse> nonVisite, Adresse adresseActuelle, HashMap<Long, HashMap<Long, CheminEntreEtape>> grapheCompletDesEtapes){
+    /**
+     * //TODO: Ajouter description
+     *
+     * @param nonVisite       Addresses non visitées
+     * @param adresseActuelle Addresse actuelle
+     */
+    public IterateurSeq(Collection<Adresse> nonVisite, Adresse adresseActuelle) {
         this.candidats = new Adresse[nonVisite.size()];
-        for (Adresse a : nonVisite){
-            if(a.getIdAdresse() != adresseActuelle.getIdAdresse()) {
+        for (Adresse a : nonVisite) {
+            if (!a.getIdAdresse().equals(adresseActuelle.getIdAdresse())) {
                 candidats[nbCandidats++] = a;
             }
         }
@@ -33,6 +37,7 @@ public class IterateurSeq implements Iterator<Adresse> {
     }
 
     @Override
-    public void remove() {}
+    public void remove() {
+    }
 
 }

@@ -51,27 +51,16 @@ public class AStarTest {
         Tournee tournee = new Tournee();
         tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/requestsAstar1Test.xml", carte, tournee);
         CalculateurTournee calculateurTournee = new CalculateurTournee(carte, tournee);
-
-        /*
-        for(Map.Entry<Long,Adresse> entry : carte.getListeAdresses().entrySet()){
-            for(Map.Entry<Long,Adresse> entryBis : carte.getListeAdresses().entrySet()){
-                System.out.println(entry.getKey()+"  ;  "+entryBis.getKey()+"  ;  "+distance(entry.getValue(),entryBis.getValue()));
-            }
-        }*/
         Adresse etapeDepart = tournee.getListeRequetes().get(0).getEtapeCollecte();
         Adresse etapeArrivee = tournee.getListeRequetes().get(0).getEtapeCollecte();
-
         Astar2 astar = new Astar2(carte);
         CheminEntreEtape cee = astar.chercherCheminEntreEtape(new Etape(etapeDepart.getLatitude(),etapeDepart.getLongitude(),etapeDepart.getIdAdresse(),0, LocalTime.of(0,0,0,0)), new Etape(etapeArrivee.getLatitude(),etapeArrivee.getLongitude(),etapeArrivee.getIdAdresse(),0,LocalTime.of(0,0,0,0)));
 
         long[] idAdresseTheorique = {1, 5, 6, 7, 4};
         Segment s;
 
-        //FIXME size == 0 ...
-        System.out.println("size : " + cee.getListeSegment().size());
         for(int i = 0; i<cee.getListeSegment().size()-1 ; i++){
             s = cee.getListeSegment().get(i);
-            System.out.println(s);
             if(s.getOrigine().getIdAdresse() != idAdresseTheorique[i] || s.getDestination().getIdAdresse() != idAdresseTheorique[i+1]){
                 fail();
             }
@@ -119,7 +108,6 @@ public class AStarTest {
 
     }
 
-
     /**
      * Verification de la presence de chemin non null au retour du Astar sur une grosse tournee
      */
@@ -155,9 +143,8 @@ public class AStarTest {
         Tournee tournee = new Tournee();
         tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/requestsLargeTest.xml",carte, tournee);
         CalculateurTournee calculateurTournee = new CalculateurTournee(carte, tournee);
-
         Astar2 astar = new Astar2(carte);
-        Etape etape = new Etape(tournee.getAdresseDepart().getLatitude(),tournee.getAdresseDepart().getLongitude(),tournee.getAdresseDepart().getIdAdresse(),0,LocalTime.of(0,0,0,0));
+        Etape etape = tournee.getEtapeDepart();
         astar.chercherCheminEntreEtape(etape, etape);
 
     }

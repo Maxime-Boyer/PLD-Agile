@@ -1,8 +1,10 @@
 package Controleur;
 
 import Model.Carte;
+import Model.FeuilleRoute;
 import Model.LecteurXML;
 import Model.Tournee;
+import Vue.CartePanel;
 import Vue.Fenetre;
 
 import javax.swing.*;
@@ -75,5 +77,10 @@ public class EtatTourneeOrdonnee implements Etat {
     public void ajoutRequete (Controleur controleur, Fenetre fenetre){
         fenetre.afficherEtatAjoutRequete();
         controleur.setEtatActuel(controleur.etatAjoutRequete1PointCollecte);
+    }
+
+    @Override
+    public void exporterFeuilleDeRoute(Tournee tournee, CartePanel cartePanel){
+        new FeuilleRoute(tournee, cartePanel);
     }
 }

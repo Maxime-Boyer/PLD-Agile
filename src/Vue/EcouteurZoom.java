@@ -13,7 +13,7 @@ public class EcouteurZoom implements MouseWheelListener{
     }
 
     /**
-     * Listener sur la MouseWheel. Permet de zoom & dezoom en fonction de la position de la souris.
+     * Listener sur la MouseWheel. Permet de zoom et dezoom en fonction de la position de la souris.
      * @param e
      */
     @Override

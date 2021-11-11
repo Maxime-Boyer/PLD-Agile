@@ -19,9 +19,9 @@ public class EtatTourneeChargee implements Etat {
 
         CalculateurTournee calculTournee = new CalculateurTournee(carte, tournee);
         try {
-            System.out.println("Temps : " + fenetre.obtenirTempsMaxCalcul());
+            int tempsMaxCalcul = fenetre.obtenirTempsMaxCalcul();
             //Calcul la tounee
-            calculTournee.calculerTournee();
+            calculTournee.calculerTournee(tempsMaxCalcul);
             //Change vers l'état etatTourneeOrdonnee avec la nouvelle carte
             fenetre.afficherEtatTourneePreparee(tournee);
             controleur.setEtatActuel(controleur.etatTourneeOrdonnee);
@@ -30,11 +30,7 @@ public class EtatTourneeChargee implements Etat {
             System.out.println("ERREUR " + e);
             JOptionPane.showMessageDialog(null, messageErreur);
             //Reste dans l'état actuel
-        } catch (NumberFormatException e){
-            String messageErreur = "Veuillez saisir un nombre entier positif";
-            System.out.println("ERREUR " + e);
-            JOptionPane.showMessageDialog(null, messageErreur);
-        } catch (ValeurNegativeException e){
+        } catch (NumberFormatException | ValeurNegativeException e){
             String messageErreur = "Veuillez saisir un nombre entier positif";
             System.out.println("ERREUR " + e);
             JOptionPane.showMessageDialog(null, messageErreur);

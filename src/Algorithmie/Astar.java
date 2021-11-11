@@ -7,7 +7,8 @@ public interface Astar {
 
     /**
      * Calcul le plus court chemin entre deux adresses
-     * @param depart : adresse de départ
+     *
+     * @param depart  : adresse de départ
      * @param arrivee : adresse d'arrivée
      * @return le plus court chemin entre ces deux adresses
      */

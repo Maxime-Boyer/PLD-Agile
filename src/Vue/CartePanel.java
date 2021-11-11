@@ -5,8 +5,8 @@ import Exceptions.IncompatibleAdresseException;
 import Model.*;
 import Observer.Observer;
 import Observer.Observable;
-import com.sun.deploy.uitoolkit.impl.awt.AWTDragHelper;
-import com.sun.org.glassfish.external.statistics.annotations.Reset;
+//import com.sun.deploy.uitoolkit.impl.awt.AWTDragHelper;
+//import com.sun.org.glassfish.external.statistics.annotations.Reset;
 
 import javax.swing.*;
 import java.awt.*;
@@ -304,7 +304,7 @@ public class CartePanel extends JPanel implements Observer {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         //triangle depart tournee
-        Adresse depart = tournee.getAdresseDepart();
+        Etape depart = tournee.getEtapeDepart();
         double lonDepart = depart.getLongitude();
         double latDepart = depart.getLatitude();
         int valeurXDepart = valeurX(lonDepart);

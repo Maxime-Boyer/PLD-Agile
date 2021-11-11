@@ -16,8 +16,8 @@ public class ListeDeCommandes {
     }
 
     /**
-     * Add command c to this
-     * @param c the command to add
+     * Ajoute la commande c à this
+     * @param c la commande à ajouter
      */
     public void ajouter(Commande c) throws CommandeImpossibleException{
         int i = indexCourant+1;
@@ -30,7 +30,7 @@ public class ListeDeCommandes {
     }
 
     /**
-     * Temporary remove the last added command (this command may be reinserted again with redo)
+     * Supprimer temporairement la dernière commande ajoutée (cette commande peut être réinsérée avec refaire)
      */
     public void defaire() throws CommandeImpossibleException{
         if (indexCourant >= 0){
@@ -41,7 +41,7 @@ public class ListeDeCommandes {
     }
 
     /**
-     * Permanently remove the last added command (this command cannot be reinserted again with redo)
+     * Supprimer définitivement la dernière commande ajoutée (cette commande ne peut pas être réinsérée avec refaire)
      */
     public void annuler() throws CommandeImpossibleException{
         if (indexCourant >= 0){
@@ -53,7 +53,7 @@ public class ListeDeCommandes {
     }
 
     /**
-     * Reinsert the last command removed by undo
+     * Réinsére la dernière commande supprimée par annuler
      */
     public void refaire() throws CommandeImpossibleException{
         if (indexCourant < list.size()-1){
@@ -64,7 +64,7 @@ public class ListeDeCommandes {
     }
 
     /**
-     * Permanently remove all commands from the list
+     * Supprimer définitivement toutes les commandes de la liste
      */
     public void reinitialiser(){
         indexCourant = -1;

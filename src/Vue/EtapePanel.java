@@ -34,9 +34,14 @@ public class EtapePanel extends JPanel {
 
         this.requeteEtape = requeteEtape;
 
-        Color couleurBordure = requeteEtape.getCouleur();
+        Color couleurBordure;
+        if(requeteEtape != null) {
+            couleurBordure = requeteEtape.getCouleur();
+        } else {
+            couleurBordure = new Color(50,50,50);
+        }
         double mult = 0.1;
-        double plus = 255*0.9;
+        double plus = 255*(1-mult);
         float teinteRouge = ((float) ((couleurBordure.getRed()) * mult+plus) / (float) 255) > 1 ? 1 : ((float) ((couleurBordure.getRed()) * mult+plus) / (float) 255);
         float teinteVert = ((float) ((couleurBordure.getGreen()) * mult+plus) / (float) 255) > 1 ? 1 : ((float) ((couleurBordure.getGreen()) * mult+plus) / (float) 255) ;
         float teinteBleue = ((float) ((couleurBordure.getBlue()) * mult+plus) / (float) 255) > 1 ? 1 : ((float) ((couleurBordure.getBlue()) * mult+plus) / (float) 255);
@@ -56,11 +61,14 @@ public class EtapePanel extends JPanel {
         /************************************************************************************/
 
         String texteTitreEtape = "";
-        if(requeteEtape.getEtapeCollecte().getIdAdresse().equals(etape.getIdAdresse())){
-            texteTitreEtape = "Collecte - " + etape.getDureeEtape() + " sec";
-        }
-        else{
-            texteTitreEtape = "Dépôt - " + etape.getDureeEtape() + " sec";
+        if(requeteEtape != null) {
+            if (requeteEtape.getEtapeCollecte().getIdAdresse().equals(etape.getIdAdresse())) {
+                texteTitreEtape = "Collecte - " + etape.getDureeEtape() + " sec";
+            } else {
+                texteTitreEtape = "Dépôt - " + etape.getDureeEtape() + " sec";
+            }
+        } else {
+            texteTitreEtape = "Entrepôt";
         }
 
         JPanel firstLine = new JPanel(new BorderLayout());
@@ -105,13 +113,5 @@ public class EtapePanel extends JPanel {
         panelInside.add(labelAdresseCollecte);
 
         this.add(panelInside);
-    }
-
-    /**
-     * geteur
-     * @return: la requete auquel appartient l'etape afffichee
-     */
-    public Requete getRequeteEtape(){
-        return requeteEtape;
     }
 }

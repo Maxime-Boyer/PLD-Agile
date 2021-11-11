@@ -40,6 +40,10 @@ public class EcouteurBoutons implements ActionListener {
                 controleur.preparerTournee();
                 break;
 
+            case Fenetre.EXPORTER_FEUILLE_ROUTE:
+                controleur.exporterFeuilleDeRoute();
+                break;
+
             case Fenetre.AJOUT_REQUETE:
                 controleur.ajoutRequete();
                 break;
