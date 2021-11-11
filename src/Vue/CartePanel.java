@@ -588,6 +588,11 @@ public class CartePanel extends JPanel implements Observer {
         repaint();
     }
 
+    public void supprimerAdresseNouvelleRequete(){
+        nouvelleAdresse.clear();
+        repaint();
+    }
+
     public void viderNouvelleRequete(){
         nouvelleAdresse.clear();
     }

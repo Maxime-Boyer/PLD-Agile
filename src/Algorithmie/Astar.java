@@ -3,6 +3,7 @@ package Algorithmie;
 import Model.CheminEntreEtape;
 import Model.Etape;
 
+
 public interface Astar {
 
     /**

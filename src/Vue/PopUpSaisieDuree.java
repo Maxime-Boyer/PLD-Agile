@@ -1,5 +1,7 @@
 package Vue;
 
+import Exceptions.ValeurNegativeException;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -10,6 +12,7 @@ public class PopUpSaisieDuree extends JPanel {
     private int hauteur;
     private int positionX;
     private int positionY;
+    //private CartePanel cartePanel;
     private JLabel titrePopUp;
     private JTextField champValDuree;
     private Bouton boutonValider;
@@ -24,7 +27,7 @@ public class PopUpSaisieDuree extends JPanel {
         this.setLayout(null);
         this.setOpaque(true);
         this.setVisible(true);
-
+        //this.cartePanel = cartePanel;
         largeur = 200;
         hauteur = 115;
         positionX = 0;
@@ -58,8 +61,8 @@ public class PopUpSaisieDuree extends JPanel {
      * @param y: coordonnee y en px
      */
     public void setPosition(int x, int y){
-        positionX = x + 10;
-        positionY = (int) (y - hauteur/2);
+        positionX = (int)(x - largeur/2);
+        positionY = (int)(y - hauteur/2);
         setBounds(positionX,positionY,largeur,hauteur);
     }
 
@@ -68,8 +71,14 @@ public class PopUpSaisieDuree extends JPanel {
      * @return: la duree entree par l'utilisateur
      */
     //TODO : Rajouter exception sur ça verifier bien un nombre (parseInt contient déjà exception normalement)
-    public int getDureePopUp(){
-        return Integer.parseInt(champValDuree.getText());
+    public int getDureePopUp() throws ValeurNegativeException {
+        int val = Integer.parseInt(champValDuree.getText());
+            if(val < 0){
+                throw new ValeurNegativeException("Veuillez entrez une valeur positive");
+            }
+
+            return val;
+
     }
 
 }

@@ -1,22 +1,22 @@
 package Controleur;
 
-import Model.Adresse;
-import Model.Carte;
-import Model.Etape;
-import Model.Tournee;
+import Exceptions.CommandeImpossibleException;
+import Model.*;
 
 public class CommandeAjouteRequete implements Commande{
 
     Tournee tournee;
+    Etape precedentDepot;
+    Etape precedentCollecte;
+    Requete requete;
     Carte carte;
-    Etape etape;
-    Etape precedent;
 
-    public CommandeAjouteRequete(Tournee tournee, Carte carte, Etape etape, Etape precedent){
+    public CommandeAjouteRequete(Requete requete, Etape precedentCollecte, Etape precedentDepot, Tournee tournee, Carte carte){
         this.tournee = tournee;
-        this.etape =  etape;
-        this.precedent = precedent;
         this.carte = carte;
+        this.requete = requete;
+        this.precedentCollecte = precedentCollecte;
+        this.precedentDepot = precedentDepot;
     }
 
     /**
@@ -24,14 +24,13 @@ public class CommandeAjouteRequete implements Commande{
      */
     @Override
     public void faireCommande(){
-        tournee.ajoutChemin(etape,precedent,carte);
+        tournee.ajoutRequete(requete, precedentCollecte, precedentDepot, carte);
     }
 
     /**
      * Execute la commande inverse de this
      */
     @Override
-    public void defaireCommande(){
+    public void defaireCommande() throws CommandeImpossibleException { tournee.supprimerRequete(requete, carte);}
 
-    }
 }
