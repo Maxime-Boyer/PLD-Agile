@@ -229,9 +229,9 @@ public class Tournee extends Observable {
         return "Tournee{" +
                 "adresseDepart=" + adresseDepart +
                 ", heureDepart=" + heureDepart +
-                ", listeRequetes=" + listeRequetes +
-                ", listeChemins=" + listeChemins +
-                '}';
+                ",\n    listeRequetes=" + listeRequetes +
+                ",\n    listeChemins=" + listeChemins +
+                "\n}";
     }
 
     /**
@@ -338,8 +338,8 @@ public class Tournee extends Observable {
         int index = 0;
         Etape suivant = null;
         for (CheminEntreEtape chemin : listeChemins){
-            if(chemin.getEtapeDepart().getIdAdresse() == precedent.getIdAdresse()){
-                suivant = new Etape(chemin.getEtapeArrivee().getLatitude(),chemin.getEtapeArrivee().getLongitude(),chemin.getEtapeArrivee().getIdAdresse(),chemin.getEtapeArrivee().getDureeEtape(),chemin.getEtapeArrivee().getHeureDePassage());
+            if(chemin.getEtapeDepart().getIdAdresse().equals(precedent.getIdAdresse())){
+                suivant = chemin.getEtapeArrivee();//new Etape(chemin.getEtapeArrivee().getLatitude(),chemin.getEtapeArrivee().getLongitude(),chemin.getEtapeArrivee().getIdAdresse(),chemin.getEtapeArrivee().getDureeEtape(),chemin.getEtapeArrivee().getHeureDePassage());
                 listeChemins.remove(chemin);
                 break;
             }
@@ -361,7 +361,7 @@ public class Tournee extends Observable {
         LocalTime heureActuelle = heureDepart;
         for(CheminEntreEtape cee : listeChemins){
             cee.getEtapeDepart().setHeureDePassage(heureActuelle);
-            heureActuelle = heureActuelle.plusSeconds(cee.getEtapeDepart().getDureeEtape() + ((cee.distance/(vitesse*1000))*60));
+            heureActuelle = heureActuelle.plusSeconds(cee.getEtapeDepart().getDureeEtape() + (int)Math.ceil((cee.distance / 1000. /(vitesse))*3600));
             cee.getEtapeArrivee().setHeureDePassage(heureActuelle);
         }
     }

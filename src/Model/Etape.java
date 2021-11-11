@@ -83,8 +83,9 @@ public class Etape extends Adresse{
 
     @Override
     public String toString() {
-        return super.toString()+"Etape{" +
-                "heureDePassage=" + heureDePassage +
+        return  "Etape{" +
+                "idAdress=" + super.getIdAdresse()+
+                ", heureDePassage=" + heureDePassage +
                 ", dureeEtape=" + dureeEtape +
                 '}';
     }

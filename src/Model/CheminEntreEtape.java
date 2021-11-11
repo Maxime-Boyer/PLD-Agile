@@ -64,4 +64,13 @@ public class CheminEntreEtape implements Comparable<CheminEntreEtape> {
     public int compareTo(CheminEntreEtape o) {
         return this.getDistance() - o.getDistance();
     }
+
+    @Override
+    public String toString() {
+        return "CheminEntreEtape{" +
+                "etapeDepart=" + etapeDepart +
+                ", etapeArrivee=" + etapeArrivee +
+                ", distance=" + distance +
+                '}';
+    }
 }
