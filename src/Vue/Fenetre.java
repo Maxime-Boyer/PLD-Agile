@@ -105,11 +105,11 @@ public class Fenetre extends JFrame {
         }
         if (menuLateral == null) {
             menuLateral = new MenuLateral(tournee, this.getContentPane().getWidth(), this.getContentPane().getHeight(), policeTexte, policeTexteImportant, ecouteurBoutons, ecouteurSurvol);
-            menuLateral.setMessageUtilisateur("Veuillez importer une tournée au format xml pour l'afficher sur la carte.");
             this.add(menuLateral);
         }
 
-        //menuLateral.afficherMenuImportation();
+        menuLateral.setMessageUtilisateur("Veuillez importer une tournée au format xml pour l'afficher sur la carte.");
+
         //Configure les visibilités
         menuLateral.visibilitePannelImportation(true);
         menuLateral.visibiliteBoutonPreparerTournee(false);
@@ -168,7 +168,6 @@ public class Fenetre extends JFrame {
         //menuLateral.afficherMenuEtapes(tournee);
         //menuLateral.afficherMenuImportation();
         //FIXME : pourquoi en double ?
-        menuLateral.setMessageUtilisateur("Maintenant vous pouvez éditer votre tournée ou exporter la feuille de route.");
 
         //Configure les visibilités
         menuLateral.visibilitePannelImportation(true);

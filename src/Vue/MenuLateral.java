@@ -58,6 +58,24 @@ public class MenuLateral extends JPanel implements Observer {
         this.setBounds(largeurFenetre * 3 / 4, 0, largeurFenetre / 4, hauteurEcran);
         this.setLayout(null);
 
+
+
+        /************************************************************************************/
+        /*                          Crée les pannel et boutons                              */
+        /************************************************************************************/
+
+        crerZoneTexteMessageUtilisateur();
+        creerPannelImportation();
+        creerBoutonPreparerTournee();
+        creerPannelBoutonsUndoRedoAjoutRequete();
+        creerBoutonExporterFeuilleRoute();
+        creerBoutonAnnulerAjoutRequete();
+    }
+
+    /**
+     * Créer la zone de texte pour les messages utilisateurs
+     */
+    public void crerZoneTexteMessageUtilisateur () {
         messageUtilisateur = new JTextArea();
         messageUtilisateur.setFont(policeTexte);
         messageUtilisateur.setEditable(false);
@@ -66,19 +84,11 @@ public class MenuLateral extends JPanel implements Observer {
         messageUtilisateur.setOpaque(false);
         messageUtilisateur.setBounds(2 * Fenetre.valMarginBase, Fenetre.valMarginBase, this.getWidth() - 4 * Fenetre.valMarginBase, 35);
         this.add(messageUtilisateur);
-
-        /************************************************************************************/
-        /*                          Panel boutons d'import                                  */
-        /************************************************************************************/
-
-        //afficherMenuImportation();
-        creerPannelImportation();
-        creerBoutonPreparerTournee();
-        creerPannelBoutonsUndoRedoAjoutRequete();
-        creerBoutonExporterFeuilleRoute();
-        creerBoutonAnnulerAjoutRequete();
     }
 
+    /**
+     * Créer le pannel importation : boutons importer plan et tournee
+     */
     public void creerPannelImportation() {
         panelImport = new JPanel();
         panelImport.setBounds(Fenetre.valMarginBase, messageUtilisateur.getY() + messageUtilisateur.getHeight() + Fenetre.valMarginBase, this.getWidth() - 2 * Fenetre.valMarginBase, Fenetre.hauteurBouton);
@@ -102,23 +112,6 @@ public class MenuLateral extends JPanel implements Observer {
     public void visibilitePannelImportation(boolean visible) {
         panelImport.setVisible(visible);
     }
-
-    /*
-    public void afficherMenuImportation(){
-        panelImport = new JPanel();
-        panelImport.setBounds(Fenetre.valMarginBase, messageUtilisateur.getY()+messageUtilisateur.getHeight()+Fenetre.valMarginBase, this.getWidth()-2*Fenetre.valMarginBase, Fenetre.hauteurBouton );
-        panelImport.setLayout(null);
-        this.add(panelImport);
-
-        boutonImporterPlan = new Bouton(Fenetre.IMPORT_CARTE, policeTexte, ecouteurBoutons);
-        boutonImporterPlan.setBounds( 0,0, panelImport.getWidth()/2 - Fenetre.valMarginBase/2, Fenetre.hauteurBouton);
-        panelImport.add(boutonImporterPlan);
-
-        boutonImporterTournee = new Bouton(Fenetre.IMPORT_TOURNEE, policeTexte, ecouteurBoutons);
-        boutonImporterTournee.setBounds(panelImport.getWidth()/2 + Fenetre.valMarginBase/2,0, panelImport.getWidth()/2 - Fenetre.valMarginBase/2, Fenetre.hauteurBouton);
-        panelImport.add(boutonImporterTournee);
-    }
-    */
 
     /**
      * Créer le bouton pour préparer une tournée
