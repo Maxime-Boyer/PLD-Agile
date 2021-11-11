@@ -21,6 +21,9 @@ public class EtatTourneeChargee implements Etat {
         fenetre.setAuthorisationCliquerBoutonRedo(false);
         CalculateurTournee calculTournee = new CalculateurTournee(carte, tournee);
         try {
+            l.reinitialiser();
+            fenetre.setAuthorisationCliquerBoutonUndo(false);
+            fenetre.setAuthorisationCliquerBoutonRedo(false);
             int tempsMaxCalcul = fenetre.obtenirTempsMaxCalcul();
             //Calcul la tounee
             calculTournee.calculerTournee(tempsMaxCalcul);
