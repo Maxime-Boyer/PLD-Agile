@@ -61,7 +61,13 @@ public class RequetePanel extends JPanel {
         /*                               Label duree de collecte                            */
         /************************************************************************************/
 
-        JTextArea labelTitreCollecte = new JTextArea("Collecte - " + String.valueOf(collecte.getDureeEtape()) + " sec");
+        String dureeCollecte = String.valueOf(collecte.getDureeEtape()/60) + "min ";
+
+        if(collecte.getDureeEtape()%60 > 0){
+            dureeCollecte += String.valueOf(collecte.getDureeEtape()%60) + "sec";
+        }
+
+        JTextArea labelTitreCollecte = new JTextArea("Collecte - " + dureeCollecte);
         labelTitreCollecte.setSize(this.getWidth() - 4 * valMarginBase, 30);
         labelTitreCollecte.setFont(policeTexteImportant);
         labelTitreCollecte.setEditable(false);
@@ -89,7 +95,13 @@ public class RequetePanel extends JPanel {
         /************************************************************************************/
         /*                                 Label duree depot                                */
         /************************************************************************************/
-        JTextArea labelTitreDepot = new JTextArea("Dépôt - " + String.valueOf(depot.getDureeEtape()) + " sec");
+        String dureeDepot = String.valueOf(depot.getDureeEtape()/60) + "min ";
+
+        if(depot.getDureeEtape()%60 > 0){
+            dureeDepot += String.valueOf(depot.getDureeEtape()%60) + "sec";
+        }
+
+        JTextArea labelTitreDepot = new JTextArea("Dépôt - " + dureeDepot);
         labelTitreDepot.setSize(this.getWidth() - 4 * valMarginBase, 30);
         labelTitreDepot.setFont(policeTexteImportant);
         labelTitreDepot.setEditable(false);
