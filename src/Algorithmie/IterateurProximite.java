@@ -13,7 +13,7 @@ public class IterateurProximite implements Iterator<Adresse> {
     private int nbCandidats;
 
     /**
-     * //TODO: Ajouter description
+     * Iterateur permettant d'accéder aux Adresses non visités, du plus proche au plus loin
      *
      * @param nonVisite              Addresses non visitées
      * @param adresseActuelle        Addresse actuelle
