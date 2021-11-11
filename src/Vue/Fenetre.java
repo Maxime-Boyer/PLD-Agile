@@ -214,9 +214,10 @@ public class Fenetre extends JFrame {
         this.repaint();
     }
 
-    public void afficherEtatAjoutRequete2(int positionX, int positionY){
+    public void afficherEtatAjoutRequete2(){
         popUpSaisieDuree = new PopUpSaisieDuree(policeTexte,ecouteurBoutons);
-        //popUpSaisieDuree.setPosition(positionX,positionY);
+        //System.out.println()
+        popUpSaisieDuree.setPosition(cartePanel.getLargeur()/2,cartePanel.getHauteur()/2);
         menuLateral.setMessageUtilisateur("Entrer la durée de l'étape collecte et Valider");
         cartePanel.add(popUpSaisieDuree);
         this.revalidate();
@@ -238,8 +239,7 @@ public class Fenetre extends JFrame {
         this.repaint();
     }
 
-    public void afficherEtatAjoutRequete5(int positionX, int positionY){
-        //popUpSaisieDuree.setPosition(positionX,positionY);
+    public void afficherEtatAjoutRequete5(){
         menuLateral.setMessageUtilisateur("Entrer la durée de l'étape depot et Valider");
         cartePanel.add(popUpSaisieDuree);
         this.revalidate();

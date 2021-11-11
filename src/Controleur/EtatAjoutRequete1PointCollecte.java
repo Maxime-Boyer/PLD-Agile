@@ -13,9 +13,7 @@ public class EtatAjoutRequete1PointCollecte implements Etat {
         Adresse collecteAPlacer = carte.recherche(collecte);
         fenetre.getCartePanel().ajouterAdresseNouvelleRequete(collecteAPlacer);
         controleur.setEtatActuel(controleur.etatAjoutRequete2DureeCollecte);
-        int positionCollecteX = fenetre.getCartePanel().valeurX(collecteAPlacer.getLongitude());
-        int positionCollecteY = fenetre.getCartePanel().valeurX(collecteAPlacer.getLatitude());
-        fenetre.afficherEtatAjoutRequete2(positionCollecteX,positionCollecteY);
+        fenetre.afficherEtatAjoutRequete2();
     }
 
     @Override
