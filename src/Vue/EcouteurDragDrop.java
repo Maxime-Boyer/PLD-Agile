@@ -6,8 +6,15 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+/**
+ * Ecouteur permettant de déplacer la légende
+ */
 public class EcouteurDragDrop implements MouseMotionListener {
 
+    /**
+     * Constructeur de l'écouteur
+     * Permet de déplacer la légende
+     */
     public EcouteurDragDrop(){}
 
     @Override

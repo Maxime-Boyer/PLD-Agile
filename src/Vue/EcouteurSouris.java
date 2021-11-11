@@ -11,6 +11,9 @@ import Controleur.Controleur;
 
 import javax.swing.*;
 
+/**
+ * Ecouteur pour l'ajout d'une requete
+ */
 public class EcouteurSouris extends MouseAdapter {
 
     private Controleur controleur;
@@ -23,6 +26,10 @@ public class EcouteurSouris extends MouseAdapter {
         this.fenetre = fenetre;
     }
 
+    /**
+     * Méthode écoutant le clic de la souris
+     * @param evt
+     */
     @Override
     public void mouseClicked(MouseEvent evt) {
         // Method called by the mouse listener each time the mouse is clicked
@@ -44,6 +51,11 @@ public class EcouteurSouris extends MouseAdapter {
         }
     }
 
+    /**
+     * Cree une adresse a partir de la position de la souris
+     * @param evt MouseEvent
+     * @return l'adresse la plus proche de la souris
+     */
     private Adresse coordonnees(MouseEvent evt){
 
         if(vueGraphique != null) {
@@ -55,6 +67,10 @@ public class EcouteurSouris extends MouseAdapter {
         return null;
     }
 
+    /**
+     * Setter sur vueGraphie (CartePanel)
+     * @param vueGraphique
+     */
     public void setVueGraphique(CartePanel vueGraphique) {
         this.vueGraphique = vueGraphique;
     }
