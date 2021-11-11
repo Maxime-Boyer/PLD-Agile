@@ -13,6 +13,9 @@ import java.nio.file.Files;
 
 import java.util.HashMap;
 
+/**
+ * Permet de créer la feuille de route de la tournée.
+ */
 public class FeuilleRoute {
 
    public FeuilleRoute(Tournee tournee, CartePanel cartePanel){
@@ -105,7 +108,11 @@ public class FeuilleRoute {
                     if(!rueActuelle.equals(segmentActuel.getNom()) || j == cheminEntreEtape.getListeSegment().size()-1){
 
                         if(j > 0){
-                            bw.write("<li>Prendre rue "+ rueActuelle +" pendant "+ (int) Math.round(distanceRueActuelle) + "m.</li>");
+                            String nomRue = "rue";
+                            //Cas où la rue n'à pas de nom
+                            if (rueActuelle != "")
+                                nomRue = rueActuelle;
+                            bw.write("<li>Prendre "+ nomRue +" sur "+ (int) Math.round(distanceRueActuelle) + "m.</li>");
                         }
 
                         rueActuelle = segmentActuel.getNom();
@@ -122,9 +129,9 @@ public class FeuilleRoute {
 
                 if(i < tournee.getListeChemins().size()-1){
                     if(requeteEtapeArriveeCheminCourant.getEtapeDepot().getIdAdresse().equals(etapeArriveeChemin.getIdAdresse()))
-                        bw.write("Deposer");
+                        bw.write("Déposer");
                     else
-                        bw.write("Récuperer");
+                        bw.write("Récupérer");
 
                     String dureeEtape = String.valueOf(etapeArriveeChemin.getDureeEtape()/60) + "min";
 
@@ -132,7 +139,7 @@ public class FeuilleRoute {
                         dureeEtape += String.valueOf(etapeArriveeChemin.getDureeEtape()%60) + " sec";
                     }
 
-                    bw.write(" collis à l'"+ etapeArriveeChemin.getNomAdresse() +" à "+etapeArriveeChemin.getHeureDePassage()+". Durée de l'étape: "+dureeEtape+".");
+                    bw.write(" colis à l'"+ etapeArriveeChemin.getNomAdresse() +" à "+etapeArriveeChemin.getHeureDePassage()+". Durée de l'étape: "+dureeEtape+".");
                 }
                 else{
                     // TODO: Arthur fixé ?
