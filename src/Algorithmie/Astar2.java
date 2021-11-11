@@ -33,7 +33,7 @@ public class Astar2 extends TemplateAstar {
         double r = 6371000;
 
         // Retourne la distance
-            return (c * r);
+        return (c * r);
     }
 
 }

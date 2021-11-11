@@ -1,10 +1,11 @@
 package Algorithmie;
 
 import Model.*;
-import javafx.util.Pair;
 
-import java.sql.Timestamp;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.PriorityQueue;
 
 public class AstarOLD {
 
@@ -129,7 +130,7 @@ public class AstarOLD {
         return null;
     }
 
-    public void relacher(Segment segment, Double cout){
+    public void relacher(Segment segment, Double cout) {
 
     }
 }

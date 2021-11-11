@@ -22,12 +22,16 @@ public class CommandeSupprimerRequete implements Commande{
         this.carte = carte;
         this.requeteASupprimer = requeteASupprimer;
     }
-
+    /**
+     * Execute la commande de this
+     */
     @Override
     public void faireCommande() throws CommandeImpossibleException {
         tournee.supprimerRequete(requeteASupprimer, carte);
     }
-
+    /**
+     * Execute la commande inverse de this
+     */
     @Override
     public void defaireCommande() throws CommandeImpossibleException {
         tournee.ajoutRequete(requeteASupprimer);

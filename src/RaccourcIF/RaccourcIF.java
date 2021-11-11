@@ -2,6 +2,7 @@ package RaccourcIF;
 
 import Model.Carte;
 import Controleur.Controleur;
+import Model.FeuilleRoute;
 
 public class RaccourcIF {
 

@@ -12,10 +12,10 @@ public class IterateurSeq implements Iterator<Adresse> {
     private Adresse[] candidats;
     private int nbCandidats;
 
-    public IterateurSeq(Collection<Adresse> nonVisite, Adresse adresseActuelle, HashMap<Long, HashMap<Long, CheminEntreEtape>> grapheCompletDesEtapes){
+    public IterateurSeq(Collection<Adresse> nonVisite, Adresse adresseActuelle, HashMap<Long, HashMap<Long, CheminEntreEtape>> grapheCompletDesEtapes) {
         this.candidats = new Adresse[nonVisite.size()];
-        for (Adresse a : nonVisite){
-            if(a.getIdAdresse() != adresseActuelle.getIdAdresse()) {
+        for (Adresse a : nonVisite) {
+            if (a.getIdAdresse() != adresseActuelle.getIdAdresse()) {
                 candidats[nbCandidats++] = a;
             }
         }
@@ -33,6 +33,7 @@ public class IterateurSeq implements Iterator<Adresse> {
     }
 
     @Override
-    public void remove() {}
+    public void remove() {
+    }
 
 }

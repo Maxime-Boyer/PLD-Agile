@@ -4,6 +4,8 @@ import Exceptions.CommandeImpossibleException;
 import Model.*;
 import Vue.Fenetre;
 
+import javax.swing.*;
+
 public class EtatAjoutRequete6PointPrecedentDepot implements Etat{
 
     private Integer dureeEtape;
@@ -30,11 +32,15 @@ public class EtatAjoutRequete6PointPrecedentDepot implements Etat{
             fenetre.getCartePanel().getNouvelleAdresse().clear();
             //fenetre.getCartePanel().repaint();
             controleur.setEtatActuel(controleur.etatTourneeOrdonnee);
-            //fenetre.afficherEtatTourneePreparee(tournee);
+            fenetre.afficherEtatTourneePreparee(tournee);
             tournee.notifyObservers(tournee);
         }
         catch (CommandeImpossibleException e) {
-            e.printStackTrace();
+            //En cas d'erreur
+            String messageErreur = e.getMessage();
+            System.out.println("ERREUR "+e);
+            JOptionPane.showMessageDialog(null, messageErreur);
+            //Reste dans l'état actuel
         }
     }
 

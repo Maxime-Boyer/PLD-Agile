@@ -2,7 +2,6 @@ package Algorithmie;
 
 import Model.*;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -42,11 +41,12 @@ public abstract class TemplateAstar implements Astar {
 
     /**
      * Calcul l'estimation du coût pour aller de l'adresse actuelle à l'arrivée
+     *
      * @param adresse : adresse actuelle
      * @param arrivee : adresse de destionation
      * @return Cout calculé
      */
-    protected abstract double calculHeuristique( Adresse adresse, Adresse arrivee );
+    protected abstract double calculHeuristique(Adresse adresse, Adresse arrivee);
 
     //TODO : implémenter
     @Override
@@ -122,7 +122,7 @@ public abstract class TemplateAstar implements Astar {
                     if (!adressesGrises.containsKey(voisin.getIdAdresse())) {
                         NoeudAdresse na = new NoeudAdresse(voisin.getIdAdresse(), d.get(voisin.getIdAdresse()));
                         filePrioriteAdressesGises.offer(na);
-                        adressesGrises.put(voisin.getIdAdresse(),na);
+                        adressesGrises.put(voisin.getIdAdresse(), na);
 
                         //Sinon met à jour le cout de ce noeud gris
                     } else {
@@ -136,7 +136,7 @@ public abstract class TemplateAstar implements Astar {
     }
 
     //TODO : implémenter
-    private void relacher(  ){
+    private void relacher() {
 
     }
 }
