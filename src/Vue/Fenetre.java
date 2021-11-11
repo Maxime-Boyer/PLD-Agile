@@ -18,7 +18,6 @@ public class Fenetre extends JFrame {
     protected final static String VALIDER_AJOUT_DUREE_COLLECTE_REQUETE = "Valider";
     protected final static String SUPPRIMER_REQUETE = "X";
     protected final static String EXPORTER_FEUILLE_ROUTE = "Exporter feuille de route";
-
     protected final static String ANNULER_AJOUT_REQUETE = "Annuler";
 
     protected final static int valMarginBase = 5;

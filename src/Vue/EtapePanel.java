@@ -34,7 +34,7 @@ public class EtapePanel extends JPanel {
 
         this.requeteEtape = requeteEtape;
 
-        Color couleurBordure = requeteEtape.getCouleur();
+        Color couleurBordure = requeteEtape.getCouleurRequete();
         double mult = 0.1;
         double plus = 255*0.9;
         float teinteRouge = ((float) ((couleurBordure.getRed()) * mult+plus) / (float) 255) > 1 ? 1 : ((float) ((couleurBordure.getRed()) * mult+plus) / (float) 255);

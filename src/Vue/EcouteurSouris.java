@@ -35,8 +35,6 @@ public class EcouteurSouris extends MouseAdapter {
                 controller.rightClick();
                 break;
             default:
-        }*/
-            default:
         }
     }
 

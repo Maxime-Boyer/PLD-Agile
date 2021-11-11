@@ -1,10 +1,7 @@
 package Controleur;
 
 import Exceptions.CommandeImpossibleException;
-import Model.Adresse;
-import Model.Carte;
-import Model.Etape;
-import Model.Tournee;
+import Model.*;
 import Vue.Fenetre;
 
 public class EtatAjoutRequete3PointPrecedentCollecte implements Etat{

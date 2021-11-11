@@ -258,7 +258,7 @@ public class MenuLateral extends JPanel implements Observer {
             collecte = tournee.getListeRequetes().get(i).getEtapeCollecte();
             depot = tournee.getListeRequetes().get(i).getEtapeDepot();
 
-            listeRequetes[i] = new RequetePanel(collecte, depot, tournee.getListeRequetes().get(i).getCouleur(), this.getWidth() - 2 * Fenetre.valMarginBase - 8, Fenetre.valMarginBase, policeTexte, policeTexteImportant, ecouteurSurvol);
+            listeRequetes[i] = new RequetePanel(collecte, depot, tournee.getListeRequetes().get(i).getCouleurRequete(), this.getWidth() - 2 * Fenetre.valMarginBase - 8, Fenetre.valMarginBase, policeTexte, policeTexteImportant, ecouteurSurvol);
             panelInsideScrollPanel.add(listeRequetes[i]);
             panelInsideScrollPanel.add(Box.createRigidArea(new Dimension(0, 2 * Fenetre.valMarginBase)));
         }

@@ -26,6 +26,16 @@ public class Requete {
     }
 
     /**
+     * Constructeur d'une Reqeuete, information composée d’une adresse de collecte, une durée de collecte
+     * @param etapeCollecte: étape de collecte de la requete
+     */
+    public Requete(Etape etapeCollecte) {
+        this.etapeCollecte = etapeCollecte;
+        this.etapeDepot = null;
+        this.couleurRequete = Color.RED;
+    }
+
+    /**
      * méthode qui retourne l'étape de collecte de la requete
      * @return: l'Etape de collecte
      */

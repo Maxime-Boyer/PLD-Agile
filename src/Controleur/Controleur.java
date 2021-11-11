@@ -194,6 +194,13 @@ public class Controleur {
     }
 
     /**
+     * Méthode appeléee par la fenêtre après avoir cliqué sur le clic droit de la souris
+     */
+    public void cliqueDroit(){
+        etatActuel.cliqueDroit(this, fenetre,carte,listeDeCommandes, tournee);
+    }
+
+    /**
      * Méthode appelée par fenetre après avoir cliqué sur le bouton "undo"
      */
     public void defaire() throws CommandeImpossibleException {

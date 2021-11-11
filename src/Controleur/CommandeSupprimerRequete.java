@@ -34,6 +34,8 @@ public class CommandeSupprimerRequete implements Commande{
      */
     @Override
     public void defaireCommande() throws CommandeImpossibleException {
-        tournee.ajoutRequete(requeteASupprimer);
+        Etape precedentColl = tournee.precedentCollecte(requeteASupprimer);
+        Etape precedentDep = tournee.precedentDepot(requeteASupprimer);
+        tournee.ajoutRequete(requeteASupprimer, precedentColl, precedentDep, carte);
     }
 }

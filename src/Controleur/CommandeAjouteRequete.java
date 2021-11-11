@@ -1,9 +1,7 @@
 package Controleur;
 
-import Model.Adresse;
-import Model.Carte;
-import Model.Etape;
-import Model.Tournee;
+import Exceptions.CommandeImpossibleException;
+import Model.*;
 
 public class CommandeAjouteRequete implements Commande{
 
