@@ -36,7 +36,7 @@ public class Fenetre extends JFrame {
 
     private EcranAccueil ecranAccueil;
     private MenuLateral menuLateral;
-    private CartePanel cartePanel;
+    public CartePanel cartePanel;
     private PopUpSaisieDuree popUpSaisieDuree;
 
     private Carte carte;
