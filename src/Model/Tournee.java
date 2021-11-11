@@ -134,8 +134,6 @@ public class Tournee extends Observable {
      * @param carte: la carte a partir de laquelle les chemins ont ete calcules
      */
     public void supprimerRequete(Requete requeteASupprimer, Carte carte) throws CommandeImpossibleException {
-        //Supprime la requête
-        listeRequetes.remove(requeteASupprimer);
 
         int index = 0;
         int indexEtapePrecedentCollecte = 0;
@@ -146,7 +144,7 @@ public class Tournee extends Observable {
         CheminEntreEtape cheminEntreDepotEtEtapeSuivantDepot = null;
         //Trouve les étapes précédentes et suivantes des 2 étapes de la requête
         for (CheminEntreEtape cheminEntreEtape : listeChemins) {
-            index ++;
+
             //Cherche l'étape précédente de l'étape de collecte de la requette
             if (cheminEntreEtape.getEtapeArrivee().getIdAdresse() == requeteASupprimer.getEtapeCollecte().getIdAdresse()) {
                 cheminEntreEtapePrecedentCollecteEtCollecte = cheminEntreEtape;
@@ -155,57 +153,59 @@ public class Tournee extends Observable {
             //Cherche l'étape suivante de l'étape de collecte de la requette
             if (cheminEntreEtape.getEtapeDepart().getIdAdresse() == requeteASupprimer.getEtapeCollecte().getIdAdresse())
                 cheminEntreCollecteEtEtapeSuivantCollecte = cheminEntreEtape;
+
             //Cherche l'étape précédente de l'étape de depot de la requette
-             if (cheminEntreEtape.getEtapeArrivee().getIdAdresse() == requeteASupprimer.getEtapeDepot().getIdAdresse()) {
+            if (cheminEntreEtape.getEtapeArrivee().getIdAdresse() == requeteASupprimer.getEtapeDepot().getIdAdresse()) {
                 cheminEntreEtapePrecedentDepotEtDepot = cheminEntreEtape;
                 indexEtapePrecedentDepot = index;
             }
             //Cherche l'étape suivante de l'étape de depot de la requette
-             if (cheminEntreEtape.getEtapeDepart().getIdAdresse() == requeteASupprimer.getEtapeDepot().getIdAdresse())
+            if (cheminEntreEtape.getEtapeDepart().getIdAdresse() == requeteASupprimer.getEtapeDepot().getIdAdresse())
                 cheminEntreDepotEtEtapeSuivantDepot = cheminEntreEtape;
-        }
 
+            index ++;
+        }
 
         //Si un des chemins n'est pas touvée, renvoi une erreure
         if (cheminEntreEtapePrecedentCollecteEtCollecte == null || cheminEntreCollecteEtEtapeSuivantCollecte == null || cheminEntreEtapePrecedentDepotEtDepot == null || cheminEntreDepotEtEtapeSuivantDepot == null)
             throw new CommandeImpossibleException("Impossible de supprimer la requete : la tournée est mal formée");
 
-        //Supprime la requête
-        listeRequetes.remove(requeteASupprimer);
-
         Astar astar = new Astar2(carte);
-        //Suppression de l'étape de collecte de la requete
         //Calcul le plus court chemin entre l'étape précente et l'étape suivante du point de collecte
-        CheminEntreEtape nouveauCheminEntrePrecedentEtSuivantCollecte;
-        CheminEntreEtape nouveauCheminEntrePrecedentEtSuivantDepot;
-        CheminEntreEtape nouveauCheminEntrePrecedentCollecteEtSuivantDepot;
-        if(!cheminEntreCollecteEtEtapeSuivantCollecte.equals(cheminEntreEtapePrecedentDepotEtDepot)){
+        CheminEntreEtape nouveauCheminEntrePrecedentEtSuivantCollecte = null;
+        CheminEntreEtape nouveauCheminEntrePrecedentEtSuivantDepot = null;
+        CheminEntreEtape nouveauCheminEntrePrecedentCollecteEtSuivantDepot = null;
+        //Si le chemin entre collecte et suivant collecte n'est pas le même que celui entre precedent depot et depot on créer 2 nouveaux chemin
+        if(!((cheminEntreCollecteEtEtapeSuivantCollecte.getEtapeArrivee().getIdAdresse() == cheminEntreEtapePrecedentDepotEtDepot.getEtapeArrivee().getIdAdresse()) && (cheminEntreCollecteEtEtapeSuivantCollecte.getEtapeDepart().getIdAdresse() == cheminEntreEtapePrecedentDepotEtDepot.getEtapeDepart().getIdAdresse()))){
             nouveauCheminEntrePrecedentEtSuivantCollecte = astar.chercherCheminEntreEtape(cheminEntreEtapePrecedentCollecteEtCollecte.getEtapeDepart(), cheminEntreCollecteEtEtapeSuivantCollecte.getEtapeArrivee());
             nouveauCheminEntrePrecedentEtSuivantDepot = astar.chercherCheminEntreEtape(cheminEntreEtapePrecedentDepotEtDepot.getEtapeDepart(), cheminEntreDepotEtEtapeSuivantDepot.getEtapeArrivee());
+            //Supprime le chemin entre l'étape précédente de la collecte et la collecte
+            listeChemins.remove(indexEtapePrecedentCollecte);
+            //Supprime le chemin entre l'étape collecte et la suivante de collecte
+            listeChemins.remove(indexEtapePrecedentCollecte);
+            //Ajoute le chemin entre l'étape precedent collecte et la suivante de collecte
+            listeChemins.add(indexEtapePrecedentCollecte,nouveauCheminEntrePrecedentEtSuivantCollecte);
+            //Supprime le chemin entre l'étape précédente du depot et le depot
+            listeChemins.remove(indexEtapePrecedentDepot-1);
+            //Supprime le chemin entre l'étape de depot et la suivante de depot
+            listeChemins.remove(indexEtapePrecedentDepot-1);
+            //Ajoute le chemin entre l'étape precedent depot et la suivante de depot
+            listeChemins.add(indexEtapePrecedentDepot-1,nouveauCheminEntrePrecedentEtSuivantDepot);
+        //Si les points de collecte et depot se suivent dans l'itinéraire on créer un seul nouveau chemin
         }else {
             nouveauCheminEntrePrecedentCollecteEtSuivantDepot = astar.chercherCheminEntreEtape(cheminEntreEtapePrecedentCollecteEtCollecte.getEtapeDepart(), cheminEntreDepotEtEtapeSuivantDepot.getEtapeArrivee());
-        }
-        //Supprime le chemin entre l'étape précédente de la collecte et la collecte
-        listeChemins.remove(indexEtapePrecedentCollecte);
-        //Supprime le chemin entre la collecte et l'étape suivante de la collecte
-        listeChemins.remove(indexEtapePrecedentCollecte);
-        //Ajoute le chemin entre l'étape précente et l'étape suivante du point de collecte
-        listeChemins.add(indexEtapePrecedentCollecte, nouveauCheminEntrePrecedentEtSuivantCollecte);
-
-        //Suppression de l'étape de depot de la requete
-        //Calcul le plus court chemin entre l'étape précente et l'étape suivante du point de depot
-
-        //Supprime le chemin entre l'étape précédente de le depot et le depot
-        if(!cheminEntreCollecteEtEtapeSuivantCollecte.equals(cheminEntreEtapePrecedentDepotEtDepot)){
-            listeChemins.remove(indexEtapePrecedentDepot);
-            listeChemins.remove(indexEtapePrecedentDepot);
-        }
-        else{
-            listeChemins.remove(indexEtapePrecedentDepot);
+            //Supprime le chemin entre l'étape précédente de la collecte et la collecte
+            listeChemins.remove(indexEtapePrecedentCollecte);
+            //Supprime le chemin entre l'étape la collecte et le depot
+            listeChemins.remove(indexEtapePrecedentCollecte);
+            //Supprime le chemin entre l'étape de depot et l'étape suivante de depot
+            listeChemins.remove(indexEtapePrecedentCollecte);
+            //Ajoute le chemin entre l'étape precedent collecte et la suivante de depot
+            listeChemins.add(indexEtapePrecedentCollecte,nouveauCheminEntrePrecedentCollecteEtSuivantDepot);
         }
 
-        //Ajoute le chemin entre l'étape précente et l'étape suivante du point de depot
-        listeChemins.add(indexEtapePrecedentDepot, nouveauCheminEntrePrecedentEtSuivantDepot);
+        //Supprime la requête
+        listeRequetes.remove(requeteASupprimer);
 
         //Notifie les observateurs que la tournee a été mofifié
         notifyObservers(this);
