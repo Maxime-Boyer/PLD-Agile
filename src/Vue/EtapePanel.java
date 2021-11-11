@@ -29,7 +29,7 @@ public class EtapePanel extends JPanel {
         /************************************************************************************/
         BoxLayout boxlayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         this.setLayout(boxlayout);
-        this.setPreferredSize(new Dimension(parentWidth - 24, 120));
+        this.setPreferredSize(new Dimension(parentWidth - 24, 110 + 26 * (etape.getNomAdresse().length()/64)));
         this.addMouseListener(ecouteurSurvol);
 
         this.requeteEtape = requeteEtape;
@@ -81,7 +81,10 @@ public class EtapePanel extends JPanel {
             texteTitreEtape = "Entrepôt";
         }
 
-        JPanel firstLine = new JPanel(new BorderLayout());
+        JPanel firstLine = new JPanel();
+        firstLine.setLayout(new BoxLayout(firstLine, BoxLayout.LINE_AXIS));
+
+
         firstLine.setSize(this.getWidth() - 4 * valMarginBase, 30);
         firstLine.setOpaque(false);
         firstLine.addMouseListener(ecouteurSurvol);
@@ -90,11 +93,12 @@ public class EtapePanel extends JPanel {
         labelTitreCollecte.setFont(policeTexteImportant);
         firstLine.add(labelTitreCollecte, BorderLayout.LINE_START);
         labelTitreCollecte.addMouseListener(ecouteurSurvol);
+        firstLine.add(Box.createHorizontalGlue());
 
-        BoutonSuppressionRequete bouttonSuppr = new BoutonSuppressionRequete(Fenetre.SUPPRIMER_REQUETE, policeTexte, ecouteurBoutons, requeteEtape);
-        bouttonSuppr.addActionListener(ecouteurBoutons);
         if(requeteEtape != null) {
-            firstLine.add(bouttonSuppr, BorderLayout.LINE_END);
+            BoutonSuppressionRequete bouttonSuppr = new BoutonSuppressionRequete(Fenetre.SUPPRIMER_REQUETE, policeTexte, ecouteurBoutons, requeteEtape);
+            bouttonSuppr.addActionListener(ecouteurBoutons);
+            firstLine.add(bouttonSuppr);
         }
 
         panelInside.add(firstLine);
@@ -126,6 +130,7 @@ public class EtapePanel extends JPanel {
         labelAdresseCollecte.setWrapStyleWord(true);
         labelAdresseCollecte.setOpaque(false);
         labelAdresseCollecte.addMouseListener(ecouteurSurvol);
+        labelAdresseCollecte.setPreferredSize(labelAdresseCollecte.getPreferredSize());
         panelInside.add(labelAdresseCollecte);
 
         this.add(panelInside);

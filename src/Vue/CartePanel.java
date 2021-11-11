@@ -105,10 +105,6 @@ public class CartePanel extends JPanel implements Observer {
 
         this.setVisible(true);
 
-        /* - Exemple d'utilisation -
-        popUpSaisieDuree.setPosition(200, 300);
-        this.add(popUpSaisieDuree);*/
-
         ResetZoomPanel resetZoomPanel = new ResetZoomPanel(this,40,this.getLargeur()-60,this.getHauteur()-60);
         this.add(resetZoomPanel);
     }
