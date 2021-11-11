@@ -149,10 +149,18 @@ public class EtapePanel extends JPanel {
         return requeteEtape;
     }
 
+    /**
+     * Getter sur l'étape liée à EtapePanel
+     * @return l'étape liée à EtapePanel
+     */
     public Etape getEtape() {
         return etape;
     }
 
+    /**
+     * Getter sur la couleur de la bordue de l'EtapePanel
+     * @return la couleur de la bordue de l'EtapePanel
+     */
     public Color getCouleurBordure() {
         return couleurBordure;
     }

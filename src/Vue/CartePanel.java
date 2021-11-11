@@ -179,7 +179,7 @@ public class CartePanel extends JPanel implements Observer {
     /**
      * Méthode paint permettant d'effectuer tous les tracés graphiques
      *
-     * @param g
+     * @param g graphics
      */
     @Override
     public void paintComponent(Graphics g) {
@@ -408,10 +408,6 @@ public class CartePanel extends JPanel implements Observer {
                 g.fillRoundRect(valeurXDepot - taille / 2, valeurYDepot - taille / 2, taille + 1, taille + 1, taille / 2, taille / 2);
             }
         }
-        /*else {
-            throw new IncompatibleAdresseException("Erreur d'adresse de départ, cette adresse n'appartient pas à la carte chargée ");
-        }*/
-
     }
 
     /**
@@ -419,27 +415,6 @@ public class CartePanel extends JPanel implements Observer {
      */
     public void dessinerItineraire(Graphics2D g) {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-
-        /*
-        //dessine interieur des lignes du trajet
-        for (int i = 0; i < tournee.getListeChemins().size(); i++) {
-            for (int j = 0; j < tournee.getListeChemins().get(i).getListeSegment().size(); j++) {
-                Adresse origine = tournee.getListeChemins().get(i).getListeSegment().get(j).getOrigine();
-                Adresse destination = tournee.getListeChemins().get(i).getListeSegment().get(j).getDestination();
-                int origineX = valeurX(origine.getLongitude());
-                int origineY = valeurY(origine.getLatitude());
-                int destinationX = valeurX(destination.getLongitude());
-                int destinationY = valeurY(destination.getLatitude());
-
-                Stroke s = g.getStroke();
-                g.setStroke(new BasicStroke(6));
-                g.setColor(new Color(51, 204, 255));
-                g.drawLine(origineX, origineY, destinationX, destinationY);
-                g.setStroke(s);
-            }
-        }*/
-
 
         //On compte le nombre de passage par segment
         HashMap<Adresse, HashMap<Adresse, Integer>> nbPassage = new HashMap<>();
@@ -541,7 +516,6 @@ public class CartePanel extends JPanel implements Observer {
                 int destinationY = valeurY(destination.getLatitude());
 
                 //Si le segment est trop petit, on n'affiche pas la fleche
-                //FIXME prend en compte les segments 1 par 1, et non la liste de segment sur la meme rue
                 if ((origineX - destinationX) * (origineX - destinationX) + (origineY - destinationY) * (origineY - destinationY) > 25 * 25) {
                     g.setColor(Color.white);
 
@@ -582,6 +556,11 @@ public class CartePanel extends JPanel implements Observer {
         }
     }
 
+    /**
+     * TODO
+     *
+     * @param g graphics
+     */
     public void dessinerNouvelleRequete(Graphics2D g) {
         for (int i = 0; i < nouvelleAdresse.size(); i++) {
             double lonEtape = nouvelleAdresse.get(i).getLongitude();
@@ -601,20 +580,40 @@ public class CartePanel extends JPanel implements Observer {
         }
     }
 
+    /**
+     * TODO
+     *
+     * @return
+     */
     public ArrayList<Adresse> getNouvelleAdresse() {
         return nouvelleAdresse;
     }
 
+    /**
+     * TODO
+     *
+     * @return
+     */
     public void ajouterAdresseNouvelleRequete(Adresse a) {
         nouvelleAdresse.add(a);
         repaint();
     }
 
+    /**
+     * TODO
+     *
+     * @return
+     */
     public void supprimerAdresseNouvelleRequete() {
         nouvelleAdresse.clear();
         repaint();
     }
 
+    /**
+     * TODO
+     *
+     * @return
+     */
     public void viderNouvelleRequete() {
         nouvelleAdresse.clear();
     }
@@ -660,58 +659,114 @@ public class CartePanel extends JPanel implements Observer {
         coeffX = largeur / ecartLongitude;
     }
 
+    /**
+     * Getter sur la longitude maximum de la carte affichée à l'écran
+     * @return la longitude maximum de la carte affichée à l'écran
+     */
     public double getMaxLongitudeCarte() {
         return maxLongitudeCarte;
     }
 
+    /**
+     * Getter sur la longitude maximum de la carte affichée à l'écran
+     * @param maxLongitudeCarte : la longitude maximum de la carte affichée à l'écran
+     */
     public void setMaxLongitudeCarte(double maxLongitudeCarte) {
         this.maxLongitudeCarte = maxLongitudeCarte;
     }
 
+    /**
+     * Getter sur la latitude maximum de la carte affichée à l'écran
+     * @return la latitude maximum de la carte affichée à l'écran
+     */
     public double getMaxLatitudeCarte() {
         return maxLatitudeCarte;
     }
 
+    /**
+     * Getter sur la latitude maximum de la carte affichée à l'écran
+     * @param maxLatitudeCarte : la latitude maximum de la carte affichée à l'écran
+     */
     public void setMaxLatitudeCarte(double maxLatitudeCarte) {
         this.maxLatitudeCarte = maxLatitudeCarte;
     }
 
+    /**
+     * Getter sur la latitude minimum de la carte affichée à l'écran
+     * @return la latitude minimum de la carte affichée à l'écran
+     */
     public double getMinLatitudeCarte() {
         return minLatitudeCarte;
     }
 
+    /**
+     * Getter sur la latitude minimum de la carte affichée à l'écran
+     * @param minLatitudeCarte : la latitude minimum de la carte affichée à l'écran
+     */
     public void setMinLatitudeCarte(double minLatitudeCarte) {
         this.minLatitudeCarte = minLatitudeCarte;
     }
 
+    /**
+     * Getter sur la longitude minimum de la carte affichée à l'écran
+     * @return la longitude minimum de la carte affichée à l'écran
+     */
     public double getMinLongitudeCarte() {
         return minLongitudeCarte;
     }
 
+    /**
+     * Getter sur la longitude minimum de la carte affichée à l'écran
+     * @param minLongitudeCarte : la longitude minimum de la carte affichée à l'écran
+     */
     public void setMinLongitudeCarte(double minLongitudeCarte) {
         this.minLongitudeCarte = minLongitudeCarte;
     }
 
+    /**
+     * Getter sur la largeur du panel en pixel
+     * @return la largeur du panel en pixel
+     */
     public int getLargeur() {
         return largeur;
     }
 
+    /**
+     * Getter sur la hauteur du panel en pixel
+     * @return la hauteur du panel en pixel
+     */
     public int getHauteur() {
         return hauteur;
     }
 
+    /**
+     * Getter sur la longitude maximale de la carte
+     * @return la longitude maximale de la carte
+     */
     public double getMaxLongitudeInitialeCarte() {
         return maxLongitudeInitialeCarte;
     }
 
+    /**
+     * Getter sur la latitude maximale de la carte
+     * @return la latitude maximale de la carte
+     */
     public double getMaxLatitudeInitialeCarte() {
         return maxLatitudeInitialeCarte;
     }
 
+    /**
+     * Getter sur la latitude minimum de la carte
+     * @return la latitude minimum de la carte
+     */
     public double getMinLatitudeInitialeCarte() {
         return minLatitudeInitialeCarte;
     }
 
+    /**
+     * Getter sur la longitude minimum de la carte
+     * @return la longitude minimum de la carte
+     */
     public double getMinLongitudeInitialeCarte() {
         return minLongitudeInitialeCarte;
     }

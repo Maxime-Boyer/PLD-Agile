@@ -16,7 +16,7 @@ public class EcouteurSurvol implements MouseListener {
     private EtapePanel[] listeEtapes;
 
     /**
-     * Creation d'une classe permettant de gérer les actions de survol
+     * Creation d'une classe permettant de gérer les actions de clic
      * @param fenetre: la fenetre de l'application
      */
     public EcouteurSurvol(Fenetre fenetre){
@@ -25,6 +25,10 @@ public class EcouteurSurvol implements MouseListener {
         listeEtapes = null;
     }
 
+    /**
+     * Gestion des clics et modification de la fenetre en fonction
+     * @param e: l'evenemen t à gérer
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
         //----- CLIC SUR CARTE PANEL -----
@@ -101,6 +105,11 @@ public class EcouteurSurvol implements MouseListener {
 
     }
 
+    /**
+     * Cree une adresse a partir de la position de la souris
+     * @param e MouseEvent
+     * @return l'adresse la plus proche de la souris
+     */
     private Adresse coordonnees(MouseEvent e){
 
         if(fenetre.getCartePanel() != null) {
@@ -122,59 +131,8 @@ public class EcouteurSurvol implements MouseListener {
 
     }
 
-    /**
-     * Gestion des survols et modification de la fenetre en fonction
-     * @param e: l'evenemen t à gérer
-     */
     @Override
     public void mouseEntered(MouseEvent e) {
-        //System.out.println("Survol entered : " + e.getSource());
-        /*boolean rpTrouve = false;
-        RequetePanel rp = null;
-        boolean epTrouve = false;
-        EtapePanel ep = null;
-        Component c = SwingUtilities.getDeepestComponentAt(e.getComponent(), e.getX(), e.getY());
-        //System.out.println(c.getClass());
-        if(listeRequetes != null) {
-            for (int i = 0; i < listeRequetes.length; i++) {
-                if (listeRequetes[i] != null && (SwingUtilities.isDescendingFrom(c, listeRequetes[i]) || c == listeRequetes[i])) {
-                    rpTrouve = true;
-                    rp = listeRequetes[i];
-                }
-            }
-        }
-        if(listeEtapes != null) {
-            for (int i = 0; i < listeEtapes.length; i++) {
-                if (listeEtapes[i] != null && (SwingUtilities.isDescendingFrom(c, listeEtapes[i]) || c == listeEtapes[i])) {
-                    epTrouve = true;
-                    ep = listeEtapes[i];
-                }
-            }
-        }
-
-        if (epTrouve) {
-            Requete requete = (ep).getRequeteEtape();
-            Etape collecte;
-            Etape depot;
-            if(requete != null){
-                collecte = requete.getEtapeCollecte();
-                depot = requete.getEtapeDepot();
-            } else {
-                collecte = fenetre.getTournee().getEtapeDepart();
-                depot = null;
-            }
-            fenetre.indiquerPositionRequete(collecte,depot);
-        } else if(rpTrouve){
-            fenetre.indiquerPositionRequete((rp).getCollecte(), (rp).getDepot());
-        } else {
-            fenetre.supprimerPositionRequete();
-        }
-
-        if((e.getSource() instanceof JLabel && ((JLabel) e.getSource()).getText().equals("X"))){
-            fenetre.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        } else{
-            fenetre.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-        }*/
 
     }
 
@@ -183,10 +141,18 @@ public class EcouteurSurvol implements MouseListener {
 
     }
 
+    /**
+     * Setter sur listeRequetes
+     * @param listeRequetes
+     */
     public void setListeRequetes(RequetePanel[] listeRequetes) {
         this.listeRequetes = listeRequetes;
     }
 
+    /**
+     * Setter sur listeEtapes
+     * @param listeEtapes
+     */
     public void setListeEtapes(EtapePanel[] listeEtapes) {
         this.listeEtapes = listeEtapes;
     }

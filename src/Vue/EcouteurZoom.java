@@ -29,12 +29,6 @@ public class EcouteurZoom implements MouseWheelListener{
         //On applique les coordonnees, et donc le zoom
         //Si celui-ci n'inverse pas l'image
         if(maxLatitudeCarte > minLatitudeCarte && maxLongitudeCarte > minLongitudeCarte) {
-            //FIXME : dezoom 2* plus lent lorsqu'une des deux coordonnées à atteint le bord.
-            /*cartePanel.setMaxLatitudeCarte(maxLatitudeCarte > cartePanel.getMaxLatitudeInitialeCarte() ? cartePanel.getMaxLatitudeInitialeCarte() : maxLatitudeCarte);
-            cartePanel.setMinLatitudeCarte(minLatitudeCarte < cartePanel.getMinLatitudeInitialeCarte() ? cartePanel.getMinLatitudeInitialeCarte() : minLatitudeCarte);
-            cartePanel.setMaxLongitudeCarte(maxLongitudeCarte > cartePanel.getMaxLongitudeInitialeCarte() ? cartePanel.getMaxLongitudeInitialeCarte() : maxLongitudeCarte);
-            cartePanel.setMinLongitudeCarte(minLongitudeCarte < cartePanel.getMinLongitudeInitialeCarte() ? cartePanel.getMinLongitudeInitialeCarte() : minLongitudeCarte);
-            */
 
             cartePanel.setMaxLatitudeCarte(maxLatitudeCarte);
             cartePanel.setMinLatitudeCarte(minLatitudeCarte);
@@ -59,12 +53,22 @@ public class EcouteurZoom implements MouseWheelListener{
 
     }
 
+    /**
+     * Converti une coordonnée x en pixel n longitude
+     * @param posX coordonnée x en pixel
+     * @return coordonnée en longitude
+     */
     private double valeurLongitude(int posX){
         double ecartLongitude = cartePanel.getMaxLongitudeCarte() - cartePanel.getMinLongitudeCarte();
         double coeffX = cartePanel.getLargeur() / ecartLongitude;
         return posX / coeffX + cartePanel.getMinLongitudeCarte();
     }
 
+    /**
+     * Converti une coordonnée y en pixel en latitude
+     * @param posY coordonnée x en pixel
+     * @return coordonnée en latitude
+     */
     private double valeurLatitude(int posY){
         double ecartLatitude = cartePanel.getMaxLatitudeCarte() - cartePanel.getMinLatitudeCarte();
         double coeffY = cartePanel.getHauteur() / ecartLatitude;
