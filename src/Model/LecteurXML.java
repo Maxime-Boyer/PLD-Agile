@@ -368,10 +368,10 @@ public class LecteurXML {
                 }
                 // si les coordonnes de l'étape de depot concordent avec celles d'une extremite du segment
                 if(requete.getEtapeDepot().getIdAdresse().equals(segment.getOrigine().getIdAdresse()) || requete.getEtapeDepot().getIdAdresse().equals(segment.getDestination().getIdAdresse())){
-                    if(segmentDepot1 == null){
+                    if(segmentDepot1 == null || segmentDepot1.getNom() == ""){
                         segmentDepot1 = segment;
                     }
-                    else if(segmentDepot2 == null || !segment.getNom().equals(segmentDepot1.getNom())){
+                    else if(segmentDepot2 == null || segmentDepot2.getNom() == "" || !segment.getNom().equals(segmentDepot1.getNom())){
                         segmentDepot2 = segment;
                     }
                 }
@@ -381,10 +381,32 @@ public class LecteurXML {
                 }
             }
             // Création et attribution des noms des adresses
-            nomAdresseCollecte = "Intersection entre " + segmentCollecte1.getNom() + " et " + segmentCollecte2.getNom();
-            nomAdresseDepot = "Intersection entre " + segmentDepot1.getNom() + " et " + segmentDepot2.getNom();
+            nomAdresseCollecte = nommerAdresseAvecDeuxSegments(segmentCollecte1, segmentCollecte2);
+            nomAdresseDepot = nommerAdresseAvecDeuxSegments(segmentDepot1, segmentDepot2);
             requete.getEtapeCollecte().setNomAdresse(nomAdresseCollecte);
             requete.getEtapeDepot().setNomAdresse(nomAdresseDepot);
         }
+    }
+
+    /**
+     * Determine le nom d'un adresse à partir de deux segments
+     * @param s1 premier segment
+     * @param s2 second segment
+     * @return nom de l'adresss
+     */
+    private String nommerAdresseAvecDeuxSegments(Segment s1, Segment s2) {
+        String nomAdresse = "";
+        if (s1 == null || s1.getNom() == "") {
+            if (s2 == null || s2.getNom() == "")
+                nomAdresse = "Aucun nom associé à cette intersection.";
+            else
+                nomAdresse = s2.getNom();
+        } else {
+            if (s2 == null || s2.getNom() == "")
+                nomAdresse = s1.getNom();
+            else
+                nomAdresse = "Intersection entre " + s1.getNom() + " et " + s2.getNom();
+        }
+        return nomAdresse;
     }
 }
