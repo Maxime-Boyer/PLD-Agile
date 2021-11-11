@@ -255,7 +255,7 @@ public class CartePanel extends JPanel implements Observer {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         //triangle depart tournee
-        Adresse depart = tournee.getAdresseDepart();
+        Etape depart = tournee.getEtapeDepart();
         double lonDepart = depart.getLongitude();
         double latDepart = depart.getLatitude();
         int valeurXDepart = valeurX(lonDepart);

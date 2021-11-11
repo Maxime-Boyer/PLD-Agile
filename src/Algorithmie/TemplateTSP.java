@@ -45,12 +45,12 @@ public abstract class TemplateTSP implements TSP{
             nonVisite.add(tournee.getListeRequetes().get(i).getEtapeDepot());
         }
         List<Adresse> visite = new ArrayList<Adresse>(tournee.getListeRequetes().size()*2+1);
-        visite.add(tournee.getAdresseDepart());
+        visite.add(tournee.getEtapeDepart());
 
         coutMeilleureSolution = Integer.MAX_VALUE;
 
         //On execute l'algorithme
-        separationEtEvaluation(tournee.getAdresseDepart(), nonVisite, visite, 0);
+        separationEtEvaluation(tournee.getEtapeDepart(), nonVisite, visite, 0);
 
     }
 
@@ -64,9 +64,9 @@ public abstract class TemplateTSP implements TSP{
 
         if (nonVisite.size() == 0){
             //On retourne au point de depart
-            if (adresseActuelle.getIdAdresse() != tournee.getAdresseDepart().getIdAdresse()){
+            if (adresseActuelle.getIdAdresse() != tournee.getEtapeDepart().getIdAdresse()){
                 //Si on trouve une solution meilleure que celles deja trouvees
-                if (coutActuel+grapheCompletDesEtapes.get(adresseActuelle.getIdAdresse()).get(tournee.getAdresseDepart().getIdAdresse()).distance < coutMeilleureSolution){
+                if (coutActuel+grapheCompletDesEtapes.get(adresseActuelle.getIdAdresse()).get(tournee.getEtapeDepart().getIdAdresse()).distance < coutMeilleureSolution){
 
                     //On exporte la meilleure sol
                     List<CheminEntreEtape> listeCee = new LinkedList<>();
@@ -74,10 +74,10 @@ public abstract class TemplateTSP implements TSP{
                     for(int i=0 ; i<visite.size()-1 ; i++){
                         listeCee.add(grapheCompletDesEtapes.get(visite.get(i).getIdAdresse()).get(visite.get(i+1).getIdAdresse()));
                     }
-                    listeCee.add(grapheCompletDesEtapes.get(visite.get(visite.size()-1).getIdAdresse()).get(tournee.getAdresseDepart().getIdAdresse()));
+                    listeCee.add(grapheCompletDesEtapes.get(visite.get(visite.size()-1).getIdAdresse()).get(tournee.getEtapeDepart().getIdAdresse()));
 
                     //On change le meilleur cout
-                    coutMeilleureSolution = coutActuel+grapheCompletDesEtapes.get(adresseActuelle.getIdAdresse()).get(tournee.getAdresseDepart().getIdAdresse()).distance;
+                    coutMeilleureSolution = coutActuel+grapheCompletDesEtapes.get(adresseActuelle.getIdAdresse()).get(tournee.getEtapeDepart().getIdAdresse()).distance;
 
                     //System.out.println("coutMeilleureSolution : "+ coutMeilleureSolution+ " ; in : "+(System.currentTimeMillis() - tempsDepart));
                 }

@@ -29,7 +29,8 @@ public class FeuilleRoute {
                 mapRequete.put(requete.getEtapeDepot().getIdAdresse(),requete) ;
             }
 
-            bw.write(" <h2>Départ</h2><p> Depart de l'entrepot situe a l'adresse  :"+tournee.getAdresseDepart()+"</p>");
+            // TODO: Arthur fixé ?
+            bw.write(" <h2>Départ</h2><p> Depart de l'entrepot situe à l'"+tournee.getEtapeDepart().getNomAdresse()+" à "+tournee.getDateDepart()+"</p>");
 
             Requete requeteEtapeArriveeCheminCourant;
             Etape etapeArriveeChemin;
@@ -74,19 +75,11 @@ public class FeuilleRoute {
                     else
                         bw.write("<br>Récuperer");
 
-                    heurePassage = Integer.toString(etapeArriveeChemin.getHeureDePassage().getHour());
-                    minutesPassageAvantRetouche = etapeArriveeChemin.getHeureDePassage().getMinute();
-
-                    minutesPassage = "";
-                    if(minutesPassageAvantRetouche < 10){
-                        minutesPassage = "0";
-                    }
-                    minutesPassage += Integer.toString(minutesPassageAvantRetouche);
-
-                    bw.write(" collis a l'adresse "+ etapeArriveeChemin.getNomAdresse() +" à "+heurePassage+"h"+minutesPassage+".");
+                    bw.write(" collis a l'"+ etapeArriveeChemin.getNomAdresse() +" à "+etapeArriveeChemin.getHeureDePassage()+".");
                 }
                 else{
-                    bw.write("<br>Retour à l'entrepot");
+                    // TODO: Arthur fixé ?
+                    bw.write("<br>Retour à l'entrepot situé à l'"+tournee.getEtapeDepart().getNomAdresse()+" à "+tournee.getEtapeDepart().getHeureDePassage());
                 }
 
                 bw.write("</p>");

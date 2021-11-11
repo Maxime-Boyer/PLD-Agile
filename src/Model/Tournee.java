@@ -10,7 +10,7 @@ import java.util.List;
 import Observer.Observable;
 
 public class Tournee extends Observable {
-    private Adresse adresseDepart;
+    private Etape etapeDepart;
     private LocalTime heureDepart;
     private List<Requete> listeRequetes;
     private List<CheminEntreEtape> listeChemins;
@@ -20,14 +20,14 @@ public class Tournee extends Observable {
     public Tournee(){
         listeRequetes = new ArrayList<>();
         listeChemins = new ArrayList<>();
-        adresseDepart = null;
+        etapeDepart = null;
         heureDepart = null;
         tourneeEstChargee = false;
         tourneeEstOrdonee = false;
     }
 
-    public Adresse getAdresseDepart() {
-        return adresseDepart;
+    public Etape getEtapeDepart() {
+        return etapeDepart;
     }
 
     public LocalTime getDateDepart() {
@@ -50,8 +50,8 @@ public class Tournee extends Observable {
         return tourneeEstOrdonee;
     }
 
-    public void setAdresseDepart(Adresse adresseDepart) {
-        this.adresseDepart = adresseDepart;
+    public void setEtapeDepart(Etape etapeDepart) {
+        this.etapeDepart = etapeDepart;
     }
 
     public void setHeureDepart(LocalTime heureDepart) {
@@ -147,7 +147,7 @@ public class Tournee extends Observable {
      * @param touneeACloner la tournee de laquelle les attributs sont récupérés
      */
     public void clone(Tournee touneeACloner) {
-        this.adresseDepart = touneeACloner.adresseDepart;
+        this.etapeDepart = touneeACloner.etapeDepart;
         this.heureDepart = touneeACloner.heureDepart;
         this.listeRequetes = touneeACloner.listeRequetes;
         this.listeChemins = touneeACloner.listeChemins;
@@ -161,7 +161,7 @@ public class Tournee extends Observable {
     public void reset() {
         listeRequetes = new ArrayList<>();
         listeChemins = new ArrayList<>();
-        adresseDepart = null;
+        etapeDepart = null;
         heureDepart = null;
         tourneeEstChargee = false;
         tourneeEstOrdonee = false;
@@ -173,7 +173,7 @@ public class Tournee extends Observable {
     @Override
     public String toString() {
         return "Tournee{" +
-                "adresseDepart=" + adresseDepart +
+                "adresseDepart=" + etapeDepart +
                 ", heureDepart=" + heureDepart +
                 ", listeRequetes=" + listeRequetes +
                 ", listeChemins=" + listeChemins +

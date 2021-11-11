@@ -243,17 +243,19 @@ public class LecteurXML {
 
         Long idAdresseDepot = Long.parseLong(eElement.getAttribute("address"));
 
+        Etape etapeDepot;
         Adresse adresseDepot;
         if(carte.getListeAdresses() != null) {
             if (!(carte.getListeAdresses().containsKey(idAdresseDepot))) {
                 throw new IncompatibleAdresseException("Erreur d'adresse de départ, cette adresse n'appartient pas à la carte chargée ");
             } else {
                 adresseDepot = carte.obtenirAdresseParId(idAdresseDepot);
+                etapeDepot = new Etape(adresseDepot.getLatitude(), adresseDepot.getLongitude(), idAdresseDepot, 0, LocalTime.of(0,0,0,0));
             }
 
 
-            double latitudeAdresseDepot = adresseDepot.getLatitude();
-            double longitudeAdresseDepot = adresseDepot.getLongitude();
+            double latitudeAdresseDepot = etapeDepot.getLatitude();
+            double longitudeAdresseDepot = etapeDepot.getLongitude();
 
             if (latitudeAdresseDepot < 0.0) {
                 throw new NegatifLatitudeException("Erreur, la latitude du départ est négative");
@@ -264,7 +266,7 @@ public class LecteurXML {
             }
 
             //String depart = eElement.getAttribute("departureTime");
-            nouvelleTournee.setAdresseDepart(adresseDepot);
+            nouvelleTournee.setEtapeDepart(etapeDepot);
         }
 
         if(verificationFormatDate(stringHeureDepart)) {
