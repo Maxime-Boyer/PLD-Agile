@@ -49,7 +49,7 @@ public class CalculateurTournee {
 
 
     /**
-     * methode qui calcul le graphe complet de l'ensemble des étapes
+     * Methode qui calcul le graphe complet de l'ensemble des étapes
      *
      * @param astar Le Astar utilisé pour calculer le plus court court chemin entre deux étapes
      * @return le graphe complet de l'ensemble des étapes
