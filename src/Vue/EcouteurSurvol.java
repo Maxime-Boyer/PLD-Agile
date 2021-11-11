@@ -94,7 +94,6 @@ public class EcouteurSurvol implements MouseListener {
             fenetre.getCartePanel().supprimerPositionRequete();
         }
 
-
         if((e.getSource() instanceof JLabel && ((JLabel) e.getSource()).getText().equals("X"))){
             fenetre.setCursor(new Cursor(Cursor.HAND_CURSOR));
         } else{

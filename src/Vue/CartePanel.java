@@ -115,6 +115,7 @@ public class CartePanel extends JPanel implements Observer {
      * @param depot: Etape de dépot de la requete à identifier
      */
     public void indiquerPositionRequete(Etape collecte, Etape depot){
+        supprimerPositionRequete();
         if(collecte != null){
             int x1 = valeurX(collecte.getLongitude()) - iconPosition.getIconWidth()/2;
             int y1 = valeurY(collecte.getLatitude()) - iconPosition.getIconHeight()/2 - 25;
