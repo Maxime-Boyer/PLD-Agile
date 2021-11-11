@@ -19,6 +19,13 @@ public class FeuilleRoute {
 
         try
         {
+            //remise à 0 du zoom
+            cartePanel.setMinLongitudeCarte(cartePanel.getMinLongitudeInitialeCarte());
+            cartePanel.setMaxLongitudeCarte(cartePanel.getMaxLongitudeInitialeCarte());
+            cartePanel.setMinLatitudeCarte(cartePanel.getMinLatitudeInitialeCarte());
+            cartePanel.setMaxLatitudeCarte(cartePanel.getMaxLatitudeInitialeCarte());
+            cartePanel.repaint();
+
             BufferedImage bi = new BufferedImage(cartePanel.getSize().width, cartePanel.getSize().height, BufferedImage.TYPE_INT_ARGB);
             Graphics g = bi.createGraphics();
             cartePanel.paint(g);  //this == JComponent
