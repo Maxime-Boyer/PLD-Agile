@@ -87,7 +87,7 @@ public class MenuLateral extends JPanel implements Observer {
         messageUtilisateur.setLineWrap(true);
         messageUtilisateur.setWrapStyleWord(true);
         messageUtilisateur.setOpaque(false);
-        messageUtilisateur.setBounds(2 * Fenetre.valMarginBase, Fenetre.valMarginBase, this.getWidth() - 4 * Fenetre.valMarginBase, 35);
+        messageUtilisateur.setBounds(2 * Fenetre.valMarginBase, Fenetre.valMarginBase, this.getWidth() - 4 * Fenetre.valMarginBase, 60);
         this.add(messageUtilisateur);
     }
 
