@@ -42,10 +42,13 @@ public class EcouteurSouris extends MouseAdapter {
 
     private Adresse coordonnees(MouseEvent evt){
 
-        double longitude = vueGraphique.valeurLongitude(evt.getX());
-        double latitude = vueGraphique.valeurLatitude(evt.getY());
-        Adresse positionClique = new Adresse (latitude,longitude);
-        return positionClique;
+        if(vueGraphique != null) {
+            double longitude = vueGraphique.valeurLongitude(evt.getX());
+            double latitude = vueGraphique.valeurLatitude(evt.getY());
+            Adresse positionClique = new Adresse(latitude, longitude);
+            return positionClique;
+        }
+        return null;
     }
 
     public void setVueGraphique(CartePanel vueGraphique) {

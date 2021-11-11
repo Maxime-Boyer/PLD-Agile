@@ -5,11 +5,14 @@ import Exceptions.IncompatibleAdresseException;
 import Model.*;
 import Observer.Observer;
 import Observer.Observable;
+//import com.sun.deploy.uitoolkit.impl.awt.AWTDragHelper;
+//import com.sun.org.glassfish.external.statistics.annotations.Reset;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -68,6 +71,7 @@ public class CartePanel extends JPanel implements Observer {
         super();
 
         carte.addObserver(this); // this observe la carte
+
         this.carte = carte;
         tournee.addObserver(this); // this observe la tournee
         this.tournee = tournee;
@@ -83,6 +87,7 @@ public class CartePanel extends JPanel implements Observer {
 
         this.addMouseListener(ecouteurSurvol);
         this.addMouseWheelListener(new EcouteurZoom(this,.002));
+        this.addMouseMotionListener(new EcouteurDrag(this));
         this.addMouseListener(ecouteurSouris);
 
         //initialisation image
@@ -99,13 +104,16 @@ public class CartePanel extends JPanel implements Observer {
         //ininitialisation du popup de saisie des durees lors de l'ajout d'une etape
         popUpSaisieDuree = new PopUpSaisieDuree(policeTexte, ecouteurBoutons);
 
-        legende = new Legende(this.getWidth(), this.getHeight(), ecouteurDragDrop, ecouteurSurvol);
+        legende = new Legende(this.carte,this.getWidth(), this.getHeight(), ecouteurDragDrop, ecouteurSurvol);
 
         this.setVisible(true);
 
         /* - Exemple d'utilisation -
         popUpSaisieDuree.setPosition(200, 300);
         this.add(popUpSaisieDuree);*/
+
+        ResetZoomPanel resetZoomPanel = new ResetZoomPanel(this,40,this.getLargeur()-60,this.getHauteur()-60);
+        this.add(resetZoomPanel);
     }
 
     /**
@@ -386,24 +394,8 @@ public class CartePanel extends JPanel implements Observer {
     public void dessinerItineraire(Graphics2D g) {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        //dessine contour du trajet
-        for (int i = 0; i < tournee.getListeChemins().size(); i++) {
-            for (int j = 0; j < tournee.getListeChemins().get(i).getListeSegment().size(); j++) {
-                Adresse origine = tournee.getListeChemins().get(i).getListeSegment().get(j).getOrigine();
-                Adresse destination = tournee.getListeChemins().get(i).getListeSegment().get(j).getDestination();
-                int origineX = valeurX(origine.getLongitude());
-                int origineY = valeurY(origine.getLatitude());
-                int destinationX = valeurX(destination.getLongitude());
-                int destinationY = valeurY(destination.getLatitude());
 
-                Stroke s = g.getStroke();
-                g.setStroke(new BasicStroke(8));
-                g.setColor(Color.BLUE);
-                g.drawLine(origineX, origineY, destinationX, destinationY);
-                g.setStroke(s);
-            }
-        }
-
+        /*
         //dessine interieur des lignes du trajet
         for (int i = 0; i < tournee.getListeChemins().size(); i++) {
             for (int j = 0; j < tournee.getListeChemins().get(i).getListeSegment().size(); j++) {
@@ -420,6 +412,91 @@ public class CartePanel extends JPanel implements Observer {
                 g.drawLine(origineX, origineY, destinationX, destinationY);
                 g.setStroke(s);
             }
+        }*/
+
+
+        //On compte le nombre de passage par segment
+        HashMap<Adresse,HashMap<Adresse,Integer>> nbPassage = new HashMap<>();
+        for (int i = 0; i < tournee.getListeChemins().size(); i++) {
+            for (int j = 0; j < tournee.getListeChemins().get(i).getListeSegment().size(); j++) {
+                Adresse origine = tournee.getListeChemins().get(i).getListeSegment().get(j).getOrigine();
+                Adresse destination = tournee.getListeChemins().get(i).getListeSegment().get(j).getDestination();
+                if(nbPassage.containsKey(origine) && nbPassage.get(origine).containsKey(destination)){
+                    nbPassage.get(origine).put(destination,nbPassage.get(origine).get(destination)+1);
+                } else if(nbPassage.containsKey(destination) && nbPassage.get(destination).containsKey(origine)){
+                    nbPassage.get(destination).put(origine,nbPassage.get(destination).get(origine)+1);
+                } else {
+                    if(nbPassage.containsKey(origine)){
+                        nbPassage.get(origine).put(destination,1);
+                    } else {
+                        HashMap<Adresse,Integer> hs = new HashMap<>();
+                        hs.put(destination,1);
+                        nbPassage.put(origine,hs);
+                    }
+                }
+            }
+        }
+
+        //dessine contour du trajet
+        for (Map.Entry<Adresse,HashMap<Adresse,Integer>> entry : nbPassage.entrySet()) {
+            for (Map.Entry<Adresse,Integer> entryBis : entry.getValue().entrySet()) {
+                Adresse origine = entry.getKey();
+                Adresse destination = entryBis.getKey();
+                int origineX = valeurX(origine.getLongitude());
+                int origineY = valeurY(origine.getLatitude());
+                int destinationX = valeurX(destination.getLongitude());
+                int destinationY = valeurY(destination.getLatitude());
+
+                Stroke s = g.getStroke();
+                g.setStroke(new BasicStroke(8));
+
+                switch(entryBis.getValue()){
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                        g.setColor(carte.getCouleurExterieurChemin()[entryBis.getValue()-1]);
+                        break;
+                    default :
+                        g.setColor(carte.getCouleurExterieurChemin()[4]);
+                        break;
+                }
+
+                g.drawLine(origineX, origineY, destinationX, destinationY);
+                g.setStroke(s);
+
+            }
+        }
+
+        //dessine interieur des lignes du trajet
+        for (Map.Entry<Adresse,HashMap<Adresse,Integer>> entry : nbPassage.entrySet()) {
+            for (Map.Entry<Adresse,Integer> entryBis : entry.getValue().entrySet()) {
+                Adresse origine = entry.getKey();
+                Adresse destination = entryBis.getKey();
+                int origineX = valeurX(origine.getLongitude());
+                int origineY = valeurY(origine.getLatitude());
+                int destinationX = valeurX(destination.getLongitude());
+                int destinationY = valeurY(destination.getLatitude());
+
+                Stroke s = g.getStroke();
+                g.setStroke(new BasicStroke(6));
+
+                switch(entryBis.getValue()){
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                        g.setColor(carte.getCouleurInterieurChemin()[entryBis.getValue()-1]);
+                        break;
+                    default :
+                        g.setColor(carte.getCouleurInterieurChemin()[4]);
+                        break;
+                }
+
+                g.drawLine(origineX, origineY, destinationX, destinationY);
+                g.setStroke(s);
+
+            }
         }
 
         //dessine les flèches de direction
@@ -431,6 +508,7 @@ public class CartePanel extends JPanel implements Observer {
             for (int j = 0; j < tournee.getListeChemins().get(i).getListeSegment().size(); j++) {
                 Adresse origine = tournee.getListeChemins().get(i).getListeSegment().get(j).getOrigine();
                 Adresse destination = tournee.getListeChemins().get(i).getListeSegment().get(j).getDestination();
+
                 int origineX = valeurX(origine.getLongitude());
                 int origineY = valeurY(origine.getLatitude());
                 int destinationX = valeurX(destination.getLongitude());
@@ -438,7 +516,7 @@ public class CartePanel extends JPanel implements Observer {
 
                 //Si le segment est trop petit, on n'affiche pas la fleche
                 //FIXME prend en compte les segments 1 par 1, et non la liste de segment sur la meme rue
-                if((origineX-destinationX)*(origineX-destinationX)+(origineY-destinationY)*(origineY-destinationY) > 20*20){
+                if((origineX-destinationX)*(origineX-destinationX)+(origineY-destinationY)*(origineY-destinationY) > 25*25){
                     g.setColor(Color.white);
 
                     AffineTransform at1 = g.getTransform();

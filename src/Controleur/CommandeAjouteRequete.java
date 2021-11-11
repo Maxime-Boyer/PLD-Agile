@@ -7,9 +7,6 @@ import Model.Tournee;
 
 public class CommandeAjouteRequete implements Commande{
 
-    /**
-     * Execute the command this
-     */
     Tournee tournee;
     Carte carte;
     Etape etape;
@@ -22,13 +19,16 @@ public class CommandeAjouteRequete implements Commande{
         this.carte = carte;
     }
 
+    /**
+     * Execute la commande de this
+     */
     @Override
     public void faireCommande(){
         tournee.ajoutChemin(etape,precedent,carte);
     }
 
     /**
-     * Execute the reverse command of this
+     * Execute la commande inverse de this
      */
     @Override
     public void defaireCommande(){

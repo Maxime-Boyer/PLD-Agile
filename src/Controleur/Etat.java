@@ -8,7 +8,7 @@ import Vue.Fenetre;
 public interface Etat {
 
     /**
-     * Méthode appelé par le controlleur après avoir cliqué sur le bouton "Importer un plan"
+     * Méthode appelée par le controlleur après avoir cliqué sur le bouton "Importer un plan"
      * @param c : le controlleur
      * @param fenetre : la fenêtre
      */
@@ -17,7 +17,7 @@ public interface Etat {
     public default void chargerListeRequete(Controleur c, Fenetre fenetre, Carte carte, Tournee tournee) {}
 
     /**
-     * Méthode appelé par fenetre après avoir cliqué sur le bouton "Calculer l'itinéraire"
+     * Méthode appelée par fenetre après avoir cliqué sur le bouton "Calculer l'itinéraire"
      * @param c le controlleur
      * @param fenetre la fenêtre
      * @param carte la carte

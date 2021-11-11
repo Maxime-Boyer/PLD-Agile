@@ -12,7 +12,9 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * Classe de test de l'ensemble des exceptions jétées lors de l'ouverture des fichiers xml
+ */
 class ExceptionsXMLTest {
 
     private Carte carte;
@@ -28,6 +30,9 @@ class ExceptionsXMLTest {
         tournee = new Tournee();
     }
 
+    /**
+     * Test de presence de la version d'encodage dans le fichier carte.xml
+     */
     @Test
     void exceptionAbsenceVersionEncodage() {
         try {
@@ -57,6 +62,9 @@ class ExceptionsXMLTest {
 
     }
 
+    /**
+     * Test du nombre d'attributs dans la balise segment de la carte
+     */
     @Test
     void exceptionNombreAttributBaliseSegment() {
         try {
@@ -95,8 +103,9 @@ class ExceptionsXMLTest {
     }
 
 
-
-
+    /**
+     * Test de la présence de mauvais attributs dans la balise segment
+     */
     @Test
     void exceptionMauvaisAttributSegment() {
         try {
@@ -134,6 +143,9 @@ class ExceptionsXMLTest {
 
     }
 
+    /**
+     * Test de la présence d'une longitude négative dans les balises adresses
+     */
     @Test
     void exceptionLongitudeNegative() {
         try {
@@ -171,6 +183,9 @@ class ExceptionsXMLTest {
 
     }
 
+    /**
+     * Test de la présence d'une latitude négative dans les balises adresses
+     */
     @Test
     void exceptionLatitudeNegative() {
         try {
@@ -208,7 +223,9 @@ class ExceptionsXMLTest {
 
     }
 
-
+    /**
+     * test de la présence du mauvais nombre d'attributs dans la balise intersection de la carte
+     */
     @Test
     void exceptionNombreAttributBaliseIntersection() {
         try {
@@ -246,6 +263,9 @@ class ExceptionsXMLTest {
 
     }
 
+    /**
+     * Test de la présence de la version d'encodage dans le fichier requete.xml
+     */
     @Test
     void exceptionAbsenceVersionEncodageRequests() {
         try {
@@ -297,6 +317,9 @@ class ExceptionsXMLTest {
         }
     }
 
+    /**
+     * Test de la présence de balise incorrect dans le fichier xml
+     */
     @Test
     void exceptionBaliseIncorrectRequests() {
         try {
@@ -347,7 +370,9 @@ class ExceptionsXMLTest {
             fail();
         }
     }
-
+    /**
+     *  Test de la présence d'au moins un attribut dans la balise depôt
+     */
     @Test
     void exceptionAbsenceBaliseDepotException() {
         try {
@@ -399,57 +424,11 @@ class ExceptionsXMLTest {
         }
     }
 
-    @Test
-    void exceptionAttributDepotExceptions() {
-        try {
-            LecteurXML lecteurXML = new LecteurXML();
-            Tournee tournee = new Tournee();
-            Carte carte = new Carte();
-            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/mediumRequestsAttributDepotNombreTest.xml", carte, tournee);
-        } catch (IncompatibleLatitudeException e) {
-            e.printStackTrace();
-            fail();
-        } catch (AttributsRequestsException attributsRequestsException) {
-            attributsRequestsException.printStackTrace();
-            fail();
-        } catch (AbsenceBaliseDepotException AbsenceBaliseDepotException) {
-            AbsenceBaliseDepotException.printStackTrace();
-            fail();
-        } catch (PresenceEncodingEtVersionException e) {
-            e.printStackTrace();
-            fail();
-        } catch (IOException e) {
-            e.printStackTrace();
-            fail();
-        } catch (IncompatibleLongitudeException e) {
-            e.printStackTrace();
-            fail();
-        } catch (NegatifLongitudeException e) {
-            e.printStackTrace();
-            fail();
-        } catch (TagNameMapException e) {
-            e.printStackTrace();
-            fail();
-        } catch (SAXException e) {
-            e.printStackTrace();
-            fail();
-        } catch (AbsenceBaliseRequestException e) {
-            e.printStackTrace();
-            fail();
-        } catch (IncompatibleAdresseException e) {
-            e.printStackTrace();
-            fail();
-        } catch (AttributsDepotException e) {
-            e.printStackTrace();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-            fail();
-        } catch (NegatifLatitudeException e) {
-            e.printStackTrace();
-            fail();
-        }
-    }
 
+
+    /**
+     * Test de la présence des bons attributs dans la balise depôt
+     */
     @Test
     void exceptionMauvaisAttributDepotExceptions() {
         try {
@@ -501,6 +480,9 @@ class ExceptionsXMLTest {
         }
     }
 
+    /**
+     * Test de la présence d'une valeur dans l'attribut departure time dans le fichier request.xml
+     */
     @Test
     void exceptionMauvaiseValeurAttributDepotExceptions() {
         try {
@@ -551,7 +533,9 @@ class ExceptionsXMLTest {
             fail();
         }
     }
-
+    /**
+     * test de la présence du bon format pour l'attribut départure time
+     */
     @Test
     void exceptionMauvaiseValeurAttributDepotExceptions2() {
         try {
@@ -609,6 +593,9 @@ class ExceptionsXMLTest {
         }
     }
 
+    /**
+     * test de la présence de la balise request dans request.xml
+     */
     @Test
     void exceptionBaliseRequestsManquanteExceptions() {
         try {
@@ -667,6 +654,9 @@ class ExceptionsXMLTest {
         }
     }
 
+    /**
+     * Test de la présence du bon nombre d'attribut dans la balise requête
+     */
     @Test
     void exceptionNombreAttributBaliseRequest() {
         try {
@@ -724,6 +714,9 @@ class ExceptionsXMLTest {
         }
     }
 
+    /**
+     * Test de la présence des bons attributs dans la balise requête
+     */
     @Test
     void exceptionMauvaisAttributBaliseRequest() {
         try {
@@ -781,6 +774,9 @@ class ExceptionsXMLTest {
         }
     }
 
+    /**
+     * Test de la présence d'une adresse de retrait dans la carte chargée
+     */
     @Test
     void exceptionAdresseRetrait() {
         try {
@@ -831,6 +827,9 @@ class ExceptionsXMLTest {
         }
     }
 
+    /**
+     * Test de la présence de l'adresse de dépôt dans la carte chargée
+     */
     @Test
     void exceptionAdresseDepot() {
         try {
@@ -881,6 +880,9 @@ class ExceptionsXMLTest {
         }
     }
 
+    /**
+     * Test de la présence de l'adresse de départ dans la carte chargée
+     */
     @Test
     void exceptionAdresseDepart() {
         try {
