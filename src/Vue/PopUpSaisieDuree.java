@@ -1,5 +1,7 @@
 package Vue;
 
+import Exceptions.ValeurNegativeException;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -68,8 +70,14 @@ public class PopUpSaisieDuree extends JPanel {
      * @return: la duree entree par l'utilisateur
      */
     //TODO : Rajouter exception sur ça verifier bien un nombre (parseInt contient déjà exception normalement)
-    public int getDureePopUp(){
-        return Integer.parseInt(champValDuree.getText());
+    public int getDureePopUp() throws ValeurNegativeException {
+        int val = Integer.parseInt(champValDuree.getText());
+            if(val < 0){
+                throw new ValeurNegativeException("Veuillez entrez une valeur positive");
+            }
+
+            return val;
+
     }
 
 }
