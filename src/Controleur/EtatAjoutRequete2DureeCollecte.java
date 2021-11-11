@@ -27,9 +27,6 @@ public class EtatAjoutRequete2DureeCollecte implements Etat{
             System.out.println("ERREUR " + ex);
             JOptionPane.showMessageDialog(null, messageErreur);
         }
-
-
-
     }
 
     @Override
