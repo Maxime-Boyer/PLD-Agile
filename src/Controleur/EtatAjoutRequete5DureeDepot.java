@@ -30,7 +30,7 @@ public class EtatAjoutRequete5DureeDepot implements Etat{
     }
 
     @Override
-    public void cliqueDroit(Controleur controleur , Fenetre fenetre, Carte carte, ListeDeCommandes l, Tournee tournee) {
+    public void annuler(Controleur controleur , Fenetre fenetre, Carte carte, ListeDeCommandes l, Tournee tournee) {
         //tournee.enleverChemin(collecte,carte);
         fenetre.getCartePanel().viderNouvelleRequete();
         controleur.setEtatActuel(controleur.etatTourneeOrdonnee);

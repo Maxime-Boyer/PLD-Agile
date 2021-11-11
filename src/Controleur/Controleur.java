@@ -5,7 +5,6 @@ import Model.Adresse;
 import Model.Carte;
 import Model.Requete;
 import Model.Tournee;
-import Vue.CartePanel;
 import Vue.Fenetre;
 
 public class Controleur {
@@ -196,8 +195,8 @@ public class Controleur {
     /**
      * Méthode appeléee par la fenêtre après avoir cliqué sur le clic droit de la souris
      */
-    public void cliqueDroit(){
-        etatActuel.cliqueDroit(this, fenetre,carte,listeDeCommandes, tournee);
+    public void annuler(){
+        etatActuel.annuler(this, fenetre,carte,listeDeCommandes, tournee);
     }
 
     /**

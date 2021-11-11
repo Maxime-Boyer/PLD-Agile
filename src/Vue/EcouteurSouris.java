@@ -37,9 +37,6 @@ public class EcouteurSouris extends MouseAdapter {
                     }
                 }
                 break;
-             case MouseEvent.BUTTON3:
-                controleur.cliqueDroit();
-                break;
             default:
         }
     }

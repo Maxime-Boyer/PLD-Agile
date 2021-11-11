@@ -45,5 +45,5 @@ public interface Etat {
     public default void ajouterRequete(Controleur c, Fenetre fenetre){}
     public default void validerAjoutDureeEtape(Controleur c, Fenetre fenetre){}
     public default void cliqueGauche (Controleur c, Fenetre fenetre, Carte carte, ListeDeCommandes l, Tournee tournee, Adresse a) {}
-    public default void cliqueDroit (Controleur c, Fenetre fenetre, Carte carte, ListeDeCommandes l, Tournee tournee){}
+    public default void annuler(Controleur c, Fenetre fenetre, Carte carte, ListeDeCommandes l, Tournee tournee){}
 }
