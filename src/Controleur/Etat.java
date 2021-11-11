@@ -7,6 +7,9 @@ import Model.Tournee;
 import Vue.CartePanel;
 import Vue.Fenetre;
 
+/**
+ * Permet de mettre en place le design pattern State. Chaque état permet d'accéder à un ou plusieurs autres états avec des affichages différents.
+ */
 public interface Etat {
 
     /**

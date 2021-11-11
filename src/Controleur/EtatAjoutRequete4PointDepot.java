@@ -6,6 +6,9 @@ import Vue.Fenetre;
 
 import javax.swing.*;
 
+/**
+ * Quatrièmme état de l'ajout de requêtes, permet de choisir une nouvelle étape de dépôt
+ */
 public class EtatAjoutRequete4PointDepot implements Etat{
 
     @Override
