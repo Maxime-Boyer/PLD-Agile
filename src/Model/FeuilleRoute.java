@@ -66,7 +66,7 @@ public class FeuilleRoute {
             bw.write(" <div class='descriptionTextuelle'>");
             bw.write("<div class='etape' style='border-color: red; background-color: rgba(255,0,0,0.1);'>");
             bw.write(" <h2>Départ</h2>");
-            bw.write("<p>Départ de l'entrepôt situé à l'"+tournee.getEtapeDepart().getNomAdresse()+" à "+tournee.getDateDepart()+"</p>");
+            bw.write("<p>Départ de l'entrepôt situé à l'"+tournee.getEtapeDepart().getNomAdresse()+" à "+tournee.getDateDepart()+".</p>");
             bw.write("</div>");
 
             Requete requeteEtapeArriveeCheminCourant;
@@ -126,10 +126,10 @@ public class FeuilleRoute {
                     else
                         bw.write("Récuperer");
 
-                    String dureeEtape = String.valueOf(etapeArriveeChemin.getDureeEtape()/60) + "min ";
+                    String dureeEtape = String.valueOf(etapeArriveeChemin.getDureeEtape()/60) + "min";
 
                     if(etapeArriveeChemin.getDureeEtape()%60 > 0){
-                        dureeEtape += String.valueOf(etapeArriveeChemin.getDureeEtape()%60) + "sec";
+                        dureeEtape += String.valueOf(etapeArriveeChemin.getDureeEtape()%60) + " sec";
                     }
 
                     bw.write(" collis à l'"+ etapeArriveeChemin.getNomAdresse() +" à "+etapeArriveeChemin.getHeureDePassage()+". Durée de l'étape: "+dureeEtape+".");
