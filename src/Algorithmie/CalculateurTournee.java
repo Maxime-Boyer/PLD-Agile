@@ -103,7 +103,7 @@ public class CalculateurTournee {
     }
 
     /**
-     * methode qui permet d'ajouter l'heure de passage au Etape de la tournée
+     * Methode qui permet d'ajouter l'heure de passage au Etape de la tournée
      *
      * @param tournee: tournee à modifier
      */

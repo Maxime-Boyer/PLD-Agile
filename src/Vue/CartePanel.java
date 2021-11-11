@@ -5,9 +5,6 @@ import Exceptions.IncompatibleAdresseException;
 import Model.*;
 import Observer.Observer;
 import Observer.Observable;
-//import com.sun.deploy.uitoolkit.impl.awt.AWTDragHelper;
-//import com.sun.org.glassfish.external.statistics.annotations.Reset;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -107,10 +104,6 @@ public class CartePanel extends JPanel implements Observer {
         legende = new Legende(this.carte,this.getWidth(), this.getHeight(), ecouteurDragDrop);
 
         this.setVisible(true);
-
-        /* - Exemple d'utilisation -
-        popUpSaisieDuree.setPosition(200, 300);
-        this.add(popUpSaisieDuree);*/
 
         ResetZoomPanel resetZoomPanel = new ResetZoomPanel(this,40,this.getLargeur()-60,this.getHauteur()-60);
         this.add(resetZoomPanel);

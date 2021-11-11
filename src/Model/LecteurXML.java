@@ -345,8 +345,32 @@ public class LecteurXML {
     private void determinerNomAdresseEtapes(Tournee tournee, Carte carte){
 
         Requete requete;
-        Segment segment, segmentCollecte1, segmentCollecte2, segmentDepot1, segmentDepot2;
-        String nomAdresseCollecte = "", nomAdresseDepot = "";
+        Segment segment, segmentEntrepot1, segmentEntrepot2, segmentCollecte1, segmentCollecte2, segmentDepot1, segmentDepot2;
+        String nomAdresseEntrepot = "", nomAdresseCollecte = "", nomAdresseDepot = "";
+
+        segmentEntrepot1 = null;
+        segmentEntrepot2 = null;
+        // recuperation de tous les segments
+        for(int j = 0; j < carte.getListeSegments().size(); j++){
+            segment = carte.getListeSegments().get(j);
+            // si les coordonnes de l'étape de collecte concordent avec celles d'une extremite du segment
+            if(tournee.getEtapeDepart().getIdAdresse().equals(segment.getOrigine().getIdAdresse()) || tournee.getEtapeDepart().getIdAdresse().equals(segment.getDestination().getIdAdresse()) ){
+                if(segmentEntrepot1 == null){
+                    segmentEntrepot1 = segment;
+                }
+                else if(segmentEntrepot2 == null || !segment.getNom().equals(segmentEntrepot1.getNom())){
+                    segmentEntrepot2 = segment;
+                }
+            }
+
+            if(segmentEntrepot1 != null && segmentEntrepot2 != null && !segmentEntrepot1.getNom().equals(segmentEntrepot2.getNom())){
+                break;
+            }
+        }
+        // Création et attribution des noms des adresses
+        nomAdresseEntrepot = nommerAdresseAvecDeuxSegments(segmentEntrepot1, segmentEntrepot2);
+        tournee.getEtapeDepart().setNomAdresse(nomAdresseEntrepot);
+
         // parcours de toutes les requetes
         for(int i = 0; i < tournee.getListeRequetes().size(); i++){
             requete = tournee.getListeRequetes().get(i);

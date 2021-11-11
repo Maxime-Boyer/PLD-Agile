@@ -73,6 +73,8 @@ public class EcouteurBoutons implements ActionListener {
                     ex.printStackTrace();
                 }
                 break;
+            case Fenetre.ANNULER_AJOUT_REQUETE:
+                controleur.cliqueDroit();
         }
     }
 }

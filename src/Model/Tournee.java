@@ -285,6 +285,7 @@ public class Tournee extends Observable {
     }
 
     /**
+<<<<<<< HEAD
      * méthode qui renvoie l'Adresse la plus proche en focntion de l'Adresse en paramètre.
      * @param a: adresse récupéré au clic de l'utilisateur
      * @return: l'Adresse recherchée
@@ -317,16 +318,22 @@ public class Tournee extends Observable {
 
     /**
      * méthode qui permet de rechercher l'Adresse entre l'adresse cliquée et l'adresse déjà placée sur le carte dans l'état ajout requête
+=======
+     * méthode qui renvoie l'Adresse la plus proche en fonction de l'Adresse en paramètre.
+>>>>>>> refonte-Vue-by-Arthur
      * @param a: adresse cliquée
-     * @param collectePlacee: nouvelle adresse de collecte
+     * @param collectePlacee: nouvelle adresse de collecte. null si on est actuellement en train de créer la collecte.
      * @return: l'Adresse entre l'Adresse cliquée et l'Adresse déjà placée
      */
     public Adresse rechercheEtape (Adresse a, Adresse collectePlacee){
         double distanceMin = Double.MAX_VALUE;
         double distanceCollecte;
         double distanceDepot;
+        double distanceCollectePlacee = Double.MAX_VALUE;
         Adresse plusProche = null;
-        double distanceCollectePlacee = distanceEntreAdresse(a, collectePlacee);
+        if(collectePlacee != null) {
+            distanceCollectePlacee = distanceEntreAdresse(a, collectePlacee);
+        }
         if(distanceCollectePlacee < distanceMin){
             distanceMin = distanceCollectePlacee;
             plusProche = collectePlacee;
@@ -336,6 +343,7 @@ public class Tournee extends Observable {
             Adresse depot = new Adresse (chemin.getEtapeArrivee().getLatitude(),chemin.getEtapeArrivee().getLongitude(),chemin.getEtapeArrivee().getIdAdresse());
             distanceCollecte = distanceEntreAdresse(a, collecte);
             distanceDepot = distanceEntreAdresse(a, depot);
+
             if( distanceCollecte < distanceMin){
                 distanceMin = distanceCollecte;
                 plusProche = collecte;
