@@ -22,8 +22,8 @@ public class Segment {
     }
 
     /**
-     * methode qui affiche le segment
-     * @return
+     * méthode qui affiche le segment
+     * @return: le Segment this
      */
     @Override
     public String toString() {
@@ -36,8 +36,8 @@ public class Segment {
     }
 
     /**
-     * methode qui renvoie l'adresse d'origine
-     * @return
+     * méthode qui renvoie l'adresse d'origine
+     * @return: l'Adresse d'origine
      */
     public Adresse getOrigine() {
         return origine;
@@ -52,15 +52,15 @@ public class Segment {
     }
 
     /**
-     * methode qui renvoie l'adresse de destination
-     * @return
+     * méthode qui renvoie l'adresse de destination
+     * @return: l'Adresse de destination
      */
     public Adresse getDestination() {
         return destination;
     }
 
     /**
-     * methode qui place l'adresse de destination
+     * méthode qui place l'adresse de destination
      * @param destination: adresse de destination
      */
     public void setDestination(Adresse destination) {
@@ -69,7 +69,7 @@ public class Segment {
 
     /**
      * merhode qi renvoie le nom
-     * @return
+     * @return: le nom
      */
     public String getNom() {
         return nom;
@@ -78,8 +78,8 @@ public class Segment {
 
 
     /**
-     * methode qui renvoie la longueur
-     * @return
+     * méthode qui renvoie la longueur
+     * @return: la longueur
      */
     public Double getLongueur() {
         return longueur;

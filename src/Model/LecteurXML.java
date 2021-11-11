@@ -24,7 +24,7 @@ public class LecteurXML {
     }
 
     /**
-     * methode qui permet de lire la carte.xm et de remplir les liste d'adresse et de segment de la carte
+     * méthode qui permet de lire la carte.xm et de remplir les liste d'adresse et de segment de la carte
      * @param nomFichier: nom du fichier à ouvrir
      * @throws ParserConfigurationException
      * @throws SAXException
@@ -139,7 +139,7 @@ public class LecteurXML {
     }
 
         /**
-     *methode qui permet de lire le fichier requete.xml et de remplir la liste des requetes de la Tournee et l'adresse de départ/dépot
+     *méthode qui permet de lire le fichier requete.xml et de remplir la liste des requetes de la Tournee et l'adresse de départ/dépot
      * @param nomFichier: nom du fichier requete.xml
      * @throws ParserConfigurationException
      * @throws SAXException
@@ -196,12 +196,15 @@ public class LecteurXML {
             throw new AttributsDepotException("Erreur l'attribut adresse de la balise depot est inexistant ou n'a pas de valeur");
         }
         Long idAdresseDepot = Long.parseLong(eElement.getAttribute("address"));
+
+        Etape etapeDepot;
         Adresse adresseDepot;
         if(carte.getListeAdresses() != null) {
             if (!(carte.getListeAdresses().containsKey(idAdresseDepot))) {
                 throw new IncompatibleAdresseException("Erreur d'adresse de départ, cette adresse n'appartient pas à la carte chargée ");
             } else {
                 adresseDepot = carte.obtenirAdresseParId(idAdresseDepot);
+                etapeDepot = new Etape(adresseDepot.getLatitude(), adresseDepot.getLongitude(), idAdresseDepot, 0, LocalTime.of(0,0,0,0));
             }
             double latitudeAdresseDepot = adresseDepot.getLatitude();
             double longitudeAdresseDepot = adresseDepot.getLongitude();
@@ -212,7 +215,9 @@ public class LecteurXML {
             if (longitudeAdresseDepot < 0.0) {
                 throw new NegatifLongitudeException("Erreur, la longitude du départ est négative");
             }
-            nouvelleTournee.setAdresseDepart(adresseDepot);
+
+            //String depart = eElement.getAttribute("departureTime");
+            nouvelleTournee.setEtapeDepart(etapeDepot);
         }
         if(verificationFormatDate(stringHeureDepart)) {
             LocalTime heureDepart = LocalTime.parse(stringHeureDepart, DateTimeFormatter.ofPattern("H:m:s"));
@@ -293,7 +298,7 @@ public class LecteurXML {
     /**
      * retourne true si la date est au bon format
      * @param date: date à vérifier
-     * @return
+     * @return: true si la date est au bon format
      */
     public boolean verificationFormatDate(String date) {
 
@@ -332,7 +337,7 @@ public class LecteurXML {
     }
 
     /**
-     * methode qui permer de parcourir chaque etape et tous les segments de la carte pour obtenir le nom des adresses
+     * méthode qui permer de parcourir chaque etape et tous les segments de la carte pour obtenir le nom des adresses
      * @param tournee: pour récolter la liste des requêtes
      * @param carte: pour récuperer les segments et les adresses
      */

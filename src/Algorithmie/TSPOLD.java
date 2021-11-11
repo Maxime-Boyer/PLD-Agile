@@ -87,7 +87,7 @@ public class TSPOLD {
 
         LinkedList<CheminEntreEtape> listeChemins = new LinkedList<>();
 
-        Long adresseActuelle = tournee.getAdresseDepart().getIdAdresse();
+        Long adresseActuelle = tournee.getEtapeDepart().getIdAdresse();
         Long adresseVisee = null;
 
         for (int i = 0; i < tournee.getListeRequetes().size(); i++) {
@@ -107,7 +107,7 @@ public class TSPOLD {
 
         adresseActuelle = adresseVisee;
         if(adresseVisee != null){
-            adresseVisee = tournee.getAdresseDepart().getIdAdresse();
+            adresseVisee = tournee.getEtapeDepart().getIdAdresse();
             trouverChemin(adresseActuelle,adresseVisee, listeChemins);
         }
 

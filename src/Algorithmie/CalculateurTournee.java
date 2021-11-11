@@ -71,7 +71,7 @@ public class CalculateurTournee {
         for(int iDepart=0 ; iDepart<tournee.getListeRequetes().size()*2 + 1 ; iDepart++) {
             Etape etapeDepart;
             if(iDepart == tournee.getListeRequetes().size()*2) {
-                etapeDepart = new Etape(tournee.getAdresseDepart().getLatitude(),tournee.getAdresseDepart().getLongitude(),tournee.getAdresseDepart().getIdAdresse(),0,LocalTime.of(0,0,0,0));
+                etapeDepart = tournee.getEtapeDepart();
             } else {
                 if (iDepart % 2 == 0) {
                     etapeDepart = tournee.getListeRequetes().get(iDepart / 2).getEtapeCollecte();
@@ -85,7 +85,7 @@ public class CalculateurTournee {
                 if (arr != iDepart) {
                     Etape etapeArrivee;
                     if(arr == tournee.getListeRequetes().size()*2) {
-                        etapeArrivee = new Etape(tournee.getAdresseDepart().getLatitude(),tournee.getAdresseDepart().getLongitude(),tournee.getAdresseDepart().getIdAdresse(),0,LocalTime.of(0,0,0,0));
+                        etapeArrivee = tournee.getEtapeDepart();
                     } else {
                         if(arr%2==0) {
                             etapeArrivee = tournee.getListeRequetes().get(arr/2).getEtapeCollecte();

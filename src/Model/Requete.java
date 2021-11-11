@@ -26,29 +26,29 @@ public class Requete {
     }
 
     /**
-     * methode qui retourne l'étape de collecte de la requete
-     * @return
+     * méthode qui retourne l'étape de collecte de la requete
+     * @return: l'Etape de collecte
      */
     public Etape getEtapeCollecte() {
         return etapeCollecte;
     }
     /**
-     * methode qui retourne l'étape de dépot de la requete
-     * @return
+     * méthode qui retourne l'étape de dépot de la requete
+     * @return: l'Etape de depôt
      */
     public Etape getEtapeDepot() {
         return etapeDepot;
     }
     /**
-     * methode qui retourne la couleur de la requete
-     * @return
+     * méthode qui retourne la couleur de la requete
+     * @return: la couleur de la requête pour l'IHM
      */
     public Color getCouleur() { return couleurRequete; }
 
     /**
-     * methode qui retourne true si les deux requetes sont les mêmes
+     * méthode qui retourne true si les deux requetes sont les mêmes
      * @param o
-     * @return
+     * @return:  true si les deux objets sont les même
      */
     @Override
     public boolean equals(Object o) {
@@ -59,7 +59,7 @@ public class Requete {
     }
 
     /**
-     * methode  qui digère les données stockées dans une instance de la classe dans une valeur de hachage
+     * méthode  qui digère les données stockées dans une instance de la classe dans une valeur de hachage
      * @return
      */
     @Override
@@ -68,8 +68,8 @@ public class Requete {
     }
 
     /**
-     * methode qui affiche la requête
-     * @return
+     * méthode qui affiche la requête
+     * @return: la Requete this
      */
     @Override
     public String toString() {
@@ -80,8 +80,8 @@ public class Requete {
     }
 
     /**
-     * methode qui retourne la couleur de la requête qui est utlile pour la création d'une couleur qui sera la même pour la collecte et le dépôt dans l'IHM
-     * @return
+     * méthode qui retourne la couleur de la requête qui est utlile pour la création d'une couleur qui sera la même pour la collecte et le dépôt dans l'IHM
+     * @return: la couleur de la Requete
      */
     public Color getCouleurRequete() {
         return couleurRequete;

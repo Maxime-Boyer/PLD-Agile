@@ -24,41 +24,41 @@ public class CheminEntreEtape implements Comparable<CheminEntreEtape> {
     }
 
     /**
-     * methode qui retourne l'étape de départ
-     * @return
+     * méthode qui retourne l'étape de départ
+     * @return: l'Etape de départ
      */
     public Etape getEtapeDepart() {
         return etapeDepart;
     }
 
     /**
-     * methode qui reourne l'étape d'arrivée
-     * @return
+     * méthode qui reourne l'étape d'arrivée
+     * @return: l'Etape d'arrivée
      */
     public Etape getEtapeArrivee() {
         return etapeArrivee;
     }
 
     /**
-     * methode qui retourne la liste des segments entre les étapes
-     * @return
+     * méthode qui retourne la liste des segments entre les étapes
+     * @return: la liste des segments
      */
     public List<Segment> getListeSegment() {
         return listeSegment;
     }
 
     /**
-     * methode qui retourne la distance du chemin
-     * @return
+     * méthode qui retourne la distance du chemin
+     * @return: la distance
      */
     public Integer getDistance() {
         return distance;
     }
 
     /**
-     * methode qui compare la distance entre le CheminEntreEtape et celui mis en paramètre
+     * méthode qui compare la distance entre le CheminEntreEtape et celui mis en paramètre
      * @param o: CheminEntreEtape à vérifier
-     * @return
+     * @return: un boolean ( true si la distance est la même)
      */
     @Override
     public int compareTo(CheminEntreEtape o) {

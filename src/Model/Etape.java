@@ -39,29 +39,29 @@ public class Etape extends Adresse{
     }
 
     /**
-     * methode qui retourne l'heure de passage
-     * @return
+     * méthode qui retourne l'heure de passage
+     * @return: l'heure de passage
      */
     public LocalTime getHeureDePassage() {
         return heureDePassage;
     }
 
     /**
-     * methode qui retourne la duree de l'étape
-     * @return
+     * méthode qui retourne la duree de l'étape
+     * @return: la durée de l'Etape
      */
     public Integer getDureeEtape() {
         return dureeEtape;
     }
 
     /**
-     * methode qui retourne le nom
-     * @return
+     * méthode qui retourne le nom
+     * @return: le nom de l'Etape
      */
     public String getNomAdresse() { return nomAdresse; }
 
     /**
-     * methode qui place l'heure de passage en paramètre
+     * méthode qui place l'heure de passage en paramètre
      * @param heureDePassage: heure de passage
      */
     public void setHeureDePassage(LocalTime heureDePassage) {
@@ -69,7 +69,7 @@ public class Etape extends Adresse{
     }
 
     /**
-     * methode qui place le nom de l'adresse
+     * méthode qui place le nom de l'adresse
      * @param nomAdresse: nom de l'adresse
      */
     public void setNomAdresse(String  nomAdresse){
@@ -78,7 +78,7 @@ public class Etape extends Adresse{
 
     /**
      * mehode qui affiche l'Etape
-     * @return
+     * @return: l'Etape this
      */
 
     @Override
