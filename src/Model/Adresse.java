@@ -41,8 +41,8 @@ public class Adresse {
     }
 
     /**
-     * methode permettant l'affichage de l'adresse
-     * @return
+     * méthode permettant l'affichage de l'adresse
+     * @return: l'Adresse this
      */
     @Override
     public String toString() {
@@ -54,7 +54,7 @@ public class Adresse {
     }
 
     /**
-     * methode permetant d'ajouter un segment à la liste des segments sortant d'une Adresse
+     * méthode permetant d'ajouter un segment à la liste des segments sortant d'une Adresse
      * @param segment: segment à ajouter à cette liste
      */
     public void ajouterSegmentSortant(Segment segment) {
@@ -62,31 +62,31 @@ public class Adresse {
     }
 
     /**
-     * methode qui retourne la liste des segments sortant
-     * @return
+     * méthode qui retourne la liste des segments sortant
+     * @return: la liste des segments sortants de l'Adresse
      */
     public List<Segment> getSegmentsSortants() {
         return segmentsSortants;
     }
 
     /**
-     * methode pour retourner la latitude de l'adresse
-     * @return
+     * méthode pour retourner la latitude de l'adresse
+     * @return: la latitude de l'Adresse
      */
     public double getLatitude() {
         return latitude;
     }
 
     /**
-     * methode pour retourner la longitude de l'adresse
-     * @return
+     * méthode pour retourner la longitude de l'adresse
+     * @return: la longitude de l'Adresse
      */
     public double getLongitude() {
         return longitude;
     }
     /**
-     * methode pour retourner l'id de l'adresse
-     * @return
+     * méthode pour retourner l'id de l'adresse
+     * @return: l'id de l'Adresse
      */
     public Long getIdAdresse() {
         return idAdresse;

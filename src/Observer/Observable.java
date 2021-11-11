@@ -16,14 +16,14 @@ public class Observable {
     }
 
     /**
-     * methode qui ajoute un observeur à la collection d'observeurs
-     * @param o
+     * méthode qui ajoute un observeur à la collection d'observeurs
+     * @param o: observeur à ajouté à la liste
      */
     public void addObserver(Observer o){
         if (!obs.contains(o)) obs.add(o);
     }
     /**
-     * methode qui notifie les observeurs
+     * méthode qui notifie les observeurs
      */
     public void notifyObservers(Object arg){
         for (Observer o : obs)
@@ -31,7 +31,7 @@ public class Observable {
     }
 
     /**
-     * methode qui notifie les observeurs
+     * méthode qui notifie les observeurs
      */
     public void notifyObservers(){
         notifyObservers(null);

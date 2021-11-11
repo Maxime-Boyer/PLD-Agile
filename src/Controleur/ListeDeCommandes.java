@@ -53,7 +53,7 @@ public class ListeDeCommandes {
     }
 
     /**
-     * Réinsérez la dernière commande supprimée par annuler
+     * Réinsére la dernière commande supprimée par annuler
      */
     public void refaire() throws CommandeImpossibleException{
         if (indexCourant < list.size()-1){

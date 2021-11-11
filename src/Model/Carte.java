@@ -54,9 +54,9 @@ public class Carte extends Observable {
     }
 
     /**
-     * methode qui retourne l'adresse en entrant l'id de celle ci
+     * méthode qui retourne l'adresse en entrant l'id de celle ci
      * @param id: id de l'adresse à retourner
-     * @return
+     * @return: l'Adresse qu'il y a dans la liste d'adresse depuis son id
      */
     public Adresse obtenirAdresseParId(Long id){
         return listeAdresses.get(id);
@@ -64,23 +64,23 @@ public class Carte extends Observable {
     }
 
     /**
-     * methode qui retourne la liste des adresses de la carte
-     * @return
+     * méthode qui retourne la liste des adresses de la carte
+     * @return: la liste (map) d'adresse dont la clé est l'id
      */
     public Map<Long, Adresse> getListeAdresses() {
         return listeAdresses;
     }
 
     /**
-     * methode qui retourne la liste des segments de la carte
-     * @return
+     * méthode qui retourne la liste des segments de la carte
+     * @return: la liste des segments
      */
     public List<Segment> getListeSegments() {
         return listeSegments;
     }
 
     /**
-     * methode qui vide la carte pour la gestion des exception, si une exception est levée lors de l'ouverture des fihiers de carte, on vide la carte
+     * méthode qui vide la carte pour la gestion des exception, si une exception est levée lors de l'ouverture des fihiers de carte, on vide la carte
      */
     public void reset() {
         this.nomCarte = "";
@@ -89,7 +89,7 @@ public class Carte extends Observable {
     }
 
     /**
-     * methode qui remplace tous les attibuts de la carte par celle d'une autre carte
+     * méthode qui remplace tous les attibuts de la carte par celle d'une autre carte
      * @param carteACloner: la carte de laquelle les attributs sont récupérés
      */
     public void clone(Carte carteACloner) {
@@ -100,7 +100,7 @@ public class Carte extends Observable {
 
     /**
      * merhode qui affiche la carte
-     * @return
+     * @return: la carte this
      */
     @Override
     public String toString() {
@@ -112,10 +112,10 @@ public class Carte extends Observable {
     }
 
     /**
-     * methode qui retourne la distance entre les Adresse a et b pour le calcul de l'heuristique (distance en vol d'oiseau)
+     * méthode qui retourne la distance entre les Adresse a et b pour le calcul de l'heuristique (distance en vol d'oiseau)
      * @param a: Adresse 1
      * @param b: Adresse 2
-     * @return
+     * @return: la distance entre les deux Adresse
      */
     public double distanceEntreAdresse(Adresse a, Adresse b){
         double distance = Math.pow(a.getLongitude() - b.getLongitude(), 2) + Math.pow(a.getLatitude() - b.getLatitude(), 2);
@@ -123,9 +123,9 @@ public class Carte extends Observable {
     }
 
     /**
-     * methode qui retourne l'adresse la plus proche lors du clique dans l'etat ajout de requête
+     * méthode qui retourne l'adresse la plus proche lors du clique dans l'etat ajout de requête
      * @param a : adresse qui est cliquée
-     * @return
+     * @return: l'Adresse la plus proche
      */
     public Adresse recherche(Adresse a){
         double distanceMin = Double.MAX_VALUE;
@@ -142,19 +142,21 @@ public class Carte extends Observable {
         return plusProche;
     }
 
+    /**
+     * méthode qui retourne les couleur du chemin qui est différente en focntion du nombre de passage
+     * @return: un tableau de couleur
+     */
     public Color[] getCouleurInterieurChemin() {
         return couleurInterieurChemin;
     }
 
-    public void setCouleurInterieurChemin(Color[] couleurInterieurChemin) {
-        this.couleurInterieurChemin = couleurInterieurChemin;
-    }
 
+    /**
+     * méthode qui retourne les couleur extérieur du chemin (les contours) qui est différente en focntion du nombre de passage
+     * @return: un tableau de couleur
+     */
     public Color[] getCouleurExterieurChemin() {
         return couleurExterieurChemin;
     }
 
-    public void setCouleurExterieurChemin(Color[] couleurExterieurChemin) {
-        this.couleurExterieurChemin = couleurExterieurChemin;
-    }
 }

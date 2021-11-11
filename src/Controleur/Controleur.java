@@ -29,7 +29,7 @@ public class Controleur {
     protected final EtatSupprimerRequetePointSelectionne etatSupprimerRequetePointSelectionne = new EtatSupprimerRequetePointSelectionne();
 
     /**
-     * Cré le controlleur de l'application
+     * Créer le controlleur de l'application
      * @param carte : la carte
      */
     public Controleur(Carte carte) {
@@ -50,7 +50,7 @@ public class Controleur {
     }
 
     /**
-     * Méthode appelé par fenêtre après avoir cliqué sur le bouton "Importer un plan"
+     * Méthode appelée par fenêtre après avoir cliqué sur le bouton "Importer un plan"
      */
     public void chargerPlan() {
         etatActuel.chargerPlan(this, fenetre, carte, tournee);
@@ -59,14 +59,14 @@ public class Controleur {
     }
 
     /**
-     * Méthode appelé par fenetre après  sur le bouton "Importer un plan"
+     * Méthode appelée par fenetre après  sur le bouton "Importer un plan"
      */
     public void chargerNouveauPlan() {
         etatActuel.chargerNouveauPlan(this, fenetre);
     }
 
     /**
-     * Méthode appelé par fenetre après avoir cliqué sur le bouton "Importer tournée"
+     * Méthode appelée par fenetre après avoir cliqué sur le bouton "Importer tournée"
      */
     public void chargerListeRequete(){
         etatActuel.chargerListeRequete(this, fenetre, carte, tournee);
@@ -81,7 +81,7 @@ public class Controleur {
     }
 
     /**
-     * Méthode appelé par fenetre après avoir cliqué sur le bouton "Calculer l'itinéraire"
+     * Méthode appelée par fenetre après avoir cliqué sur le bouton "Calculer l'itinéraire"
      * FIXME : cohérence du vocabulaire
      */
     public void preparerTournee() {
@@ -89,49 +89,49 @@ public class Controleur {
     }
 
     /**
-     * Méthode appelé par fenetre après avoir cliqué sur la carte
+     * Méthode appelée par fenetre après avoir cliqué sur la carte
      */
     public void selectionPointCarte() {
         etatActuel.selectionPointCarte(this, fenetre);
     }
 
     /**
-     * Méthode appelé par fenetre après avoir cliqué sur la croix d'une étape de la requête qui doit être supprimé
+     * Méthode appelée par fenetre après avoir cliqué sur la croix d'une étape de la requête qui doit être supprimé
      */
     public void supressionRequete() {
         etatActuel.supressionRequete(this, fenetre);
     }
 
     /**
-     * Méthode appelé par fenetre après avoir cliqué sur la validation de la suppression de la reqête
+     * Méthode appelée par fenetre après avoir cliqué sur la validation de la suppression de la reqête
      */
     public void validerSupressionRequete() {
         etatActuel.validerSupressionRequete(this, fenetre);
     }
 
     /**
-     * Méthode appelé par fenetre après avoir cliqué sur le bouton "exporter feuiile de route"
+     * Méthode appelée par fenetre après avoir cliqué sur le bouton "exporter feuiile de route"
      */
     public void exporterFeuilleDeRoute() {
         etatActuel.exporterFeuilleDeRoute(this, fenetre);
     }
 
     /**
-     * Méthode appelé par fenetre après avoir cliqué sur le bouton "Ajouter requête"
+     * Méthode appelée par fenetre après avoir cliqué sur le bouton "Ajouter requête"
      */
     public void ajoutRequete() {
         etatActuel.ajoutRequete(this, fenetre);
     }
 
     /**
-     * Méthode appelé par fenetre après avoir cliqué sur la carte à l'endroit du nouveau point de collecte souhaité
+     * Méthode appelée par fenetre après avoir cliqué sur la carte à l'endroit du nouveau point de collecte souhaité
      */
     public void ajoutRequetePointCollecte() {
         etatActuel.ajoutRequetePointCollecte(this, fenetre);
     }
 
     /**
-     * Méthode appelé par fenetre après avoir cliqué sur le bouton "Valider position dun point de collecte"
+     * Méthode appelée par fenetre après avoir cliqué sur le bouton "Valider position dun point de collecte"
      * TODO : vérifier ensemble si cette méthode existe
      */
     public void validerAjoutRequetePointCollecte() {
@@ -139,7 +139,7 @@ public class Controleur {
     }
 
     /**
-     * Méthode appelé par fenetre après avoir cliqué sur l'étape qui doit précéder le point de collecte
+     * Méthode appelée par fenetre après avoir cliqué sur l'étape qui doit précéder le point de collecte
      */
     public void ajoutRequeteOrdreCollecte() {
         etatActuel.ajoutRequeteOrdreCollecte(this, fenetre);
@@ -152,14 +152,14 @@ public class Controleur {
     }
 
     /**
-     * Méthode appelé par fenetre après avoir cliqué sur la carte à l'endroit du nouveau point de dépôt souhaité
+     * Méthode appelée par fenetre après avoir cliqué sur la carte à l'endroit du nouveau point de dépôt souhaité
      */
     public void ajoutRequetePointDepot() {
         etatActuel.ajoutRequetePointDepot(this, fenetre);
     }
 
     /**
-     * Méthode appelé par fenetre après avoir cliqué sur le bouton "Valider position du point de dépôt"
+     * Méthode appelée par fenetre après avoir cliqué sur le bouton "Valider position du point de dépôt"
      * TODO : vérifier ensemble si cette méthode existe
      */
     public void validerAjoutRequetePointDepot() {
@@ -167,7 +167,7 @@ public class Controleur {
     }
 
     /**
-     * Méthode appelé par fenetre après avoir cliqué sur l'étape qui doit précéder le point de dépôt
+     * Méthode appelée par fenetre après avoir cliqué sur l'étape qui doit précéder le point de dépôt
      */
     public void ajoutRequeteOrdreDepot() {
         etatActuel.ajoutRequeteOrdreDepot(this, fenetre);
@@ -176,34 +176,37 @@ public class Controleur {
     //TODO : vérifier ensemble si il ne faut pas ajouter une méthode validerAjoutRequeteOrdreDepot
 
     /**
-     * Méthode appelé par fenetre après avoir cliqué sur le bouton "Modifier la durée du dépôt"
+     * Méthode appelée par fenetre après avoir cliqué sur le bouton "Modifier la durée du dépôt"
      * TODO : préciser
      */
     public void ajoutRequeteDureeDepot() {
         etatActuel.ajoutRequeteDureeDepot(this, fenetre);
     }
 
-
+    /**
+     * Méthode appeléee par la fenêtre après avoir cliqué sur le clic gauche de la souris
+     * @param a: Adresse obtenu lors du clic
+     */
     public void cliqueGauche(Adresse a){
         etatActuel.cliqueGauche(this, fenetre,carte,listeDeCommandes, tournee, a);
     }
 
     /**
-     * Méthode appelé par fenetre après avoir cliqué sur le bouton "undo"
+     * Méthode appelée par fenetre après avoir cliqué sur le bouton "undo"
      */
     public void defaire() throws CommandeImpossibleException {
         listeDeCommandes.defaire();
     }
 
     /**
-     * Méthode appelé par fenetre après avoir cliqué sur le bouton "redo"
+     * Méthode appelée par fenetre après avoir cliqué sur le bouton "redo"
      */
     public void refaire() throws CommandeImpossibleException {
         listeDeCommandes.refaire();
     }
 
     /**
-     * Méthode appelé par fenetre après avoir cliqué sur le bouton "Valider" lors de l'ajout de la durée d'un point de collecte/depot
+     * Méthode appelée par fenetre après avoir cliqué sur le bouton "Valider" lors de l'ajout de la durée d'un point de collecte/depot
      */
     public void validerAjoutDureeEtape() {
         etatActuel.validerAjoutDureeEtape(this, fenetre);

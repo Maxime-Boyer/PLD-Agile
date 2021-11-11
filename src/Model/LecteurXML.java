@@ -24,7 +24,7 @@ public class LecteurXML {
     }
 
     /**
-     * methode qui permet de lire la carte.xm et de remplir les liste d'adresse et de segment de la carte
+     * méthode qui permet de lire la carte.xm et de remplir les liste d'adresse et de segment de la carte
      * @param nomFichier: nom du fichier à ouvrir
      * @throws ParserConfigurationException
      * @throws SAXException
@@ -139,7 +139,7 @@ public class LecteurXML {
     }
 
         /**
-     *methode qui permet de lire le fichier requete.xml et de remplir la liste des requetes de la Tournee et l'adresse de départ/dépot
+     *méthode qui permet de lire le fichier requete.xml et de remplir la liste des requetes de la Tournee et l'adresse de départ/dépot
      * @param nomFichier: nom du fichier requete.xml
      * @throws ParserConfigurationException
      * @throws SAXException
@@ -293,7 +293,7 @@ public class LecteurXML {
     /**
      * retourne true si la date est au bon format
      * @param date: date à vérifier
-     * @return
+     * @return: true si la date est au bon format
      */
     public boolean verificationFormatDate(String date) {
 
@@ -332,7 +332,7 @@ public class LecteurXML {
     }
 
     /**
-     * methode qui permer de parcourir chaque etape et tous les segments de la carte pour obtenir le nom des adresses
+     * méthode qui permer de parcourir chaque etape et tous les segments de la carte pour obtenir le nom des adresses
      * @param tournee: pour récolter la liste des requêtes
      * @param carte: pour récuperer les segments et les adresses
      */
