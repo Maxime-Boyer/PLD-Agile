@@ -36,7 +36,7 @@ public class EtapePanel extends JPanel {
 
         Color couleurBordure;
         if(requeteEtape != null) {
-            couleurBordure = requeteEtape.getCouleur();
+            couleurBordure = requeteEtape.getCouleurRequete();
         } else {
             couleurBordure = new Color(50,50,50);
         }
