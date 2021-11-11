@@ -374,7 +374,7 @@ public class MenuLateral extends JPanel implements Observer {
             //Met à jour la tournee
             if (arg instanceof Tournee) {
                 tournee = (Tournee) arg;
-                /*
+
                 if (tournee.getTourneeEstChargee()){
                     //Si la tournee est chargee mais pas ordonnée, affiche la liste des requêtes
                     if (!tournee.getTourneeEstOrdonee()){
@@ -385,12 +385,12 @@ public class MenuLateral extends JPanel implements Observer {
                         afficherMenuEtapes();
                         //afficherMenuImportation();
                     }
-                }*/
+                }
             }
         }
-        /*
+
         revalidate();
-        repaint();*/
+        repaint();
     }
 
     public void setMessageUtilisateur(String texte) {

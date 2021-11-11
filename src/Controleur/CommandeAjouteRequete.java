@@ -31,7 +31,5 @@ public class CommandeAjouteRequete implements Commande{
      * Execute la commande inverse de this
      */
     @Override
-    public void defaireCommande(){
-
-    }
+    public void defaireCommande(){ //tournee.supprimerChemin()}
 }
