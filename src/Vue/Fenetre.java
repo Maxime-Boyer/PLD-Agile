@@ -222,7 +222,6 @@ public class Fenetre extends JFrame {
         cartePanel.add(popUpSaisieDuree);
         this.revalidate();
         this.repaint();
-
     }
 
     public void afficherEtatAjoutRequete3(){
