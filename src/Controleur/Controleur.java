@@ -33,11 +33,9 @@ public class Controleur {
 
     /**
      * Créer le controlleur de l'application
-     *
-     * @param carte la carte
      */
-    public Controleur(Carte carte) {
-        this.carte = carte;
+    public Controleur() {
+        carte = new Carte();;
         tournee = new Tournee();
         listeDeCommandes = new ListeDeCommandes();
         this.etatActuel = etatInitial;

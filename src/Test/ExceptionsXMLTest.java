@@ -11,7 +11,8 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.fail;
+
 /**
  * Classe de test de l'ensemble des exceptions jétées lors de l'ouverture des fichiers xml
  */
@@ -22,7 +23,6 @@ class ExceptionsXMLTest {
 
     /**
      * Instancie une carte et une tournée vide
-     *
      */
     @BeforeEach
     void init() {
@@ -38,7 +38,7 @@ class ExceptionsXMLTest {
         try {
             LecteurXML lecteurXML = new LecteurXML();
             Carte carte = new Carte();
-            carte = lecteurXML.lectureCarte("./src/FichiersXMLTest/mediumMapEncodageVersionTest.xml", carte);
+            lecteurXML.lectureCarte("./src/FichiersXMLTest/mediumMapEncodageVersionTest.xml", carte);
         } catch (AttributsIntersectionsException attributsIntersectionsException) {
             attributsIntersectionsException.printStackTrace();
             fail();
@@ -370,8 +370,9 @@ class ExceptionsXMLTest {
             fail();
         }
     }
+
     /**
-     *  Test de la présence d'au moins un attribut dans la balise depôt
+     * Test de la présence d'au moins un attribut dans la balise depôt
      */
     @Test
     void exceptionAbsenceBaliseDepotException() {
@@ -423,7 +424,6 @@ class ExceptionsXMLTest {
             fail();
         }
     }
-
 
 
     /**
@@ -533,6 +533,7 @@ class ExceptionsXMLTest {
             fail();
         }
     }
+
     /**
      * test de la présence du bon format pour l'attribut départure time
      */
