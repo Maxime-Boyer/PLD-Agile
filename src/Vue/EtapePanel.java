@@ -11,6 +11,8 @@ import java.awt.*;
 public class EtapePanel extends JPanel {
 
     private Requete requeteEtape;
+    private Etape etape;
+    private Color couleurBordure;
 
     /**
      * Panel gerant l'affichage d'une atape dans l'affichage textuel des étapes triées de la tournee
@@ -23,6 +25,8 @@ public class EtapePanel extends JPanel {
      * @param ecouteurSurvol: l'ecouteur gerant les evenements de survol afin de pointer la requete sur la carte
      */
     public EtapePanel(Etape etape, Requete requeteEtape, int parentWidth, int valMarginBase, Font policeTexte, Font policeTexteImportant, EcouteurSurvol ecouteurSurvol, EcouteurBoutons ecouteurBoutons){
+
+        this.etape = etape;
 
         /************************************************************************************/
         /*                              Panel principal                                     */
@@ -49,6 +53,7 @@ public class EtapePanel extends JPanel {
         this.setBackground(couleurFond);
         this.setBorder(new LineBorder(couleurBordure, 2, true));
         this.setOpaque(true);
+        this.couleurBordure = couleurBordure;
 
         JPanel panelInside = new JPanel();
         BoxLayout boxlayoutInside = new BoxLayout(panelInside, BoxLayout.Y_AXIS);
@@ -142,5 +147,13 @@ public class EtapePanel extends JPanel {
      */
     public Requete getRequeteEtape() {
         return requeteEtape;
+    }
+
+    public Etape getEtape() {
+        return etape;
+    }
+
+    public Color getCouleurBordure() {
+        return couleurBordure;
     }
 }

@@ -28,7 +28,7 @@ public class EcouteurDrag implements MouseMotionListener {
     @Override
     public void mouseDragged(MouseEvent e) {
         if(SwingUtilities.isMiddleMouseButton(e) || SwingUtilities.isRightMouseButton(e)){
-            if(System.currentTimeMillis() - temps < 50){
+            if(System.currentTimeMillis() - temps < 100){
                 double modificationLatitude = -(pointPrecedent.y-e.getY())/(double)cartePanel.getHauteur()*(cartePanel.getMaxLatitudeCarte()-cartePanel.getMinLatitudeCarte());
                 double modificationLongitude = (pointPrecedent.x-e.getX())/(double)cartePanel.getLargeur()*(cartePanel.getMaxLongitudeCarte()-cartePanel.getMinLongitudeCarte());
                 cartePanel.setMaxLatitudeCarte(cartePanel.getMaxLatitudeCarte() + modificationLatitude);

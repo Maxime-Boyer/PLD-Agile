@@ -34,6 +34,8 @@ public class MenuLateral extends JPanel implements Observer {
     private JTextArea messageUtilisateur;
     private JTextArea entreeTempsCalcul;
     private JLabel labelTempsCalcul;
+    private EtapePanel[] listeEtapes;
+    private RequetePanel[] listeRequetes;
 
     private Tournee tournee;
 
@@ -268,7 +270,7 @@ public class MenuLateral extends JPanel implements Observer {
         BoxLayout boxlayout = new BoxLayout(panelInsideScrollPanel, BoxLayout.Y_AXIS);
         panelInsideScrollPanel.setLayout(boxlayout);
 
-        RequetePanel[] listeRequetes = new RequetePanel[tournee.getListeRequetes().size()];
+        listeRequetes = new RequetePanel[tournee.getListeRequetes().size()];
         int positionTop = 0;
         Etape collecte, depot;
         for (int i = 0; i < tournee.getListeRequetes().size(); i++) {
@@ -322,7 +324,7 @@ public class MenuLateral extends JPanel implements Observer {
 
 
         //affichage du détaille des étapes
-        EtapePanel[] listeEtapes = new EtapePanel[tournee.getListeChemins().size()+1];
+        listeEtapes = new EtapePanel[tournee.getListeChemins().size()+1];
         int positionTop = 0;
         Etape etapeFinChemin; //on base notre affichage sur l'étape de fin uniquement
         Etape etapeDepot, etapeCollecte;
@@ -445,5 +447,49 @@ public class MenuLateral extends JPanel implements Observer {
             throw new ValeurNegativeException("La valeur entrée est négative ou nulle : \""+tempsMaxCalcul+"\"");
         }
         return tempsMaxCalcul;
+    }
+
+    public void indiquerPositionRequete(Etape collecte, Etape depot) {
+        System.out.println("Indiquer");
+        int tailleBordure = 6;
+        if(listeRequetes != null) {
+            for (RequetePanel rp : listeRequetes) {
+                if (rp != null && rp.getCollecte().getIdAdresse().equals(collecte.getIdAdresse()) && rp.getDepot().getIdAdresse().equals(depot.getIdAdresse())) {
+                    rp.setBorder(BorderFactory.createMatteBorder(tailleBordure, tailleBordure, tailleBordure, tailleBordure, rp.getCouleurBordure()));
+                }
+            }
+        }
+        if(listeEtapes != null) {
+            for (EtapePanel ep : listeEtapes) {
+                if (ep != null && ep.getEtape().getIdAdresse().equals(collecte.getIdAdresse())) {
+                    ep.setBorder(BorderFactory.createMatteBorder(tailleBordure, tailleBordure, tailleBordure, tailleBordure, ep.getCouleurBordure()));
+                }
+                if (ep != null && ep.getEtape().getIdAdresse().equals(depot.getIdAdresse())) {
+                    ep.setBorder(BorderFactory.createMatteBorder(tailleBordure, tailleBordure, tailleBordure, tailleBordure, ep.getCouleurBordure()));
+                }
+            }
+        }
+    }
+
+    public void supprimerPositionRequete() {
+        System.out.println("supprimer");
+        int tailleBordure = 1;
+        if(listeRequetes != null) {
+            for (RequetePanel rp : listeRequetes) {
+                if (rp != null) {
+                    rp.setBorder(BorderFactory.createMatteBorder(tailleBordure, tailleBordure, tailleBordure, tailleBordure, rp.getCouleurBordure()));
+                }
+            }
+        }
+        if(listeEtapes != null) {
+            for (EtapePanel ep : listeEtapes) {
+                if (ep != null) {
+                    ep.setBorder(BorderFactory.createMatteBorder(tailleBordure, tailleBordure, tailleBordure, tailleBordure, ep.getCouleurBordure()));
+                }
+                if (ep != null) {
+                    ep.setBorder(BorderFactory.createMatteBorder(tailleBordure, tailleBordure, tailleBordure, tailleBordure, ep.getCouleurBordure()));
+                }
+            }
+        }
     }
 }

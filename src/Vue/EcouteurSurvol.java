@@ -1,7 +1,6 @@
 package Vue;
 
-import Model.Etape;
-import Model.Requete;
+import Model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,12 +27,89 @@ public class EcouteurSurvol implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        //fenetre.getMenuLateral().setMessageUtilisateur("Clique avec ecouteur survol");
-        /*if(e.getSource() instanceof JButton){
-            System.out.println("arrive dans mouseClicked");
-            //fenetre.getCartePanel().indiquerPositionRequete(((EtapePanel) e.getSource()).getRequeteEtape().getEtapeCollecte(), ((EtapePanel) e.getSource()).getRequeteEtape().getEtapeDepot());
-        }*/
+        //----- CLIC SUR CARTE PANEL -----
+        Component c = SwingUtilities.getDeepestComponentAt(e.getComponent(), e.getX(), e.getY());
+        if(c instanceof CartePanel){
+            Adresse adresseSelectionnee = coordonnees(e);
+            Adresse etapeSelectionnee = fenetre.getTournee().rechercheEtape(adresseSelectionnee,null);
 
+            //si distance entre ad & etape < 30 pixels
+            Etape collecte = null;
+            Etape depot = null;
+            for(Requete req : fenetre.getTournee().getListeRequetes()){
+                if(req.getEtapeCollecte().getIdAdresse().equals(etapeSelectionnee.getIdAdresse()) || req.getEtapeDepot().getIdAdresse().equals(etapeSelectionnee.getIdAdresse())){
+                    collecte = req.getEtapeCollecte();
+                    depot = req.getEtapeDepot();
+                    break;
+                }
+            }
+            fenetre.indiquerPositionRequete(collecte, depot);
+        } else {
+
+
+
+            //----- CLIC SUR MENU LATERAL -----
+            boolean rpTrouve = false;
+            RequetePanel rp = null;
+            boolean epTrouve = false;
+            EtapePanel ep = null;
+            c = SwingUtilities.getDeepestComponentAt(e.getComponent(), e.getX(), e.getY());
+            //System.out.println(c.getClass());
+            if(listeRequetes != null) {
+                for (int i = 0; i < listeRequetes.length; i++) {
+                    if (listeRequetes[i] != null && (SwingUtilities.isDescendingFrom(c, listeRequetes[i]) || c == listeRequetes[i])) {
+                        rpTrouve = true;
+                        rp = listeRequetes[i];
+                    }
+                }
+            }
+            if(listeEtapes != null) {
+                for (int i = 0; i < listeEtapes.length; i++) {
+                    if (listeEtapes[i] != null && (SwingUtilities.isDescendingFrom(c, listeEtapes[i]) || c == listeEtapes[i])) {
+                        epTrouve = true;
+                        ep = listeEtapes[i];
+                    }
+                }
+            }
+
+            if (epTrouve) {
+                Requete requete = (ep).getRequeteEtape();
+                Etape collecte;
+                Etape depot;
+                if(requete != null){
+                    collecte = requete.getEtapeCollecte();
+                    depot = requete.getEtapeDepot();
+                } else {
+                    collecte = fenetre.getTournee().getEtapeDepart();
+                    depot = null;
+                }
+                fenetre.indiquerPositionRequete(collecte,depot);
+            } else if(rpTrouve){
+                fenetre.indiquerPositionRequete((rp).getCollecte(), (rp).getDepot());
+            } else {
+                fenetre.supprimerPositionRequete();
+            }
+
+            if((e.getSource() instanceof JLabel && ((JLabel) e.getSource()).getText().equals("X"))){
+                fenetre.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            } else{
+                fenetre.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+
+
+        }
+
+    }
+
+    private Adresse coordonnees(MouseEvent e){
+
+        if(fenetre.getCartePanel() != null) {
+            double longitude = fenetre.getCartePanel().valeurLongitude(e.getX());
+            double latitude = fenetre.getCartePanel().valeurLatitude(e.getY());
+            Adresse positionClique = new Adresse(latitude, longitude);
+            return positionClique;
+        }
+        return null;
     }
 
     @Override
@@ -53,7 +129,7 @@ public class EcouteurSurvol implements MouseListener {
     @Override
     public void mouseEntered(MouseEvent e) {
         //System.out.println("Survol entered : " + e.getSource());
-        boolean rpTrouve = false;
+        /*boolean rpTrouve = false;
         RequetePanel rp = null;
         boolean epTrouve = false;
         EtapePanel ep = null;
@@ -87,29 +163,24 @@ public class EcouteurSurvol implements MouseListener {
                 collecte = fenetre.getTournee().getEtapeDepart();
                 depot = null;
             }
-            fenetre.getCartePanel().indiquerPositionRequete(collecte,depot);
+            fenetre.indiquerPositionRequete(collecte,depot);
         } else if(rpTrouve){
-            fenetre.getCartePanel().indiquerPositionRequete((rp).getCollecte(), (rp).getDepot());
+            fenetre.indiquerPositionRequete((rp).getCollecte(), (rp).getDepot());
         } else {
-            fenetre.getCartePanel().supprimerPositionRequete();
+            fenetre.supprimerPositionRequete();
         }
-
 
         if((e.getSource() instanceof JLabel && ((JLabel) e.getSource()).getText().equals("X"))){
             fenetre.setCursor(new Cursor(Cursor.HAND_CURSOR));
         } else{
             fenetre.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-        }
+        }*/
 
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        //System.out.println("          Survol exited : " + e.getSource());
 
-        //if(!(e.getSource() instanceof RequetePanel) && !(e.getSource() instanceof  JTextField)){
-        //    fenetre.getCartePanel().supprimerPositionRequete();
-        //}
     }
 
     public void setListeRequetes(RequetePanel[] listeRequetes) {
