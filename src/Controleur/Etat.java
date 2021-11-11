@@ -3,6 +3,7 @@ package Controleur;
 import Model.Adresse;
 import Model.Carte;
 import Model.Tournee;
+import Vue.CartePanel;
 import Vue.Fenetre;
 
 public interface Etat {
@@ -12,7 +13,7 @@ public interface Etat {
      * @param c : le controlleur
      * @param fenetre : la fenêtre
      */
-    public default void chargerPlan(Controleur c, Fenetre fenetre, Carte carte, Tournee tournee) {}
+    public default void chargerPlan(Controleur c, Fenetre exporterFeuilleDeRoute, Carte carte, Tournee tournee) {}
 
     public default void chargerListeRequete(Controleur c, Fenetre fenetre, Carte carte, Tournee tournee) {}
 
@@ -27,10 +28,9 @@ public interface Etat {
     public default void supressionRequete(Controleur c, Fenetre fenetre){}
     public default void selectionPointCarte(Controleur c, Fenetre fenetre){}
     public default void validerSupressionRequete(Controleur c, Fenetre fenetre){}
-    public default void exporterFeuilleDeRoute(Controleur c, Fenetre fenetre){}
     public default void chargerNouveauPlan(Controleur c, Fenetre fenetre){}
     public default void chargerNouvelleListeRequete(Controleur c, Fenetre fenetre){}
-    public default void exporterFeuilleDeRoute(Tournee tournee){}
+    public default void exporterFeuilleDeRoute(Tournee tournee, CartePanel cartePanel){}
     public default void ajoutRequete(Controleur c, Fenetre fenetre){}
     public default void ajoutRequetePointCollecte(Controleur c, Fenetre fenetre){}
     public default void validerAjoutRequetePointCollecte(Controleur c, Fenetre fenetre){}

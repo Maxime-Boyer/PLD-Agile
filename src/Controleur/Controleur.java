@@ -4,6 +4,7 @@ import Exceptions.CommandeImpossibleException;
 import Model.Adresse;
 import Model.Carte;
 import Model.Tournee;
+import Vue.CartePanel;
 import Vue.Fenetre;
 
 public class Controleur {
@@ -113,7 +114,7 @@ public class Controleur {
      * Méthode appelée par fenetre après avoir cliqué sur le bouton "exporter feuiile de route"
      */
     public void exporterFeuilleDeRoute() {
-        etatActuel.exporterFeuilleDeRoute(tournee);
+        etatActuel.exporterFeuilleDeRoute(tournee, fenetre.cartePanel);
     }
 
     /**

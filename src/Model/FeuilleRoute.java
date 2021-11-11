@@ -1,8 +1,11 @@
 package Model;
 import Algorithmie.CalculateurTournee;
+import Vue.CartePanel;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,16 +15,29 @@ import java.util.HashMap;
 
 public class FeuilleRoute {
 
-   public FeuilleRoute(Tournee tournee){
+   public FeuilleRoute(Tournee tournee, CartePanel cartePanel){
 
         try
         {
+            BufferedImage bi = new BufferedImage(cartePanel.getSize().width, cartePanel.getSize().height, BufferedImage.TYPE_INT_ARGB);
+            Graphics g = bi.createGraphics();
+            cartePanel.paint(g);  //this == JComponent
+            g.dispose();
+            try{
+                ImageIO.write(bi,"png",new File("carte.png"));
+            }catch (Exception e) {
+                System.out.println(e);
+            }
+
             //creation du fichier html
             File f = new File("feuilleRoute.html");
             BufferedWriter bw = new BufferedWriter(new FileWriter(f));
             bw.write("<html>");
             bw.write("<head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/></head>");
-            bw.write("<body style='width: 1200px; margin: 50px auto;'><h1>Feuille de route</h1>");
+            bw.write("<body style='width: 1200px; margin: 50px auto;'>");
+
+            bw.write("<h1>Feuille de route</h1>");
+            bw.write("<img src='./carte.png' style='height: 500px;'>");
 
             HashMap<Long, Requete> mapRequete= new HashMap<>();
             for(Requete requete: tournee.getListeRequetes()){
