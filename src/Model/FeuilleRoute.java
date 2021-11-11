@@ -66,7 +66,7 @@ public class FeuilleRoute {
             bw.write(" <div class='descriptionTextuelle'>");
             bw.write("<div class='etape' style='border-color: red; background-color: rgba(255,0,0,0.1);'>");
             bw.write(" <h2>Départ</h2>");
-            bw.write("<p>Depart de l'entrepot situe à l'"+tournee.getEtapeDepart().getNomAdresse()+" à "+tournee.getDateDepart()+"</p>");
+            bw.write("<p>Départ de l'entrepôt situé à l'"+tournee.getEtapeDepart().getNomAdresse()+" à "+tournee.getDateDepart()+"</p>");
             bw.write("</div>");
 
             Requete requeteEtapeArriveeCheminCourant;
@@ -132,11 +132,11 @@ public class FeuilleRoute {
                         dureeEtape += String.valueOf(etapeArriveeChemin.getDureeEtape()%60) + "sec";
                     }
 
-                    bw.write(" collis a l'"+ etapeArriveeChemin.getNomAdresse() +" à "+etapeArriveeChemin.getHeureDePassage()+". Durée de l'étape: "+dureeEtape+".");
+                    bw.write(" collis à l'"+ etapeArriveeChemin.getNomAdresse() +" à "+etapeArriveeChemin.getHeureDePassage()+". Durée de l'étape: "+dureeEtape+".");
                 }
                 else{
                     // TODO: Arthur fixé ?
-                    bw.write("Retour à l'entrepot situé à l'"+tournee.getEtapeDepart().getNomAdresse()+" à "+tournee.getEtapeDepart().getHeureDePassage());
+                    bw.write("Retour à l'entrepôt situé à l'"+tournee.getEtapeDepart().getNomAdresse()+" à "+tournee.getEtapeDepart().getHeureDePassage());
                 }
 
                 bw.write("</p>");
