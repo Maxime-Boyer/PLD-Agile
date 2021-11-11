@@ -1,9 +1,11 @@
 package Algorithmie;
 
 import Exceptions.AStarImpossibleException;
-import Model.*;
+import Model.Carte;
+import Model.CheminEntreEtape;
+import Model.Etape;
+import Model.Tournee;
 
-import java.sql.Timestamp;
 import java.time.LocalTime;
 import java.util.HashMap;
 
@@ -118,9 +120,9 @@ public class CalculateurTournee {
     private void ajouteHeureDePassage(Tournee tournee){
         int vitesse = 15; //15 km.h-1
         LocalTime heureActuelle = tournee.getDateDepart();
-        for(CheminEntreEtape cee : tournee.getListeChemins()){
+        for (CheminEntreEtape cee : tournee.getListeChemins()) {
             cee.getEtapeDepart().setHeureDePassage(heureActuelle);
-            heureActuelle = heureActuelle.plusSeconds(cee.getEtapeDepart().getDureeEtape() + (int)Math.ceil((cee.distance / 1000. /(vitesse))*3600));
+            heureActuelle = heureActuelle.plusSeconds(cee.getEtapeDepart().getDureeEtape() + (int) Math.ceil((cee.distance / 1000. / (vitesse)) * 3600));
             cee.getEtapeArrivee().setHeureDePassage(heureActuelle);
         }
     }

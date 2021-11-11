@@ -11,14 +11,14 @@ public class TourneeInitialePlusCourtChemin {
     Tournee tournee;
     HashMap<Long, HashMap<Long, CheminEntreEtape>> grapheCompletDesEtapes;
 
-    public TourneeInitialePlusCourtChemin(Tournee tournee, HashMap<Long, HashMap<Long, CheminEntreEtape>> grapheCompletDesEtapes){
+    public TourneeInitialePlusCourtChemin(Tournee tournee, HashMap<Long, HashMap<Long, CheminEntreEtape>> grapheCompletDesEtapes) {
 
         this.tournee = tournee;
         this.grapheCompletDesEtapes = grapheCompletDesEtapes;
 
     }
 
-    public void trouverTourneeInitiale(){
+    public void trouverTourneeInitiale() {
 
         LinkedList<CheminEntreEtape> listeChemins = new LinkedList<>();
 
@@ -27,7 +27,7 @@ public class TourneeInitialePlusCourtChemin {
         //Liste des etapes deja realisees
         LinkedList<Long> listeAdressesNoires = new LinkedList<>();
 
-        for(int i=0 ; i<grapheCompletDesEtapes.size() ; i++) {
+        for (int i = 0; i < grapheCompletDesEtapes.size(); i++) {
             long min = Long.MAX_VALUE;
             CheminEntreEtape ceeMin = null;
             for (CheminEntreEtape cee : grapheCompletDesEtapes.get(adresseActuelle).values()) {
