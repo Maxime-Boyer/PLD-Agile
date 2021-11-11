@@ -5,9 +5,6 @@ import Exceptions.IncompatibleAdresseException;
 import Model.*;
 import Observer.Observer;
 import Observer.Observable;
-//import com.sun.deploy.uitoolkit.impl.awt.AWTDragHelper;
-//import com.sun.org.glassfish.external.statistics.annotations.Reset;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
