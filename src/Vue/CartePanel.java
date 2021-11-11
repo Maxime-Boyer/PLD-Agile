@@ -128,6 +128,7 @@ public class CartePanel extends JPanel implements Observer {
             labelPosition2.setBounds(x2, y2, iconPosition.getIconWidth(), iconPosition.getIconHeight());
             this.add(labelPosition2);
         }
+        this.validate();
         this.repaint();
     }
 
