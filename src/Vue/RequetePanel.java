@@ -13,6 +13,7 @@ public class RequetePanel extends JPanel {
     private Etape collecte;
     private Etape depot;
     private Color couleurFond;
+    private Color couleurBordure;
 
     /**
      * Panel permettant d'afficher la vue textuelle d'une requete
@@ -48,6 +49,7 @@ public class RequetePanel extends JPanel {
         this.setBackground(couleurFond);
         this.setOpaque(true);
         this.setBorder(new LineBorder(couleurBordure, 2, true));
+        this.couleurBordure = couleurBordure;
 
         JPanel panelInside = new JPanel();
         BoxLayout boxlayoutInside = new BoxLayout(panelInside, BoxLayout.Y_AXIS);
@@ -151,5 +153,9 @@ public class RequetePanel extends JPanel {
      */
     public Etape getDepot() {
         return depot;
+    }
+
+    public Color getCouleurBordure() {
+        return couleurBordure;
     }
 }

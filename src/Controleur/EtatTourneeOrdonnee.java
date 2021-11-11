@@ -87,6 +87,7 @@ public class EtatTourneeOrdonnee implements Etat {
 
     @Override
     public void exporterFeuilleDeRoute(Tournee tournee, CartePanel cartePanel){
+        cartePanel.supprimerPositionRequete();
         new FeuilleRoute(tournee, cartePanel);
     }
 }

@@ -5,6 +5,7 @@ import Controleur.Controleur;
 import Controleur.NomEtat;
 import Exceptions.ValeurNegativeException;
 import Model.Carte;
+import Model.Etape;
 import Model.Tournee;
 
 import javax.swing.*;
@@ -50,7 +51,8 @@ public class Fenetre extends JFrame {
 
     /**
      * Cree la fenetre dans laquelle s'ouvre l'application
-     * @param carte: la carte a afficher
+     *
+     * @param carte:      la carte a afficher
      * @param controleur: lke controleur du MVC
      */
     public Fenetre(Carte carte, Tournee tournee, Controleur controleur) {
@@ -65,18 +67,17 @@ public class Fenetre extends JFrame {
 
         // Récupération des dimensions de l'écran
         Dimension dimensionsEcran = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setSize(dimensionsEcran.width*2/3, dimensionsEcran.height*2/3);
+        this.setSize(dimensionsEcran.width, dimensionsEcran.height);
         setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
-
         this.setLocationRelativeTo(null);
 
         //Cré les écouteurs
         this.ecouteurBoutons = new EcouteurBoutons(controleur);
-        this.ecouteurSouris = new EcouteurSouris(controleur,cartePanel,this);
+        this.ecouteurSouris = new EcouteurSouris(controleur, cartePanel, this);
         this.ecouteurSurvol = new EcouteurSurvol(this);
         this.ecouteurDragDrop = new EcouteurDragDrop();
 
-        this.setResizable(true); //TODO: passer à false
+        this.setResizable(false);
 
         this.setVisible(true);
 
@@ -90,6 +91,7 @@ public class Fenetre extends JFrame {
 
     /**
      * Affiche le système de fichier et retourne le nom du fichier choisi
+     *
      * @return nom du fichier choisi
      */
     public String afficherChoixFichier() {
@@ -101,6 +103,7 @@ public class Fenetre extends JFrame {
 
     /**
      * Affichage de l'état juste après le chargement de la carte : affiche / cache les pannels selon leur utilité
+     *
      * @param carte
      */
     public void afficherEtatPlanAffiche(Carte carte) {
@@ -136,9 +139,10 @@ public class Fenetre extends JFrame {
 
     /**
      * Affichage déclenchée lorsque la tournée a été chargée : permet d'afficher les requêtes sur la vue graphique et la vue textuelle
+     *
      * @param tournee la liste de requêtes qui doit être affichée
      */
-    public void afficherEtatTourneChargee (Tournee tournee) {
+    public void afficherEtatTourneChargee(Tournee tournee) {
         System.out.println("Frentre.afficherEtatTourneChargee(tounee) : ETAT_TOURNEE_CHARGEE");
         menuLateral.setMessageUtilisateur("Veuillez préparer la tournée pour visualiser l'itinéraire sur la carte.");
         //cartePanel.tracerRequetes(tournee);
@@ -162,10 +166,15 @@ public class Fenetre extends JFrame {
 
     /**
      * Affichage déclenchée lorsque la tournée a été calculé : permet d'afficher la tournee calculée sur la vue graphique et la vue textuelle
+     *
      * @param tournee la tournee calculée qui doit être affichée
      */
-    public void afficherEtatTourneePreparee (Tournee tournee) {
+    public void afficherEtatTourneePreparee(Tournee tournee) {
         System.out.println("Fenetre.afficherEtatTourneePreparee(tournee) : ETAT_TOURNEE_PREPAREE ");
+
+        //On enleve les indications au dessus des adresses selectionnées
+        supprimerPositionRequete();
+
         menuLateral.setMessageUtilisateur("Maintenant vous pouvez éditer votre tournée ou exporter la feuille de route.");
 
         //cartePanel.tracerItineraire(tournee);
@@ -175,7 +184,6 @@ public class Fenetre extends JFrame {
         //cartePanel.tracerItineraire(tournee);
         //menuLateral.afficherMenuEtapes(tournee);
         //menuLateral.afficherMenuImportation();
-        //FIXME : pourquoi en double ?
 
         //Configure les visibilités
         menuLateral.visibilitePannelImportation(true);
@@ -196,7 +204,7 @@ public class Fenetre extends JFrame {
         this.repaint();
     }
 
-    public void afficherEtatAjoutRequete(){
+    public void afficherEtatAjoutRequete() {
 
         //Configure les visibilités
         menuLateral.visibilitePannelImportation(false);
@@ -215,39 +223,39 @@ public class Fenetre extends JFrame {
         this.repaint();
     }
 
-    public void afficherEtatAjoutRequete2(){
-        popUpSaisieDuree = new PopUpSaisieDuree(policeTexte,ecouteurBoutons);
+    public void afficherEtatAjoutRequete2() {
+        popUpSaisieDuree = new PopUpSaisieDuree(policeTexte, ecouteurBoutons);
         //System.out.println()
-        popUpSaisieDuree.setPosition(cartePanel.getLargeur()/2,cartePanel.getHauteur()/2);
+        popUpSaisieDuree.setPosition(cartePanel.getLargeur() / 2, cartePanel.getHauteur() / 2);
         menuLateral.setMessageUtilisateur("Entrer la durée de l'étape collecte et Valider");
         cartePanel.add(popUpSaisieDuree);
         this.revalidate();
         this.repaint();
     }
 
-    public void afficherEtatAjoutRequete3(){
-        menuLateral.setMessageUtilisateur("Selectionner l'étape avant votre collecte: [Clique Gauche] sur la Carte " + "[Clique Droit] pour annuler");
+    public void afficherEtatAjoutRequete3() {
+        menuLateral.setMessageUtilisateur("Selectionner l'étape qui précéde votre collecte: [Clique Gauche] sur une Etape de la Carte " + "[Clique Droit] pour annuler");
         //this.ecouteurSouris.setVueGraphique(cartePanel);
         cartePanel.remove(popUpSaisieDuree);
         this.revalidate();
         this.repaint();
     }
 
-    public void afficherEtatAjoutRequete4(){
-        menuLateral.setMessageUtilisateur("Ajouter une Etape de depot: [Clique Gauche] sur la Carte " + "[Clique Droit] pour annuler");
+    public void afficherEtatAjoutRequete4() {
+        menuLateral.setMessageUtilisateur("Ajouter une Etape de depot: [Clique Gauche] sur une Adresse de la Carte " + "[Clique Droit] pour annuler");
         this.revalidate();
         this.repaint();
     }
 
-    public void afficherEtatAjoutRequete5(){
+    public void afficherEtatAjoutRequete5() {
         menuLateral.setMessageUtilisateur("Entrer la durée de l'étape depot et Valider");
         cartePanel.add(popUpSaisieDuree);
         this.revalidate();
         this.repaint();
     }
 
-    public void afficherEtatAjoutRequete6(){
-        menuLateral.setMessageUtilisateur("Selectionner l'étape qui précéde votre depot: [Clique Gauche] sur la Carte " + "[Clique Droit] pour annuler");
+    public void afficherEtatAjoutRequete6() {
+        menuLateral.setMessageUtilisateur("Selectionner l'étape qui précéde votre depot: [Clique Gauche] sur une Etape de la Carte " + "[Clique Droit] pour annuler");
         cartePanel.remove(popUpSaisieDuree);
         this.revalidate();
         this.repaint();
@@ -255,6 +263,7 @@ public class Fenetre extends JFrame {
 
     /**
      * Affiche les etas détermines par le controleur
+     *
      * @param etat: l'etat a afficher
      */
     public void afficherEtat(NomEtat etat) {
@@ -299,9 +308,12 @@ public class Fenetre extends JFrame {
 
     /**
      * geteur
+     *
      * @return: le panel d'affichage de la carte
      */
-    public CartePanel getCartePanel(){ return cartePanel; }
+    public CartePanel getCartePanel() {
+        return cartePanel;
+    }
 
     /**
      * Les methodes suivantes permenttent de retirer des elements de la fenetre
@@ -348,4 +360,17 @@ public class Fenetre extends JFrame {
     public Tournee getTournee() {
         return tournee;
     }
+
+    public void indiquerPositionRequete(Etape collecte, Etape depot) {
+        supprimerPositionRequete();
+        cartePanel.indiquerPositionRequete(collecte,depot);
+        menuLateral.indiquerPositionRequete(collecte,depot);
+    }
+
+    public void supprimerPositionRequete() {
+        cartePanel.supprimerPositionRequete();
+        menuLateral.supprimerPositionRequete();
+    }
+
+
 }

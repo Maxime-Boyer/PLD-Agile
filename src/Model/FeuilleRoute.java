@@ -1,15 +1,11 @@
 package Model;
-import Algorithmie.CalculateurTournee;
+
 import Vue.CartePanel;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.Files;
 
 import java.util.HashMap;
 

@@ -338,9 +338,9 @@ public class Tournee extends Observable {
             distanceMin = distanceCollectePlacee;
             plusProche = collectePlacee;
         }
-        for(CheminEntreEtape chemin : listeChemins){
-            Adresse collecte = new Adresse (chemin.getEtapeDepart().getLatitude(),chemin.getEtapeDepart().getLongitude(),chemin.getEtapeArrivee().getIdAdresse());
-            Adresse depot = new Adresse (chemin.getEtapeArrivee().getLatitude(),chemin.getEtapeArrivee().getLongitude(),chemin.getEtapeArrivee().getIdAdresse());
+        for(Requete requete : listeRequetes){
+            Adresse collecte = new Adresse (requete.getEtapeCollecte().getLatitude(),requete.getEtapeCollecte().getLongitude(),requete.getEtapeCollecte().getIdAdresse());
+            Adresse depot = new Adresse (requete.getEtapeDepot().getLatitude(),requete.getEtapeDepot().getLongitude(),requete.getEtapeDepot().getIdAdresse());
             distanceCollecte = distanceEntreAdresse(a, collecte);
             distanceDepot = distanceEntreAdresse(a, depot);
 
