@@ -67,9 +67,8 @@ public class Fenetre extends JFrame {
 
         // Récupération des dimensions de l'écran
         Dimension dimensionsEcran = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setSize(dimensionsEcran.width * 2 / 3, dimensionsEcran.height * 2 / 3);
+        this.setSize(dimensionsEcran.width, dimensionsEcran.height);
         setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
-
         this.setLocationRelativeTo(null);
 
         //Cré les écouteurs
@@ -78,7 +77,7 @@ public class Fenetre extends JFrame {
         this.ecouteurSurvol = new EcouteurSurvol(this);
         this.ecouteurDragDrop = new EcouteurDragDrop();
 
-        this.setResizable(true); //TODO: passer à false
+        this.setResizable(false);
 
         this.setVisible(true);
 

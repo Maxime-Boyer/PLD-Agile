@@ -50,30 +50,10 @@ public class EcouteurZoom implements MouseWheelListener{
         diffLatitude = - diffLatitude*e.getWheelRotation()*forceZoom*mult;
         diffLongitude = diffLongitude*e.getWheelRotation()*forceZoom*mult;
 
-
-        //cartePanel.setMaxLatitudeCarte(maxLatitudeCarte - diffLatitude*e.getWheelRotation()*forceZoom*mult); //*forceZoom
-        //cartePanel.setMinLatitudeCarte(minLatitudeCarte - diffLatitude*e.getWheelRotation()*forceZoom*mult);
-        //cartePanel.setMaxLongitudeCarte(maxLongitudeCarte + diffLongitude*e.getWheelRotation()*forceZoom*mult);
-        //cartePanel.setMinLongitudeCarte(minLongitudeCarte + diffLongitude*e.getWheelRotation()*forceZoom*mult);
-
-        //On deplace la carte sans pour autant y sortir
-        /*
-        if(cartePanel.getMaxLatitudeCarte()+diffLatitude > cartePanel.getMaxLatitudeInitialeCarte()){
-            diffLatitude = cartePanel.getMaxLatitudeInitialeCarte() - cartePanel.getMaxLatitudeCarte();
-        } else if(cartePanel.getMinLatitudeCarte()+diffLatitude < cartePanel.getMinLatitudeInitialeCarte()){
-            diffLatitude = cartePanel.getMinLatitudeInitialeCarte() - cartePanel.getMinLatitudeCarte();
-        }
-        if(cartePanel.getMaxLongitudeCarte()+diffLongitude > cartePanel.getMaxLongitudeInitialeCarte()){
-            diffLongitude = cartePanel.getMaxLongitudeInitialeCarte() - cartePanel.getMaxLongitudeCarte();
-        } else if(cartePanel.getMinLongitudeCarte()+diffLongitude < cartePanel.getMinLongitudeInitialeCarte()){
-            diffLongitude = cartePanel.getMinLongitudeInitialeCarte() - cartePanel.getMinLongitudeCarte();
-        }*/
         cartePanel.setMaxLatitudeCarte(cartePanel.getMaxLatitudeCarte()+diffLatitude);
         cartePanel.setMinLatitudeCarte(cartePanel.getMinLatitudeCarte()+diffLatitude);
         cartePanel.setMaxLongitudeCarte(cartePanel.getMaxLongitudeCarte()+diffLongitude);
         cartePanel.setMinLongitudeCarte(cartePanel.getMinLongitudeCarte()+diffLongitude);
-
-
 
         cartePanel.repaint();
 
