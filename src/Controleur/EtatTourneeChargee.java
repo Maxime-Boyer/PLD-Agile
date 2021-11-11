@@ -31,7 +31,7 @@ public class EtatTourneeChargee implements Etat {
             JOptionPane.showMessageDialog(null, messageErreur);
             //Reste dans l'état actuel
         } catch (NumberFormatException | ValeurNegativeException e){
-            String messageErreur = "Veuillez saisir un nombre entier positif";
+            String messageErreur = "Veuillez saisir un nombre  positif et < 2147483647 ";
             System.out.println("ERREUR " + e);
             JOptionPane.showMessageDialog(null, messageErreur);
         }

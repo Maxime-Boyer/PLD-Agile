@@ -84,7 +84,9 @@ public class EtapePanel extends JPanel {
 
         BoutonSuppressionRequete bouttonSuppr = new BoutonSuppressionRequete(Fenetre.SUPPRIMER_REQUETE, policeTexte, ecouteurBoutons, requeteEtape);
         bouttonSuppr.addActionListener(ecouteurBoutons);
-        firstLine.add(bouttonSuppr, BorderLayout.LINE_END);
+        if(requeteEtape != null) {
+            firstLine.add(bouttonSuppr, BorderLayout.LINE_END);
+        }
 
         panelInside.add(firstLine);
         panelInside.add(Box.createRigidArea(new Dimension(0, valMarginBase/2)));
