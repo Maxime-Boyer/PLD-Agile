@@ -452,7 +452,7 @@ public class MenuLateral extends JPanel implements Observer {
     public void indiquerPositionRequete(Etape collecte, Etape depot) {
         System.out.println("Indiquer");
         int tailleBordure = 6;
-        if(listeRequetes != null) {
+        if(listeRequetes != null && collecte!= null && depot != null) {
             for (RequetePanel rp : listeRequetes) {
                 if (rp != null && rp.getCollecte().getIdAdresse().equals(collecte.getIdAdresse()) && rp.getDepot().getIdAdresse().equals(depot.getIdAdresse())) {
                     rp.setBorder(BorderFactory.createMatteBorder(tailleBordure, tailleBordure, tailleBordure, tailleBordure, rp.getCouleurBordure()));
@@ -461,10 +461,10 @@ public class MenuLateral extends JPanel implements Observer {
         }
         if(listeEtapes != null) {
             for (EtapePanel ep : listeEtapes) {
-                if (ep != null && ep.getEtape().getIdAdresse().equals(collecte.getIdAdresse())) {
+                if (ep != null && collecte != null && ep.getEtape().getIdAdresse().equals(collecte.getIdAdresse())) {
                     ep.setBorder(BorderFactory.createMatteBorder(tailleBordure, tailleBordure, tailleBordure, tailleBordure, ep.getCouleurBordure()));
                 }
-                if (ep != null && ep.getEtape().getIdAdresse().equals(depot.getIdAdresse())) {
+                if (ep != null && depot != null && ep.getEtape().getIdAdresse().equals(depot.getIdAdresse())) {
                     ep.setBorder(BorderFactory.createMatteBorder(tailleBordure, tailleBordure, tailleBordure, tailleBordure, ep.getCouleurBordure()));
                 }
             }

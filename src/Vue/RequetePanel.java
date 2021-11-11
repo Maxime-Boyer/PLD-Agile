@@ -66,7 +66,11 @@ public class RequetePanel extends JPanel {
         String dureeCollecte = String.valueOf(collecte.getDureeEtape()/60) + "min ";
 
         if(collecte.getDureeEtape()%60 > 0){
-            dureeCollecte += String.valueOf(collecte.getDureeEtape()%60) + "sec";
+            if(collecte.getDureeEtape()%60 > 9){
+                dureeCollecte += "0"+String.valueOf(collecte.getDureeEtape()%60) + "sec";
+            } else {
+                dureeCollecte += String.valueOf(collecte.getDureeEtape()%60) + "sec";
+            }
         }
 
         JTextArea labelTitreCollecte = new JTextArea("Collecte - " + dureeCollecte);
