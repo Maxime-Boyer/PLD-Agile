@@ -226,7 +226,7 @@ public class Fenetre extends JFrame {
     }
 
     public void afficherEtatAjoutRequete3(){
-        menuLateral.setMessageUtilisateur("Selectionner l'étape qui précéde votre collecte: [Clique Gauche] sur une Etape de la Carte " + "[Clique Droit] pour annuler");
+        menuLateral.setMessageUtilisateur("Selectionner l'étape avant votre collecte: [Clique Gauche] sur la Carte " + "[Clique Droit] pour annuler");
         //this.ecouteurSouris.setVueGraphique(cartePanel);
         cartePanel.remove(popUpSaisieDuree);
         this.revalidate();
@@ -234,7 +234,7 @@ public class Fenetre extends JFrame {
     }
 
     public void afficherEtatAjoutRequete4(){
-        menuLateral.setMessageUtilisateur("Ajouter une Etape de depot: [Clique Gauche] sur une Adresse de la Carte " + "[Clique Droit] pour annuler");
+        menuLateral.setMessageUtilisateur("Ajouter une Etape de depot: [Clique Gauche] sur la Carte " + "[Clique Droit] pour annuler");
         this.revalidate();
         this.repaint();
     }
@@ -247,7 +247,7 @@ public class Fenetre extends JFrame {
     }
 
     public void afficherEtatAjoutRequete6(){
-        menuLateral.setMessageUtilisateur("Selectionner l'étape qui précéde votre depot: [Clique Gauche] sur une Etape de la Carte " + "[Clique Droit] pour annuler");
+        menuLateral.setMessageUtilisateur("Selectionner l'étape qui précéde votre depot: [Clique Gauche] sur la Carte " + "[Clique Droit] pour annuler");
         cartePanel.remove(popUpSaisieDuree);
         this.revalidate();
         this.repaint();
