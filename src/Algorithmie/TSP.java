@@ -9,4 +9,9 @@ public interface TSP {
      */
     public void chercherSolution();
 
+    /**
+     * Retourne le cout de la meilleure solution
+     */
+    public int obtenirMeilleureSolution();
+
 }

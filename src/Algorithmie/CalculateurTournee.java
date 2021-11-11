@@ -36,8 +36,8 @@ public class CalculateurTournee {
 
         HashMap<Long, HashMap<Long, CheminEntreEtape>> grapheCompletDesEtapes = calculerGrapheCompletDesEtapes(new Astar2(carte));
 
-        TSP2 tsp = new TSP2(carte, tournee, grapheCompletDesEtapes, tempsMaxCalcul * 1000);
-        tsp.chercherSolution();
+        TSP4 tsp4 = new TSP4(carte, tournee, grapheCompletDesEtapes, tempsMaxCalcul * 1000);
+        tsp4.chercherSolution();
 
         ajouteHeureDePassage(tournee);
 

@@ -144,4 +144,8 @@ public abstract class TemplateTSP implements TSP {
         }
     }
 
+    @Override
+    public int obtenirMeilleureSolution() {
+        return coutMeilleureSolution;
+    }
 }

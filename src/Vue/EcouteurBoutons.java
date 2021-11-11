@@ -74,7 +74,7 @@ public class EcouteurBoutons implements ActionListener {
                 }
                 break;
             case Fenetre.ANNULER_AJOUT_REQUETE:
-                controleur.cliqueDroit();
+                controleur.annuler();
         }
     }
 }

@@ -101,6 +101,6 @@ public interface Etat {
      * @param l       la liste des commandes
      * @param tournee la tournée
      */
-    public default void cliqueDroit(Controleur c, Fenetre fenetre, Carte carte, ListeDeCommandes l, Tournee tournee) {
+    public default void annuler(Controleur c, Fenetre fenetre, Carte carte, ListeDeCommandes l, Tournee tournee) {
     }
 }

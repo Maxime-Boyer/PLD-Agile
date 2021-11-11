@@ -59,8 +59,6 @@ public class Controleur {
      */
     public void chargerPlan() {
         etatActuel.chargerPlan(this, fenetre, carte, tournee);
-        System.out.println("Controlleur : carte = ");
-        System.out.println("       aaaaaaaaaaaaaaaaaaaaaaaa" + carte);
     }
 
     /**
@@ -112,8 +110,8 @@ public class Controleur {
     /**
      * Méthode appeléee par la fenêtre après avoir cliqué sur le clic droit de la souris
      */
-    public void cliqueDroit() {
-        etatActuel.cliqueDroit(this, fenetre, carte, listeDeCommandes, tournee);
+    public void annuler(){
+        etatActuel.annuler(this, fenetre,carte,listeDeCommandes, tournee);
     }
 
     /**
