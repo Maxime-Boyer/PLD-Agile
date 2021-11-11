@@ -96,7 +96,7 @@ public class CartePanel extends JPanel implements Observer {
         //initialisation image
         iconPosition = new ImageIcon("src/images/Localisation.png");
         Image imagePosition = iconPosition.getImage(); // transform it
-        Image newImagePosition = imagePosition.getScaledInstance(25, 30, java.awt.Image.SCALE_SMOOTH);
+        Image newImagePosition = imagePosition.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
         iconPosition = new ImageIcon(newImagePosition);
 
         labelPosition1 = new JLabel();
