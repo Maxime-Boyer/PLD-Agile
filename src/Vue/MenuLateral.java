@@ -87,7 +87,7 @@ public class MenuLateral extends JPanel implements Observer {
         messageUtilisateur.setLineWrap(true);
         messageUtilisateur.setWrapStyleWord(true);
         messageUtilisateur.setOpaque(false);
-        messageUtilisateur.setBounds(2 * Fenetre.valMarginBase, Fenetre.valMarginBase, this.getWidth() - 4 * Fenetre.valMarginBase, 35);
+        messageUtilisateur.setBounds(2 * Fenetre.valMarginBase, Fenetre.valMarginBase, this.getWidth() - 4 * Fenetre.valMarginBase, 60);
         this.add(messageUtilisateur);
     }
 
@@ -160,11 +160,11 @@ public class MenuLateral extends JPanel implements Observer {
         panelBoutonsUndoRedoAjoutRequete.setLayout(null);
         this.add(panelBoutonsUndoRedoAjoutRequete);
 
-        boutonUndo = new Bouton("<--", policeTexte, ecouteurBoutons);
+        boutonUndo = new Bouton(Fenetre.UNDO, policeTexte, ecouteurBoutons);
         boutonUndo.setBounds(0, 0, panelBoutonsUndoRedoAjoutRequete.getWidth() / 4 - Fenetre.valMarginBase * 3 / 4, 50);
         panelBoutonsUndoRedoAjoutRequete.add(boutonUndo);
 
-        boutonRedo = new Bouton("-->", policeTexte, ecouteurBoutons);
+        boutonRedo = new Bouton(Fenetre.REDO, policeTexte, ecouteurBoutons);
         boutonRedo.setBounds(boutonUndo.getX() + boutonUndo.getWidth() + Fenetre.valMarginBase, 0, panelBoutonsUndoRedoAjoutRequete.getWidth() / 4 - Fenetre.valMarginBase * 3 / 4 - 1, Fenetre.hauteurBouton);
         panelBoutonsUndoRedoAjoutRequete.add(boutonRedo);
 
@@ -189,7 +189,7 @@ public class MenuLateral extends JPanel implements Observer {
      * @param cliquable
      */
     public void authoriseCliquerBoutonUndo(boolean cliquable) {
-        boutonUndo.setEnabled(false);
+        boutonUndo.setEnabled(cliquable);
     }
 
     /**
@@ -207,7 +207,7 @@ public class MenuLateral extends JPanel implements Observer {
      * @param cliquable
      */
     public void authoriseCliquerBoutonRedo(boolean cliquable) {
-        boutonRedo.setEnabled(false);
+        boutonRedo.setEnabled(cliquable);
     }
 
     /**
@@ -275,7 +275,7 @@ public class MenuLateral extends JPanel implements Observer {
             collecte = tournee.getListeRequetes().get(i).getEtapeCollecte();
             depot = tournee.getListeRequetes().get(i).getEtapeDepot();
 
-            listeRequetes[i] = new RequetePanel(collecte, depot, tournee.getListeRequetes().get(i).getCouleur(), this.getWidth() - 2 * Fenetre.valMarginBase - 8, Fenetre.valMarginBase, policeTexte, policeTexteImportant, ecouteurSurvol);
+            listeRequetes[i] = new RequetePanel(collecte, depot, tournee.getListeRequetes().get(i).getCouleurRequete(), this.getWidth() - 2 * Fenetre.valMarginBase - 8, Fenetre.valMarginBase, policeTexte, policeTexteImportant, ecouteurSurvol);
             panelInsideScrollPanel.add(listeRequetes[i]);
             panelInsideScrollPanel.add(Box.createRigidArea(new Dimension(0, 2 * Fenetre.valMarginBase)));
         }
@@ -332,7 +332,7 @@ public class MenuLateral extends JPanel implements Observer {
         Etape entrepot = tournee.getListeChemins().get(0).getEtapeDepart();
         LocalTime arriveeEntrepot = entrepot.getHeureDePassage();
         entrepot.setHeureDePassage(tournee.getDateDepart());
-        listeEtapes[0] = new EtapePanel(tournee.getListeChemins().get(0).getEtapeDepart(), requete, panelInsideScrollPanel.getWidth(), Fenetre.valMarginBase, policeTexte, policeTexteImportant, ecouteurSurvol);
+        listeEtapes[0] = new EtapePanel(tournee.getListeChemins().get(0).getEtapeDepart(), requete, panelInsideScrollPanel.getWidth(), Fenetre.valMarginBase, policeTexte, policeTexteImportant, ecouteurSurvol,ecouteurBoutons);
         panelInsideScrollPanel.add(listeEtapes[0]);
         panelInsideScrollPanel.add(Box.createRigidArea(new Dimension(0, 2 * Fenetre.valMarginBase)));
 
@@ -356,7 +356,7 @@ public class MenuLateral extends JPanel implements Observer {
             }
 
             // affichage de l'etape
-            listeEtapes[i+1] = new EtapePanel(etapeFinChemin, requete, panelInsideScrollPanel.getWidth(), Fenetre.valMarginBase, policeTexte, policeTexteImportant,ecouteurSurvol);
+            listeEtapes[i+1] = new EtapePanel(etapeFinChemin, requete, panelInsideScrollPanel.getWidth(), Fenetre.valMarginBase, policeTexte, policeTexteImportant, ecouteurSurvol, ecouteurBoutons);
             panelInsideScrollPanel.add(listeEtapes[i+1]);
             panelInsideScrollPanel.add(Box.createRigidArea(new Dimension(0, 2 * Fenetre.valMarginBase)));
         }
@@ -416,7 +416,7 @@ public class MenuLateral extends JPanel implements Observer {
             //Met à jour la tournee
             if (arg instanceof Tournee) {
                 tournee = (Tournee) arg;
-                /*
+
                 if (tournee.getTourneeEstChargee()){
                     //Si la tournee est chargee mais pas ordonnée, affiche la liste des requêtes
                     if (!tournee.getTourneeEstOrdonee()){
@@ -427,12 +427,12 @@ public class MenuLateral extends JPanel implements Observer {
                         afficherMenuEtapes();
                         //afficherMenuImportation();
                     }
-                }*/
+                }
             }
         }
-        /*
+
         revalidate();
-        repaint();*/
+        repaint();
     }
 
     public void setMessageUtilisateur(String texte) {

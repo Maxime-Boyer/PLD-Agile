@@ -1,7 +1,6 @@
 package Controleur;
 
 import Exceptions.CommandeImpossibleException;
-import Exceptions.ValeurNegativeException;
 import Model.Adresse;
 import Model.Carte;
 import Model.Etape;
@@ -32,6 +31,17 @@ public class EtatAjoutRequete2DureeCollecte implements Etat{
 
 
     }
+
+    @Override
+    public void cliqueDroit (Controleur controleur, Fenetre fenetre, Carte carte, ListeDeCommandes l, Tournee tournee){
+        fenetre.getCartePanel().viderNouvelleRequete();
+        controleur.setEtatActuel(controleur.etatTourneeOrdonnee);
+        fenetre.getCartePanel().remove(fenetre.getPopUpSaisieDuree());
+        fenetre.afficherEtatTourneePreparee(tournee);
+
+    }
+
+
 
 
 }

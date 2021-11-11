@@ -17,9 +17,11 @@ public class Fenetre extends JFrame {
     protected final static String PREPARER_TOURNEE = "Préparer tournée";
     protected final static String AJOUT_REQUETE = "Ajouter requête";
     protected final static String VALIDER_AJOUT_DUREE_COLLECTE_REQUETE = "Valider";
+    protected final static String SUPPRIMER_REQUETE = "X";
     protected final static String EXPORTER_FEUILLE_ROUTE = "Exporter feuille de route";
-
     protected final static String ANNULER_AJOUT_REQUETE = "Annuler";
+    protected final static String UNDO = "<--";
+    protected final static String REDO = "-->";
 
     protected final static int valMarginBase = 5;
     protected final static int hauteurBouton = 50;
@@ -42,6 +44,9 @@ public class Fenetre extends JFrame {
 
     private Carte carte;
     private Tournee tournee;
+
+    private boolean authorisationCliquerBoutonUndo = false;
+    private boolean authorisationCliquerBoutonRedo = false;
 
     /**
      * Cree la fenetre dans laquelle s'ouvre l'application
@@ -180,9 +185,9 @@ public class Fenetre extends JFrame {
         menuLateral.visibiliteBoutonUndo(true);
         menuLateral.visibiliteBoutonRedo(true);
         menuLateral.visibiliteBoutonAnnulerAjoutRequete(false);
-        //TODO : Authorisation de clique sur les boutons undo/redo
-        menuLateral.authoriseCliquerBoutonUndo(false);
-        menuLateral.authoriseCliquerBoutonRedo(false);
+
+        menuLateral.authoriseCliquerBoutonUndo(authorisationCliquerBoutonUndo);
+        menuLateral.authoriseCliquerBoutonRedo(authorisationCliquerBoutonRedo);
         //Affiche la tournee ordonnee
         menuLateral.retirerMenuRequete();
         menuLateral.afficherMenuEtapes();
@@ -212,11 +217,12 @@ public class Fenetre extends JFrame {
 
     public void afficherEtatAjoutRequete2(){
         popUpSaisieDuree = new PopUpSaisieDuree(policeTexte,ecouteurBoutons);
+        //System.out.println()
+        popUpSaisieDuree.setPosition(cartePanel.getLargeur()/2,cartePanel.getHauteur()/2);
         menuLateral.setMessageUtilisateur("Entrer la durée de l'étape collecte et Valider");
         cartePanel.add(popUpSaisieDuree);
         this.revalidate();
         this.repaint();
-
     }
 
     public void afficherEtatAjoutRequete3(){
@@ -325,6 +331,14 @@ public class Fenetre extends JFrame {
 
     public MenuLateral getMenuLateral() {
         return menuLateral;
+    }
+
+    public void setAuthorisationCliquerBoutonUndo(boolean authorisationCliquerBoutonUndo) {
+        this.authorisationCliquerBoutonUndo = authorisationCliquerBoutonUndo;
+    }
+
+    public void setAuthorisationCliquerBoutonRedo(boolean authorisationCliquerBoutonRedo) {
+        this.authorisationCliquerBoutonRedo = authorisationCliquerBoutonRedo;
     }
 
     public int obtenirTempsMaxCalcul() throws ValeurNegativeException {

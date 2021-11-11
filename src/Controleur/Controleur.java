@@ -3,6 +3,7 @@ package Controleur;
 import Exceptions.CommandeImpossibleException;
 import Model.Adresse;
 import Model.Carte;
+import Model.Requete;
 import Model.Tournee;
 import Vue.CartePanel;
 import Vue.Fenetre;
@@ -99,8 +100,8 @@ public class Controleur {
     /**
      * Méthode appelée par fenetre après avoir cliqué sur la croix d'une étape de la requête qui doit être supprimé
      */
-    public void supressionRequete() {
-        etatActuel.supressionRequete(this, fenetre);
+    public void supressionRequete(Requete requete) {
+        etatActuel.supressionRequete(this, fenetre, listeDeCommandes, tournee, carte, requete);
     }
 
     /**
@@ -188,8 +189,15 @@ public class Controleur {
      * Méthode appeléee par la fenêtre après avoir cliqué sur le clic gauche de la souris
      * @param a: Adresse obtenu lors du clic
      */
-    public void cliqueGauche(Adresse a){
+    public void cliqueGauche(Adresse a) {
         etatActuel.cliqueGauche(this, fenetre,carte,listeDeCommandes, tournee, a);
+    }
+
+    /**
+     * Méthode appeléee par la fenêtre après avoir cliqué sur le clic droit de la souris
+     */
+    public void cliqueDroit(){
+        etatActuel.cliqueDroit(this, fenetre,carte,listeDeCommandes, tournee);
     }
 
     /**
@@ -211,6 +219,28 @@ public class Controleur {
      */
     public void validerAjoutDureeEtape() {
         etatActuel.validerAjoutDureeEtape(this, fenetre);
+    }
+
+    public void cliqueBoutonUndo() throws CommandeImpossibleException {
+        listeDeCommandes.defaire();
+        fenetre.setAuthorisationCliquerBoutonRedo(true);
+
+        if(listeDeCommandes.getIndexCourant() < 0){
+            fenetre.setAuthorisationCliquerBoutonUndo(false);
+        }
+        fenetre.afficherEtatTourneePreparee(tournee);
+        tournee.notifyObservers();
+
+
+    }
+    public void cliqueBoutonRedo() throws CommandeImpossibleException {
+        listeDeCommandes.refaire();
+        fenetre.setAuthorisationCliquerBoutonUndo(true);
+        if(listeDeCommandes.getIndexCourant() == listeDeCommandes.getList().size()-1){
+            fenetre.setAuthorisationCliquerBoutonRedo(false);
+        }
+        fenetre.afficherEtatTourneePreparee(tournee);
+        tournee.notifyObservers();
     }
 
 }

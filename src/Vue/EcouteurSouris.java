@@ -3,6 +3,7 @@ package Vue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import Exceptions.CommandeImpossibleException;
 import Model.Adresse;
 import Model.Etape;
 
@@ -28,14 +29,13 @@ public class EcouteurSouris extends MouseAdapter {
         switch (evt.getButton()) {
             case MouseEvent.BUTTON1:
                 Adresse a = coordonnees(evt);
-                if (a != null)
+                if (a != null) {
                     controleur.cliqueGauche(a);
+                }
                 break;
-            /* case MouseEvent.BUTTON3:
-                controller.rightClick();
+             case MouseEvent.BUTTON3:
+                controleur.cliqueDroit();
                 break;
-            default:
-        }*/
             default:
         }
     }

@@ -1,7 +1,9 @@
 package Controleur;
 
+import Exceptions.CommandeImpossibleException;
 import Model.Adresse;
 import Model.Carte;
+import Model.Requete;
 import Model.Tournee;
 import Vue.CartePanel;
 import Vue.Fenetre;
@@ -25,7 +27,7 @@ public interface Etat {
      * @param tournee la liste des requêtes qui vas permettred de calculer une tournee
      */
     public default void preparerTournee(Controleur c, Fenetre fenetre, Carte carte, Tournee tournee) {}
-    public default void supressionRequete(Controleur c, Fenetre fenetre){}
+    public default void supressionRequete(Controleur c, Fenetre fenetre,ListeDeCommandes listeDeCommandes,Tournee tournee, Carte carte, Requete requete){}
     public default void selectionPointCarte(Controleur c, Fenetre fenetre){}
     public default void validerSupressionRequete(Controleur c, Fenetre fenetre){}
     public default void chargerNouveauPlan(Controleur c, Fenetre fenetre){}
@@ -42,5 +44,6 @@ public interface Etat {
     public default void ajoutRequeteDureeDepot(Controleur c, Fenetre fenetre){}
     public default void ajouterRequete(Controleur c, Fenetre fenetre){}
     public default void validerAjoutDureeEtape(Controleur c, Fenetre fenetre){}
-    public default void cliqueGauche (Controleur c, Fenetre fenetre, Carte carte, ListeDeCommandes l, Tournee tournee, Adresse a){}
+    public default void cliqueGauche (Controleur c, Fenetre fenetre, Carte carte, ListeDeCommandes l, Tournee tournee, Adresse a) {}
+    public default void cliqueDroit (Controleur c, Fenetre fenetre, Carte carte, ListeDeCommandes l, Tournee tournee){}
 }
