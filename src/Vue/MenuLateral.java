@@ -332,7 +332,7 @@ public class MenuLateral extends JPanel implements Observer {
         Etape entrepot = tournee.getListeChemins().get(0).getEtapeDepart();
         LocalTime arriveeEntrepot = entrepot.getHeureDePassage();
         entrepot.setHeureDePassage(tournee.getDateDepart());
-        listeEtapes[0] = new EtapePanel(tournee.getListeChemins().get(0).getEtapeDepart(), requete, panelInsideScrollPanel.getWidth(), Fenetre.valMarginBase, policeTexte, policeTexteImportant, ecouteurSurvol);
+        listeEtapes[0] = new EtapePanel(tournee.getListeChemins().get(0).getEtapeDepart(), requete, panelInsideScrollPanel.getWidth(), Fenetre.valMarginBase, policeTexte, policeTexteImportant, ecouteurSurvol,ecouteurBoutons);
         panelInsideScrollPanel.add(listeEtapes[0]);
         panelInsideScrollPanel.add(Box.createRigidArea(new Dimension(0, 2 * Fenetre.valMarginBase)));
 
