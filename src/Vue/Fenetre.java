@@ -19,6 +19,8 @@ public class Fenetre extends JFrame {
     protected final static String SUPPRIMER_REQUETE = "X";
     protected final static String EXPORTER_FEUILLE_ROUTE = "Exporter feuille de route";
     protected final static String ANNULER_AJOUT_REQUETE = "Annuler";
+    protected final static String UNDO = "<--";
+    protected final static String REDO = "-->";
 
     protected final static int valMarginBase = 5;
     protected final static int hauteurBouton = 50;
@@ -41,6 +43,9 @@ public class Fenetre extends JFrame {
 
     private Carte carte;
     private Tournee tournee;
+
+    private boolean authorisationCliquerBoutonUndo = false;
+    private boolean authorisationCliquerBoutonRedo = false;
 
     /**
      * Cree la fenetre dans laquelle s'ouvre l'application
@@ -324,5 +329,13 @@ public class Fenetre extends JFrame {
 
     public MenuLateral getMenuLateral() {
         return menuLateral;
+    }
+
+    public void setAuthorisationCliquerBoutonUndo(boolean authorisationCliquerBoutonUndo) {
+        this.authorisationCliquerBoutonUndo = authorisationCliquerBoutonUndo;
+    }
+
+    public void setAuthorisationCliquerBoutonRedo(boolean authorisationCliquerBoutonRedo) {
+        this.authorisationCliquerBoutonRedo = authorisationCliquerBoutonRedo;
     }
 }

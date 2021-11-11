@@ -143,11 +143,11 @@ public class MenuLateral extends JPanel implements Observer {
         panelBoutonsUndoRedoAjoutRequete.setLayout(null);
         this.add(panelBoutonsUndoRedoAjoutRequete);
 
-        boutonUndo = new Bouton("<--", policeTexte, ecouteurBoutons);
+        boutonUndo = new Bouton(Fenetre.UNDO, policeTexte, ecouteurBoutons);
         boutonUndo.setBounds(0, 0, panelBoutonsUndoRedoAjoutRequete.getWidth() / 4 - Fenetre.valMarginBase * 3 / 4, 50);
         panelBoutonsUndoRedoAjoutRequete.add(boutonUndo);
 
-        boutonRedo = new Bouton("-->", policeTexte, ecouteurBoutons);
+        boutonRedo = new Bouton(Fenetre.REDO, policeTexte, ecouteurBoutons);
         boutonRedo.setBounds(boutonUndo.getX() + boutonUndo.getWidth() + Fenetre.valMarginBase, 0, panelBoutonsUndoRedoAjoutRequete.getWidth() / 4 - Fenetre.valMarginBase * 3 / 4 - 1, Fenetre.hauteurBouton);
         panelBoutonsUndoRedoAjoutRequete.add(boutonRedo);
 

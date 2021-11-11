@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import Controleur.Controleur;
+import Exceptions.CommandeImpossibleException;
 import Model.Requete;
 
 public class EcouteurBoutons implements ActionListener {
@@ -55,6 +56,20 @@ public class EcouteurBoutons implements ActionListener {
                 Requete requete = ((BoutonSuppressionRequete) e.getSource()).getRequete();
                 System.out.println(requete);
                 controleur.supressionRequete(requete);
+                break;
+            case Fenetre.UNDO:
+                try {
+                    controleur.cliqueBoutonUndo();
+                } catch (CommandeImpossibleException commandeImpossibleException) {
+                    commandeImpossibleException.printStackTrace();
+                }
+                break;
+            case Fenetre.REDO:
+                try {
+                    controleur.cliqueBoutonRedo();
+                } catch (CommandeImpossibleException ex) {
+                    ex.printStackTrace();
+                }
                 break;
         }
     }

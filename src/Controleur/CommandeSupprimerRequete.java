@@ -21,6 +21,8 @@ public class CommandeSupprimerRequete implements Commande{
         this.tournee = tournee;
         this.carte = carte;
         this.requeteASupprimer = requeteASupprimer;
+        this.etapePrecedentCollecte = etapePrecedentCollecte;
+        this.etapePrecedentDepot = etapePrecedentDepot;
     }
     /**
      * Execute la commande de this

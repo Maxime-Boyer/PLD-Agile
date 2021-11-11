@@ -70,4 +70,12 @@ public class ListeDeCommandes {
         indexCourant = -1;
         list.clear();
     }
+
+    public int getIndexCourant() {
+        return indexCourant;
+    }
+
+    public LinkedList<Commande> getList() {
+        return list;
+    }
 }

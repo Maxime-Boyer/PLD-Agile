@@ -417,8 +417,41 @@ public class Tournee extends Observable {
      * @param precedentDepot: étape qui préède le dépot
      * @return: true si le dépot de la requête ajoutée est bien placée après la collecte
      */
-    public boolean collectePrecedeDepot(Etape collecte, Etape precedentDepot) {
-        boolean depotTrouvee = false;
+    public boolean collectePrecedeDepot(Etape collecte, Etape precedentDepot, Etape precedentCollecte) {
+        if(precedentDepot.getIdAdresse() == collecte.getIdAdresse()){ return true; }
+
+        boolean precedentCollecteTrouve = false;
+
+        for (CheminEntreEtape chemin : listeChemins){
+            if(chemin.getEtapeDepart().getIdAdresse() == precedentCollecte.getIdAdresse()){
+                if(chemin.getEtapeArrivee().getIdAdresse() == precedentDepot.getIdAdresse()){
+                    return true;
+                }
+                if(chemin.getEtapeDepart().getIdAdresse() == precedentDepot.getIdAdresse()){
+                    return false;
+                }
+            }
+            if(chemin.getEtapeArrivee().getIdAdresse() == precedentCollecte.getIdAdresse()){
+                if(chemin.getEtapeArrivee().getIdAdresse() == precedentDepot.getIdAdresse()){
+                    return false;
+                }
+                if(chemin.getEtapeDepart().getIdAdresse() == precedentDepot.getIdAdresse()){
+                    return false;
+                }
+            }
+            if(chemin.getEtapeArrivee().getIdAdresse() == precedentDepot.getIdAdresse() || chemin.getEtapeDepart().getIdAdresse() == precedentDepot.getIdAdresse()){
+                if(!(chemin.getEtapeArrivee().getIdAdresse() == precedentCollecte.getIdAdresse()) || !(chemin.getEtapeDepart().getIdAdresse() == precedentCollecte.getIdAdresse())){
+                    return false;
+                }
+            }
+            if(chemin.getEtapeArrivee().getIdAdresse() == precedentCollecte.getIdAdresse() || chemin.getEtapeDepart().getIdAdresse() == precedentCollecte.getIdAdresse()){
+                if(!(chemin.getEtapeArrivee().getIdAdresse() == precedentDepot.getIdAdresse()) || !(chemin.getEtapeDepart().getIdAdresse() == precedentDepot.getIdAdresse())){
+                    return true;
+                }
+            }
+        }
+
+        /*boolean depotTrouvee = false;
         for (CheminEntreEtape chemin : listeChemins){
             double departLongitude = chemin.getEtapeDepart().getLongitude();
             double departLatitude = chemin.getEtapeDepart().getLatitude();
@@ -442,7 +475,7 @@ public class Tournee extends Observable {
             else if(!depotTrouvee && (arriveeLongitude == collecte.getLongitude() || arriveeLatitude == collecte.getLatitude())){
                 return true;
             }
-        }
+        }*/
         return false;
     }
 

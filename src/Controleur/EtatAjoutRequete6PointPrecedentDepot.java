@@ -11,7 +11,7 @@ public class EtatAjoutRequete6PointPrecedentDepot implements Etat{
     private Etape precendentColl = null;
 
     @Override
-    public void cliqueGauche (Controleur controleur, Fenetre fenetre, Carte carte, ListeDeCommandes l, Tournee tournee, Adresse precedent){
+    public void cliqueGauche (Controleur controleur, Fenetre fenetre, Carte carte, ListeDeCommandes l, Tournee tournee, Adresse precedent)  {
         try {
             Adresse nouvelleAdresseDepot = fenetre.getCartePanel().getNouvelleAdresse().get(1);
             Etape depot = new Etape(nouvelleAdresseDepot.getLatitude(), nouvelleAdresseDepot.getLongitude(), nouvelleAdresseDepot.getIdAdresse(), dureeEtape);
@@ -27,7 +27,7 @@ public class EtatAjoutRequete6PointPrecedentDepot implements Etat{
             }else{
                 etapePrecDepot = tournee.obtenirEtapeParId(etapePrecedentDepot.getIdAdresse());
             }
-            //System.out.println(etapePrecDepot);
+
             Requete nouvelleRequete = new Requete(collecte,depot);
             //tournee.ajoutRequete(nouvelleRequete);
 
@@ -41,7 +41,6 @@ public class EtatAjoutRequete6PointPrecedentDepot implements Etat{
             //tournee.ajoutChemin(depot,etapePrecDepot,carte);
 
             fenetre.getCartePanel().viderNouvelleRequete();
-            //fenetre.getCartePanel().repaint();
             controleur.setEtatActuel(controleur.etatTourneeOrdonnee);
             fenetre.afficherEtatTourneePreparee(tournee);
             tournee.notifyObservers(tournee);
@@ -57,11 +56,9 @@ public class EtatAjoutRequete6PointPrecedentDepot implements Etat{
 
     @Override
     public void cliqueDroit(Controleur controleur , Fenetre fenetre, Carte carte, ListeDeCommandes l, Tournee tournee) {
-        //tournee.enleverChemin(collecte,carte);
         fenetre.getCartePanel().viderNouvelleRequete();
         controleur.setEtatActuel(controleur.etatTourneeOrdonnee);
         fenetre.afficherEtatTourneePreparee(tournee);
-        //tournee.notifyObservers(tournee);
     }
 
     public void mettreAjourDuree(Integer dureeEtape){
