@@ -30,6 +30,7 @@ public interface Etat {
     public default void exporterFeuilleDeRoute(Controleur c, Fenetre fenetre){}
     public default void chargerNouveauPlan(Controleur c, Fenetre fenetre){}
     public default void chargerNouvelleListeRequete(Controleur c, Fenetre fenetre){}
+    public default void exporterFeuilleDeRoute(Tournee tournee){}
     public default void ajoutRequete(Controleur c, Fenetre fenetre){}
     public default void ajoutRequetePointCollecte(Controleur c, Fenetre fenetre){}
     public default void validerAjoutRequetePointCollecte(Controleur c, Fenetre fenetre){}

@@ -43,7 +43,7 @@ public class DijkstraBis {
 
 
         //dijkstra pour l'adresse de depart
-        this.depart = tournee.getAdresseDepart().getIdAdresse();
+        this.depart = tournee.getEtapeDepart().getIdAdresse();
         listeBlanc.clear();
         for(Map.Entry<Long, Adresse> entry : carte.getListeAdresses().entrySet()){
             this.listeBlanc.put(entry.getKey(),entry.getValue());

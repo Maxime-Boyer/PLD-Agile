@@ -22,7 +22,7 @@ public class TourneeInitialePlusCourtChemin {
 
         LinkedList<CheminEntreEtape> listeChemins = new LinkedList<>();
 
-        Long adresseActuelle = tournee.getAdresseDepart().getIdAdresse();
+        Long adresseActuelle = tournee.getEtapeDepart().getIdAdresse();
 
         //Liste des etapes deja realisees
         LinkedList<Long> listeAdressesNoires = new LinkedList<>();
@@ -31,7 +31,7 @@ public class TourneeInitialePlusCourtChemin {
             long min = Long.MAX_VALUE;
             CheminEntreEtape ceeMin = null;
             for (CheminEntreEtape cee : grapheCompletDesEtapes.get(adresseActuelle).values()) {
-                if (!listeAdressesNoires.contains(cee.etapeArrivee.getIdAdresse()) && cee.distance < min && cee.etapeArrivee != tournee.getAdresseDepart()) {
+                if (!listeAdressesNoires.contains(cee.etapeArrivee.getIdAdresse()) && cee.distance < min && cee.etapeArrivee != tournee.getEtapeDepart()) {
                     min = cee.distance;
                     ceeMin = cee;
                 }
@@ -44,7 +44,7 @@ public class TourneeInitialePlusCourtChemin {
         }
         //On retourne au depart de la tournee
 
-        listeChemins.add(grapheCompletDesEtapes.get(adresseActuelle).get(tournee.getAdresseDepart().getIdAdresse()));
+        listeChemins.add(grapheCompletDesEtapes.get(adresseActuelle).get(tournee.getEtapeDepart().getIdAdresse()));
 
         tournee.setListeChemins(listeChemins);
 

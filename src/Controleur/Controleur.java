@@ -113,7 +113,7 @@ public class Controleur {
      * Méthode appelé par fenetre après avoir cliqué sur le bouton "exporter feuiile de route"
      */
     public void exporterFeuilleDeRoute() {
-        etatActuel.exporterFeuilleDeRoute(this, fenetre);
+        etatActuel.exporterFeuilleDeRoute(tournee);
     }
 
     /**

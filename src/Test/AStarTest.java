@@ -157,7 +157,7 @@ public class AStarTest {
         CalculateurTournee calculateurTournee = new CalculateurTournee(carte, tournee);
 
         Astar2 astar = new Astar2(carte);
-        Etape etape = new Etape(tournee.getAdresseDepart().getLatitude(),tournee.getAdresseDepart().getLongitude(),tournee.getAdresseDepart().getIdAdresse(),0,LocalTime.of(0,0,0,0));
+        Etape etape = tournee.getEtapeDepart();
         astar.chercherCheminEntreEtape(etape, etape);
 
     }
