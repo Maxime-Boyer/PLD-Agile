@@ -36,6 +36,7 @@ public class EtatAjoutRequete6PointPrecedentDepot implements Etat{
             if(!tournee.collectePrecedeDepot(collecte, etapePrecDepot, etapePrecedentCollecte)){
                 throw new CommandeImpossibleException("Erreur le prédecesseur du depot se situe avant la collecte dans l'itinéraire");
             }
+            //l.reinitialiser();
             l.ajouter(new CommandeAjouteRequete(nouvelleRequete, etapePrecedentCollecte, etapePrecDepot, tournee, carte));
             fenetre.setAuthorisationCliquerBoutonUndo(true);
             fenetre.getCartePanel().viderNouvelleRequete();
