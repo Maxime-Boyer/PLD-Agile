@@ -30,7 +30,11 @@ public class EcouteurSouris extends MouseAdapter {
             case MouseEvent.BUTTON1:
                 Adresse a = coordonnees(evt);
                 if (a != null) {
-                    controleur.cliqueGauche(a);
+                    try {
+                        controleur.cliqueGauche(a);
+                    } catch (CommandeImpossibleException e) {
+                        e.printStackTrace();
+                    }
                 }
                 break;
              case MouseEvent.BUTTON3:

@@ -4,6 +4,9 @@ package Controleur;
 
 import Exceptions.CommandeImpossibleException;
 
+/**
+ * Permet de mettre en place le design pattern command utile pour le undo/redo
+ */
 public interface Commande {
 
     /**

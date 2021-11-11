@@ -189,7 +189,7 @@ public class Controleur {
      * Méthode appeléee par la fenêtre après avoir cliqué sur le clic gauche de la souris
      * @param a: Adresse obtenu lors du clic
      */
-    public void cliqueGauche(Adresse a) {
+    public void cliqueGauche(Adresse a) throws CommandeImpossibleException {
         etatActuel.cliqueGauche(this, fenetre,carte,listeDeCommandes, tournee, a);
     }
 
