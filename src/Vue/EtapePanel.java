@@ -63,11 +63,20 @@ public class EtapePanel extends JPanel {
 
         String texteTitreEtape = "";
         if(requeteEtape != null) {
-            if (requeteEtape.getEtapeCollecte().getIdAdresse().equals(etape.getIdAdresse())) {
-                texteTitreEtape = "Collecte - " + etape.getDureeEtape() + " sec";
-            } else {
-                texteTitreEtape = "Dépôt - " + etape.getDureeEtape() + " sec";
+
+            String dureeEtape = String.valueOf(etape.getDureeEtape()/60) + "min ";
+
+            if(etape.getDureeEtape()%60 > 0){
+                dureeEtape += String.valueOf(etape.getDureeEtape()%60) + "sec";
             }
+
+            if (requeteEtape.getEtapeCollecte().getIdAdresse().equals(etape.getIdAdresse())) {
+                texteTitreEtape = "Collecte - ";
+            } else {
+                texteTitreEtape = "Dépôt - ";
+            }
+
+            texteTitreEtape += dureeEtape;
         } else {
             texteTitreEtape = "Entrepôt";
         }
@@ -84,7 +93,6 @@ public class EtapePanel extends JPanel {
         labelTitreCollecte.setFont(policeTexteImportant);
         firstLine.add(labelTitreCollecte, BorderLayout.LINE_START);
         labelTitreCollecte.addMouseListener(ecouteurSurvol);
-
         firstLine.add(Box.createHorizontalGlue());
 
         if(requeteEtape != null) {
