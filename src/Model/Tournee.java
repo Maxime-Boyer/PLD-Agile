@@ -38,6 +38,7 @@ public class Tournee extends Observable {
      */
     public Etape getEtapeDepart() {
         return etapeDepart;
+    }
 
     /**
      * méthode qui renvoie l'heure de départ
