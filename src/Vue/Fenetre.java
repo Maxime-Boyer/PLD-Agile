@@ -73,7 +73,7 @@ public class Fenetre extends JFrame {
         //Cré les écouteurs
         this.ecouteurBoutons = new EcouteurBoutons(controleur);
         this.ecouteurSouris = new EcouteurSouris(controleur, cartePanel, this);
-        this.ecouteurSurvol = new EcouteurSurvol(this);
+        this.ecouteurSurvol = new EcouteurSurvol(controleur, this);
         this.ecouteurDragDrop = new EcouteurDragDrop();
 
         this.setResizable(false);

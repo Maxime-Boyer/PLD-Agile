@@ -1,5 +1,6 @@
 package Vue;
 
+import Controleur.Controleur;
 import Model.*;
 
 import javax.swing.*;
@@ -14,13 +15,15 @@ public class EcouteurSurvol implements MouseListener {
 
     private RequetePanel[] listeRequetes;
     private EtapePanel[] listeEtapes;
+    private Controleur controleur;
 
     /**
      * Creation d'une classe permettant de gérer les actions de clic
      * @param fenetre: la fenetre de l'application
      */
-    public EcouteurSurvol(Fenetre fenetre){
+    public EcouteurSurvol(Controleur controleur, Fenetre fenetre){
         this.fenetre = fenetre;
+        this.controleur = controleur;
         listeRequetes = null;
         listeEtapes = null;
     }
@@ -47,7 +50,7 @@ public class EcouteurSurvol implements MouseListener {
                     break;
                 }
             }
-            fenetre.indiquerPositionRequete(collecte, depot);
+            controleur.afficherIndiquerPositionRequete(collecte, depot);
         } else {
 
 
@@ -87,11 +90,11 @@ public class EcouteurSurvol implements MouseListener {
                     collecte = fenetre.getTournee().getEtapeDepart();
                     depot = null;
                 }
-                fenetre.indiquerPositionRequete(collecte,depot);
+                controleur.afficherIndiquerPositionRequete(collecte,depot);
             } else if(rpTrouve){
-                fenetre.indiquerPositionRequete((rp).getCollecte(), (rp).getDepot());
+                controleur.afficherIndiquerPositionRequete((rp).getCollecte(), (rp).getDepot());
             } else {
-                fenetre.supprimerPositionRequete();
+                controleur.supprimerPositionRequete();
             }
 
             if((e.getSource() instanceof JLabel && ((JLabel) e.getSource()).getText().equals("X"))){

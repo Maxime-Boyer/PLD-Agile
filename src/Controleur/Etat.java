@@ -1,9 +1,6 @@
 package Controleur;
 
-import Model.Adresse;
-import Model.Carte;
-import Model.Requete;
-import Model.Tournee;
+import Model.*;
 import Vue.CartePanel;
 import Vue.Fenetre;
 
@@ -105,5 +102,18 @@ public interface Etat {
      * @param tournee la tournée
      */
     public default void annuler(Controleur c, Fenetre fenetre, Carte carte, ListeDeCommandes l, Tournee tournee) {
+    }
+
+    /**
+     * Méthode appelée par fenetre après avoir cliqué sur la fenêtre pour sélectionner une requête
+     *
+     * @param fenetre le conctol
+     * @param collecte le point de collecte de la requête selectionnée
+     * @param depot le point de dépot de la requête selectionnée
+     */
+    public default void afficherIndiquerPositionRequete(Fenetre fenetre, Etape collecte, Etape depot) {
+    }
+
+    public default void  supprimerPositionRequete(Fenetre fenetre){
     }
 }

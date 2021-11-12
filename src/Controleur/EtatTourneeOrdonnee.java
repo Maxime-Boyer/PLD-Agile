@@ -78,4 +78,14 @@ public class EtatTourneeOrdonnee implements Etat {
         cartePanel.supprimerPositionRequete();
         new FeuilleRoute(tournee, cartePanel);
     }
+
+    @Override
+    public void afficherIndiquerPositionRequete(Fenetre fenetre, Etape collecte, Etape depot) {
+        fenetre.indiquerPositionRequete(collecte, depot);
+    }
+
+    @Override
+    public void supprimerPositionRequete(Fenetre fenetre){
+        fenetre.supprimerPositionRequete();
+    }
 }
