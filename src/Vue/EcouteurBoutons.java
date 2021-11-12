@@ -22,7 +22,7 @@ public class EcouteurBoutons implements ActionListener {
     public EcouteurBoutons(){}
 
     /**
-     * Identification du bouton cliqué et appelle des méthodes du controleur associées
+     * Identification du bouton cliqué et appel des méthodes du controleur associées
      * @param e: l'evenement à gérer
      */
     @Override

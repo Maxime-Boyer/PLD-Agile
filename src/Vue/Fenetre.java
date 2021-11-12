@@ -208,6 +208,10 @@ public class Fenetre extends JFrame {
         this.repaint();
     }
 
+    /**
+     * Fait l'affichage des boutons et des panels utiles pour cet état
+     */
+
     public void afficherEtatAjoutRequete() {
 
         supprimerPositionRequete();
@@ -229,6 +233,10 @@ public class Fenetre extends JFrame {
         this.repaint();
     }
 
+    /**
+     * Fait l'affichage des boutons et des panels utiles pour cet état
+     */
+
     public void afficherEtatAjoutRequete2() {
         popUpSaisieDuree = new PopUpSaisieDuree(policeTexte, ecouteurBoutons);
         //System.out.println()
@@ -239,6 +247,10 @@ public class Fenetre extends JFrame {
         this.repaint();
     }
 
+    /**
+     * Fait l'affichage des boutons et des panels utiles pour cet état
+     */
+
     public void afficherEtatAjoutRequete3() {
         menuLateral.setMessageUtilisateur("Selectionner l'étape qui précéde votre collecte: [Clique Gauche] sur une Etape de la Carte " + "[Clique Droit] pour annuler");
         //this.ecouteurSouris.setVueGraphique(cartePanel);
@@ -247,11 +259,19 @@ public class Fenetre extends JFrame {
         this.repaint();
     }
 
+    /**
+     * Fait l'affichage des boutons et des panels utiles pour cet état
+     */
+
     public void afficherEtatAjoutRequete4() {
         menuLateral.setMessageUtilisateur("Ajouter une Etape de depot: [Clique Gauche] sur une Adresse de la Carte " + "[Clique Droit] pour annuler");
         this.revalidate();
         this.repaint();
     }
+
+    /**
+     * Fait l'affichage des boutons et des panels utiles pour cet état
+     */
 
     public void afficherEtatAjoutRequete5() {
         menuLateral.setMessageUtilisateur("Entrer la durée de l'étape depot et Valider");
@@ -259,6 +279,10 @@ public class Fenetre extends JFrame {
         this.revalidate();
         this.repaint();
     }
+
+    /**
+     * Fait l'affichage des boutons et des panels utiles pour cet état
+     */
 
     public void afficherEtatAjoutRequete6() {
         menuLateral.setMessageUtilisateur("Selectionner l'étape qui précéde votre depot: [Clique Gauche] sur une Etape de la Carte " + "[Clique Droit] pour annuler");
@@ -269,7 +293,6 @@ public class Fenetre extends JFrame {
 
     /**
      * Affiche les etas détermines par le controleur
-     *
      */
     public void afficherEtat() {
 

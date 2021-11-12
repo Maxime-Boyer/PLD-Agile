@@ -15,7 +15,6 @@ public class Adresse {
 
     /**
      * Constructeur de la classe Adresse, c'est un croisement entre deux ou plusieurs segments repérés par une longitude et une latitude et un id unique
-     *
      * @param latitude:  latitude de l'Adresse
      * @param longitude: longitude de l'Adresse
      * @param idAdresse: id de l'Adresse

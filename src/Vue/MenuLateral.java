@@ -294,9 +294,6 @@ public class MenuLateral extends JPanel implements Observer {
 
         scrollPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        //int yDebutPanelConsultation = (int) (panelImport.getY() + panelImport.getHeight() + 2 * Fenetre.valMarginBase +2);
-        //int yFinPanelConsultation = (int) (this.getHeight() - Fenetre.hauteurBouton - 4 * Fenetre.valMarginBase - 4);
-        //scrollPanel.setBounds(Fenetre.valMarginBase+2, yDebutPanelConsultation, this.getWidth()-2*Fenetre.valMarginBase - 4, yFinPanelConsultation - yDebutPanelConsultation );
         int yDebutPanelConsultation = (int) (panelBoutonsUndoRedoAjoutRequete.getY() + panelBoutonsUndoRedoAjoutRequete.getHeight() + 2 * Fenetre.valMarginBase + 2);
         int yFinPanelConsultation = (int) (this.getHeight() - Fenetre.hauteurBouton - 4 * Fenetre.valMarginBase - 4);
         scrollPanel.setBounds(Fenetre.valMarginBase + 2, yDebutPanelConsultation, this.getWidth() - 2 * Fenetre.valMarginBase - 4, yFinPanelConsultation - yDebutPanelConsultation);
@@ -381,13 +378,6 @@ public class MenuLateral extends JPanel implements Observer {
 
         this.add(scrollPanel);
 
-        /*
-        // bouton Exporter feuille de route
-        this.remove(boutonPreparerTournee);
-        boutonExporterFeuilleRoute = new Bouton(Fenetre.EXPORTER_FEUILLE_ROUTE, policeTexte, ecouteurBoutons);
-        boutonExporterFeuilleRoute.setBounds( Fenetre.valMarginBase, this.getHeight() - Fenetre.hauteurBouton - Fenetre.valMarginBase, this.getWidth() - 2*Fenetre.valMarginBase, Fenetre.hauteurBouton);
-        this.add(boutonExporterFeuilleRoute);
-        */
     }
 
     /**
@@ -413,8 +403,6 @@ public class MenuLateral extends JPanel implements Observer {
     public void update(Observable observed, Object arg) {
         System.out.println("..... update MenuLateral");
         if (arg != null) { // arg est soit une carte, soit une tournée qui a été mise à jour
-            //retirerMenuRequete();
-            //retirerMenuEtape();
             //Met à jour la tournee
             if (arg instanceof Tournee) {
                 tournee = (Tournee) arg;
@@ -437,6 +425,11 @@ public class MenuLateral extends JPanel implements Observer {
         repaint();
     }
 
+    /**
+     * Methode qui permet de changer le message qui permet de guider l'utilisateur
+     * @param texte à afficher
+     */
+
     public void setMessageUtilisateur(String texte) {
         messageUtilisateur.setText(texte);
     }
@@ -448,6 +441,12 @@ public class MenuLateral extends JPanel implements Observer {
         }
         return tempsMaxCalcul;
     }
+
+    /**
+     * Indique la position de la requete
+     * @param collecte, la collecte de la requête
+     * @param depot, le depot de la requête
+     */
 
     public void indiquerPositionRequete(Etape collecte, Etape depot) {
         System.out.println("Indiquer");
@@ -471,6 +470,9 @@ public class MenuLateral extends JPanel implements Observer {
         }
     }
 
+    /**
+     * Supprime la position de la requete
+     */
     public void supprimerPositionRequete() {
         System.out.println("supprimer");
         int tailleBordure = 1;

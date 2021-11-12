@@ -59,7 +59,7 @@ public class EcouteurZoom implements MouseWheelListener{
     }
 
     /**
-     * Converti une coordonnée x en pixel n longitude
+     * Convertit une coordonnée x en pixel n longitude
      * @param posX coordonnée x en pixel
      * @return coordonnée en longitude
      */
@@ -70,7 +70,7 @@ public class EcouteurZoom implements MouseWheelListener{
     }
 
     /**
-     * Converti une coordonnée y en pixel en latitude
+     * Convertit une coordonnée y en pixel en latitude
      * @param posY coordonnée x en pixel
      * @return coordonnée en latitude
      */

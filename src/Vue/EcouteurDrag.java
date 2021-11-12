@@ -51,8 +51,10 @@ public class EcouteurDrag implements MouseMotionListener {
         }
     }
 
+    /**
+     * Listener de la tournée lorqu'elle est déplacée
+     * @param e
+     */
     @Override
-    public void mouseMoved(MouseEvent e) {
-
-    }
+    public void mouseMoved(MouseEvent e) {}
 }
