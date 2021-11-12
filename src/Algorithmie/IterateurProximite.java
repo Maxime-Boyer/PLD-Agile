@@ -41,6 +41,7 @@ public class IterateurProximite implements Iterator<Adresse> {
         }
     }
 
+
     @Override
     public boolean hasNext() {
         return nbCandidats > 0;
