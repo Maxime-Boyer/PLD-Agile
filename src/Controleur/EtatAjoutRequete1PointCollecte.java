@@ -5,6 +5,9 @@ import Model.Carte;
 import Model.Tournee;
 import Vue.Fenetre;
 
+/**
+ * Première état de l'ajout de requêtes, permet de choisir une nouvelle étape de collecte
+ */
 public class EtatAjoutRequete1PointCollecte implements Etat {
 
     @Override

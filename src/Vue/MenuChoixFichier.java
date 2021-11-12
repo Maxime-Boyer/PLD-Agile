@@ -1,15 +1,7 @@
 package Vue;
 
-import Algorithmie.CalculateurTournee;
-import Exceptions.IncompatibleAdresseException;
-import Model.Adresse;
-import Model.Carte;
-import Model.LecteurXML;
-import Model.Tournee;
-
 import javax.swing.*;
 import java.awt.*;
-import java.util.Map;
 
 
 public class MenuChoixFichier extends JPanel {

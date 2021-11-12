@@ -11,21 +11,23 @@ public class Observable {
     /**
      * Constructeur d'observable
      */
-    public Observable(){
-        obs = new ArrayList<Observer>();
+    public Observable() {
+        obs = new ArrayList<>();
     }
 
     /**
      * méthode qui ajoute un observeur à la collection d'observeurs
+     *
      * @param o: observeur à ajouté à la liste
      */
-    public void addObserver(Observer o){
+    public void addObserver(Observer o) {
         if (!obs.contains(o)) obs.add(o);
     }
+
     /**
      * méthode qui notifie les observeurs
      */
-    public void notifyObservers(Object arg){
+    public void notifyObservers(Object arg) {
         for (Observer o : obs)
             o.update(this, arg);
     }
@@ -33,7 +35,7 @@ public class Observable {
     /**
      * méthode qui notifie les observeurs
      */
-    public void notifyObservers(){
+    public void notifyObservers() {
         notifyObservers(null);
     }
 }

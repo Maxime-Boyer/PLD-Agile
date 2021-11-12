@@ -4,10 +4,8 @@ import Model.Carte;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 
-public class Legende extends JPanel{
+public class Legende extends JPanel {
 
     private Carte carte;
 
@@ -34,8 +32,9 @@ public class Legende extends JPanel{
     /**
      * Affichage d'une legende pour expliquer à l'utilisateur la signification
      * du rond, du carre et du triangle
-     * @param largeurParent: largeur du parent en px
-     * @param hauteurParent: haueteur du parent en px
+     *
+     * @param largeurParent:    largeur du parent en px
+     * @param hauteurParent:    haueteur du parent en px
      * @param ecouteurDragDrop: ecouteur assurant le drag & drop de la legende
      */
     public Legende(Carte carte, int largeurParent, int hauteurParent, EcouteurDragDrop ecouteurDragDrop) {
@@ -52,7 +51,7 @@ public class Legende extends JPanel{
         tailleBordure = 2;
 
         //parametres de la fenetre
-        this.setBounds(20, 20, ecartLabels + largeurLabels, 2 * tailleBordureVerticale + 8 * hauteurLigne + 2 *tailleBordure);
+        this.setBounds(20, 20, ecartLabels + largeurLabels, 2 * tailleBordureVerticale + 8 * hauteurLigne + 2 * tailleBordure);
         this.setLayout(null);
         //Bordure
         this.setBorder(BorderFactory.createMatteBorder(tailleBordure, tailleBordure, tailleBordure, tailleBordure, Color.darkGray));
@@ -60,7 +59,7 @@ public class Legende extends JPanel{
         this.addMouseMotionListener(ecouteurDragDrop);
 
         // dessin des formes
-        legendeFormes = new LegendeFormes(carte, ecartLabels - tailleBordure, this.getHeight() - 2*tailleBordure, tailleBordureVerticale, hauteurLigne,tailleBordure);
+        legendeFormes = new LegendeFormes(carte, ecartLabels - tailleBordure, this.getHeight() - 2 * tailleBordure, tailleBordureVerticale, hauteurLigne, tailleBordure);
         this.add(legendeFormes);
 
         // labels de la legende
@@ -93,19 +92,19 @@ public class Legende extends JPanel{
 
     }
 
-    public void setPosition(int x, int y){
+    public void setPosition(int x, int y) {
 
-        x = x - this.getWidth()/2;
+        x = x - this.getWidth() / 2;
         y = y - 50;
 
-        if(x < (- this.getWidth() /2))
-            x = (- this.getWidth() /2);
-        if(y < (- this.getHeight() /2))
-            y = (- this.getHeight() /2);
-        if(x > largeurParent - this.getWidth() /2)
-            x = largeurParent - this.getWidth() /2;
-        if(y > hauteurParent - this.getHeight() /2)
-            y = hauteurParent - this.getHeight() /2;
+        if (x < (-this.getWidth() / 2))
+            x = (-this.getWidth() / 2);
+        if (y < (-this.getHeight() / 2))
+            y = (-this.getHeight() / 2);
+        if (x > largeurParent - this.getWidth() / 2)
+            x = largeurParent - this.getWidth() / 2;
+        if (y > hauteurParent - this.getHeight() / 2)
+            y = hauteurParent - this.getHeight() / 2;
 
         this.setBounds(x, y, this.getWidth(), this.getHeight());
 

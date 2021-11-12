@@ -7,15 +7,18 @@ import Vue.Fenetre;
 
 import javax.swing.*;
 
+/**
+ * Le premier état en ouvrant l'application. Il permet exclusivement de charger un nouveau plan.
+ */
 public class EtatInitial implements Etat {
 
     @Override
-    public void chargerPlan (Controleur controleur, Fenetre fenetre, Carte carte, Tournee tournee) {
+    public void chargerPlan(Controleur controleur, Fenetre fenetre, Carte carte, Tournee tournee) {
         System.out.println("EtatInitial : chargerPlan");
 
         //Récupère le nom du fichier choisi
         String nomFichier = fenetre.afficherChoixFichier();
-        if(!nomFichier.equals("nullnull")) {
+        if (!nomFichier.equals("nullnull")) {
             //Appel la méthode qui vérifie si le fichier est valide et récupère la carte
             LecteurXML lecteur = new LecteurXML();
             try {

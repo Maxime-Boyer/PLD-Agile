@@ -7,11 +7,10 @@ import Model.FeuilleRoute;
 public class RaccourcIF {
 
     /**
-     * classe main de l'application
+     * Classe main de l'application
      */
     public static void main(String[] args) {
-        Carte carte = new Carte();
-        new Controleur(carte);
+        new Controleur();
     }
 
 }

@@ -17,10 +17,11 @@ public class LegendeFormes extends JPanel {
 
     /**
      * Zone d'affichage des formes géométriques de la legende
+     *
      * @param largeur: largeur de la zone
      * @param hauteur: hauteur de la zone
      */
-    public LegendeFormes(Carte carte, int largeur, int hauteur, int tailleBordureVerticale, int hauteurLigne, int tailleBordure){
+    public LegendeFormes(Carte carte, int largeur, int hauteur, int tailleBordureVerticale, int hauteurLigne, int tailleBordure) {
         this.largeur = largeur;
         this.hauteur = hauteur;
         this.setBounds(tailleBordure, tailleBordure, largeur, hauteur);
@@ -32,6 +33,7 @@ public class LegendeFormes extends JPanel {
 
     /**
      * Tracé du carré, du rond et du triangle dans la zone dediee
+     *
      * @param g
      */
     @Override
@@ -40,7 +42,7 @@ public class LegendeFormes extends JPanel {
 
         int largeurSymbole = 14;
 
-        int largeurDepart = (int) largeur/2 - largeurSymbole/2;
+        int largeurDepart = (int) largeur / 2 - largeurSymbole / 2;
 
         // --- TRIANGLE ---
         int valeurXBasGauche = largeurDepart;
@@ -49,24 +51,24 @@ public class LegendeFormes extends JPanel {
         int valeurXBasDroite = largeurDepart + largeurSymbole;
         int valeurYBasDroite = tailleBordureVerticale + largeurSymbole;
 
-        int valeurXHaute = largeurDepart + largeurSymbole/2;
+        int valeurXHaute = largeurDepart + largeurSymbole / 2;
         int valeurYHaute = tailleBordureVerticale;
 
-        int []XPoints = {valeurXBasGauche,valeurXBasDroite,valeurXHaute};
-        int []YPoints = {valeurYBasGauche,valeurYBasDroite,valeurYHaute};
+        int[] XPoints = {valeurXBasGauche, valeurXBasDroite, valeurXHaute};
+        int[] YPoints = {valeurYBasGauche, valeurYBasDroite, valeurYHaute};
 
-        g.drawPolygon(XPoints,YPoints,3);
+        g.drawPolygon(XPoints, YPoints, 3);
         //--- FIN TRIANGLE ---
 
         //Autres
         g.drawOval(largeurDepart, tailleBordureVerticale + hauteurLigne, largeurSymbole, largeurSymbole);
-        g.drawRoundRect(largeurDepart, tailleBordureVerticale + hauteurLigne * 2, largeurSymbole, largeurSymbole,5,5);
+        g.drawRoundRect(largeurDepart, tailleBordureVerticale + hauteurLigne * 2, largeurSymbole, largeurSymbole, 5, 5);
 
-        for(int i=0 ; i<5 ; i++){
+        for (int i = 0; i < 5; i++) {
             g.setColor(carte.getCouleurExterieurChemin()[i]);
-            g.fillRect(largeurDepart - largeurSymbole/2, tailleBordureVerticale + hauteurLigne * (i+3) + (int)(0.1 * largeurSymbole), largeurSymbole * 2 , (int)(largeurSymbole*0.8));
+            g.fillRect(largeurDepart - largeurSymbole / 2, tailleBordureVerticale + hauteurLigne * (i + 3) + (int) (0.1 * largeurSymbole), largeurSymbole * 2, (int) (largeurSymbole * 0.8));
             g.setColor(carte.getCouleurInterieurChemin()[i]);
-            g.fillRect(largeurDepart + (int)(0.1*largeurSymbole) - largeurSymbole/2, tailleBordureVerticale + hauteurLigne * (i+3) + (int)(0.2 * largeurSymbole), (largeurSymbole -(int)(0.1*largeurSymbole))*2 , (int)(largeurSymbole*0.7));
+            g.fillRect(largeurDepart + (int) (0.1 * largeurSymbole) - largeurSymbole / 2, tailleBordureVerticale + hauteurLigne * (i + 3) + (int) (0.2 * largeurSymbole), (largeurSymbole - (int) (0.1 * largeurSymbole)) * 2, (int) (largeurSymbole * 0.7));
         }
 
     }
