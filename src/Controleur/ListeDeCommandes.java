@@ -20,7 +20,6 @@ public class ListeDeCommandes {
 
     /**
      * Ajoute la commande c à this
-     *
      * @param c la commande à ajouter
      */
     public void ajouter(Commande c) throws CommandeImpossibleException {

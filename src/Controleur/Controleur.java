@@ -135,7 +135,6 @@ public class Controleur {
 
     /**
      * Méthode appelée par fenetre après avoir cliqué sur le bouton "Redo"
-     *
      * @throws CommandeImpossibleException retourne une erreure si la commande est impossible
      */
     public void cliqueBoutonRedo() throws CommandeImpossibleException {

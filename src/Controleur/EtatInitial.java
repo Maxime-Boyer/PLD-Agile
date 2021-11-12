@@ -11,10 +11,15 @@ import javax.swing.*;
  * Le premier état en ouvrant l'application. Il permet exclusivement de charger un nouveau plan.
  */
 public class EtatInitial implements Etat {
-
+    /**
+     * Methode qui permet de choisir un fichier XML contenant une carte, et de charger la carte
+     * @param controleur, le controleur
+     * @param fenetre, la fenetre
+     * @param carte, la carte
+     * @param tournee, la tournee
+     */
     @Override
     public void chargerPlan(Controleur controleur, Fenetre fenetre, Carte carte, Tournee tournee) {
-        System.out.println("EtatInitial : chargerPlan");
 
         //Récupère le nom du fichier choisi
         String nomFichier = fenetre.afficherChoixFichier();
@@ -31,7 +36,6 @@ public class EtatInitial implements Etat {
             } catch (Exception e) {
                 //En cas d'erreur
                 String messageErreur = e.getMessage();
-                System.out.println("ERREUR " + e);
                 JOptionPane.showMessageDialog(null, messageErreur);
                 //Reste sur l'état initial
             }

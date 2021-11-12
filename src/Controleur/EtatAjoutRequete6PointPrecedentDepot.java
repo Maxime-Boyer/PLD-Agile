@@ -14,7 +14,8 @@ public class EtatAjoutRequete6PointPrecedentDepot implements Etat {
     private Integer dureeDepot;
     private Etape etapePrecedentCollecte = null;
 
-    /** Méthode qui se lance au clique gauche sur la carte, de l'utilisateur
+    /**
+     * Méthode qui se lance au clique gauche sur la carte, de l'utilisateur
      * @param controleur controleur qui permet de changer l'état actuel
      * @param fenetre contient l'affichage de l'état suivant
      * @param carte   la carte
@@ -68,7 +69,8 @@ public class EtatAjoutRequete6PointPrecedentDepot implements Etat {
         }
     }
 
-    /** Méthode qui permet de revenir à l'état tournée ordonnée, en annulant tout ce qui a été fait jusque là
+    /**
+     * Méthode qui permet de revenir à l'état tournée ordonnée, en annulant tout ce qui a été fait jusque là
      * @param controleur le controleur
      * @param fenetre contient l'affichage de l'état tournée ordonnée
      * @param carte   la carte
@@ -85,19 +87,22 @@ public class EtatAjoutRequete6PointPrecedentDepot implements Etat {
         fenetre.afficherEtatTourneePreparee(tournee);
     }
 
-    /** Methode qui met à jour la durée du dépot
+    /**
+     * Methode qui met à jour la durée du dépot
      * @param dureeDepot la durée du dépot
      */
     public void mettreAJourDureeDepot(Integer dureeDepot) {
         this.dureeDepot = dureeDepot;
     }
 
-    /** Methode qui met à jour la durée de la collecte
+    /**
+     * Methode qui met à jour la durée de la collecte
      * @param dureeCollecte la durée de la collecte
      */
     public void mettreAJourDureeCollecte(Integer dureeCollecte){this.dureeCollecte = dureeCollecte;}
 
-    /** Méthode qui permet de récupérer le précédent de collecte dans la tournée
+    /**
+     * Méthode qui permet de récupérer le précédent de collecte dans la tournée
      * @param precendentColl, le précédent de la collecte dans la tournée
      */
     public void mettreAJourPrecedentCollecte(Etape precendentColl) {

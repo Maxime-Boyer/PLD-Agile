@@ -11,10 +11,16 @@ import javax.swing.*;
  * Etat lorsqu'une carte vient d'être chargée. Permet de charger une liste de requête ou un nouveau plan.
  */
 public class EtatPlanAffiche implements Etat {
+
+    /**
+     * Methode qui permet de charger un fichier XML, contenant une liste de requêtes
+     * @param controleur, le controleur
+     * @param fenetre la fenêtre
+     * @param carte   la carte
+     * @param tournee la liste des requêtes qui va être charger
+     */
     @Override
     public void chargerListeRequete(Controleur controleur, Fenetre fenetre, Carte carte, Tournee tournee) {
-        System.out.println("EtatPlanAffiche : chargerListeRequete");
-
         //Récupère le nom du fichier choisi
         String nomFichier = fenetre.afficherChoixFichier();
         if (!nomFichier.equals("nullnull")) {
@@ -28,13 +34,19 @@ public class EtatPlanAffiche implements Etat {
             } catch (Exception e) {
                 //En cas d'erreur
                 String messageErreur = e.getMessage();
-                System.out.println("ERREUR " + e);
                 JOptionPane.showMessageDialog(null, messageErreur);
                 //Reste dans l'état actuel
             }
         }
     }
 
+    /**
+     * Methode qui permet de choisir un fichier XML contenant une carte, et de charger la carte
+     * @param controleur, le controleur
+     * @param fenetre, la fenetre
+     * @param carte, la carte
+     * @param tournee, la tournee
+     */
     @Override
     public void chargerPlan(Controleur controleur, Fenetre fenetre, Carte carte, Tournee tournee) {
         System.out.println("EtatPlanAffiche : chargerPlan");
@@ -52,7 +64,6 @@ public class EtatPlanAffiche implements Etat {
             } catch (Exception e) {
                 //En cas d'erreur
                 String messageErreur = e.getMessage();
-                System.out.println("ERREUR " + e);
                 JOptionPane.showMessageDialog(null, messageErreur);
                 //Change vers l'état Initial
             }

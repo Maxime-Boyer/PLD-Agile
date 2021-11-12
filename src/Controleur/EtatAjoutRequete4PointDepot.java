@@ -11,7 +11,8 @@ import javax.swing.*;
  */
 public class EtatAjoutRequete4PointDepot implements Etat{
 
-    /** Méthode qui se lance au clique gauche sur la carte, de l'utilisateur
+    /**
+     * Méthode qui se lance au clique gauche sur la carte, de l'utilisateur
      * @param controleur controleur qui permet de changer l'état actuel
      * @param fenetre contient l'affichage de l'état suivant
      * @param carte   la carte
@@ -45,7 +46,8 @@ public class EtatAjoutRequete4PointDepot implements Etat{
     }
 
 
-    /** Méthode qui permet de revenir à l'état tournée ordonnée, en annulant tout ce qui a été fait jusque là
+    /**
+     * Méthode qui permet de revenir à l'état tournée ordonnée, en annulant tout ce qui a été fait jusque là
      * @param controleur le controleur
      * @param fenetre contient l'affichage de l'état tournée ordonnée
      * @param carte   la carte
