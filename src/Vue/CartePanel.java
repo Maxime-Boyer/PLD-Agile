@@ -182,9 +182,6 @@ public class CartePanel extends JPanel implements Observer {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-
-        //System.out.println("CartePanel.paintComponent : carte = " + carte);
-        //System.out.println("hauteur ecran : " + hauteurEcran + " largeur ecran : " + largeurEcran);
         Graphics2D g2 = (Graphics2D) g;
         //Affiche la carte uniquement si la carte est non vide
         if (carte != null)
@@ -260,7 +257,7 @@ public class CartePanel extends JPanel implements Observer {
 
     /**
      * Permet de convertir l'odronnée py en latitude
-     * @param posy
+     * @param posY
      * @return la latitude
      */
     public double valeurLatitude(int posY) {

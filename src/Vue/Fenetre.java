@@ -107,7 +107,6 @@ public class Fenetre extends JFrame {
      */
     public void afficherEtatPlanAffiche(Carte carte) {
         System.out.println("Frentre.afficherEtatPlanAffiche(carte) : ETAT_PLAN_AFFICHE");
-        //E1: Carte chargée
 
         supprimerPositionRequete();
 
@@ -149,8 +148,6 @@ public class Fenetre extends JFrame {
         supprimerPositionRequete();
 
         menuLateral.setMessageUtilisateur("Veuillez préparer la tournée pour visualiser l'itinéraire sur la carte.");
-        //cartePanel.tracerRequetes(tournee);
-        //menuLateral.afficherMenuRequete(tournee);
 
         //Configure les visibilités
         menuLateral.visibilitePannelImportation(true);
@@ -180,14 +177,6 @@ public class Fenetre extends JFrame {
         supprimerPositionRequete();
 
         menuLateral.setMessageUtilisateur("Maintenant vous pouvez éditer votre tournée ou exporter la feuille de route.");
-
-        //cartePanel.tracerItineraire(tournee);
-        //menuLateral.afficherMenuEtapes(tournee);
-
-        //cartePanel.tracerRequetes(tournee);
-        //cartePanel.tracerItineraire(tournee);
-        //menuLateral.afficherMenuEtapes(tournee);
-        //menuLateral.afficherMenuImportation();
 
         //Configure les visibilités
         menuLateral.visibilitePannelImportation(true);
@@ -253,7 +242,6 @@ public class Fenetre extends JFrame {
 
     public void afficherEtatAjoutRequete3() {
         menuLateral.setMessageUtilisateur("Selectionner l'étape qui précéde votre collecte: [Clique Gauche] sur une Etape de la Carte " + "[Clique Droit] pour annuler");
-        //this.ecouteurSouris.setVueGraphique(cartePanel);
         cartePanel.remove(popUpSaisieDuree);
         this.revalidate();
         this.repaint();
@@ -296,8 +284,6 @@ public class Fenetre extends JFrame {
      */
     public void afficherEtat() {
 
-        System.out.println("Fenetre.afficherEtat() : ETAT_INITIAL");
-        // E0: Vue ecran Accueil
         ecranAccueil = new EcranAccueil(this.getWidth(), this.getHeight(), policeSousTitre, policeTexte, this.ecouteurBoutons);
         this.add(ecranAccueil);
 
