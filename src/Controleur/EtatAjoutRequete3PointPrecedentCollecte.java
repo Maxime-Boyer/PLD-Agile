@@ -22,7 +22,7 @@ public class EtatAjoutRequete3PointPrecedentCollecte implements Etat {
      */
     @Override
     public void cliqueGauche(Controleur controleur, Fenetre fenetre, Carte carte, ListeDeCommandes l, Tournee tournee, Adresse precedent) {
-        Adresse etapePrecedentCollecte = tournee.rechercheEtape(precedent, null);
+        Adresse etapePrecedentCollecte = tournee.rechercheEtape(precedent);
         if (etapePrecedentCollecte != null) {
             Etape etapePrecColl = tournee.obtenirEtapeParId(etapePrecedentCollecte.getIdAdresse());
             controleur.etatAjoutRequete6PointPrecedentDepot.mettreAJourPrecedentCollecte(etapePrecColl);

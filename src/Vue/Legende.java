@@ -92,6 +92,11 @@ public class Legende extends JPanel {
 
     }
 
+    /**
+     * Change la position du pannel de la légende
+     * @param x: la position sur x du curseur de la souris
+     * @param y: la position sur y du curseur de la souris
+     */
     public void setPosition(int x, int y) {
 
         x = x - this.getWidth() / 2;

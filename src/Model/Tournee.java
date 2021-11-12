@@ -306,6 +306,42 @@ public class Tournee extends Observable {
     }
 
     /**
+     * méthode qui renvoie l'Adresse la plus proche en focntion de l'Adresse en paramètre.
+     * @param a: adresse récupéré au clic de l'utilisateur
+     * @return: l'Adresse recherchée
+     */
+    public Adresse rechercheEtape (Adresse a){
+        double distanceMin = Double.MAX_VALUE;
+        double distanceCollecte;
+        double distanceDepot;
+        Adresse plusProche = null;
+        double distanceEtapeDepart = distanceEntreAdresse(a, etapeDepart);
+        if(distanceEtapeDepart < distanceMin){
+            distanceMin = distanceEtapeDepart;
+            plusProche = etapeDepart;
+        }
+        for(Requete r : listeRequetes){
+            Adresse collecte = new Adresse (r.getEtapeCollecte().getLatitude(),r.getEtapeCollecte().getLongitude(),r.getEtapeCollecte().getIdAdresse());
+            if(r.getEtapeDepot() != null) {
+                Adresse depot = new Adresse(r.getEtapeDepot().getLatitude(), r.getEtapeDepot().getLongitude(), r.getEtapeDepot().getIdAdresse());
+                distanceDepot = distanceEntreAdresse(a, depot);
+                if( distanceDepot < distanceMin){
+                    distanceMin = distanceDepot;
+                    plusProche = depot;
+                }
+            }
+            distanceCollecte = distanceEntreAdresse(a, collecte);
+
+            if( distanceCollecte < distanceMin){
+                distanceMin = distanceCollecte;
+                plusProche = collecte;
+            }
+        }
+
+        return plusProche;
+    }
+
+    /**
      * Méthode qui renvoie l'Adresse la plus proche en fonction de l'Adresse en paramètre.
      *
      * @param a:              adresse cliquée
