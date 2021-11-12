@@ -53,6 +53,7 @@ public class ResetZoomPanel extends JPanel implements MouseListener {
         super.paintComponent(g);
     }
 
+
     @Override
     public void mouseClicked(MouseEvent e) {
 
