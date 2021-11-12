@@ -11,6 +11,15 @@ import java.util.List;
 
 public class TSP1 extends TemplateTSP {
 
+    /**
+     * Constructeur de TSP1
+     * Utilise une évaluation retournant 0, et IterateurSeq
+     *
+     * @param carte:                 La carte
+     * @param tournee:                La liste des requetes souhaites
+     * @param grapheCompletDesEtapes: Le graphe complet des etapes
+     * @param tempsLimite:            Le temps limite de calcul du TSP
+     */
     TSP1(Carte carte, Tournee tournee, HashMap<Long, HashMap<Long, CheminEntreEtape>> grapheCompletDesEtapes, int tempsLimite) {
         super(carte, tournee, grapheCompletDesEtapes, tempsLimite);
     }

@@ -2,8 +2,10 @@ package Model;
 
 import java.time.LocalTime;
 
-public class Etape extends Adresse{
-
+/**
+ * Représenteune étape pour une tournée, c'est-à-dire une adresse avec une heure de passage et une durrée
+ */
+public class Etape extends Adresse {
 
     private LocalTime heureDePassage;
     private Integer dureeEtape;
@@ -12,21 +14,23 @@ public class Etape extends Adresse{
 
     /**
      * Constructeur de la classe Etape,point de collecte ou de dépôt situé à une adresse qui descend de Adresse. Ce constructeur est utilisée après le calcul du plus court chemin
-     * @param latitude: latitude de l'etape
-     * @param longitude: longitude de l'etape
-     * @param idAdresse: id de l'adresse de l'etape
-     * @param dureeEtape: duree de l'étape
+     *
+     * @param latitude:       latitude de l'etape
+     * @param longitude:      longitude de l'etape
+     * @param idAdresse:      id de l'adresse de l'etape
+     * @param dureeEtape:     duree de l'étape
      * @param heureDePassage: heure de passage calculée après le calcul du plus court chemin
      */
     public Etape(double latitude, double longitude, Long idAdresse, Integer dureeEtape, LocalTime heureDePassage) {
         super(latitude, longitude, idAdresse);
         this.dureeEtape = dureeEtape;
-        this.heureDePassage=heureDePassage;
+        this.heureDePassage = heureDePassage;
         this.nomAdresse = "";
     }
 
     /**
      * Constructeur de la classe Etape, sans heure de passage
+     *
      * @param latitude
      * @param longitude
      * @param idAdresse
@@ -39,7 +43,8 @@ public class Etape extends Adresse{
     }
 
     /**
-     * méthode qui retourne l'heure de passage
+     * Méthode qui retourne l'heure de passage
+     *
      * @return: l'heure de passage
      */
     public LocalTime getHeureDePassage() {
@@ -47,7 +52,8 @@ public class Etape extends Adresse{
     }
 
     /**
-     * méthode qui retourne la duree de l'étape
+     * Méthode qui retourne la duree de l'étape
+     *
      * @return: la durée de l'Etape
      */
     public Integer getDureeEtape() {
@@ -55,13 +61,17 @@ public class Etape extends Adresse{
     }
 
     /**
-     * méthode qui retourne le nom
+     * Méthode qui retourne le nom
+     *
      * @return: le nom de l'Etape
      */
-    public String getNomAdresse() { return nomAdresse; }
+    public String getNomAdresse() {
+        return nomAdresse;
+    }
 
     /**
-     * méthode qui place l'heure de passage en paramètre
+     * Méthode qui place l'heure de passage en paramètre
+     *
      * @param heureDePassage: heure de passage
      */
     public void setHeureDePassage(LocalTime heureDePassage) {
@@ -69,27 +79,27 @@ public class Etape extends Adresse{
     }
 
     /**
-     * méthode qui place le nom de l'adresse
+     * Méthode qui place le nom de l'adresse
+     *
      * @param nomAdresse: nom de l'adresse
      */
-    public void setNomAdresse(String  nomAdresse){
+    public void setNomAdresse(String nomAdresse) {
         this.nomAdresse = nomAdresse;
     }
 
     /**
-     * mehode qui affiche l'Etape
-     * @return: l'Etape this
+     * Méthode permettant l'affichage textuel de l'étape
+     *
+     * @return L'objet Etape sous forme textuel
      */
-
     @Override
     public String toString() {
-        return  "Etape{" +
-                "idAdress=" + super.getIdAdresse()+
+        return "Etape{" +
+                "idAdress=" + super.getIdAdresse() +
                 ", heureDePassage=" + heureDePassage +
                 ", dureeEtape=" + dureeEtape +
                 '}';
     }
-
 
 
 }

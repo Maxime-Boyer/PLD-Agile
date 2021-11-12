@@ -37,8 +37,22 @@ public abstract class TemplateTSP implements TSP {
 
     }
 
+    /**
+     * //TODO
+     *
+     * @param adresseActuelle L'adresse actuelle
+     * @param nonVisite       La liste des adresses pas encore visités
+     * @return //TODO
+     */
     protected abstract int evaluation(Adresse adresseActuelle, List<Adresse> nonVisite);
 
+    /**
+     * //TODO
+     *
+     * @param adresseActuelle L'adresse actuelle
+     * @param nonVisite       La liste des adresses pas encore visités
+     * @return //TODO
+     */
     protected abstract Iterator<Adresse> iterateur(Adresse adresseActuelle, List<Adresse> nonVisite);
 
     @Override
@@ -47,12 +61,12 @@ public abstract class TemplateTSP implements TSP {
         tempsDepart = System.currentTimeMillis();
 
         //Initialisation des listes des sommets visites / non visites
-        List<Adresse> nonVisite = new ArrayList<Adresse>(tournee.getListeRequetes().size() * 2);
+        List<Adresse> nonVisite = new ArrayList<>(tournee.getListeRequetes().size() * 2);
         for (int i = 0; i < tournee.getListeRequetes().size(); i++) {
             nonVisite.add(tournee.getListeRequetes().get(i).getEtapeCollecte());
             nonVisite.add(tournee.getListeRequetes().get(i).getEtapeDepot());
         }
-        List<Adresse> visite = new ArrayList<Adresse>(tournee.getListeRequetes().size() * 2 + 1);
+        List<Adresse> visite = new ArrayList<>(tournee.getListeRequetes().size() * 2 + 1);
         visite.add(tournee.getEtapeDepart());
 
         coutMeilleureSolution = Integer.MAX_VALUE;
@@ -62,17 +76,24 @@ public abstract class TemplateTSP implements TSP {
 
     }
 
+    /**
+     * Application du Branch & Bound (Séparation et Evaluation en français)
+     *
+     * @param adresseActuelle L'adresse actuelle
+     * @param nonVisite       La liste des adresses pas encore visitees
+     * @param visite          La liste des adresses visitees
+     * @param coutActuel      Le cout actuel de la branche sur laquelle on se trouve
+     */
     private void separationEtEvaluation(Adresse adresseActuelle, List<Adresse> nonVisite, List<Adresse> visite, int coutActuel) {
 
         //On s'arrete au temps limite
-        if (System.currentTimeMillis() - tempsDepart > tempsLimite){
-            //System.out.println(coutMeilleureSolution);
+        if (System.currentTimeMillis() - tempsDepart > tempsLimite) {
             return;
         }
 
         if (nonVisite.size() == 0) {
             //On retourne au point de depart
-            if (adresseActuelle.getIdAdresse() != tournee.getEtapeDepart().getIdAdresse()) {
+            if (!adresseActuelle.getIdAdresse().equals(tournee.getEtapeDepart().getIdAdresse())) {
                 //Si on trouve une solution meilleure que celles deja trouvees
                 if (coutActuel + grapheCompletDesEtapes.get(adresseActuelle.getIdAdresse()).get(tournee.getEtapeDepart().getIdAdresse()).distance < coutMeilleureSolution) {
 
@@ -86,8 +107,6 @@ public abstract class TemplateTSP implements TSP {
 
                     //On change le meilleur cout
                     coutMeilleureSolution = coutActuel + grapheCompletDesEtapes.get(adresseActuelle.getIdAdresse()).get(tournee.getEtapeDepart().getIdAdresse()).distance;
-
-                    //System.out.println("coutMeilleureSolution : "+ coutMeilleureSolution+ " ; in : "+(System.currentTimeMillis() - tempsDepart));
                 }
             }
         } else if (coutActuel + evaluation(adresseActuelle, nonVisite) < coutMeilleureSolution) {
@@ -110,26 +129,23 @@ public abstract class TemplateTSP implements TSP {
 
     }
 
+    /**
+     * Renvoie un booléen indiquant si en se rendant à la prochaine adresse, après en avoir visité plusieurs avants, la contrainte de precedence depot/requete est verifiee
+     *
+     * @param prochaineAdresse La prochaine adresse a être visite
+     * @param visite           La liste des adresses deja visitees
+     * @return Booléen indiquant si la contrainte de précédence est tjs vérifiée
+     */
     private boolean contrainteCollecteDepot(Adresse prochaineAdresse, List<Adresse> visite) {
         if (mapRequete.get(prochaineAdresse.getIdAdresse()).getEtapeCollecte() == prochaineAdresse) {
             return true;
         } else {
-            if (visite.contains(mapRequete.get(prochaineAdresse.getIdAdresse()).getEtapeCollecte())) {
-                return true;
-            } else {
-                return false;
-            }
+            return visite.contains(mapRequete.get(prochaineAdresse.getIdAdresse()).getEtapeCollecte());
         }
     }
 
     @Override
-    public Tournee obtenirSolution() {
-        return tournee;
-    }
-
-    @Override
-    public int obtenirCoutSolution() {
+    public int obtenirMeilleureSolution() {
         return coutMeilleureSolution;
     }
-
 }

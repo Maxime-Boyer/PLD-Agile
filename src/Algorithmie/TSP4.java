@@ -5,40 +5,39 @@ import Model.Carte;
 import Model.CheminEntreEtape;
 import Model.Tournee;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class TSP2 extends TemplateTSP {
+public class TSP4 extends TemplateTSP {
 
-    protected int cheminLePlusPetit;
+    protected int distancePremierDecile;
 
     /**
      * Constructeur de TSP2
-     * Utilise une évaluation retournant cheminLePlusCourt * nombre d'adresses non visitées, et IterateurProximite
+     * Utilise une évaluation retournant cheminLePlusCourt premier décile * nombre d'adresses non visitées, et IterateurProximite
      *
      * @param carte                  La carte
      * @param tournee                La liste des requetes souhaites
      * @param grapheCompletDesEtapes Le graphe complet des etapes
      * @param tempsLimite            Le temps limite de calcul du TSP
      */
-    TSP2(Carte carte, Tournee tournee, HashMap<Long, HashMap<Long, CheminEntreEtape>> grapheCompletDesEtapes, int tempsLimite) {
+    TSP4(Carte carte, Tournee tournee, HashMap<Long, HashMap<Long, CheminEntreEtape>> grapheCompletDesEtapes, int tempsLimite) {
         super(carte, tournee, grapheCompletDesEtapes, tempsLimite);
 
-        cheminLePlusPetit = Integer.MAX_VALUE;
+        distancePremierDecile = Integer.MAX_VALUE;
+        LinkedList<Integer> distances = new LinkedList<>();
         for (Map.Entry<Long, HashMap<Long, CheminEntreEtape>> entry : grapheCompletDesEtapes.entrySet()) {
             for (Map.Entry<Long, CheminEntreEtape> entryBis : entry.getValue().entrySet()) {
-                if (cheminLePlusPetit > entryBis.getValue().distance) {
-                    cheminLePlusPetit = entryBis.getValue().distance;
-                }
+                distances.add(entryBis.getValue().distance);
             }
         }
+        distances.sort(Integer::compare);
+        distancePremierDecile = distances.get(distances.size()/10);
+
     }
 
     @Override
     protected int evaluation(Adresse adresseActuelle, List<Adresse> nonVisite) {
-        return cheminLePlusPetit * nonVisite.size();
+        return distancePremierDecile * nonVisite.size();
     }
 
     @Override

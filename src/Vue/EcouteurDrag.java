@@ -18,6 +18,10 @@ public class EcouteurDrag implements MouseMotionListener {
     Point pointPrecedent;
 
 
+    /**
+     * Constructeur de l'écouteur
+     * @param cartePanel
+     */
     public EcouteurDrag(CartePanel cartePanel){
         this.cartePanel = cartePanel;
         //-100 pour empecher toute erreur si l'utilisateur clique instantannement sur le panel
@@ -25,10 +29,14 @@ public class EcouteurDrag implements MouseMotionListener {
         pointPrecedent = new Point(0,0);
     }
 
+    /**
+     * Listener sur la souris permettant de déplacer la carte au clic molette ou clic droit
+     * @param e MouseEvent
+     */
     @Override
     public void mouseDragged(MouseEvent e) {
         if(SwingUtilities.isMiddleMouseButton(e) || SwingUtilities.isRightMouseButton(e)){
-            if(System.currentTimeMillis() - temps < 50){
+            if(System.currentTimeMillis() - temps < 100){
                 double modificationLatitude = -(pointPrecedent.y-e.getY())/(double)cartePanel.getHauteur()*(cartePanel.getMaxLatitudeCarte()-cartePanel.getMinLatitudeCarte());
                 double modificationLongitude = (pointPrecedent.x-e.getX())/(double)cartePanel.getLargeur()*(cartePanel.getMaxLongitudeCarte()-cartePanel.getMinLongitudeCarte());
                 cartePanel.setMaxLatitudeCarte(cartePanel.getMaxLatitudeCarte() + modificationLatitude);

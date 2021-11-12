@@ -11,7 +11,7 @@ public class IterateurSeq implements Iterator<Adresse> {
     private int nbCandidats;
 
     /**
-     * //TODO: Ajouter description
+     * Iterateur retournant les Adresses non visités dans un ordre aléatoire
      *
      * @param nonVisite       Addresses non visitées
      * @param adresseActuelle Addresse actuelle

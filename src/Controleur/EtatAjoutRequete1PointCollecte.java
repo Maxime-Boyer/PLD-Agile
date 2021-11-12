@@ -5,6 +5,9 @@ import Model.Carte;
 import Model.Tournee;
 import Vue.Fenetre;
 
+/**
+ * Première état de l'ajout de requêtes, permet de choisir une nouvelle étape de collecte
+ */
 public class EtatAjoutRequete1PointCollecte implements Etat {
 
     @Override
@@ -17,7 +20,7 @@ public class EtatAjoutRequete1PointCollecte implements Etat {
     }
 
     @Override
-    public void cliqueDroit (Controleur controleur, Fenetre fenetre, Carte carte, ListeDeCommandes l, Tournee tournee){
+    public void annuler(Controleur controleur, Fenetre fenetre, Carte carte, ListeDeCommandes l, Tournee tournee){
         controleur.setEtatActuel(controleur.etatTourneeOrdonnee);
         fenetre.afficherEtatTourneePreparee(tournee);
     }

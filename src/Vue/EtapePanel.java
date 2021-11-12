@@ -11,6 +11,8 @@ import java.awt.*;
 public class EtapePanel extends JPanel {
 
     private Requete requeteEtape;
+    private Etape etape;
+    private Color couleurBordure;
 
     /**
      * Panel gerant l'affichage d'une atape dans l'affichage textuel des étapes triées de la tournee
@@ -24,12 +26,14 @@ public class EtapePanel extends JPanel {
      */
     public EtapePanel(Etape etape, Requete requeteEtape, int parentWidth, int valMarginBase, Font policeTexte, Font policeTexteImportant, EcouteurSurvol ecouteurSurvol, EcouteurBoutons ecouteurBoutons){
 
+        this.etape = etape;
+
         /************************************************************************************/
         /*                              Panel principal                                     */
         /************************************************************************************/
         BoxLayout boxlayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         this.setLayout(boxlayout);
-        this.setPreferredSize(new Dimension(parentWidth - 24, 120));
+        this.setPreferredSize(new Dimension(parentWidth - 24, 110 + 26 * (etape.getNomAdresse().length()/64)));
         this.addMouseListener(ecouteurSurvol);
 
         this.requeteEtape = requeteEtape;
@@ -49,6 +53,7 @@ public class EtapePanel extends JPanel {
         this.setBackground(couleurFond);
         this.setBorder(new LineBorder(couleurBordure, 2, true));
         this.setOpaque(true);
+        this.couleurBordure = couleurBordure;
 
         JPanel panelInside = new JPanel();
         BoxLayout boxlayoutInside = new BoxLayout(panelInside, BoxLayout.Y_AXIS);
@@ -63,16 +68,28 @@ public class EtapePanel extends JPanel {
 
         String texteTitreEtape = "";
         if(requeteEtape != null) {
-            if (requeteEtape.getEtapeCollecte().getIdAdresse().equals(etape.getIdAdresse())) {
-                texteTitreEtape = "Collecte - " + etape.getDureeEtape() + " sec";
-            } else {
-                texteTitreEtape = "Dépôt - " + etape.getDureeEtape() + " sec";
+
+            String dureeEtape = String.valueOf(etape.getDureeEtape()/60) + "min ";
+
+            if(etape.getDureeEtape()%60 > 0){
+                dureeEtape += String.valueOf(etape.getDureeEtape()%60) + "sec";
             }
+
+            if (requeteEtape.getEtapeCollecte().getIdAdresse().equals(etape.getIdAdresse())) {
+                texteTitreEtape = "Collecte - ";
+            } else {
+                texteTitreEtape = "Dépôt - ";
+            }
+
+            texteTitreEtape += dureeEtape;
         } else {
             texteTitreEtape = "Entrepôt";
         }
 
-        JPanel firstLine = new JPanel(new BorderLayout());
+        JPanel firstLine = new JPanel();
+        firstLine.setLayout(new BoxLayout(firstLine, BoxLayout.LINE_AXIS));
+
+
         firstLine.setSize(this.getWidth() - 4 * valMarginBase, 30);
         firstLine.setOpaque(false);
         firstLine.addMouseListener(ecouteurSurvol);
@@ -81,10 +98,13 @@ public class EtapePanel extends JPanel {
         labelTitreCollecte.setFont(policeTexteImportant);
         firstLine.add(labelTitreCollecte, BorderLayout.LINE_START);
         labelTitreCollecte.addMouseListener(ecouteurSurvol);
+        firstLine.add(Box.createHorizontalGlue());
 
-        BoutonSuppressionRequete bouttonSuppr = new BoutonSuppressionRequete(Fenetre.SUPPRIMER_REQUETE, policeTexte, ecouteurBoutons, requeteEtape);
-        bouttonSuppr.addActionListener(ecouteurBoutons);
-        firstLine.add(bouttonSuppr, BorderLayout.LINE_END);
+        if(requeteEtape != null) {
+            BoutonSuppressionRequete bouttonSuppr = new BoutonSuppressionRequete(Fenetre.SUPPRIMER_REQUETE, policeTexte, ecouteurBoutons, requeteEtape);
+            bouttonSuppr.addActionListener(ecouteurBoutons);
+            firstLine.add(bouttonSuppr);
+        }
 
         panelInside.add(firstLine);
         panelInside.add(Box.createRigidArea(new Dimension(0, valMarginBase/2)));
@@ -115,6 +135,7 @@ public class EtapePanel extends JPanel {
         labelAdresseCollecte.setWrapStyleWord(true);
         labelAdresseCollecte.setOpaque(false);
         labelAdresseCollecte.addMouseListener(ecouteurSurvol);
+        labelAdresseCollecte.setPreferredSize(labelAdresseCollecte.getPreferredSize());
         panelInside.add(labelAdresseCollecte);
 
         this.add(panelInside);
@@ -126,5 +147,21 @@ public class EtapePanel extends JPanel {
      */
     public Requete getRequeteEtape() {
         return requeteEtape;
+    }
+
+    /**
+     * Getter sur l'étape liée à EtapePanel
+     * @return l'étape liée à EtapePanel
+     */
+    public Etape getEtape() {
+        return etape;
+    }
+
+    /**
+     * Getter sur la couleur de la bordue de l'EtapePanel
+     * @return la couleur de la bordue de l'EtapePanel
+     */
+    public Color getCouleurBordure() {
+        return couleurBordure;
     }
 }

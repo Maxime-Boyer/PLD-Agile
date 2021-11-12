@@ -1,11 +1,11 @@
 package Vue;
 
 import Exceptions.ValeurNegativeException;
+import Model.Etape;
 import Model.Requete;
 import Model.Tournee;
-import Model.Etape;
-import Observer.Observer;
 import Observer.Observable;
+import Observer.Observer;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -34,6 +34,8 @@ public class MenuLateral extends JPanel implements Observer {
     private JTextArea messageUtilisateur;
     private JTextArea entreeTempsCalcul;
     private JLabel labelTempsCalcul;
+    private EtapePanel[] listeEtapes;
+    private RequetePanel[] listeRequetes;
 
     private Tournee tournee;
 
@@ -64,7 +66,6 @@ public class MenuLateral extends JPanel implements Observer {
         this.setLayout(null);
 
 
-
         /************************************************************************************/
         /*                          Crée les pannel et boutons                              */
         /************************************************************************************/
@@ -80,7 +81,7 @@ public class MenuLateral extends JPanel implements Observer {
     /**
      * Créer la zone de texte pour les messages utilisateurs
      */
-    public void crerZoneTexteMessageUtilisateur () {
+    public void crerZoneTexteMessageUtilisateur() {
         messageUtilisateur = new JTextArea();
         messageUtilisateur.setFont(policeTexte);
         messageUtilisateur.setEditable(false);
@@ -124,18 +125,18 @@ public class MenuLateral extends JPanel implements Observer {
     public void creerMenuPreparerTournee() {
         //creation du label expliquant l'input permettant de chosiir le temps de calcul
         labelTempsCalcul = new JLabel("Ecrivez le temps de calcul (en sec)");
-        labelTempsCalcul.setBounds( Fenetre.valMarginBase, this.getHeight() - Fenetre.hauteurBouton - Fenetre.valMarginBase, ( this.getWidth() - 2*Fenetre.valMarginBase ) /2 , Fenetre.hauteurBouton / 2);
+        labelTempsCalcul.setBounds(Fenetre.valMarginBase, this.getHeight() - Fenetre.hauteurBouton - Fenetre.valMarginBase, (this.getWidth() - 2 * Fenetre.valMarginBase) / 2, Fenetre.hauteurBouton / 2);
         this.add(labelTempsCalcul);
 
         //creation de l'input pour choisir le temps de calcul
         entreeTempsCalcul = new JTextArea("20");
-        entreeTempsCalcul.setBounds( Fenetre.valMarginBase, this.getHeight() - Fenetre.hauteurBouton - Fenetre.valMarginBase + (Fenetre.hauteurBouton)/2, ( this.getWidth() - 2*Fenetre.valMarginBase ) /2 , Fenetre.hauteurBouton / 2);
+        entreeTempsCalcul.setBounds(Fenetre.valMarginBase, this.getHeight() - Fenetre.hauteurBouton - Fenetre.valMarginBase + (Fenetre.hauteurBouton) / 2, (this.getWidth() - 2 * Fenetre.valMarginBase) / 2, Fenetre.hauteurBouton / 2);
         this.add(entreeTempsCalcul);
 
         //creation du bouton de calcul d'itineraire
         boutonPreparerTournee = new Bouton(Fenetre.PREPARER_TOURNEE, policeTexte, ecouteurBoutons);
         //boutonPreparerTournee.addMouseListener(ecouteurSurvol);
-        boutonPreparerTournee.setBounds( Fenetre.valMarginBase/2 + this.getWidth()/2 , this.getHeight() - Fenetre.hauteurBouton - Fenetre.valMarginBase, ( this.getWidth() - 2*Fenetre.valMarginBase ) /2 , Fenetre.hauteurBouton);
+        boutonPreparerTournee.setBounds(Fenetre.valMarginBase / 2 + this.getWidth() / 2, this.getHeight() - Fenetre.hauteurBouton - Fenetre.valMarginBase, (this.getWidth() - 2 * Fenetre.valMarginBase) / 2, Fenetre.hauteurBouton);
         this.add(boutonPreparerTournee);
     }
 
@@ -248,6 +249,7 @@ public class MenuLateral extends JPanel implements Observer {
 
     /**
      * Modifie la visibilité du boutonAnnulerAjoutRequete
+     *
      * @param visible visibilité souhaitée
      */
     public void visibiliteBoutonAnnulerAjoutRequete(boolean visible) {
@@ -268,7 +270,7 @@ public class MenuLateral extends JPanel implements Observer {
         BoxLayout boxlayout = new BoxLayout(panelInsideScrollPanel, BoxLayout.Y_AXIS);
         panelInsideScrollPanel.setLayout(boxlayout);
 
-        RequetePanel[] listeRequetes = new RequetePanel[tournee.getListeRequetes().size()];
+        listeRequetes = new RequetePanel[tournee.getListeRequetes().size()];
         int positionTop = 0;
         Etape collecte, depot;
         for (int i = 0; i < tournee.getListeRequetes().size(); i++) {
@@ -322,7 +324,7 @@ public class MenuLateral extends JPanel implements Observer {
 
 
         //affichage du détaille des étapes
-        EtapePanel[] listeEtapes = new EtapePanel[tournee.getListeChemins().size()+1];
+        listeEtapes = new EtapePanel[tournee.getListeChemins().size() + 1];
         int positionTop = 0;
         Etape etapeFinChemin; //on base notre affichage sur l'étape de fin uniquement
         Etape etapeDepot, etapeCollecte;
@@ -332,7 +334,7 @@ public class MenuLateral extends JPanel implements Observer {
         Etape entrepot = tournee.getListeChemins().get(0).getEtapeDepart();
         LocalTime arriveeEntrepot = entrepot.getHeureDePassage();
         entrepot.setHeureDePassage(tournee.getDateDepart());
-        listeEtapes[0] = new EtapePanel(tournee.getListeChemins().get(0).getEtapeDepart(), requete, panelInsideScrollPanel.getWidth(), Fenetre.valMarginBase, policeTexte, policeTexteImportant, ecouteurSurvol,ecouteurBoutons);
+        listeEtapes[0] = new EtapePanel(tournee.getListeChemins().get(0).getEtapeDepart(), requete, panelInsideScrollPanel.getWidth(), Fenetre.valMarginBase, policeTexte, policeTexteImportant, ecouteurSurvol, ecouteurBoutons);
         panelInsideScrollPanel.add(listeEtapes[0]);
         panelInsideScrollPanel.add(Box.createRigidArea(new Dimension(0, 2 * Fenetre.valMarginBase)));
 
@@ -350,14 +352,14 @@ public class MenuLateral extends JPanel implements Observer {
                 }
             }
 
-            if(i == tournee.getListeChemins().size()-1){
+            if (i == tournee.getListeChemins().size() - 1) {
                 entrepot.setHeureDePassage(arriveeEntrepot);
                 requete = null;
             }
 
             // affichage de l'etape
-            listeEtapes[i+1] = new EtapePanel(etapeFinChemin, requete, panelInsideScrollPanel.getWidth(), Fenetre.valMarginBase, policeTexte, policeTexteImportant, ecouteurSurvol, ecouteurBoutons);
-            panelInsideScrollPanel.add(listeEtapes[i+1]);
+            listeEtapes[i + 1] = new EtapePanel(etapeFinChemin, requete, panelInsideScrollPanel.getWidth(), Fenetre.valMarginBase, policeTexte, policeTexteImportant, ecouteurSurvol, ecouteurBoutons);
+            panelInsideScrollPanel.add(listeEtapes[i + 1]);
             panelInsideScrollPanel.add(Box.createRigidArea(new Dimension(0, 2 * Fenetre.valMarginBase)));
         }
         ecouteurSurvol.setListeEtapes(listeEtapes);
@@ -417,9 +419,9 @@ public class MenuLateral extends JPanel implements Observer {
             if (arg instanceof Tournee) {
                 tournee = (Tournee) arg;
 
-                if (tournee.getTourneeEstChargee()){
+                if (tournee.getTourneeEstChargee()) {
                     //Si la tournee est chargee mais pas ordonnée, affiche la liste des requêtes
-                    if (!tournee.getTourneeEstOrdonee()){
+                    if (!tournee.getTourneeEstOrdonee()) {
                         afficherMenuRequete();
                     }
                     //Si la tournee est chargee et ordonnée, affiche la liste des étapes
@@ -439,11 +441,55 @@ public class MenuLateral extends JPanel implements Observer {
         messageUtilisateur.setText(texte);
     }
 
-    public int obtenirTempsMaxCalcul() throws ValeurNegativeException{
+    public int obtenirTempsMaxCalcul() throws ValeurNegativeException {
         int tempsMaxCalcul = Integer.valueOf(entreeTempsCalcul.getText());
-        if(tempsMaxCalcul <= 0){
-            throw new ValeurNegativeException("La valeur entrée est négative ou nulle : \""+tempsMaxCalcul+"\"");
+        if (tempsMaxCalcul <= 0) {
+            throw new ValeurNegativeException("La valeur entrée est négative ou nulle : \"" + tempsMaxCalcul + "\"");
         }
         return tempsMaxCalcul;
+    }
+
+    public void indiquerPositionRequete(Etape collecte, Etape depot) {
+        System.out.println("Indiquer");
+        int tailleBordure = 6;
+        if (listeRequetes != null && collecte != null && depot != null) {
+            for (RequetePanel rp : listeRequetes) {
+                if (rp != null && rp.getCollecte().getIdAdresse().equals(collecte.getIdAdresse()) && rp.getDepot().getIdAdresse().equals(depot.getIdAdresse())) {
+                    rp.setBorder(BorderFactory.createMatteBorder(tailleBordure, tailleBordure, tailleBordure, tailleBordure, rp.getCouleurBordure()));
+                }
+            }
+        }
+        if (listeEtapes != null) {
+            for (EtapePanel ep : listeEtapes) {
+                if (ep != null && collecte != null && ep.getEtape().getIdAdresse().equals(collecte.getIdAdresse())) {
+                    ep.setBorder(BorderFactory.createMatteBorder(tailleBordure, tailleBordure, tailleBordure, tailleBordure, ep.getCouleurBordure()));
+                }
+                if (ep != null && depot != null && ep.getEtape().getIdAdresse().equals(depot.getIdAdresse())) {
+                    ep.setBorder(BorderFactory.createMatteBorder(tailleBordure, tailleBordure, tailleBordure, tailleBordure, ep.getCouleurBordure()));
+                }
+            }
+        }
+    }
+
+    public void supprimerPositionRequete() {
+        System.out.println("supprimer");
+        int tailleBordure = 1;
+        if (listeRequetes != null) {
+            for (RequetePanel rp : listeRequetes) {
+                if (rp != null) {
+                    rp.setBorder(BorderFactory.createMatteBorder(tailleBordure, tailleBordure, tailleBordure, tailleBordure, rp.getCouleurBordure()));
+                }
+            }
+        }
+        if (listeEtapes != null) {
+            for (EtapePanel ep : listeEtapes) {
+                if (ep != null) {
+                    ep.setBorder(BorderFactory.createMatteBorder(tailleBordure, tailleBordure, tailleBordure, tailleBordure, ep.getCouleurBordure()));
+                }
+                if (ep != null) {
+                    ep.setBorder(BorderFactory.createMatteBorder(tailleBordure, tailleBordure, tailleBordure, tailleBordure, ep.getCouleurBordure()));
+                }
+            }
+        }
     }
 }

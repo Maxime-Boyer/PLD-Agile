@@ -1,18 +1,19 @@
 package Vue;
 
-import java.awt.Graphics;
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.JPanel;
 
-public class ImagePanel extends JPanel{
+public class ImagePanel extends JPanel {
 
     private BufferedImage image;
 
     /**
      * Classe permettant de charger et d'afficher une image
+     *
      * @param pathImage: le path de l'image a afficher
      */
     public ImagePanel(String pathImage) {
