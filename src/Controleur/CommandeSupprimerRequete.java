@@ -7,7 +7,7 @@ import Model.Requete;
 import Model.Tournee;
 
 /**
- * Permet l'ajout d'exécuter la commande de suppression de requêtes
+ * Permet d'exécuter la commande de suppression de requêtes
  */
 public class CommandeSupprimerRequete implements Commande{
 
@@ -19,8 +19,11 @@ public class CommandeSupprimerRequete implements Commande{
 
     /**
      * Créé la commande qui supprime une requte dans une tournee
-     * @param tournee la tournee auquelle est retiré
-     * @param requeteASupprimer la requete qui va être supprimé de la tournee;
+     * @param tournee la tournee auquelle est retirée la requête
+     * @param requeteASupprimer la requete qui va être supprimer de la tournee;
+     * @param etapePrecedentCollecte l'étape qui précède la collecte dans la tournée
+     * @param etapePrecedentDepot l'étape qui précède le dépot dans la tournée
+     * @param carte la carte qui contient les adresses et segments;
      */
     public CommandeSupprimerRequete(Tournee tournee, Requete requeteASupprimer,Etape etapePrecedentCollecte,Etape etapePrecedentDepot, Carte carte) {
         this.tournee = tournee;
