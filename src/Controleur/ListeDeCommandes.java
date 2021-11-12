@@ -20,7 +20,6 @@ public class ListeDeCommandes {
 
     /**
      * Ajoute la commande c à this
-     *
      * @param c la commande à ajouter
      */
     public void ajouter(Commande c) throws CommandeImpossibleException {
@@ -75,10 +74,18 @@ public class ListeDeCommandes {
         list.clear();
     }
 
+    /**
+     * Methode qui retourne l'index courant de la liste de commande
+     * @return l'index courant
+     */
     public int getIndexCourant() {
         return indexCourant;
     }
 
+    /**
+     * Methode qui retourne la liste de commandes
+     * @return la liste de commandes qui ont été ajouter
+     */
     public LinkedList<Commande> getList() {
         return list;
     }

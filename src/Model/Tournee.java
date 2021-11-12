@@ -225,6 +225,8 @@ public class Tournee extends Observable {
         //Supprime la requête
         listeRequetes.remove(requeteASupprimer);
 
+        ajouteHeureDePassage();
+
         //Notifie les observateurs que la tournee a été mofifié
         notifyObservers(this);
     }

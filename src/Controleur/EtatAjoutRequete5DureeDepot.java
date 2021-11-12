@@ -33,7 +33,8 @@ public class EtatAjoutRequete5DureeDepot implements Etat {
 
     }
 
-    /** Méthode qui permet de revenir à l'état tournée ordonnée, en annulant tout ce qui a été fait jusque là
+    /**
+     * Méthode qui permet de revenir à l'état tournée ordonnée, en annulant tout ce qui a été fait jusque là
      * @param controleur le controleur
      * @param fenetre contient l'affichage de l'état tournée ordonnée
      * @param carte   la carte
