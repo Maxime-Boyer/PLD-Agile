@@ -27,8 +27,8 @@ public class EcouteurBoutons implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        // Method called by the button listener each time a button is clicked
-        // Forward the corresponding message to the controller
+        // Méthode appelé par l'ecouteurBouton chaque fois que un bouton est cliqué
+        //Cette méthode appele les bonnes méthodes du controleur
         switch (e.getActionCommand()){
             case Fenetre.IMPORT_CARTE:
                 controleur.chargerPlan();
@@ -56,7 +56,6 @@ public class EcouteurBoutons implements ActionListener {
 
             case Fenetre.SUPPRIMER_REQUETE:
                 Requete requete = ((BoutonSuppressionRequete) e.getSource()).getRequete();
-                System.out.println(requete);
                 controleur.supressionRequete(requete);
                 break;
             case Fenetre.UNDO:

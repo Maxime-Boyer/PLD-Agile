@@ -308,8 +308,6 @@ public class MenuLateral extends JPanel implements Observer {
      */
     public void afficherMenuEtapes() {
 
-        System.out.println("afficherMenuEtapes");
-
         //Supprime l'affichage de la liste des requêtes
         retirerMenuRequete();
 
@@ -401,7 +399,6 @@ public class MenuLateral extends JPanel implements Observer {
      */
     @Override
     public void update(Observable observed, Object arg) {
-        System.out.println("..... update MenuLateral");
         if (arg != null) { // arg est soit une carte, soit une tournée qui a été mise à jour
             //Met à jour la tournee
             if (arg instanceof Tournee) {
@@ -449,7 +446,6 @@ public class MenuLateral extends JPanel implements Observer {
      */
 
     public void indiquerPositionRequete(Etape collecte, Etape depot) {
-        System.out.println("Indiquer");
         int tailleBordure = 6;
         if (listeRequetes != null && collecte != null && depot != null) {
             for (RequetePanel rp : listeRequetes) {
@@ -474,7 +470,6 @@ public class MenuLateral extends JPanel implements Observer {
      * Supprime la position de la requete
      */
     public void supprimerPositionRequete() {
-        System.out.println("supprimer");
         int tailleBordure = 1;
         if (listeRequetes != null) {
             for (RequetePanel rp : listeRequetes) {

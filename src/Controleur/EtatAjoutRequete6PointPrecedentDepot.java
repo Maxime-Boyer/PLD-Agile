@@ -63,7 +63,6 @@ public class EtatAjoutRequete6PointPrecedentDepot implements Etat {
         } catch (CommandeImpossibleException e) {
             //En cas d'erreur
             String messageErreur = e.getMessage();
-            System.out.println("ERREUR " + e);
             JOptionPane.showMessageDialog(null, messageErreur);
             //Reste dans l'état actuel
         }

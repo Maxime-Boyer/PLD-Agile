@@ -27,7 +27,6 @@ public class EtatAjoutRequete5DureeDepot implements Etat {
             fenetre.afficherEtatAjoutRequete6();
         } catch (Exception e) {
             String messageErreur = "Veuillez saisir un nombre  positif et < 2147483647 ";
-            System.out.println("ERREUR " + e);
             JOptionPane.showMessageDialog(null, messageErreur);
         }
 

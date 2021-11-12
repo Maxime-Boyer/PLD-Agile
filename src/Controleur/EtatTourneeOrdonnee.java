@@ -22,7 +22,6 @@ public class EtatTourneeOrdonnee implements Etat {
      */
     @Override
     public void chargerListeRequete(Controleur controleur, Fenetre fenetre, Carte carte, Tournee tournee) {
-        System.out.println("EtatTourneeOrdonnee : chargerListeRequete");
 
         //Récupère le nom du fichier choisi
         String nomFichier = fenetre.afficherChoixFichier();
@@ -37,7 +36,6 @@ public class EtatTourneeOrdonnee implements Etat {
             } catch (Exception e) {
                 //En cas d'erreur
                 String messageErreur = e.getMessage();
-                System.out.println("ERREUR " + e);
                 JOptionPane.showMessageDialog(null, messageErreur);
                 //Reste dans l'état actuel
             }
@@ -53,7 +51,6 @@ public class EtatTourneeOrdonnee implements Etat {
      */
     @Override
     public void chargerPlan(Controleur controleur, Fenetre fenetre, Carte carte, Tournee tournee) {
-        System.out.println("Ouvrir explorateur de fichier");
 
         //Récupère le nom du fichier choisi
         String nomFichier = fenetre.afficherChoixFichier();
@@ -69,7 +66,6 @@ public class EtatTourneeOrdonnee implements Etat {
             } catch (Exception e) {
                 //En cas d'erreur
                 String messageErreur = e.getMessage();
-                System.out.println("ERREUR " + e);
                 JOptionPane.showMessageDialog(null, messageErreur);
                 //Reste dans l'état actuel
             }
