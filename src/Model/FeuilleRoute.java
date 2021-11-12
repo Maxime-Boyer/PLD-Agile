@@ -64,7 +64,6 @@ public class FeuilleRoute {
                 mapRequete.put(requete.getEtapeDepot().getIdAdresse(),requete) ;
             }
 
-            // TODO: Arthur fixé ?
             bw.write(" <div class='descriptionTextuelle'>");
             bw.write("<div class='etape' style='border-color: red; background-color: rgba(255,0,0,0.1);'>");
             bw.write(" <h2>Départ</h2>");
@@ -141,7 +140,6 @@ public class FeuilleRoute {
                     bw.write(" colis à l'"+ etapeArriveeChemin.getNomAdresse() +" à "+etapeArriveeChemin.getHeureDePassage()+". Durée de l'étape: "+dureeEtape+".");
                 }
                 else{
-                    // TODO: Arthur fixé ?
                     bw.write("Retour à l'entrepôt situé à l'"+tournee.getEtapeDepart().getNomAdresse()+" à "+tournee.getEtapeDepart().getHeureDePassage());
                 }
 

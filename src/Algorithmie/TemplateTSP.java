@@ -38,20 +38,20 @@ public abstract class TemplateTSP implements TSP {
     }
 
     /**
-     * //TODO
+     * Méthode d'évaluation du Séparation & Evaluation (Branch & Bounds)
      *
      * @param adresseActuelle L'adresse actuelle
      * @param nonVisite       La liste des adresses pas encore visités
-     * @return //TODO
+     * @return la valeur de l'évaluation
      */
     protected abstract int evaluation(Adresse adresseActuelle, List<Adresse> nonVisite);
 
     /**
-     * //TODO
+     * /Iterateur du Séparation & Evaluation (Branch & bounds)
      *
      * @param adresseActuelle L'adresse actuelle
      * @param nonVisite       La liste des adresses pas encore visités
-     * @return //TODO
+     * @return l'iterateur
      */
     protected abstract Iterator<Adresse> iterateur(Adresse adresseActuelle, List<Adresse> nonVisite);
 
