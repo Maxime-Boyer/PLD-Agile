@@ -35,5 +35,4 @@ public class EtatSupprimerRequete implements Etat {
         }
     }
 
-
 }

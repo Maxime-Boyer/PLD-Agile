@@ -1,10 +1,7 @@
 package Controleur;
 
 import Exceptions.CommandeImpossibleException;
-import Model.Adresse;
-import Model.Carte;
-import Model.Requete;
-import Model.Tournee;
+import Model.*;
 import Vue.Fenetre;
 
 /**
@@ -69,7 +66,6 @@ public class Controleur {
 
     /**
      * Méthode appelée par fenetre après avoir cliqué sur le bouton "Calculer l'itinéraire"
-     * FIXME : cohérence du vocabulaire
      */
     public void preparerTournee() {
         etatActuel.preparerTournee(this, fenetre, carte, tournee, listeDeCommandes);
@@ -149,6 +145,23 @@ public class Controleur {
         }
         fenetre.afficherEtatTourneePreparee(tournee);
         tournee.notifyObservers();
+    }
+
+    /**
+     * Méthode appelée par fenetre après avoir cliqué sur sur une requette pour afficher l'indicateur de position
+     *
+     * @param collecte la colletce associée à l'adresse selectionnée
+     * @param depot le dépôt associé à l'adresse selectionnée
+     */
+    public void afficherIndiquerPositionRequete(Etape collecte, Etape depot) {
+        etatActuel.afficherIndiquerPositionRequete(fenetre, collecte, depot);
+    }
+
+    /**
+     * Méthode appelée par fenetre après avoir cliqué sur sur une requette pour retirer l'indicateur de position
+     */
+    public void supprimerPositionRequete() {
+        etatActuel.supprimerPositionRequete(fenetre);
     }
 
 }
