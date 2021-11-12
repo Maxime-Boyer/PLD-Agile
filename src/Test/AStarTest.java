@@ -69,24 +69,6 @@ public class AStarTest {
     }
 
     /**
-     * Test de Astar sur un graphe ayant beaucoup de branches
-     */
-    @Test
-    void verificationBonFonctionnementAStar2() throws AttributsIntersectionsException, AttributsSegmentsException, ParserConfigurationException, SAXException, PresenceEncodingEtVersionException, TagNameMapException, AbsenceBaliseDepotException, AttributsDepotException, IncompatibleAdresseException, NegatifLatitudeException, NegatifLongitudeException, IOException, IncompatibleLatitudeException, IncompatibleLongitudeException, AbsenceBaliseRequestException, AttributsRequestsException {
-        try {
-            LecteurXML lecteurXML = new LecteurXML();
-            Carte carte = new Carte();
-            carte = lecteurXML.lectureCarte("./src/FichiersXMLTest/mapLargeTest.xml", carte);
-            Tournee tournee = new Tournee();
-            tournee = lecteurXML.lectureRequete("./src/FichiersXMLTest/requestsLargeTest.xml", carte, tournee);
-            CalculateurTournee calculateurTournee = new CalculateurTournee(carte, tournee);
-            calculateurTournee.calculerGrapheCompletDesEtapes(new Astar2(carte));
-        } catch (AStarImpossibleException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * Verification du bon nombre de chemin sur une grosse tournee
      */
     @Test
