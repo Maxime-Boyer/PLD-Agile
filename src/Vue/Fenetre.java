@@ -94,9 +94,7 @@ public class Fenetre extends JFrame {
      * @return nom du fichier choisi
      */
     public String afficherChoixFichier() {
-        System.out.println("Frentre.afficherChoixFichierCarte() : ETAT_CHOIX_FICHIER_CARTE");
         MenuChoixFichier menuChoixFichier = new MenuChoixFichier();
-        System.out.println("    menuChoixFichier.getNomFichier(); = " + menuChoixFichier.getNomFichier());
         return menuChoixFichier.getNomFichier();
     }
 
@@ -106,7 +104,6 @@ public class Fenetre extends JFrame {
      * @param carte
      */
     public void afficherEtatPlanAffiche(Carte carte) {
-        System.out.println("Frentre.afficherEtatPlanAffiche(carte) : ETAT_PLAN_AFFICHE");
 
         supprimerPositionRequete();
 
@@ -143,7 +140,6 @@ public class Fenetre extends JFrame {
      * @param tournee la liste de requêtes qui doit être affichée
      */
     public void afficherEtatTourneChargee(Tournee tournee) {
-        System.out.println("Frentre.afficherEtatTourneChargee(tounee) : ETAT_TOURNEE_CHARGEE");
 
         supprimerPositionRequete();
 
@@ -171,7 +167,6 @@ public class Fenetre extends JFrame {
      * @param tournee la tournee calculée qui doit être affichée
      */
     public void afficherEtatTourneePreparee(Tournee tournee) {
-        System.out.println("Fenetre.afficherEtatTourneePreparee(tournee) : ETAT_TOURNEE_PREPAREE ");
 
         //On enleve les indications au dessus des adresses selectionnées
         supprimerPositionRequete();
@@ -228,7 +223,6 @@ public class Fenetre extends JFrame {
 
     public void afficherEtatAjoutRequete2() {
         popUpSaisieDuree = new PopUpSaisieDuree(policeTexte, ecouteurBoutons);
-        //System.out.println()
         popUpSaisieDuree.setPosition(cartePanel.getLargeur() / 2, cartePanel.getHauteur() / 2);
         menuLateral.setMessageUtilisateur("Entrer la durée de l'étape collecte et Valider");
         cartePanel.add(popUpSaisieDuree);

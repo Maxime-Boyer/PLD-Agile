@@ -29,7 +29,6 @@ public class EtatAjoutRequete2DureeCollecte implements Etat {
             fenetre.afficherEtatAjoutRequete3();
         } catch (Exception ex) {
             String messageErreur = "Veuillez saisir un nombre  positif et < 2147483647 ";
-            System.out.println("ERREUR " + ex);
             JOptionPane.showMessageDialog(null, messageErreur);
         }
     }

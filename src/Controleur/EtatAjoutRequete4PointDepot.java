@@ -37,7 +37,6 @@ public class EtatAjoutRequete4PointDepot implements Etat{
         } catch (CommandeImpossibleException e) {
             //En cas d'erreur
             String messageErreur = e.getMessage();
-            System.out.println("ERREUR "+e);
             //On reste dans l'état actuel
             controleur.setEtatActuel(controleur.etatAjoutRequete4PointDepot);
             JOptionPane.showMessageDialog(null, messageErreur);

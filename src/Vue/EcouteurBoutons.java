@@ -56,7 +56,6 @@ public class EcouteurBoutons implements ActionListener {
 
             case Fenetre.SUPPRIMER_REQUETE:
                 Requete requete = ((BoutonSuppressionRequete) e.getSource()).getRequete();
-                System.out.println(requete);
                 controleur.supressionRequete(requete);
                 break;
             case Fenetre.UNDO:

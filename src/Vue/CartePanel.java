@@ -171,7 +171,6 @@ public class CartePanel extends JPanel implements Observer {
                 tournee = (Tournee) arg;
             }
         }
-        System.out.println("CartePanel.update : carte = " + carte);
         repaint();
     }
 
