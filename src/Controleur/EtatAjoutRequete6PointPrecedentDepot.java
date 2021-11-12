@@ -30,7 +30,6 @@ public class EtatAjoutRequete6PointPrecedentDepot implements Etat {
             Etape depot = new Etape(nouvelleAdresseDepot.getLatitude(), nouvelleAdresseDepot.getLongitude(), nouvelleAdresseDepot.getIdAdresse(), dureeDepot);
             Adresse nouvelleAdresseCollecte = fenetre.getCartePanel().getNouvelleAdresse().get(0);
             Etape collecte = new Etape(nouvelleAdresseCollecte.getLatitude(), nouvelleAdresseCollecte.getLongitude(), nouvelleAdresseCollecte.getIdAdresse(), dureeCollecte);
-            Etape collecte = new Etape(nouvelleAdresseCollecte.getLatitude(), nouvelleAdresseCollecte.getLongitude(), nouvelleAdresseCollecte.getIdAdresse(), dureeEtape);
 
             //On cherche l'étape précedent depot la plus proche du clique gauche
             Adresse etapePrecedentDepot = tournee.rechercheEtape(precedent, nouvelleAdresseCollecte);
@@ -86,9 +85,6 @@ public class EtatAjoutRequete6PointPrecedentDepot implements Etat {
         fenetre.afficherEtatTourneePreparee(tournee);
     }
 
-    public void mettreAjourDuree(Integer dureeEtape) {
-        //On recupere la durée de depot de l'état 5
-        this.dureeEtape = dureeEtape;
     /** Methode qui met à jour la durée du dépot
      * @param dureeDepot la durée du dépot
      */
