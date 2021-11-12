@@ -283,6 +283,7 @@ public class Tournee extends Observable {
      */
     public Etape obtenirEtapeParId(Long id) {
         Etape etapeCherchee = null;
+        //On parcourt tous les chemins de la tournée et on vérifie si l'id des étapes de départ ou arrivée correspond à notre id de l'étape en paramêtre
         for (CheminEntreEtape chemin : listeChemins) {
             if (chemin.getEtapeDepart().getIdAdresse().equals(id)) {
                 etapeCherchee = chemin.getEtapeDepart();
@@ -293,6 +294,7 @@ public class Tournee extends Observable {
                 return etapeCherchee;
             }
         }
+        //On retourne l'étape trouvée
         return etapeCherchee;
     }
 
@@ -308,7 +310,7 @@ public class Tournee extends Observable {
     }
 
     /**
-     * méthode qui renvoie l'Adresse la plus proche en focntion de l'Adresse en paramètre.
+     * méthode qui renvoie l'Adresse la plus proche en fonction de l'Adresse en paramètre.
      * @param a: adresse récupéré au clic de l'utilisateur
      * @return: l'Adresse recherchée
      */
@@ -318,10 +320,13 @@ public class Tournee extends Observable {
         double distanceDepot;
         Adresse plusProche = null;
         double distanceEtapeDepart = distanceEntreAdresse(a, etapeDepart);
+        //On vérifie si l'étape la plus proche est l'étape de collecte (placée) précédemment cliquée
         if(distanceEtapeDepart < distanceMin){
             distanceMin = distanceEtapeDepart;
             plusProche = etapeDepart;
         }
+        //On parcours aussi la liste de toutes les requetes de la tournée pour vérifier pour chacune si le départ ou l'arrivée
+        //est l'étape la plus proche du clique sur la carte (pour ajouter le dépot)
         for(Requete r : listeRequetes){
             Adresse collecte = new Adresse (r.getEtapeCollecte().getLatitude(),r.getEtapeCollecte().getLongitude(),r.getEtapeCollecte().getIdAdresse());
             if(r.getEtapeDepot() != null) {
@@ -347,7 +352,7 @@ public class Tournee extends Observable {
      * Méthode qui renvoie l'Adresse la plus proche en fonction de l'Adresse en paramètre.
      *
      * @param a:              adresse cliquée
-     * @param collectePlacee: nouvelle adresse de collecte. null si on est actuellement en train de créer la collecte.
+     * @param collectePlacee: nouvelle adresse de collecte.
      * @return l'Adresse entre l'Adresse cliquée et l'Adresse déjà placée
      */
     public Adresse rechercheEtape(Adresse a, Adresse collectePlacee) {
@@ -359,10 +364,13 @@ public class Tournee extends Observable {
         if (collectePlacee != null) {
             distanceCollectePlacee = distanceEntreAdresse(a, collectePlacee);
         }
+        //On vérifie si l'étape la plus proche est l'étape de collecte (placée) précédemment cliquée
         if (distanceCollectePlacee < distanceMin) {
             distanceMin = distanceCollectePlacee;
             plusProche = collectePlacee;
         }
+        //On parcours aussi la liste de toutes les requetes de la tournée pour vérifier pour chacune si le départ ou l'arrivée
+        //est l'étape la plus proche du clique sur la carte (pour ajouter le dépot)
         for (Requete requete : listeRequetes) {
             Adresse collecte = new Adresse(requete.getEtapeCollecte().getLatitude(), requete.getEtapeCollecte().getLongitude(), requete.getEtapeCollecte().getIdAdresse());
             Adresse depot = new Adresse(requete.getEtapeDepot().getLatitude(), requete.getEtapeDepot().getLongitude(), requete.getEtapeDepot().getIdAdresse());
@@ -390,13 +398,18 @@ public class Tournee extends Observable {
      * @param carte:     permet d'obtenir les informations en temps réel sur la carte
      */
     public void ajoutChemin(Etape adresse, Etape precedent, Carte carte) {
+        //On instancie un objet Astar2 pour le calcul du plus court chemin entre deux étapes
         Astar2 astar = new Astar2(carte);
         CheminEntreEtape precedentActuel = astar.chercherCheminEntreEtape(precedent, adresse);
         int index = 0;
         Etape suivant = null;
+        //Pour chaque chemin on vérifie si le départ est le précédent de notre étape que l'on ajoute
+        //Si c'est le cas on récuper l'arrivée de ce chemin et on supprimer ce chemin
+        //Ensuite on crée un nouveau chemin entre l'étape précédent notre étape et notre étape
+        //Et on crée un nouveau chemin entre l'étape que l'on ajoute et l'arrivée de l'ancien chemin supprimé
         for (CheminEntreEtape chemin : listeChemins) {
             if (chemin.getEtapeDepart().getIdAdresse().equals(precedent.getIdAdresse())) {
-                suivant = chemin.getEtapeArrivee();//new Etape(chemin.getEtapeArrivee().getLatitude(),chemin.getEtapeArrivee().getLongitude(),chemin.getEtapeArrivee().getIdAdresse(),chemin.getEtapeArrivee().getDureeEtape(),chemin.getEtapeArrivee().getHeureDePassage());
+                suivant = chemin.getEtapeArrivee();
                 listeChemins.remove(chemin);
                 break;
             }
@@ -405,6 +418,7 @@ public class Tournee extends Observable {
         listeChemins.add(index, precedentActuel);
         CheminEntreEtape actuelSuivant = astar.chercherCheminEntreEtape(adresse, suivant);
         listeChemins.add(index + 1, actuelSuivant);
+        //On met bien à jour les heures de passages obligatoire à cause des nouveaux chemins ajoutés
         ajouteHeureDePassage();
     }
 
@@ -414,9 +428,13 @@ public class Tournee extends Observable {
     private void ajouteHeureDePassage() {
         int vitesse = 15; //15 km.h-1
         LocalTime heureActuelle = heureDepart;
+        //Pour chaque chemin de la liste on calcule l'heure de passage et on l'ajoute pour chaque étape
         for (CheminEntreEtape cee : listeChemins) {
+            //On met l'heure de départ du chemin
             cee.getEtapeDepart().setHeureDePassage(heureActuelle);
+            //On calcule le temps de trajet entre départ et arrivée du chemin
             heureActuelle = heureActuelle.plusSeconds(cee.getEtapeDepart().getDureeEtape() + (int) Math.ceil((cee.distance / 1000. / (vitesse)) * 3600));
+            //On met l'heure d'arrivée du chemin
             cee.getEtapeArrivee().setHeureDePassage(heureActuelle);
         }
     }
@@ -429,32 +447,41 @@ public class Tournee extends Observable {
      * @return true si le dépot de la requête ajoutée est bien placée après la collecte
      */
     public boolean collectePrecedeDepot(Etape collecte, Etape precedentDepot, Etape precedentCollecte) {
+        //Si le precedent de depot est la collecte on valide
         if (precedentDepot.getIdAdresse().equals(collecte.getIdAdresse())) {
             return true;
         }
 
         for (CheminEntreEtape chemin : listeChemins) {
+            //Si le depart du chemin est le precedent de collecte
             if (chemin.getEtapeDepart().getIdAdresse().equals(precedentCollecte.getIdAdresse())) {
+                //Si l'arrivée de ce chemin est le précedent de dépot on valide
                 if (chemin.getEtapeArrivee().getIdAdresse().equals(precedentDepot.getIdAdresse())) {
                     return true;
                 }
+                //Si le départ de ce chemin est aussi le précedent de dépot on refuse
                 if (chemin.getEtapeDepart().getIdAdresse().equals(precedentDepot.getIdAdresse())) {
                     return false;
                 }
             }
+            //Si l'arrivée du chemin est le precedent de collecte
             if (chemin.getEtapeArrivee().getIdAdresse().equals(precedentCollecte.getIdAdresse())) {
+                //Si l'arrivée de ce chemin est aussi le précedent de dépot on refuse
                 if (chemin.getEtapeArrivee().getIdAdresse().equals(precedentDepot.getIdAdresse())) {
                     return false;
                 }
+                //Si le départ de ce chemin est le précedent de dépot on refuse
                 if (chemin.getEtapeDepart().getIdAdresse().equals(precedentDepot.getIdAdresse())) {
                     return false;
                 }
             }
+            //Si on trouve le précédent de depot sur le chemin mais pas le précédent de collecte on refuse
             if (chemin.getEtapeArrivee().getIdAdresse().equals(precedentDepot.getIdAdresse()) || chemin.getEtapeDepart().getIdAdresse().equals(precedentDepot.getIdAdresse())) {
                 if (!(chemin.getEtapeArrivee().getIdAdresse().equals(precedentCollecte.getIdAdresse())) || !(chemin.getEtapeDepart().getIdAdresse().equals(precedentCollecte.getIdAdresse()))) {
                     return false;
                 }
             }
+            //Si on trouve le précédent de collecte sur le chemin mais pas le précédent de depot on valide
             if (chemin.getEtapeArrivee().getIdAdresse().equals(precedentCollecte.getIdAdresse()) || chemin.getEtapeDepart().getIdAdresse().equals(precedentCollecte.getIdAdresse())) {
                 if (!(chemin.getEtapeArrivee().getIdAdresse().equals(precedentDepot.getIdAdresse())) || !(chemin.getEtapeDepart().getIdAdresse().equals(precedentDepot.getIdAdresse()))) {
                     return true;
@@ -470,8 +497,10 @@ public class Tournee extends Observable {
      * @param requete: requête à placer
      */
     public void ajoutRequete(Requete requete, Etape precedentCollecte, Etape precedentDepot, Carte carte) {
+        //On supprimer les chemins nécessaire et créeons les nouveaux chemins pour connecter la nouvelle requete à la tournée
         ajoutChemin(requete.getEtapeCollecte(), precedentCollecte, carte);
         ajoutChemin(requete.getEtapeDepot(), precedentDepot, carte);
+        //On ajoute ensuite la requete à la liste des requetes de la tournée
         listeRequetes.add(requete);
     }
 
@@ -481,10 +510,17 @@ public class Tournee extends Observable {
      * @param requete: requête à placer
      */
     public void ajouterRequete(Requete requete) {
+        //On ajoute une requete dans la liste des requetes de la tournée
         listeRequetes.add(requete);
     }
 
+    /**
+     *
+     * @param requete : requete dont on cherche le précedent de la collecte de la requete dans la liste des chemins
+     * @return
+     */
     public Etape precedentCollecte(Requete requete) {
+        //On parcourt la liste des chemins pour trouver l'étape précédent notre étape de collecte dans la requete
         for (CheminEntreEtape chemin : listeChemins) {
             if (chemin.getEtapeArrivee().getIdAdresse().equals(requete.getEtapeCollecte().getIdAdresse())) {
                 return chemin.getEtapeDepart();
@@ -493,7 +529,13 @@ public class Tournee extends Observable {
         return null;
     }
 
+    /**
+     *
+     * @param requete : requete dont on cherche le précedent du depot de la requete dans la liste des chemins
+     * @return
+     */
     public Etape precedentDepot(Requete requete) {
+        //On parcourt la liste des chemins pour trouver l'étape précédent notre étape de dépot dans la requete
         for (CheminEntreEtape chemin : listeChemins) {
             if (chemin.getEtapeArrivee().getIdAdresse().equals(requete.getEtapeDepot().getIdAdresse())) {
                 return chemin.getEtapeDepart();

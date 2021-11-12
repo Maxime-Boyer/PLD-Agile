@@ -20,7 +20,6 @@ public class EtatTourneeOrdonnee implements Etat {
      * @param carte   la carte
      * @param tournee la liste des requêtes qui va être charger
      */
-
     @Override
     public void chargerListeRequete(Controleur controleur, Fenetre fenetre, Carte carte, Tournee tournee) {
         System.out.println("EtatTourneeOrdonnee : chargerListeRequete");
@@ -52,7 +51,6 @@ public class EtatTourneeOrdonnee implements Etat {
      * @param carte, la carte
      * @param tournee, la tournee
      */
-
     @Override
     public void chargerPlan(Controleur controleur, Fenetre fenetre, Carte carte, Tournee tournee) {
         System.out.println("Ouvrir explorateur de fichier");
@@ -97,7 +95,6 @@ public class EtatTourneeOrdonnee implements Etat {
      * @param carte            la carte
      * @param requete          la requête qui va être supprimer
      */
-
     @Override
     public void supressionRequete(Controleur controleur, Fenetre fenetre, ListeDeCommandes listeDeCommandes, Tournee tournee, Carte carte, Requete requete) {
         controleur.setEtatActuel(controleur.etatSupprimerRequete);
@@ -114,11 +111,21 @@ public class EtatTourneeOrdonnee implements Etat {
         new FeuilleRoute(tournee, cartePanel);
     }
 
+    /**
+     * Methode qui permet d'indiquer la position d'une requete sur la fenetre
+     * @param fenetre la fenetre
+     * @param collecte le point de collecte de la requête selectionnée
+     * @param depot le point de dépot de la requête selectionnée
+     */
     @Override
     public void afficherIndiquerPositionRequete(Fenetre fenetre, Etape collecte, Etape depot) {
         fenetre.indiquerPositionRequete(collecte, depot);
     }
 
+    /**
+     * Methode qu permet de supprimer la position d'une requete à l'affichage sur la fenetre
+     * @param fenetre
+     */
     @Override
     public void supprimerPositionRequete(Fenetre fenetre){
         fenetre.supprimerPositionRequete();
