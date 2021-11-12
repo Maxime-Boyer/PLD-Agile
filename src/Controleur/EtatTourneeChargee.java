@@ -110,11 +110,21 @@ public class EtatTourneeChargee implements Etat {
         }
     }
 
+    /**
+     *
+     * @param fenetre la fenetre
+     * @param collecte le point de collecte de la requête selectionnée
+     * @param depot le point de dépot de la requête selectionnée
+     */
     @Override
     public void afficherIndiquerPositionRequete(Fenetre fenetre, Etape collecte, Etape depot) {
         fenetre.indiquerPositionRequete(collecte, depot);
     }
 
+    /**
+     *
+     * @param fenetre
+     */
     @Override
     public void supprimerPositionRequete(Fenetre fenetre){
         fenetre.supprimerPositionRequete();
