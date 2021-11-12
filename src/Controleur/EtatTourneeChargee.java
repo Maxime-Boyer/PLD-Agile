@@ -4,6 +4,7 @@ import Algorithmie.CalculateurTournee;
 import Exceptions.AStarImpossibleException;
 import Exceptions.ValeurNegativeException;
 import Model.Carte;
+import Model.Etape;
 import Model.LecteurXML;
 import Model.Tournee;
 import Vue.Fenetre;
@@ -91,6 +92,16 @@ public class EtatTourneeChargee implements Etat {
                 //Reste dans l'état actuel
             }
         }
+    }
+
+    @Override
+    public void afficherIndiquerPositionRequete(Fenetre fenetre, Etape collecte, Etape depot) {
+        fenetre.indiquerPositionRequete(collecte, depot);
+    }
+
+    @Override
+    public void supprimerPositionRequete(Fenetre fenetre){
+        fenetre.supprimerPositionRequete();
     }
 
 }
