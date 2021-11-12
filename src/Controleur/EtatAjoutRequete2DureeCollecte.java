@@ -11,6 +11,11 @@ import javax.swing.*;
  */
 public class EtatAjoutRequete2DureeCollecte implements Etat {
 
+    /**
+     * Méthode qui permet l'ajout d'une duree d'étape de collecte lorsqu'on ajoute une étape
+     * @param controleur controleur qui permet de changer l'état actuel, et faire la mettre à jour la durée pour l'état suivant
+     * @param fenetre    la où se trouve la pop up de saisie, et l'affichage de l'état suivant
+     */
     @Override
     public void validerAjoutDureeEtape(Controleur controleur, Fenetre fenetre) {
         try {
@@ -28,6 +33,13 @@ public class EtatAjoutRequete2DureeCollecte implements Etat {
             JOptionPane.showMessageDialog(null, messageErreur);
         }
     }
+    /** Méthode qui permet de revenir à l'état tournée ordonnée, en annulant tout ce qui a été fait jusque là
+     * @param controleur le controleur
+     * @param fenetre contient l'affichage de l'état tournée ordonnée
+     * @param carte   la carte
+     * @param l       la liste des commandes, contient la liste des commandes qui ont été executé
+     * @param tournee la tournée, tournée à laquelle la requête doit être ajouter
+     */
 
     @Override
     public void annuler(Controleur controleur, Fenetre fenetre, Carte carte, ListeDeCommandes l, Tournee tournee) {
