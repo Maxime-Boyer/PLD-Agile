@@ -69,7 +69,6 @@ public class Controleur {
 
     /**
      * Méthode appelée par fenetre après avoir cliqué sur le bouton "Calculer l'itinéraire"
-     * FIXME : cohérence du vocabulaire
      */
     public void preparerTournee() {
         etatActuel.preparerTournee(this, fenetre, carte, tournee, listeDeCommandes);

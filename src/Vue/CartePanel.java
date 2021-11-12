@@ -323,7 +323,7 @@ public class CartePanel extends JPanel implements Observer {
     /**
      * Dessine les carres, ronds et triangles indiquant les différentes Etapes de la requete
      *
-     * @throws IncompatibleAdresseException: //TODO
+     * @throws IncompatibleAdresseException:
      */
     public void dessinerTournee(Graphics2D g) throws IncompatibleAdresseException {
         this.add(legende);
