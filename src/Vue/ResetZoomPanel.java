@@ -10,6 +10,13 @@ public class ResetZoomPanel extends JPanel implements MouseListener {
     CartePanel cartePanel;
     int taille;
 
+    /**
+     * Panel permettant de remettre le zoom à son état initial
+     * @param cartePanel: la panel où est affichée la carte
+     * @param taille: la longeur du cote du panel que l'on crée
+     * @param x: la position sur x du panel que l'on crée
+     * @param y: la position sur y du panel que l'on crée
+     */
     public ResetZoomPanel(CartePanel cartePanel, int taille, int x, int y) {
         this.cartePanel = cartePanel;
         this.setLayout(null);
@@ -19,6 +26,9 @@ public class ResetZoomPanel extends JPanel implements MouseListener {
         this.addMouseListener(this);
     }
 
+    /**
+     * Permet l'affichage graphique du panel
+     */
     @Override
     public void paintComponent(Graphics g) {
 
@@ -53,6 +63,10 @@ public class ResetZoomPanel extends JPanel implements MouseListener {
 
     }
 
+    /**
+     * Au clic sur la souris, remet la carte et le zoom à sa position initiale
+     * @param e
+     */
     @Override
     public void mouseReleased(MouseEvent e) {
         if (e.getButton() == MouseEvent.BUTTON1) {

@@ -8,7 +8,7 @@ public class MenuChoixFichier extends JPanel {
     private String nomFichier;
 
     /**
-     * TODO
+     * Ouverture de la fenetre de l'explorateur du fichier afin d'importer un fichier dans l'application
      */
     public MenuChoixFichier() {
         JFrame frameSelectCarte = new JFrame();
@@ -21,6 +21,10 @@ public class MenuChoixFichier extends JPanel {
         frameSelectCarte.dispose();
     }
 
+    /**
+     * geteur
+     * @return: le nom du ficheir importé
+     */
     public String getNomFichier() {
         return nomFichier;
     }

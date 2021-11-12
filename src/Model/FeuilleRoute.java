@@ -9,11 +9,14 @@ import java.io.*;
 
 import java.util.HashMap;
 
-/**
- * Permet de créer la feuille de route de la tournée.
- */
+
 public class FeuilleRoute {
 
+    /**
+     * Crée et affiche un fichier HTML reprenant la l'affuchage graphique de l'itinéraire et la description textuelle des étapes.
+     * @param tournee: la tournée à afficher
+     * @param cartePanel: le panel où est affichée la carte
+     */
    public FeuilleRoute(Tournee tournee, CartePanel cartePanel){
 
         try

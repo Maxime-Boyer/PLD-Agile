@@ -7,6 +7,11 @@ public class EcouteurZoom implements MouseWheelListener{
     private CartePanel cartePanel;
     private double forceZoom;
 
+    /**
+     * Création d'une classe permettant de gérer les actions liées au zoom sur la carte
+     * @param cartePanel: le panel où est affiché la carte
+     * @param forceZoom: vitesse du zoom lié à la souris de l'utilisateur
+     */
     EcouteurZoom(CartePanel cartePanel, double forceZoom){
         this.cartePanel = cartePanel;
         this.forceZoom = forceZoom;
