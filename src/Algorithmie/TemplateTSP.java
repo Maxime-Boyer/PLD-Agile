@@ -144,6 +144,11 @@ public abstract class TemplateTSP implements TSP {
         }
     }
 
+    /**
+     * Renvoie le coût de la meilleure solution
+     * @return coût de la meilleure solution
+     */
+
     @Override
     public int obtenirMeilleureSolution() {
         return coutMeilleureSolution;

@@ -68,14 +68,6 @@ public class EtatAjoutRequete6PointPrecedentDepot implements Etat {
         }
     }
 
-    /**
-     * Méthode qui permet de revenir à l'état tournée ordonnée, en annulant tout ce qui a été fait jusque là
-     * @param controleur le controleur
-     * @param fenetre contient l'affichage de l'état tournée ordonnée
-     * @param carte   la carte
-     * @param l       la liste des commandes, contient la liste des commandes qui ont été executé
-     * @param tournee la tournée, tournée à laquelle la requête doit être ajouter
-     */
 
     @Override
     public void annuler(Controleur controleur, Fenetre fenetre, Carte carte, ListeDeCommandes l, Tournee tournee) {

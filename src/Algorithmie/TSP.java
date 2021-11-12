@@ -10,7 +10,8 @@ public interface TSP {
     public void chercherSolution();
 
     /**
-     * Retourne le cout de la meilleure solution
+     * Retourne le cout de la meilleure solution utile pour faire des tests
+     * @return cout de la meilleure solution
      */
     public int obtenirMeilleureSolution();
 
