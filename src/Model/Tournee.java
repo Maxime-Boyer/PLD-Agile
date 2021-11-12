@@ -294,6 +294,11 @@ public class Tournee extends Observable {
         double distanceCollecte;
         double distanceDepot;
         Adresse plusProche = null;
+        double distanceEtapeDepart = distanceEntreAdresse(a, etapeDepart);
+        if(distanceEtapeDepart < distanceMin){
+            distanceMin = distanceEtapeDepart;
+            plusProche = etapeDepart;
+        }
         for(Requete r : listeRequetes){
             Adresse collecte = new Adresse (r.getEtapeCollecte().getLatitude(),r.getEtapeCollecte().getLongitude(),r.getEtapeCollecte().getIdAdresse());
             if(r.getEtapeDepot() != null) {
@@ -418,6 +423,7 @@ public class Tournee extends Observable {
      * @return: true si le dépot de la requête ajoutée est bien placée après la collecte
      */
     public boolean collectePrecedeDepot(Etape collecte, Etape precedentDepot, Etape precedentCollecte) {
+
         if(precedentDepot.getIdAdresse() == collecte.getIdAdresse()){ return true; }
 
         boolean precedentCollecteTrouve = false;
