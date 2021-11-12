@@ -42,7 +42,7 @@ public class PopUpSaisieDuree extends JPanel {
         setBackground(new Color(245, 245, 245));
         setBorder(new LineBorder(Color.black, 1, true));
 
-        titrePopUp = new JLabel("Durée de l'étape en secondes");
+        titrePopUp = new JLabel("Durée de l'étape en secs");
         titrePopUp.setBounds(2 * Fenetre.valMarginBase, Fenetre.valMarginBase, largeur - 4 * Fenetre.valMarginBase, 30);
         titrePopUp.setFont(policeTexte);
         this.add(titrePopUp);

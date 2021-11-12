@@ -49,9 +49,9 @@ public class FeuilleRoute {
             bw.write("<style>");
             bw.write("h2{ margin: 5px 0 0; }");
             bw.write(".imgCarte, h1{ position: fixed; }");
-            bw.write(".imgCarte{ width: 800px; }");
-            bw.write(".descriptionTextuelle{ margin-left: 850px; }");
-            bw.write(".etape{ border: solid; border-width: 2px; padding: 10px; border-radius: 5px; margin: 20px 0; }");
+            bw.write(".imgCarte{ width: 700px; }");
+            bw.write(".descriptionTextuelle{ margin-left: 720px; }");
+            bw.write(".etape{ width : 330px; border: solid; border-width: 2px; padding: 10px; border-radius: 5px; margin: 20px 0; }");
             bw.write("</style>");
 
             //contenu

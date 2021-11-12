@@ -4534,7 +4534,7 @@
     <segment destination="25321687" length="153.3693" name="Passage Feuillat" origin="25321689"/>
     <segment destination="25303841" length="83.108986" name="Rue Feuillat" origin="25321689"/>
     <segment destination="25303831" length="153.72511" name="Rue Feuillat" origin="25321689"/>
-    <segment destination="26079790" length="153.56767" name="Rue de l'AbondanceRue Garibaldi" origin="34401989"/>
+    <segment destination="26079790" length="153.56767" name="Rue de l'Abondance" origin="34401989"/>
     <segment destination="34401987" length="18.621817" name="Rue Garibaldi" origin="34401988"/>
     <segment destination="34401989" length="17.924046" name="Rue Garibaldi" origin="34401988"/>
     <segment destination="25306034" length="100.629295" name="Avenue Félix Faure" origin="34401987"/>
