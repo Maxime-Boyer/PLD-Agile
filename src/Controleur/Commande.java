@@ -10,12 +10,12 @@ import Exceptions.CommandeImpossibleException;
 public interface Commande {
 
     /**
-     * Execute the command this
+     * Execute la commande
      */
     void faireCommande() throws CommandeImpossibleException;
 
     /**
-     * Execute the reverse command of this
+     * Execute l'inverse de la commande
      */
     void defaireCommande() throws CommandeImpossibleException;
 

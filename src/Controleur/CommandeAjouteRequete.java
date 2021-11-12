@@ -7,7 +7,7 @@ import Model.Requete;
 import Model.Tournee;
 
 /**
- * Permet d'exécuter la commande d'ajout de requêtes
+ * Permet d'executer la commande d'ajout de requêtes
  */
 public class CommandeAjouteRequete implements Commande {
 
