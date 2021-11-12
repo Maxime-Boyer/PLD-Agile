@@ -13,7 +13,7 @@ public class MenuChoixFichier extends JPanel {
     public MenuChoixFichier() {
         JFrame frameSelectCarte = new JFrame();
 
-        FileDialog fd = new FileDialog(frameSelectCarte, "Sélectionnez une carte au format xml", FileDialog.LOAD);
+        FileDialog fd = new FileDialog(frameSelectCarte, "Sélectionnez un document au format xml", FileDialog.LOAD);
         fd.setDirectory("C:\\");
         fd.setFile("*.xml");
         fd.setVisible(true);
