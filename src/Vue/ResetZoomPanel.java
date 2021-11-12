@@ -53,6 +53,7 @@ public class ResetZoomPanel extends JPanel implements MouseListener {
         super.paintComponent(g);
     }
 
+
     @Override
     public void mouseClicked(MouseEvent e) {
 
@@ -65,7 +66,7 @@ public class ResetZoomPanel extends JPanel implements MouseListener {
 
     /**
      * Au clic sur la souris, remet la carte et le zoom à sa position initiale
-     * @param e
+     * @param e évènement de la souris entre autre un clique sur la souris
      */
     @Override
     public void mouseReleased(MouseEvent e) {
@@ -82,6 +83,7 @@ public class ResetZoomPanel extends JPanel implements MouseListener {
     public void mouseEntered(MouseEvent e) {
 
     }
+
 
     @Override
     public void mouseExited(MouseEvent e) {

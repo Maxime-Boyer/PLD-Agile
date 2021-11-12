@@ -16,7 +16,7 @@ public abstract class TemplateAstar implements Astar {
     private HashMap<Long, Double> d;
 
     // Contient les adresses grises, associees a leur cout : Pair<Cout, idAdresse>
-    //private PriorityQueue<Long, Double> filePrioriteAdressesGises;
+
     PriorityQueue<NoeudAdresse> filePrioriteAdressesGises;
 
     // Contient les adresses grises (en attente de visite) associée à leur cout.

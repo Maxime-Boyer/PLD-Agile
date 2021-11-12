@@ -27,6 +27,10 @@ public class EcouteurDragDrop implements MouseMotionListener {
         }
     }
 
+    /**
+     * Listener de la tournée lorqu'elle est déplacée
+     * @param e
+     */
     @Override
     public void mouseMoved(MouseEvent e) {
 

@@ -61,7 +61,6 @@ public class EcouteurSurvol implements MouseListener {
             boolean epTrouve = false;
             EtapePanel ep = null;
             c = SwingUtilities.getDeepestComponentAt(e.getComponent(), e.getX(), e.getY());
-            //System.out.println(c.getClass());
             if(listeRequetes != null) {
                 for (int i = 0; i < listeRequetes.length; i++) {
                     if (listeRequetes[i] != null && (SwingUtilities.isDescendingFrom(c, listeRequetes[i]) || c == listeRequetes[i])) {

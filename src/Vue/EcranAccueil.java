@@ -14,7 +14,7 @@ public class EcranAccueil extends JPanel{
      */
     public EcranAccueil(int largeurEcran, int hauteurEcran, Font policeSousTitre, Font policeTexte, EcouteurBoutons ecouteurBoutons) {
 
-        // propriétés du pannel principal
+        // Propriétés du pannel principal
         int widthPannel = 900, heightPannel = 150;
         this.setBounds(largeurEcran/2 - widthPannel/2, hauteurEcran/2 - heightPannel/2, widthPannel,heightPannel);
         this.setLayout(null);

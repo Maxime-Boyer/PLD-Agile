@@ -56,9 +56,7 @@ public class CalculateurTournee {
      * @throws AStarImpossibleException Erreur du calcul de chemin entre deux étapes
      */
     public HashMap<Long, HashMap<Long, CheminEntreEtape>> calculerGrapheCompletDesEtapes(Astar astar) throws AStarImpossibleException {
-        //Astar1 astar = new Astar1(carte);
 
-        // HashMap< idAresseDepart, HashMap<idAresseArrivee, CheminEntreEtape> >
         HashMap<Long, HashMap<Long, CheminEntreEtape>> grapheCompletDesEtapes = new HashMap<>();
 
         //Boucler pour construire le graphe complet

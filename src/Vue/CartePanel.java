@@ -122,7 +122,6 @@ public class CartePanel extends JPanel implements Observer {
 
     /**
      * Place les images permettant de pointer une requete sur la carte a l'utilisateur
-     *
      * @param collecte: Etape de collecte de la requete à identifier
      * @param depot:    Etape de dépot de la requete à identifier
      */
@@ -172,21 +171,16 @@ public class CartePanel extends JPanel implements Observer {
                 tournee = (Tournee) arg;
             }
         }
-        System.out.println("CartePanel.update : carte = " + carte);
         repaint();
     }
 
     /**
      * Méthode paint permettant d'effectuer tous les tracés graphiques
-     *
      * @param g graphics
      */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-
-        //System.out.println("CartePanel.paintComponent : carte = " + carte);
-        //System.out.println("hauteur ecran : " + hauteurEcran + " largeur ecran : " + largeurEcran);
         Graphics2D g2 = (Graphics2D) g;
         //Affiche la carte uniquement si la carte est non vide
         if (carte != null)
@@ -247,6 +241,11 @@ public class CartePanel extends JPanel implements Observer {
         return valeurYPixel;
     }
 
+    /**
+     * Permet de convertir l'abscisse px en longitude
+     * @param posX
+     * @return la longitude
+     */
     public double valeurLongitude(int posX) {
         double ecartLongitude = maxLongitudeCarte - minLongitudeCarte;
         double coeffX = largeur / ecartLongitude;
@@ -255,6 +254,11 @@ public class CartePanel extends JPanel implements Observer {
         return valeurLongitude;
     }
 
+    /**
+     * Permet de convertir l'odronnée py en latitude
+     * @param posY
+     * @return la latitude
+     */
     public double valeurLatitude(int posY) {
         double ecartLatitude = maxLatitudeCarte - minLatitudeCarte;
         double coeffY = hauteur / ecartLatitude;
@@ -266,6 +270,7 @@ public class CartePanel extends JPanel implements Observer {
 
     /**
      * Dessine la carte dans le panel
+     * @param g le graphique
      */
     public void dessinerCarte(Graphics2D g) {
 
@@ -322,7 +327,7 @@ public class CartePanel extends JPanel implements Observer {
 
     /**
      * Dessine les carres, ronds et triangles indiquant les différentes Etapes de la requete
-     *
+     * @param g le graphique
      * @throws IncompatibleAdresseException:
      */
     public void dessinerTournee(Graphics2D g) throws IncompatibleAdresseException {
@@ -411,7 +416,8 @@ public class CartePanel extends JPanel implements Observer {
     }
 
     /**
-     * trace l'itineraire sur la carte
+     * Trace l'itineraire sur la carte
+     * @param g graphique
      */
     public void dessinerItineraire(Graphics2D g) {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -557,9 +563,8 @@ public class CartePanel extends JPanel implements Observer {
     }
 
     /**
-     * TODO
-     *
-     * @param g graphics
+     * Dessine la liste de requete dans la fenetre
+     * @param g le graphique
      */
     public void dessinerNouvelleRequete(Graphics2D g) {
         for (int i = 0; i < nouvelleAdresse.size(); i++) {
@@ -581,38 +586,25 @@ public class CartePanel extends JPanel implements Observer {
     }
 
     /**
-     * TODO
-     *
-     * @return
+     * Renvoie la liste des adresses temporaires de collecte et de dépot
+     * @return la liste d'adresses temporaires
      */
     public ArrayList<Adresse> getNouvelleAdresse() {
         return nouvelleAdresse;
     }
 
     /**
-     * TODO
-     *
-     * @return
+     * Ajoute une nouvelle adresse à la liste d'adresses temporaires
+     * @param a, l'adresse à ajouter à la liste
      */
     public void ajouterAdresseNouvelleRequete(Adresse a) {
         nouvelleAdresse.add(a);
         repaint();
     }
 
-    /**
-     * TODO
-     *
-     * @return
-     */
-    public void supprimerAdresseNouvelleRequete() {
-        nouvelleAdresse.clear();
-        repaint();
-    }
 
     /**
-     * TODO
-     *
-     * @return
+     * Vide la liste d'adresses temporaires
      */
     public void viderNouvelleRequete() {
         nouvelleAdresse.clear();
@@ -627,6 +619,7 @@ public class CartePanel extends JPanel implements Observer {
         double maxLatitude = 0.0D;
         double minLongitude = 1000.0D;
         double minLatitude = 1000.0D;
+        //On recupere la longitude et latitude maximale des adresses de la carte
         for (Map.Entry mapentry : carte.getListeAdresses().entrySet()) {
             Adresse adresseCourante = (Adresse) mapentry.getValue();
             if (adresseCourante.getLongitude() > maxLongitude) {
@@ -668,7 +661,7 @@ public class CartePanel extends JPanel implements Observer {
     }
 
     /**
-     * Getter sur la longitude maximum de la carte affichée à l'écran
+     * Setter sur la longitude maximum de la carte affichée à l'écran
      * @param maxLongitudeCarte : la longitude maximum de la carte affichée à l'écran
      */
     public void setMaxLongitudeCarte(double maxLongitudeCarte) {
@@ -684,7 +677,7 @@ public class CartePanel extends JPanel implements Observer {
     }
 
     /**
-     * Getter sur la latitude maximum de la carte affichée à l'écran
+     * Setter sur la latitude maximum de la carte affichée à l'écran
      * @param maxLatitudeCarte : la latitude maximum de la carte affichée à l'écran
      */
     public void setMaxLatitudeCarte(double maxLatitudeCarte) {
@@ -700,7 +693,7 @@ public class CartePanel extends JPanel implements Observer {
     }
 
     /**
-     * Getter sur la latitude minimum de la carte affichée à l'écran
+     * Setter sur la latitude minimum de la carte affichée à l'écran
      * @param minLatitudeCarte : la latitude minimum de la carte affichée à l'écran
      */
     public void setMinLatitudeCarte(double minLatitudeCarte) {
@@ -716,7 +709,7 @@ public class CartePanel extends JPanel implements Observer {
     }
 
     /**
-     * Getter sur la longitude minimum de la carte affichée à l'écran
+     * Setter sur la longitude minimum de la carte affichée à l'écran
      * @param minLongitudeCarte : la longitude minimum de la carte affichée à l'écran
      */
     public void setMinLongitudeCarte(double minLongitudeCarte) {

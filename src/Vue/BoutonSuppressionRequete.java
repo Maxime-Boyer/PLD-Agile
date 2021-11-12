@@ -24,6 +24,10 @@ public class BoutonSuppressionRequete extends JButton {
         this.addActionListener(ecouteurBoutons);
     }
 
+    /**
+     * Methode qui renvoie la requete à suprimer
+     * @return la requete à suprimer
+     */
     public Requete getRequete() {
         return requete;
     }

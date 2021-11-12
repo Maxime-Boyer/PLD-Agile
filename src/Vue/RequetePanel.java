@@ -135,18 +135,20 @@ public class RequetePanel extends JPanel {
         this.add(panelInside);
     }
 
+    /**
+     * Paint component du requete panel
+     * @param g, le graphique
+     */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
         g.setColor(couleurFond);
 
-        //g.fillRect(0,0,Integer.MAX_VALUE,Integer.MAX_VALUE);
     }
 
     /**
-     * Geteur
-     *
+     * Getter de la collecte
      * @return etape de collecte
      */
     public Etape getCollecte() {
@@ -154,14 +156,17 @@ public class RequetePanel extends JPanel {
     }
 
     /**
-     * Geteur
-     *
+     * Getter du depot
      * @return etape de depot
      */
     public Etape getDepot() {
         return depot;
     }
 
+    /**
+     * Getter de la couleur de la bordure du panel
+     * @return la couleur de la bordure du panel
+     */
     public Color getCouleurBordure() {
         return couleurBordure;
     }

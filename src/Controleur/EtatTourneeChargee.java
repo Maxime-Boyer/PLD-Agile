@@ -41,12 +41,10 @@ public class EtatTourneeChargee implements Etat {
             controleur.setEtatActuel(controleur.etatTourneeOrdonnee);
         } catch (AStarImpossibleException e) {
             String messageErreur = e.getMessage();
-            System.out.println("ERREUR " + e);
             JOptionPane.showMessageDialog(null, messageErreur);
             //Reste dans l'état actuel
         } catch (NumberFormatException | ValeurNegativeException e) {
             String messageErreur = "Veuillez saisir un nombre  positif et < 2147483647 ";
-            System.out.println("ERREUR " + e);
             JOptionPane.showMessageDialog(null, messageErreur);
         }
     }
@@ -110,11 +108,21 @@ public class EtatTourneeChargee implements Etat {
         }
     }
 
+    /**
+     *
+     * @param fenetre la fenetre
+     * @param collecte le point de collecte de la requête selectionnée
+     * @param depot le point de dépot de la requête selectionnée
+     */
     @Override
     public void afficherIndiquerPositionRequete(Fenetre fenetre, Etape collecte, Etape depot) {
         fenetre.indiquerPositionRequete(collecte, depot);
     }
 
+    /**
+     *
+     * @param fenetre
+     */
     @Override
     public void supprimerPositionRequete(Fenetre fenetre){
         fenetre.supprimerPositionRequete();

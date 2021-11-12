@@ -94,9 +94,7 @@ public class Fenetre extends JFrame {
      * @return nom du fichier choisi
      */
     public String afficherChoixFichier() {
-        System.out.println("Frentre.afficherChoixFichierCarte() : ETAT_CHOIX_FICHIER_CARTE");
         MenuChoixFichier menuChoixFichier = new MenuChoixFichier();
-        System.out.println("    menuChoixFichier.getNomFichier(); = " + menuChoixFichier.getNomFichier());
         return menuChoixFichier.getNomFichier();
     }
 
@@ -106,8 +104,6 @@ public class Fenetre extends JFrame {
      * @param carte
      */
     public void afficherEtatPlanAffiche(Carte carte) {
-        System.out.println("Frentre.afficherEtatPlanAffiche(carte) : ETAT_PLAN_AFFICHE");
-        //E1: Carte chargée
 
         supprimerPositionRequete();
 
@@ -144,13 +140,10 @@ public class Fenetre extends JFrame {
      * @param tournee la liste de requêtes qui doit être affichée
      */
     public void afficherEtatTourneChargee(Tournee tournee) {
-        System.out.println("Frentre.afficherEtatTourneChargee(tounee) : ETAT_TOURNEE_CHARGEE");
 
         supprimerPositionRequete();
 
         menuLateral.setMessageUtilisateur("Veuillez préparer la tournée pour visualiser l'itinéraire sur la carte.");
-        //cartePanel.tracerRequetes(tournee);
-        //menuLateral.afficherMenuRequete(tournee);
 
         //Configure les visibilités
         menuLateral.visibilitePannelImportation(true);
@@ -174,20 +167,11 @@ public class Fenetre extends JFrame {
      * @param tournee la tournee calculée qui doit être affichée
      */
     public void afficherEtatTourneePreparee(Tournee tournee) {
-        System.out.println("Fenetre.afficherEtatTourneePreparee(tournee) : ETAT_TOURNEE_PREPAREE ");
 
         //On enleve les indications au dessus des adresses selectionnées
         supprimerPositionRequete();
 
         menuLateral.setMessageUtilisateur("Maintenant vous pouvez éditer votre tournée ou exporter la feuille de route.");
-
-        //cartePanel.tracerItineraire(tournee);
-        //menuLateral.afficherMenuEtapes(tournee);
-
-        //cartePanel.tracerRequetes(tournee);
-        //cartePanel.tracerItineraire(tournee);
-        //menuLateral.afficherMenuEtapes(tournee);
-        //menuLateral.afficherMenuImportation();
 
         //Configure les visibilités
         menuLateral.visibilitePannelImportation(true);
@@ -207,6 +191,10 @@ public class Fenetre extends JFrame {
         this.revalidate();
         this.repaint();
     }
+
+    /**
+     * Fait l'affichage des boutons et des panels utiles pour cet état
+     */
 
     public void afficherEtatAjoutRequete() {
 
@@ -229,9 +217,12 @@ public class Fenetre extends JFrame {
         this.repaint();
     }
 
+    /**
+     * Fait l'affichage des boutons et des panels utiles pour cet état
+     */
+
     public void afficherEtatAjoutRequete2() {
         popUpSaisieDuree = new PopUpSaisieDuree(policeTexte, ecouteurBoutons);
-        //System.out.println()
         popUpSaisieDuree.setPosition(cartePanel.getLargeur() / 2, cartePanel.getHauteur() / 2);
         menuLateral.setMessageUtilisateur("Entrer la durée de l'étape collecte et Valider");
         cartePanel.add(popUpSaisieDuree);
@@ -239,13 +230,21 @@ public class Fenetre extends JFrame {
         this.repaint();
     }
 
+    /**
+     * Fait l'affichage des boutons et des panels utiles pour cet état
+     */
+
     public void afficherEtatAjoutRequete3() {
+
         menuLateral.setMessageUtilisateur("Selectionner l'étape qui précéde votre collecte: [Clique Gauche] sur une Etape de la Carte ");
-        //this.ecouteurSouris.setVueGraphique(cartePanel);
         cartePanel.remove(popUpSaisieDuree);
         this.revalidate();
         this.repaint();
     }
+
+    /**
+     * Fait l'affichage des boutons et des panels utiles pour cet état
+     */
 
     public void afficherEtatAjoutRequete4() {
         menuLateral.setMessageUtilisateur("Ajouter une Etape de depot: [Clique Gauche] sur une Adresse de la Carte ");
@@ -253,12 +252,20 @@ public class Fenetre extends JFrame {
         this.repaint();
     }
 
+    /**
+     * Fait l'affichage des boutons et des panels utiles pour cet état
+     */
+
     public void afficherEtatAjoutRequete5() {
         menuLateral.setMessageUtilisateur("Entrer la durée de l'étape depot et Valider");
         cartePanel.add(popUpSaisieDuree);
         this.revalidate();
         this.repaint();
     }
+
+    /**
+     * Fait l'affichage des boutons et des panels utiles pour cet état
+     */
 
     public void afficherEtatAjoutRequete6() {
         menuLateral.setMessageUtilisateur("Selectionner l'étape qui précéde votre depot: [Clique Gauche] sur une Etape de la Carte ");
@@ -269,12 +276,9 @@ public class Fenetre extends JFrame {
 
     /**
      * Affiche les etas détermines par le controleur
-     *
      */
     public void afficherEtat() {
 
-        System.out.println("Fenetre.afficherEtat() : ETAT_INITIAL");
-        // E0: Vue ecran Accueil
         ecranAccueil = new EcranAccueil(this.getWidth(), this.getHeight(), policeSousTitre, policeTexte, this.ecouteurBoutons);
         this.add(ecranAccueil);
 

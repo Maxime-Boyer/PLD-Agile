@@ -43,7 +43,6 @@ public class EcouteurDrag implements MouseMotionListener {
                 cartePanel.setMinLatitudeCarte(cartePanel.getMinLatitudeCarte() + modificationLatitude);
                 cartePanel.setMaxLongitudeCarte(cartePanel.getMaxLongitudeCarte() + modificationLongitude);
                 cartePanel.setMinLongitudeCarte(cartePanel.getMinLongitudeCarte() + modificationLongitude);
-                //System.out.println("Moved ! " + (new Point(pointPrecedent.x-e.getX(),pointPrecedent.y-e.getY())));
             }
             pointPrecedent = e.getPoint();
             temps = System.currentTimeMillis();
@@ -51,8 +50,10 @@ public class EcouteurDrag implements MouseMotionListener {
         }
     }
 
+    /**
+     * Listener de la tournée lorqu'elle est déplacée
+     * @param e
+     */
     @Override
-    public void mouseMoved(MouseEvent e) {
-
-    }
+    public void mouseMoved(MouseEvent e) {}
 }

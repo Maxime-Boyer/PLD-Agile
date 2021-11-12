@@ -32,7 +32,7 @@ public class EcouteurSouris extends MouseAdapter {
      */
     @Override
     public void mouseClicked(MouseEvent evt) {
-        // Method called by the mouse listener each time the mouse is clicked
+        // Methode appelée lorsqu'il y a un clique gauche sur le cartePanel
         switch (evt.getButton()) {
             case MouseEvent.BUTTON1:
                 Adresse a = coordonnees(evt);
